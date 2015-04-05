@@ -8,10 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@class MBProgressHUD;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+
 
 @property (strong, nonatomic) UIWindow *window;
 
+/////Property & Method To show/hide acitivityindicator
+@property (nonatomic,retain) MBProgressHUD *indicator;
+- (void)showOrhideIndicator:(BOOL)show;
+- (void)showOrhideIndicator:(BOOL)show withMessage:(NSString *)message;
+-(void)askForNotificationPermission;
 
 @end
 

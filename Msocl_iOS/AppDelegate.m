@@ -7,16 +7,21 @@
 //
 
 #import "AppDelegate.h"
+#import "MBProgressHUD.h"
+#import "PromptImages.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<MBProgressHUDDelegate>
 
 @end
 
 @implementation AppDelegate
-
+@synthesize indicator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    indicator = [[MBProgressHUD alloc] initWithView:self.window];
+
+    [[PromptImages sharedInstance] getPrompImages];
     return YES;
 }
 
@@ -42,4 +47,60 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+//Called from multiple controllers to make sure we only ask at a relevant time
+-(void)askForNotificationPermission
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge
+                                                                                             |UIUserNotificationTypeSound|UIUserNotificationTypeAlert) categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        
+    }
+    else
+    {
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+         UIRemoteNotificationTypeAlert|
+         UIRemoteNotificationTypeSound];
+    }
+}
+
+
+#pragma mark -
+#pragma mark Methods To Show Activity Indicator
+- (void)showOrhideIndicator:(BOOL)show
+{
+    
+    if(show)
+    {
+        [self.window addSubview:indicator];
+        [indicator show:YES];
+    }
+    else
+    {
+        [indicator hide:YES];
+        [indicator setLabelText:@""];
+        [indicator removeFromSuperview];
+    }
+    
+}
+
+- (void)showOrhideIndicator:(BOOL)show withMessage:(NSString *)message{
+    
+    if(show)
+    {
+        
+        [self.window addSubview:indicator];
+        [indicator show:YES];
+        [indicator setLabelText:message];
+        
+    }
+    else
+    {
+        [indicator removeFromSuperview];
+        [indicator hide:YES];
+        [indicator setLabelText:@""];
+    }
+}
 @end
