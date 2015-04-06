@@ -26,7 +26,7 @@ APIConnector *sharedObj;
 }
 
 
-- (void)fetchJSON:(NSDictionary *)postData :(NSString *)urlAsString :(NSString *)command
+- (void)fetchJSON:(NSDictionary *)postData :(NSString *)urlAsString :(NSDictionary *)userInfo
 {
     NSError* error;
     
@@ -56,7 +56,7 @@ APIConnector *sharedObj;
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
-             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:command,@"command",responseObject,@"response", nil];
+             NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:userInfo,@"userInfo",responseObject,@"response", nil];
              [self.delegate handleConnectionSuccess:dict];
         
          
@@ -68,9 +68,6 @@ APIConnector *sharedObj;
      }];
     [operation start];
 
-    
-    
-    
 }
 
 @end

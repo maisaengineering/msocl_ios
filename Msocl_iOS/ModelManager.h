@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "AccessToken.h"
-
+#import "UserProfile.h"
 @interface ModelManager : NSObject
 
-@property (nonatomic, retain) AccessToken *accessToken;
+@property (nonatomic, strong) AccessToken *accessToken;
+@property (nonatomic, strong) UserProfile *userProfile;
 
 + (id)sharedModel;
 - (void) clear;

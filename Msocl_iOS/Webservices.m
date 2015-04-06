@@ -66,22 +66,31 @@ Webservices *sharedObj;
 
 #pragma mark -
 #pragma mark Api calls
--(void)getAccessToken:(NSDictionary *)postData
+-(void)getAccessToken:(NSDictionary *)postData :(NSString *)urlAsString
 {
-    NSString *urlAsString = [NSString stringWithFormat:@"%@clients/token",BASE_URL];
-    [apiConnector fetchJSON:postData :urlAsString :@"GetAccessToken"];
+    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
 }
--(void)getPromptImages:(NSDictionary *)postData
+-(void)getPromptImages:(NSDictionary *)postData :(NSString *)urlAsString
 {
-    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
-    [apiConnector fetchJSON:postData :urlAsString :@"GetPromptImages"];
+    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
+
+}
+-(void)uploadPostImage:(NSDictionary *)postData :(NSString *)urlAsString
+{
+    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
+
+}
+-(void)createPost:(NSDictionary *)postData :(NSString *)urlAsString
+{
+    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
 
 }
 #pragma mark -
 #pragma mark Call backs from api connector
 -(void) handleConnectionSuccess:(NSDictionary *)recievedDict
 {
-    NSString *command = [recievedDict objectForKey:@"command"];
+    NSDictionary *userInfo = [recievedDict objectForKey:@"userInfo"];
+    NSString *command = [userInfo objectForKey:@"command"];
     NSDictionary *responseDict = [recievedDict objectForKey:@"response"];
     if([command isEqualToString:@"GetAccessToken"])
     {
@@ -91,10 +100,19 @@ Webservices *sharedObj;
     {
         [self connectionSuccessGetPromptImages:responseDict];
     }
+    else if([command isEqualToString:@"upload_to_s3"])
+    {
+        [self connectionSuccessGetPromptImages:recievedDict];
+    }
+    else if([command isEqualToString:@"createPost"])
+    {
+        [self connectionSuccessCreatePost:recievedDict];
+    }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
-    NSString *command = [recievedDict objectForKey:@"command"];
+    NSDictionary *userInfo = [recievedDict objectForKey:@"userInfo"];
+    NSString *command = [userInfo objectForKey:@"command"];
     if([command isEqualToString:@"GetAccessToken"])
     {
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED__GET_ACCESS_TOKEN object:nil userInfo:nil]];
@@ -102,6 +120,14 @@ Webservices *sharedObj;
     else if([command isEqualToString:@"GetPromptImages"])
     {
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED__GET_PROMPT_IMAGES object:nil userInfo:nil]];
+    }
+    else if([command isEqualToString:@"upload_to_s3"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_UPLOAD_POST_IMAGES object:nil userInfo:nil]];
+    }
+    else if([command isEqualToString:@"createPost"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_CREATE_POST object:nil userInfo:nil]];
     }
 }
 
@@ -128,7 +154,6 @@ Webservices *sharedObj;
 }
 -(void)connectionSuccessGetPromptImages:(NSDictionary *)respDict
 {
-    
     NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
@@ -143,5 +168,45 @@ Webservices *sharedObj;
 
     }
 
+}
+-(void)connectionSuccessUploadPostImages:(NSDictionary *)respDict
+{
+    NSDictionary *userInfo = [respDict objectForKey:@"userInfo"];
+    NSDictionary *response = [respDict objectForKey:@"response"];
+    NSString *identifier = [userInfo objectForKey:@"identifier"];
+
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_UPLOAD_POST_IMAGES object:[NSDictionary dictionaryWithObjectsAndKeys:[response objectForKey:@"body"],@"response",identifier,@"identifier", nil] userInfo:nil]];
+        
+    }
+    
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_UPLOAD_POST_IMAGES object:nil userInfo:nil]];
+        
+    }
+    
+}
+-(void)connectionSuccessCreatePost:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_UPLOAD_POST_IMAGES object:[respDict objectForKey:@"body"] userInfo:nil]];
+        
+    }
+    
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_UPLOAD_POST_IMAGES object:nil userInfo:nil]];
+        
+    }
+    
 }
 @end

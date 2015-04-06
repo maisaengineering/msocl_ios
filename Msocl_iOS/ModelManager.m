@@ -11,6 +11,7 @@
 @implementation ModelManager
 
 @synthesize accessToken;
+@synthesize userProfile;
 + (id)sharedModel
 {
     static ModelManager *sharedAppModel = nil;

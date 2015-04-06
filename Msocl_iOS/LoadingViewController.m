@@ -40,7 +40,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self callAccessTokenApi];
+    [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+    //[self callAccessTokenApi];
 }
 
 ///Api call to get Accesstoken
@@ -57,7 +58,9 @@
                            @"client_secret": CLIENT_SECRET,
                            @"scope": @"ikidslink"};
     
-    [[Webservices sharedInstance] getAccessToken:postData];
+    NSDictionary *userInfo = @{@"command": @"GetAccessToken"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@clients/token",BASE_URL];
+    [[Webservices sharedInstance] getAccessToken:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
 #pragma mark- AccessToken Api callback Methods
 #pragma mark-

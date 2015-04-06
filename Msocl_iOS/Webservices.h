@@ -16,6 +16,8 @@
 
 +(Webservices *)sharedInstance;
 
--(void)getAccessToken:(NSDictionary *)postData;
--(void)getPromptImages:(NSDictionary *)postData;
+-(void)getAccessToken:(NSDictionary *)postData :(NSString *)urlAsString;
+-(void)getPromptImages:(NSDictionary *)postData :(NSString *)urlAsString;
+-(void)uploadPostImage:(NSDictionary *)postData :(NSString *)urlAsString;
+-(void)createPost:(NSDictionary *)postData :(NSString *)urlAsString;
 @end

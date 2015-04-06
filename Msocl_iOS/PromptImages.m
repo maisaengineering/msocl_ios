@@ -31,7 +31,10 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceivePromptImages:) name:API_SUCCESS_GET_PROMPT_IMAGES object:Nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(fetchingPromptImagesFailedWithError) name:API_FAILED__GET_PROMPT_IMAGES object:Nil];
     NSDictionary* postData = @{@"command": @"categorized_images",@"body":@""};
-    [[Webservices sharedInstance] getPromptImages:postData];
+    NSDictionary *userInfo = @{@"command": @"GetPromptImages"};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    [[Webservices sharedInstance] getPromptImages:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
 -(void)didReceivePromptImages:(NSNotification *)notificationObject
 {

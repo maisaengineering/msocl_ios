@@ -16,6 +16,11 @@
 #define CLIENT_ID        @"f3fd3bf7df0689b995ae1375284e1d5040a5944575e890f80887010be6142011"
 #define CLIENT_SECRET    @"0aa3b89bf8fb4a9e052c34f0df438c06333f1ba7d0d58b59eaa3eaaa3a0c61d3"
 
+//AVIARY
+#define kAFAviaryAPIKey         @"e9d5541aa86c51c9"
+#define kAFAviarySecret         @"ea86727d549f068d"
+
+
 //Device Specifcs
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 #define Deviceheight  [UIScreen mainScreen].bounds.size.height
@@ -41,9 +46,9 @@
 #define API_FAILED__GET_ACCESS_TOKEN @"connectionFailedGetAccessToken"
 #define API_SUCCESS_GET_PROMPT_IMAGES @"connectionSuccessGetPromptImages"
 #define API_FAILED__GET_PROMPT_IMAGES @"connectionFailedGetPromptImages"
-
-
-
-
+#define API_SUCCESS_UPLOAD_POST_IMAGES @"connectionSuccessUploadPostImages"
+#define API_FAILED_UPLOAD_POST_IMAGES @"connectionFailedUploadPostImages"
+#define API_SUCCESS_CREATE_POST @"connectionSuccessCreatePost"
+#define API_FAILED_CREATE_POST @"connectionFailedCreatePost"
 
 #endif
