@@ -12,6 +12,8 @@
 	<dict>
 		<key>1C18AD4008A337AB0C340A15C17C330419AB6B0A</key>
 		<string>github.com:maisaengineering/msocl_ios.git</string>
+		<key>A7B06E0A0F43CA6C06BEC255886967C4787C2D70</key>
+		<string>https://bitbucket.org/maisaengineering/aviarysdk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Msocl_iOS.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>1C18AD4008A337AB0C340A15C17C330419AB6B0A</key>
 		<string>../..</string>
+		<key>A7B06E0A0F43CA6C06BEC255886967C4787C2D70</key>
+		<string>../../Msocl_iOS/AviarySDK/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:maisaengineering/msocl_ios.git</string>
@@ -28,6 +32,14 @@
 	<string>1C18AD4008A337AB0C340A15C17C330419AB6B0A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A7B06E0A0F43CA6C06BEC255886967C4787C2D70</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AviarySDK</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

@@ -1,4 +1,6 @@
 build/*
 .DS_Store
-*.xcuserdatad
+*.xcuserdata
+*.xcshareddata
+Msocl_iOS.xcodeproj/project.xcworkspace/xcshareddata/Msocl_iOS.xccheckout
 Msocl_iOS.xcodeproj/project.xcworkspace/xcuserdata/maisasolutions.xcuserdatad/UserInterfaceState.xcuserstate
