@@ -1,0 +1,3 @@
+[submodule "msocl_ios/AviarySDK"]
+	path = msocl_ios/AviarySDK
+	url = https://imaginationcoder@bitbucket.org/maisaengineering/aviarysdk.git
