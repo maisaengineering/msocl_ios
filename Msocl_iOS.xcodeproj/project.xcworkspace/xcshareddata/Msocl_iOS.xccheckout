@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>663B4C2B-374D-4033-823B-C06B90F54FF7</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Msocl_iOS</string>
+	<string>msocl_ios</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>1C18AD4008A337AB0C340A15C17C330419AB6B0A</key>
 		<string>github.com:maisaengineering/msocl_ios.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Msocl_iOS.xcodeproj</string>
+	<string>msocl_ios.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1C18AD4008A337AB0C340A15C17C330419AB6B0A</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>1C18AD4008A337AB0C340A15C17C330419AB6B0A</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Msocl_iOS</string>
+			<string>msocl_ios</string>
 		</dict>
 	</array>
 </dict>
