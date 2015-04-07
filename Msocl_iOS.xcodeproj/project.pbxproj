@@ -203,6 +203,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F7E55B31AD3B77B007070EF /* AviarySDK */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = AviarySDK;
+			sourceTree = "<group>";
+		};
 		7F83BC071AD11B06008DFD8B /* Appdelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,6 +291,7 @@
 		7F83BC221AD13BD1008DFD8B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				7F7E55B31AD3B77B007070EF /* AviarySDK */,
 				7F8999101AD26489007E2917 /* Base64 */,
 				7F83BC311AD14CD9008DFD8B /* AFNetworking */,
 				7F83BC2D1AD14AC0008DFD8B /* Reachability */,
