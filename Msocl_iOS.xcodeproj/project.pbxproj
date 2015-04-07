@@ -440,7 +440,7 @@
 		7FF5CBF21ACE9E60004F4F9B = {
 			isa = PBXGroup;
 			children = (
-				7FF5CBFD1ACE9E60004F4F9B /* msocl_ios */,
+				7FF5CBFD1ACE9E60004F4F9B /* Msocl_iOS */,
 				7FF5CC171ACE9E61004F4F9B /* Msocl_iOSTests */,
 				7FF5CBFC1ACE9E60004F4F9B /* Products */,
 				7F89990A1AD25EE8007E2917 /* Frameworks */,
@@ -456,7 +456,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7FF5CBFD1ACE9E60004F4F9B /* msocl_ios */ = {
+		7FF5CBFD1ACE9E60004F4F9B /* Msocl_iOS */ = {
 			isa = PBXGroup;
 			children = (
 				7F83BC221AD13BD1008DFD8B /* ThirdParty */,
@@ -467,7 +467,6 @@
 				7FF5CC081ACE9E61004F4F9B /* Main.storyboard */,
 				7FF5CBFE1ACE9E60004F4F9B /* Supporting Files */,
 			);
-			name = msocl_ios;
 			path = Msocl_iOS;
 			sourceTree = "<group>";
 		};
@@ -553,7 +552,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7FF5CBF61ACE9E60004F4F9B /* Build configuration list for PBXProject "msocl_ios" */;
+			buildConfigurationList = 7FF5CBF61ACE9E60004F4F9B /* Build configuration list for PBXProject "Msocl_iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -823,7 +822,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7FF5CBF61ACE9E60004F4F9B /* Build configuration list for PBXProject "msocl_ios" */ = {
+		7FF5CBF61ACE9E60004F4F9B /* Build configuration list for PBXProject "Msocl_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7FF5CC1C1ACE9E61004F4F9B /* Debug */,
