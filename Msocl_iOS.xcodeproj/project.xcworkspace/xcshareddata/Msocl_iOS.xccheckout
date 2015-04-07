@@ -22,7 +22,7 @@
 		<key>1C18AD4008A337AB0C340A15C17C330419AB6B0A</key>
 		<string>../..</string>
 		<key>A7B06E0A0F43CA6C06BEC255886967C4787C2D70</key>
-		<string>../../Msocl_iOS/AviarySDK/</string>
+		<string>../../Msocl_iOS/AviarySDK</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:maisaengineering/msocl_ios.git</string>

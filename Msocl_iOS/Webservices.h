@@ -20,4 +20,6 @@
 -(void)getPromptImages:(NSDictionary *)postData :(NSString *)urlAsString;
 -(void)uploadPostImage:(NSDictionary *)postData :(NSString *)urlAsString;
 -(void)createPost:(NSDictionary *)postData :(NSString *)urlAsString;
+-(void)Login:(NSDictionary *)postData :(NSString *)urlAsString;
+-(void)SignUp:(NSDictionary *)postData :(NSString *)urlAsString;
 @end

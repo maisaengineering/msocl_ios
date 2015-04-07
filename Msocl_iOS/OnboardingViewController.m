@@ -494,7 +494,8 @@
 
 -(void)goToMainStreams
 {
-    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"onboarding"] ;
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
 }
 

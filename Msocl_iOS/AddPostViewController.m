@@ -23,6 +23,13 @@
     ProfilePhotoUtils  *photoUtils;
     NSMutableDictionary *imagesIdDict;
     int uploadingImages;
+    NSArray *tagsArray;
+    UITableView *tagsTableView;
+    NSMutableArray *selectedtagsArray;
+    UIView *inputView;
+    UIButton *postButton;
+    BOOL isPrivate;
+   
 
 }
 @synthesize scrollView;
@@ -33,7 +40,8 @@
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     photoUtils = [ProfilePhotoUtils alloc];
     uploadingImages = 0;
-    
+    selectedtagsArray = [[NSMutableArray alloc] init];
+    tagsArray = [NSArray arrayWithObjects:@"test1",@"test2",@"test3",@"test4",@"test5",@"test6",@"test7", nil];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth, 64)];
@@ -54,6 +62,7 @@
     label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
     label.text = @"Add post";
     [topView addSubview:label];
+   
     UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     [cancelButton addTarget:self action:@selector(cancelClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -61,6 +70,14 @@
     [cancelButton setFrame:CGRectMake(-0.5, 20.5, 80, 44)];
     [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
     [topView addSubview:cancelButton];
+    
+    postButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [postButton setTitle:@"Post" forState:UIControlStateNormal];
+    [postButton addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
+    [postButton setTitleColor:[UIColor colorWithRed:(251/255.f) green:(176/255.f) blue:(64/255.f) alpha:1] forState:UIControlStateNormal];
+    [postButton setFrame:CGRectMake(240, 20.5, 80, 44)];
+    [postButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
+    [topView addSubview:postButton];
     
     imagesIdDict = [[NSMutableDictionary alloc] init];
     
@@ -85,6 +102,7 @@
 -(void)cancelClicked:(id)sender
 {
     [textView resignFirstResponder];
+    [self RemoveOrAddUploadPostImageObservers:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
@@ -95,10 +113,24 @@
     scrollView.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:scrollView];
 
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(10,10,300, 180)];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(10,10,300, 100)];
     textView.font = [UIFont systemFontOfSize:16];
     textView.delegate = self;
     [scrollView addSubview:textView];
+    
+    inputView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [inputView setBackgroundColor:[UIColor colorWithRed:0.56f
+                                                  green:0.59f
+                                                   blue:0.63f
+                                                  alpha:1.0f]];
+    
+    UIButton *donebtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [donebtn setFrame:CGRectMake(250, 0, 70, 40)];
+    [donebtn setTitle:@"Done" forState:UIControlStateNormal];
+    [donebtn.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:15]];
+    [donebtn addTarget:self action:@selector(doneClick:) forControlEvents:UIControlEventTouchUpInside];
+    [inputView addSubview:donebtn];
+    
     
     UIButton *addPhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     addPhotoBtn.frame = CGRectMake(10, textView.frame.origin.y+textView.frame.size.height, 100, 30);
@@ -106,7 +138,17 @@
     [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:addPhotoBtn];
     
-    [textView becomeFirstResponder];
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+20, 300, 20)];
+    [selectTagslabel setFont:[UIFont fontWithName:@"verdana" size:15]];
+    [selectTagslabel setText:@"Select tags"];
+    [scrollView addSubview:selectTagslabel];
+    
+    tagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height, 300, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height)];
+    tagsTableView.delegate = self;
+    tagsTableView.dataSource = self;
+    tagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    [scrollView addSubview:tagsTableView];
+
 }
 
 
@@ -131,14 +173,7 @@
 {
     if ([kAFAviaryAPIKey isEqualToString:@"<YOUR-API-KEY>"] || [kAFAviarySecret isEqualToString:@"<YOUR-SECRET>"])
     {
-        UIAlertView *forgotKeyAlert = [[UIAlertView alloc] initWithTitle:@"Oops!"
-                                                                 message:@"You forgot to add your API key and secret!"
-                                                                delegate:nil
-                                                       cancelButtonTitle:@"OK"
-                                                       otherButtonTitles:nil];
-        self.globalAlert = forgotKeyAlert;
-        
-        [forgotKeyAlert show];
+        ShowAlert(@"Oops!", @"You forgot to add your API key and secret!", @"OK");
         return NO;
     }
     return YES;
@@ -147,6 +182,7 @@
 {
     switch (actionSheet.tag)
     {
+            ///For image captrure
         case 1:
         {
             switch (buttonIndex)
@@ -164,15 +200,8 @@
                     }
                     else
                     {
-                        UIAlertView *alert;
-                        alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                           message:@"This device doesn't have a camera."
-                                                          delegate:self cancelButtonTitle:@"Ok"
-                                                 otherButtonTitles:nil];
-                        
-                        self.globalAlert = alert;
-                        
-                        [alert show];
+                        ShowAlert(@"Error", @"This device doesn't have a camera.", @"OK");
+
                     }
                     [textView resignFirstResponder];
                     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
@@ -192,15 +221,8 @@
                     }
                     else
                     {
-                        UIAlertView *alert;
-                        alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                           message:@"This device doesn't support photo libraries."
-                                                          delegate:self cancelButtonTitle:@"Ok"
-                                                 otherButtonTitles:nil];
-                        
-                        self.globalAlert = alert;
-                        
-                        [alert show];
+                        ShowAlert(@"Error", @"This device doesn't support photo libraries.", @"OK");
+
                     }
                     [textView resignFirstResponder];
                     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
@@ -218,6 +240,29 @@
         }
             break;
             
+       //For Privacy
+        case 2:
+        {
+            switch (buttonIndex)
+            {
+                case 0:
+                {
+                    isPrivate = NO;
+                    [self createPost];
+                    break;
+                }
+                case 1:
+                {
+                    isPrivate = YES;
+                    [self createPost];
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+            break;
+
         default:
             break;
     }
@@ -301,7 +346,7 @@
     //It used to identify the attched image when sending to srever
     NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
     image.accessibilityIdentifier = identifier;
-    [self UploadImage:image];
+ //   [self UploadImage:image];
     
     image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(30, 30)];
     NSMutableAttributedString *attributedString = [textView.attributedText mutableCopy];
@@ -316,9 +361,7 @@
     [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
     textView.attributedText = attributedString;
-    [textView becomeFirstResponder];
     
-    [self formatStringForServer:attributedString];
     uploadingImages ++;
     
 }
@@ -327,7 +370,6 @@
 // This is called when the user taps "Cancel" in the photo editor.
 - (void) photoEditorCanceled:(AVYPhotoEditorController *)editor
 {
-    [textView becomeFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -396,9 +438,7 @@
          }
                             failureBlock:^(NSError *error) {
                                 [appdelegate showOrhideIndicator:NO];
-                                UIAlertView *disableAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enable access to your device's photos." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                self.globalAlert = disableAlert;
-                                [disableAlert show];
+                                ShowAlert(@"Error", @"Please enable access to your device's photos.", @"OK");
                             }];
     };
     
@@ -413,7 +453,6 @@
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    [textView becomeFirstResponder];
 }
 
 #pragma mark - ALAssets Helper Methods
@@ -487,11 +526,18 @@
     if(uploadingImages == 0 && isPostClicked)
     {
         isPostClicked = NO;
+        [self callPostApi];
     }
+    
 }
 -(void)uploadImageFailed
 {
-    
+    uploadingImages--;
+    if(uploadingImages == 0 && isPostClicked)
+    {
+        isPostClicked = NO;
+        [self callPostApi];
+    }
 }
 
 -(void)RemoveOrAddUploadPostImageObservers:(BOOL)key
@@ -509,17 +555,171 @@
 
     }
 }
+#pragma mark- UITableView Data Source Methods
+#pragma mark-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return tagsArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView1 cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *simpleTableIdentifier = @"SimpleTableItem";
+    UITableViewCell *cell = [tableView1 dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    for(UIView *viw in [[cell contentView] subviews])
+        [viw removeFromSuperview];
+    [cell.textLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
+    cell.textLabel.text = [tagsArray objectAtIndex:indexPath.row];
+    if([selectedtagsArray containsObject:[tagsArray objectAtIndex:indexPath.row]])
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    else
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        return cell;
+}
+- (void)tableView:(UITableView *)tableView1 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView1 cellForRowAtIndexPath:indexPath];
+    if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [selectedtagsArray removeObject:[tagsArray objectAtIndex:indexPath.row]];
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [selectedtagsArray addObject:[tagsArray objectAtIndex:indexPath.row]];
+    }
+    [tagsTableView beginUpdates];
+    [tagsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
+    [tagsTableView endUpdates];
+}
+
+#pragma mark -
+#pragma mark Text View Delegate Methods
+
+- (void)textViewDidBeginEditing:(UITextView *)textView1
+{
+    [textView setInputAccessoryView:inputView];
+}
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
+{
+    
+    [textView setInputAccessoryView:inputView];
+    return YES;
+    
+}
+-(void)doneClick:(id)sender
+{
+    [textView resignFirstResponder];
+}
 
 #pragma mark -
 #pragma mark Post Methods
 -(void)postClicked
 {
-    isPostClicked = YES;
+    
+    if(textView.text.length == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        return;
+    }
+    
+    UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
+                                          @"Post as public", @"Post as private", nil];
+    addImageActionSheet.tag = 1;
+    [addImageActionSheet setDelegate:self];
+    [addImageActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+    
+    
+}
+-(void)createPost
+{
     [appdelegate showOrhideIndicator:YES];
+    isPostClicked = YES;
+    postButton.enabled = NO;
     if(uploadingImages == 0)
     {
+        [self callPostApi];
+    }
+}
+-(void)callPostApi
+{
+    
+    NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+    
+    //Visiblity
+    if(isPrivate)
+        [postDetails setObject:@"private" forKey:@"scope"];
+    else
+        [postDetails setObject:@"public" forKey:@"scope"];
+    
+    //Tags
+    [postDetails setObject:selectedtagsArray forKey:@"tags"];
+    
+    //Text
+    NSString *formatedDesc = [self formatStringForServer:textView.attributedText];
+    [postDetails setObject:formatedDesc forKey:@"additional_text"];
+
+    //Image Ids
+    [postDetails setObject:[imagesIdDict allValues] forKey:@"imageIds"];
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+ 
+    NSString *command = @"create_post";
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": command,
+                               @"body": postDetails};
+    NSDictionary *userInfo = @{@"command": @"create_post"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+    
+    [self RemoveOrAddCreatePostObservers:YES];
+    [[Webservices sharedInstance] createPost:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+-(void)RemoveOrAddCreatePostObservers:(BOOL)key
+{
+    if(key)
+    {
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(postCreationSccessfull:) name:API_SUCCESS_CREATE_POST object:Nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(postCreationFailed) name:API_FAILED_CREATE_POST object:Nil];
         
     }
+    else
+    {
+        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_SUCCESS_CREATE_POST object:nil];
+        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_FAILED_CREATE_POST object:nil];
+        
+    }
+}
+-(void)postCreationSccessfull:(NSNotification *)notificationObject
+{
+    [self RemoveOrAddUploadPostImageObservers:NO];
+    [appdelegate showOrhideIndicator:NO];
+    [self RemoveOrAddCreatePostObservers:NO];
+    isPostClicked = NO;
+    postButton.enabled = YES;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)postCreationFailed
+{
+    [appdelegate showOrhideIndicator:NO];
+    [self RemoveOrAddCreatePostObservers:NO];
+    
+    isPostClicked = NO;
+    postButton.enabled = YES;
+    
+    ShowAlert(@"Error", POST_CREATION_FAILED, @"OK");
 }
 #pragma mark -
 #pragma mark Methods To Proccess String For Server

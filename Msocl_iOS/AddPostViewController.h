@@ -11,17 +11,13 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AviarySDK/AviarySDK.h>
 
-@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate>
+@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UIImagePickerController *imagePicker;
 
 }
 
 @property (nonatomic , strong) UIScrollView *scrollView;
-
-// To avoid the memory leaks declare a global alert
-@property (nonatomic, strong) UIAlertView *globalAlert;
-
 //For Aviary
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;
 @property (nonatomic, strong) NSMutableArray      * sessions;

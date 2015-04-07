@@ -15,6 +15,12 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
 -(IBAction)addClicked:(id)sender
 {
     [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];

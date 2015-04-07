@@ -40,7 +40,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
+        [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+    else
+        [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
     //[self callAccessTokenApi];
 }
 
@@ -74,7 +77,11 @@
     ModelManager *sharedModel = [ModelManager sharedModel];
     sharedModel.accessToken = [tokens objectAtIndex:0];
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
     [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+    else
+    [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
+        
 }
 
 - (void)fetchingTokensFailedWithError

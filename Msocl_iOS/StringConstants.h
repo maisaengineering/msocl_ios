@@ -35,11 +35,25 @@
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."
 
+#define PROJECT_NAME     @"Socl"
+
 #ifdef DEBUG
 #define DebugLog( s, ... ) NSLog( @"<%p %@:%d (%@)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  NSStringFromSelector(_cmd), [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #else
 #define DebugLog( s, ... )
 #endif
+
+#define ShowAlert(title,msg,cancelButtonName) UIAlertView *alert =[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:cancelButtonName otherButtonTitles:nil];\
+[alert show];
+
+//VALIDATION MESSAGES AND MISC MESSAGES
+#define NO_INTERNET_CONNECTION  @"No internet connection. Try again after connecting to internet"
+#define FAILED_LOGIN            @"Username and Password didn't match."
+#define PASSWORD_LENGTH_INVALID @"Password must be at least 6 characters."
+#define EMAIL_INVALID           @"Please provide a valid email address."
+#define EMAIL_PASS_REQUIRED     @"Please enter your email and password."
+#define ALL_FIELDS_REQUIRED     @"All fields are required"
+#define POST_CREATION_FAILED    @"Post creation failed"
 
 ////Strings for Api call backs
 #define API_SUCCESS_GET_ACCESS_TOKEN @"connectionSuccessGetAccessToken"
@@ -50,5 +64,11 @@
 #define API_FAILED_UPLOAD_POST_IMAGES @"connectionFailedUploadPostImages"
 #define API_SUCCESS_CREATE_POST @"connectionSuccessCreatePost"
 #define API_FAILED_CREATE_POST @"connectionFailedCreatePost"
+#define API_SUCCESS_LOGIN @"connectionSuccessLogin"
+#define API_FAILED_LOGIN @"connectionFailedLogin"
+#define API_SUCCESS_SIGN_UP @"connectionSuccessSignUp"
+#define API_FAILED_SIGN_UP @"connectionFailedSignUp"
+
+
 
 #endif

@@ -85,6 +85,14 @@ Webservices *sharedObj;
     [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
 
 }
+-(void)Login:(NSDictionary *)postData :(NSString *)urlAsString
+{
+    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
+}
+-(void)SignUp:(NSDictionary *)postData :(NSString *)urlAsString
+{
+    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
+}
 #pragma mark -
 #pragma mark Call backs from api connector
 -(void) handleConnectionSuccess:(NSDictionary *)recievedDict
@@ -108,6 +116,14 @@ Webservices *sharedObj;
     {
         [self connectionSuccessCreatePost:recievedDict];
     }
+    else if([command isEqualToString:@"Login"])
+    {
+        [self connectionSuccessLogin:recievedDict];
+    }
+    else if([command isEqualToString:@"SignUp"])
+    {
+        [self connectionSuccessSignUp:recievedDict];
+    }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -128,6 +144,14 @@ Webservices *sharedObj;
     else if([command isEqualToString:@"createPost"])
     {
         [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_CREATE_POST object:nil userInfo:nil]];
+    }
+    else if([command isEqualToString:@"Login"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_LOGIN object:nil userInfo:nil]];
+    }
+    else if([command isEqualToString:@"SignUp"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_SIGN_UP object:nil userInfo:nil]];
     }
 }
 
@@ -198,13 +222,51 @@ Webservices *sharedObj;
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_UPLOAD_POST_IMAGES object:[respDict objectForKey:@"body"] userInfo:nil]];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_CREATE_POST object:[respDict objectForKey:@"body"] userInfo:nil]];
         
     }
     
     else
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_UPLOAD_POST_IMAGES object:nil userInfo:nil]];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_CREATE_POST object:nil userInfo:nil]];
+        
+    }
+    
+}
+
+-(void)connectionSuccessLogin:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_LOGIN object:[respDict objectForKey:@"body"] userInfo:nil]];
+        
+    }
+    
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_LOGIN object:nil userInfo:nil]];
+        
+    }
+    
+}
+
+-(void)connectionSuccessSignUp:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_SIGN_UP object:[respDict objectForKey:@"body"] userInfo:nil]];
+        
+    }
+    
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_SIGN_UP object:nil userInfo:nil]];
         
     }
     
