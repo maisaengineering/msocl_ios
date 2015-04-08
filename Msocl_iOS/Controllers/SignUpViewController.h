@@ -10,8 +10,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
 #import <AviarySDK/AviarySDK.h>
+#import "Webservices.h"
 
-@interface SignUpViewController : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate,
+@interface SignUpViewController : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate,webServiceProtocol,
 UIPopoverControllerDelegate>
 {
     UIImagePickerController *imagePicker;

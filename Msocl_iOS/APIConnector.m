@@ -11,20 +11,7 @@
 #import "StringConstants.h"
 
 @implementation APIConnector
-APIConnector *sharedObj;
 @synthesize delegate;
-+(APIConnector *)sharedInstance{
-    /*
-     sharedObj=nil;
-     sharedObj=[[iRantAPIConnector alloc]init];
-     return sharedObj;*/
-    /* Use this to make it a singleton class */
-    if (sharedObj==Nil) {
-        sharedObj=[[APIConnector alloc]init];
-    }
-    return sharedObj;/**/
-}
-
 
 - (void)fetchJSON:(NSDictionary *)postData :(NSString *)urlAsString :(NSDictionary *)userInfo
 {

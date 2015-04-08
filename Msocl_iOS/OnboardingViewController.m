@@ -54,9 +54,7 @@
      name:@"TourImages_API"
      object:nil ];
     
-    tour_Dict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PromptImages"] objectForKey:@"welcome_tour"];
-    base_Url = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PromptImages"] objectForKey:@"asset_base_url"];
-    imageArray = [tour_Dict objectForKey:@"assets"];
+    imageArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PromptImages"];
     
     
     if([imageArray count] >= 1)
@@ -88,7 +86,7 @@
     downloadingImagesCount = 0;
     for ( int i=0; i<[imageArray count]; i++)
     {
-        NSString *urlstriing =[NSString stringWithFormat:@"%@%@",base_Url,[[imageArray objectAtIndex:i] objectForKey:@"url"]];
+        NSString *urlstriing = [imageArray objectAtIndex:i];
         
         UIImage *thumb = [photoUtils getImageFromCache:urlstriing];
         
@@ -104,12 +102,12 @@
     }
     if(downloadedImagesCount == imageArray.count)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:tour_Dict forKey:@"lastTour"];
+        [[NSUserDefaults standardUserDefaults] setObject:imageArray forKey:@"lastTour"];
         [self addScrollView];
     }
     else if([[NSUserDefaults standardUserDefaults] objectForKey:@"lastTour"])
     {
-        imageArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"lastTour"] objectForKey:@"assets"];
+        imageArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastTour"];
         [self addScrollView];
         
     }
@@ -225,7 +223,7 @@
         
         UIImageView *tour_ImageView = [[UIImageView alloc] initWithFrame:frame];
         
-        NSString *url =[NSString stringWithFormat:@"%@%@",base_Url,[[imageArray objectAtIndex:i] objectForKey:@"url"]];
+        NSString *url =[imageArray objectAtIndex:i];
         
         UIImage *thumb = [photoUtils getImageFromCache:url];
         

@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ProfilePhotoUtils.h"
-
-@interface PromptImages : NSObject
+#import "Webservices.h"
+@interface PromptImages : NSObject<webServiceProtocol>
 {
      ProfilePhotoUtils *photoUtils;
+    Webservices *webServices;
 }
 + (id)sharedInstance;
 -(void)getPrompImages;
+-(void)getAllGroups;
 @end

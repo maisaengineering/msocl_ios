@@ -8,15 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol webServicesProtocol<NSObject>
+@protocol apiConnectorProtocol<NSObject>
 -(void) handleConnectionSuccess:(NSDictionary *)recievedDict;
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict;
 @end
 
 @interface APIConnector : NSObject
 
-@property (nonatomic,retain) id <webServicesProtocol>delegate;
-+(APIConnector *)sharedInstance;
+@property (nonatomic,weak) id <apiConnectorProtocol>delegate;
 
 - (void)fetchJSON:(NSDictionary *)postData :(NSString *)urlAsString :(NSString *)command;
 

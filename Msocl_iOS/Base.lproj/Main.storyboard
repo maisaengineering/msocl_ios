@@ -86,6 +86,20 @@
                     <view key="view" contentMode="scaleToFill" id="YSH-8p-2nG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AI-C3-WBq">
+                                <rect key="frame" x="59" y="69" width="88" height="30"/>
+                                <state key="normal" title="Most Recent">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISw-3K-hQX">
+                                <rect key="frame" x="195" y="69" width="66" height="30"/>
+                                <state key="normal" title="Following">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Socl" id="60h-W4-ai0">
@@ -98,7 +112,7 @@
                     <connections>
                         <segue destination="TdL-Fm-sQV" kind="modal" identifier="AddPostsSegue" id="qU5-jb-Cet"/>
                         <segue destination="n8D-mp-AZb" kind="push" identifier="LoginSeague" id="hpm-4X-7SC"/>
-                        <segue destination="1A5-jJ-XHf" kind="push" id="1hC-iB-ptr"/>
+                        <segue destination="1A5-jJ-XHf" kind="push" identifier="SignUpSeague" id="1hC-iB-ptr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pif-PM-zA7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -289,6 +303,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="8rG-1t-Qni"/>
     </inferredMetricsTieBreakers>
 </document>

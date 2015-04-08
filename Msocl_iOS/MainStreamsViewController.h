@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StreamDisplayView.h"
 
-@interface MainStreamsViewController : UIViewController
+@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate>
 
 -(IBAction)addClicked:(id)sender;
 @end

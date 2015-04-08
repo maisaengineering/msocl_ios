@@ -10,10 +10,11 @@
 #import "ModelManager.h"
 #import "StringConstants.h"
 #import "AppDelegate.h"
-#import "Webservices.h"
+
 @implementation LoginViewController
 {
     AppDelegate *appdelegate;
+    Webservices *webServices;
 }
 @synthesize txt_username;
 @synthesize txt_password;
@@ -22,6 +23,8 @@
 {
     [super viewDidLoad];
     appdelegate = [[UIApplication sharedApplication] delegate];
+    webServices = [[Webservices alloc] init];
+    webServices.delegate = self;
 }
 #pragma mark -
 #pragma mark Login Methods
@@ -71,34 +74,16 @@
     NSDictionary *userInfo = @{@"command": command};
     NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
     
-    [self RemoveOrAddLoginObservers:YES];
-    [[Webservices sharedInstance] createPost:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
--(void)RemoveOrAddLoginObservers:(BOOL)key
+-(void)loginSccessfull:(NSDictionary *)responseDict
 {
-    if(key)
-    {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginSccessfull:) name:API_SUCCESS_LOGIN object:Nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginFailed) name:API_FAILED_LOGIN object:Nil];
-        
-    }
-    else
-    {
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_SUCCESS_LOGIN object:nil];
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_FAILED_LOGIN object:nil];
-        
-    }
-}
--(void)loginSccessfull:(NSNotification *)notificationObject
-{
-    [self RemoveOrAddLoginObservers:NO];
     [appdelegate showOrhideIndicator:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)loginFailed
 {
     [appdelegate showOrhideIndicator:NO];
-    [self RemoveOrAddLoginObservers:NO];
     ShowAlert(@"Error", @"Login Failed", @"OK");
 }
 

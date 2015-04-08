@@ -12,8 +12,6 @@
 
 {
     UIImageView *imageView;
-    NSDictionary *tour_Dict;
-    NSString *base_Url;
 }
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) UIButton *continueButton;

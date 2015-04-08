@@ -46,11 +46,16 @@
         [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
     //[self callAccessTokenApi];
 }
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+    [super viewWillDisappear:YES];
 
+}
 ///Api call to get Accesstoken
 -(void)callAccessTokenApi
 {
-    [appdelegate showOrhideIndicator:YES];
+  /*  [appdelegate showOrhideIndicator:YES];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveTokens:) name:API_SUCCESS_GET_ACCESS_TOKEN object:Nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(fetchingTokensFailedWithError) name:API_FAILED__GET_ACCESS_TOKEN object:Nil];
@@ -63,14 +68,12 @@
     
     NSDictionary *userInfo = @{@"command": @"GetAccessToken"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@clients/token",BASE_URL];
-    [[Webservices sharedInstance] getAccessToken:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    */
 }
 #pragma mark- AccessToken Api callback Methods
 #pragma mark-
 - (void)didReceiveTokens:(NSNotification *)notificationObject
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:API_SUCCESS_GET_PROMPT_IMAGES object:nil];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:API_FAILED__GET_PROMPT_IMAGES object:nil];
 
     NSArray *tokens = [notificationObject object];
     [appdelegate showOrhideIndicator:NO];
@@ -86,8 +89,6 @@
 
 - (void)fetchingTokensFailedWithError
 {
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:API_SUCCESS_GET_PROMPT_IMAGES object:nil];
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:API_FAILED__GET_PROMPT_IMAGES object:nil];
 
     [appdelegate showOrhideIndicator:NO];
 }

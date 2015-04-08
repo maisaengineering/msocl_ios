@@ -10,16 +10,18 @@
 #import "ModelManager.h"
 #import "StringConstants.h"
 #import "AppDelegate.h"
-#import "Webservices.h"
 #import "ProfilePhotoUtils.h"
-
+#import "Base64.h"
 @implementation SignUpViewController
 {
     AppDelegate *appdelegate;
     BOOL photoFromCamera;
-    BOOL isPostClicked;
+    BOOL isSignupClicked;
     ProfilePhotoUtils  *photoUtils;
     NSString *imageId;
+    BOOL isUploadingImage;
+    Webservices *webServices;
+
 
 }
 @synthesize txt_firstName;
@@ -33,6 +35,8 @@
     [super viewDidLoad];
     appdelegate = [[UIApplication sharedApplication] delegate];
     photoUtils = [ProfilePhotoUtils alloc];
+    webServices = [[Webservices alloc] init];
+    webServices.delegate = self;
     imageId = @"";
     //Aviary
     // Aviary iOS 7 Start
@@ -64,13 +68,13 @@
     }
     else
     {
+        [appdelegate showOrhideIndicator:YES];
+        if(!isUploadingImage)
         [self doSignup];
     }
 }
 -(void)doSignup
 {
-    [appdelegate showOrhideIndicator:YES];
-    
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_lastname.text forKey:@"lastname"];
     [postDetails setObject:txt_firstName.text forKey:@"firsttname"];
@@ -88,46 +92,22 @@
     NSDictionary *userInfo = @{@"command": command};
     NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
     
-    [self RemoveOrAddSignUpObservers:YES];
-    [[Webservices sharedInstance] createPost:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
--(void)RemoveOrAddSignUpObservers:(BOOL)key
+
+-(void)signUpSccessfull:(NSDictionary *)responseDict
 {
-    if(key)
-    {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(signUpSccessfull:) name:API_SUCCESS_SIGN_UP object:Nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(signUpFailed) name:API_FAILED_SIGN_UP object:Nil];
-        
-    }
-    else
-    {
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_SUCCESS_SIGN_UP object:nil];
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_FAILED_SIGN_UP object:nil];
-        
-    }
-}
--(void)signUpSccessfull:(NSNotification *)notificationObject
-{
-    [self RemoveOrAddSignUpObservers:NO];
     [appdelegate showOrhideIndicator:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)signUpFailed
 {
     [appdelegate showOrhideIndicator:NO];
-    [self RemoveOrAddSignUpObservers:NO];
     ShowAlert(@"Error", @"Login Failed", @"OK");
 }
 #pragma mark -
 #pragma mark Image Selection Methods
 -(IBAction)chosePhoto:(id)sender
-{
-    
-}
-#pragma mark -
-#pragma mark Image Methods
-
--(void)AddPhoto
 {
     if ([self hasValidAPIKey])
     {
@@ -293,6 +273,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     profileImage.image = image;
+    [self UploadImage:image];
 }
 
 
@@ -411,6 +392,61 @@
     return UIStatusBarStyleLightContent;
 }
 
+#pragma mark- Photo upload Methods
+#pragma mark-
+-(void)UploadImage:(UIImage *)imageOrg
+{
+    NSData *imageData = UIImageJPEGRepresentation(imageOrg, 0.7);
+    NSString *fileExtension = @"JPEG";
+    NSString *imageExtension = fileExtension;
+    imageExtension = [imageExtension uppercaseString];
+    NSString *stringImageName = [NSString stringWithFormat:@"temp.%@",imageExtension];
+    NSString *stringContentType = [NSString stringWithFormat:@"image/%@",[imageExtension lowercaseString]];
+    NSString *stringContent = [imageData base64EncodedString];
+    
+    NSMutableDictionary *newImageDetails  = [NSMutableDictionary dictionary];
+    [newImageDetails setValue:stringImageName     forKey:@"name"];
+    [newImageDetails setValue:stringContentType   forKey:@"content_type"];
+    [newImageDetails setValue:stringContent       forKey:@"content"];
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    UserProfile *_userProfile = sharedModel.userProfile;
+    
+    //build an info object and convert to json
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"auth_token": _userProfile.auth_token,
+                               @"command": @"upload_multimedia",
+                               @"body": newImageDetails};
+    NSDictionary *userInfo = @{@"command": @"upload_to_s3",@"identifier":imageOrg.accessibilityIdentifier};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    
+    
+}
+-(void)profileImageUploadSccess:(NSDictionary *)notifiDict
+{
+    NSDictionary *responseDict = [notifiDict objectForKey:@"response"];
+    imageId = [responseDict objectForKey:@"id"];
+    if(isUploadingImage && isSignupClicked)
+    {
+        isSignupClicked = NO;
+        [self doSignup];
+    }
+    isUploadingImage = NO;
+
+}
+-(void)profileImageUploadFailed
+{
+    if(isUploadingImage && isSignupClicked)
+    {
+        isSignupClicked = NO;
+        [self doSignup];
+    }
+    isUploadingImage = NO;
+
+}
 
 #pragma mark -
 #pragma mark Textfield Delegate methods

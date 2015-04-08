@@ -28,9 +28,8 @@
 
 
 //API URLS
-#define kBASE_URL        @"https://kl-json.herokuapp.com"
-#define BASE_URL         @"https://kl-json.herokuapp.com/api/"
-#define kBaseURL         @"https://kl-json.herokuapp.com/api"
+#define kBASE_URL        @"https://msocl.herokuapp.com"
+#define BASE_URL         @"https://msocl.herokuapp.com/api/"
 
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."
@@ -54,21 +53,6 @@
 #define EMAIL_PASS_REQUIRED     @"Please enter your email and password."
 #define ALL_FIELDS_REQUIRED     @"All fields are required"
 #define POST_CREATION_FAILED    @"Post creation failed"
-
-////Strings for Api call backs
-#define API_SUCCESS_GET_ACCESS_TOKEN @"connectionSuccessGetAccessToken"
-#define API_FAILED__GET_ACCESS_TOKEN @"connectionFailedGetAccessToken"
-#define API_SUCCESS_GET_PROMPT_IMAGES @"connectionSuccessGetPromptImages"
-#define API_FAILED__GET_PROMPT_IMAGES @"connectionFailedGetPromptImages"
-#define API_SUCCESS_UPLOAD_POST_IMAGES @"connectionSuccessUploadPostImages"
-#define API_FAILED_UPLOAD_POST_IMAGES @"connectionFailedUploadPostImages"
-#define API_SUCCESS_CREATE_POST @"connectionSuccessCreatePost"
-#define API_FAILED_CREATE_POST @"connectionFailedCreatePost"
-#define API_SUCCESS_LOGIN @"connectionSuccessLogin"
-#define API_FAILED_LOGIN @"connectionFailedLogin"
-#define API_SUCCESS_SIGN_UP @"connectionSuccessSignUp"
-#define API_FAILED_SIGN_UP @"connectionFailedSignUp"
-
 
 
 #endif

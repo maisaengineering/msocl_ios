@@ -29,7 +29,7 @@
     UIView *inputView;
     UIButton *postButton;
     BOOL isPrivate;
-   
+    Webservices *webServices;
 
 }
 @synthesize scrollView;
@@ -38,10 +38,14 @@
     [super viewDidLoad];
     
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    webServices = [[Webservices alloc] init];
+    webServices.delegate = self;
+
+    
     photoUtils = [ProfilePhotoUtils alloc];
     uploadingImages = 0;
     selectedtagsArray = [[NSMutableArray alloc] init];
-    tagsArray = [NSArray arrayWithObjects:@"test1",@"test2",@"test3",@"test4",@"test5",@"test6",@"test7", nil];
+    tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth, 64)];
@@ -95,14 +99,10 @@
     
     // Start the Aviary Editor OpenGL Load
     [AFOpenGLManager beginOpenGLLoad];
-    
-    [self RemoveOrAddUploadPostImageObservers:YES];
-
 }
 -(void)cancelClicked:(id)sender
 {
     [textView resignFirstResponder];
-    [self RemoveOrAddUploadPostImageObservers:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
@@ -484,7 +484,7 @@
 
 
 
-#pragma mark- MilestoneImageUploadManagerDelegate Methods
+#pragma mark- Image upload Methods
 #pragma mark-
 -(void)UploadImage:(UIImage *)imageOrg
 {
@@ -513,14 +513,13 @@
     NSDictionary *userInfo = @{@"command": @"upload_to_s3",@"identifier":imageOrg.accessibilityIdentifier};
     
     NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
-    [[Webservices sharedInstance] uploadPostImage:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
 
 }
--(void)uploadImageSccess:(NSNotification *)notificationObject
+-(void)uploadImageSccess:(NSDictionary *)notifiDict
 {
     uploadingImages--;
-    NSDictionary *notifiDict = [notificationObject object];
     NSDictionary *responseDict = [notifiDict objectForKey:@"response"];
     [imagesIdDict setObject:[responseDict objectForKey:@"id"] forKey:[notifiDict objectForKey:@"identifier"]];
     if(uploadingImages == 0 && isPostClicked)
@@ -540,21 +539,6 @@
     }
 }
 
--(void)RemoveOrAddUploadPostImageObservers:(BOOL)key
-{
-    if(key)
-    {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(uploadImageSccess:) name:API_SUCCESS_UPLOAD_POST_IMAGES object:Nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(uploadImageFailed) name:API_FAILED_UPLOAD_POST_IMAGES object:Nil];
-
-    }
-    else
-    {
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_SUCCESS_UPLOAD_POST_IMAGES object:nil];
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_FAILED_UPLOAD_POST_IMAGES object:nil];
-
-    }
-}
 #pragma mark- UITableView Data Source Methods
 #pragma mark-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -579,8 +563,8 @@
     for(UIView *viw in [[cell contentView] subviews])
         [viw removeFromSuperview];
     [cell.textLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-    cell.textLabel.text = [tagsArray objectAtIndex:indexPath.row];
-    if([selectedtagsArray containsObject:[tagsArray objectAtIndex:indexPath.row]])
+    cell.textLabel.text = [[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"uid"]])
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -592,12 +576,12 @@
     if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
-        [selectedtagsArray removeObject:[tagsArray objectAtIndex:indexPath.row]];
+        [selectedtagsArray removeObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"uid"]];
     }
     else
     {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [selectedtagsArray addObject:[tagsArray objectAtIndex:indexPath.row]];
+        [selectedtagsArray addObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"uid"]];
     }
     [tagsTableView beginUpdates];
     [tagsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
@@ -683,29 +667,11 @@
     NSDictionary *userInfo = @{@"command": @"create_post"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
     
-    [self RemoveOrAddCreatePostObservers:YES];
-    [[Webservices sharedInstance] createPost:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
--(void)RemoveOrAddCreatePostObservers:(BOOL)key
+-(void)postCreationSccessfull:(NSDictionary *)notificationDict
 {
-    if(key)
-    {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(postCreationSccessfull:) name:API_SUCCESS_CREATE_POST object:Nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(postCreationFailed) name:API_FAILED_CREATE_POST object:Nil];
-        
-    }
-    else
-    {
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_SUCCESS_CREATE_POST object:nil];
-        [[NSNotificationCenter defaultCenter]removeObserver:self name:API_FAILED_CREATE_POST object:nil];
-        
-    }
-}
--(void)postCreationSccessfull:(NSNotification *)notificationObject
-{
-    [self RemoveOrAddUploadPostImageObservers:NO];
     [appdelegate showOrhideIndicator:NO];
-    [self RemoveOrAddCreatePostObservers:NO];
     isPostClicked = NO;
     postButton.enabled = YES;
     
@@ -714,7 +680,6 @@
 -(void)postCreationFailed
 {
     [appdelegate showOrhideIndicator:NO];
-    [self RemoveOrAddCreatePostObservers:NO];
     
     isPostClicked = NO;
     postButton.enabled = YES;

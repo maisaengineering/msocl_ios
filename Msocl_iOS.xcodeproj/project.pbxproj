@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F7C296C1AD536C9004D4052 /* StreamDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C296B1AD536C9004D4052 /* StreamDisplayView.m */; };
+		7F7C296F1AD53ACF004D4052 /* ProfileDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7C296E1AD53ACF004D4052 /* ProfileDateUtils.m */; };
+		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
 		7F7E55C81AD3F793007070EF /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7E55C71AD3F793007070EF /* LoginViewController.m */; };
@@ -80,6 +83,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F7C296A1AD536C9004D4052 /* StreamDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamDisplayView.h; sourceTree = "<group>"; };
+		7F7C296B1AD536C9004D4052 /* StreamDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamDisplayView.m; sourceTree = "<group>"; };
+		7F7C296D1AD53ACF004D4052 /* ProfileDateUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileDateUtils.h; path = ../../../../../Documents/ProfileDateUtils.h; sourceTree = "<group>"; };
+		7F7C296E1AD53ACF004D4052 /* ProfileDateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileDateUtils.m; path = ../../../../../Documents/ProfileDateUtils.m; sourceTree = "<group>"; };
+		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
 		7F7E55C61AD3F793007070EF /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -264,6 +272,8 @@
 			children = (
 				7F83BC761AD1637F008DFD8B /* MainStreamsViewController.h */,
 				7F83BC771AD1637F008DFD8B /* MainStreamsViewController.m */,
+				7F7C296A1AD536C9004D4052 /* StreamDisplayView.h */,
+				7F7C296B1AD536C9004D4052 /* StreamDisplayView.m */,
 				7F7E55C21AD3F643007070EF /* Add posts */,
 			);
 			path = Streams;
@@ -283,6 +293,8 @@
 			children = (
 				7F83BC691AD15AE6008DFD8B /* ProfilePhotoUtils.h */,
 				7F83BC6A1AD15AE6008DFD8B /* ProfilePhotoUtils.m */,
+				7F7C296D1AD53ACF004D4052 /* ProfileDateUtils.h */,
+				7F7C296E1AD53ACF004D4052 /* ProfileDateUtils.m */,
 				7F83BC161AD12BFF008DFD8B /* PromptImages.h */,
 				7F83BC171AD12BFF008DFD8B /* PromptImages.m */,
 			);
@@ -442,6 +454,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */,
 				7F8999181AD2B1EA007E2917 /* TourImages */,
 			);
 			name = Images;
@@ -610,6 +623,7 @@
 				7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */,
 				7F8999231AD2B1F6007E2917 /* tour_2@2x.png in Resources */,
 				7F8999241AD2B1F6007E2917 /* tour_3@2x.png in Resources */,
+				7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */,
 				7F8999211AD2B1F6007E2917 /* tour_0@2x.png in Resources */,
 				7F8999271AD2B1F6007E2917 /* tour_6@2x.png in Resources */,
 				7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */,
@@ -639,6 +653,7 @@
 				7F83BC141AD12B5D008DFD8B /* APIConnector.m in Sources */,
 				7F83BC6B1AD15AE6008DFD8B /* ProfilePhotoUtils.m in Sources */,
 				7F83BC601AD14CEF008DFD8B /* AFURLSessionManager.m in Sources */,
+				7F7C296C1AD536C9004D4052 /* StreamDisplayView.m in Sources */,
 				7F83BC611AD14CEF008DFD8B /* AFNetworkActivityIndicatorManager.m in Sources */,
 				7F8999131AD2649E007E2917 /* Base64.m in Sources */,
 				7F83BC181AD12BFF008DFD8B /* PromptImages.m in Sources */,
@@ -661,6 +676,7 @@
 				7F7E55CB1AD3F7A7007070EF /* SignUpViewController.m in Sources */,
 				7F83BC671AD14CEF008DFD8B /* UIRefreshControl+AFNetworking.m in Sources */,
 				7F8999161AD2A04B007E2917 /* UserProfile.m in Sources */,
+				7F7C296F1AD53ACF004D4052 /* ProfileDateUtils.m in Sources */,
 				7F83BC661AD14CEF008DFD8B /* UIProgressView+AFNetworking.m in Sources */,
 				7F83BC0D1AD1295A008DFD8B /* OnboardingViewController.m in Sources */,
 				7F83BC681AD14CEF008DFD8B /* UIWebView+AFNetworking.m in Sources */,

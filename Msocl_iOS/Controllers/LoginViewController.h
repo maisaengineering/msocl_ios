@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface LoginViewController : UIViewController<UITextFieldDelegate>
+#import "Webservices.h"
+@interface LoginViewController : UIViewController<UITextFieldDelegate,webServiceProtocol>
 
 @property (nonatomic, strong) IBOutlet UITextField *txt_username;
 @property (nonatomic, strong) IBOutlet UITextField *txt_password;

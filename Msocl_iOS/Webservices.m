@@ -11,29 +11,15 @@
 #import "AccessToken.h"
 
 @implementation Webservices
-Webservices *sharedObj;
-+(Webservices *)sharedInstance{
-    
-    /* Use this to make it a singleton class */
-    if (sharedObj==Nil) {
-        sharedObj=[[Webservices alloc]init];
-    }
-    return sharedObj;
-    /**/
-}
-
+@synthesize delegate;
 -(id)init{
-    if (sharedObj) {
-        return sharedObj;
-    }
-    else{
+    
         if (self=[super init]) {
             //initialize the variables
-            apiConnector=[APIConnector sharedInstance];
+            apiConnector=[[APIConnector alloc] init];
             apiConnector.delegate = self;
         }
         return self;
-    }
 }
 
 #pragma mark check Internet Connectivity
@@ -66,30 +52,7 @@ Webservices *sharedObj;
 
 #pragma mark -
 #pragma mark Api calls
--(void)getAccessToken:(NSDictionary *)postData :(NSString *)urlAsString
-{
-    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
-}
--(void)getPromptImages:(NSDictionary *)postData :(NSString *)urlAsString
-{
-    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
-
-}
--(void)uploadPostImage:(NSDictionary *)postData :(NSString *)urlAsString
-{
-    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
-
-}
--(void)createPost:(NSDictionary *)postData :(NSString *)urlAsString
-{
-    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
-
-}
--(void)Login:(NSDictionary *)postData :(NSString *)urlAsString
-{
-    [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
-}
--(void)SignUp:(NSDictionary *)postData :(NSString *)urlAsString
+-(void)callApi:(NSDictionary *)postData :(NSString *)urlAsString
 {
     [apiConnector fetchJSON:[postData objectForKey:@"postData"] :urlAsString :[postData objectForKey:@"userInfo"]];
 }
@@ -110,19 +73,31 @@ Webservices *sharedObj;
     }
     else if([command isEqualToString:@"upload_to_s3"])
     {
-        [self connectionSuccessGetPromptImages:recievedDict];
+        [self connectionSuccessUploadPostImages:recievedDict];
+    }
+    else if([command isEqualToString:@"upload_multimedia"])
+    {
+        [self connectionSuccessUploadProfileImages:recievedDict];
     }
     else if([command isEqualToString:@"createPost"])
     {
-        [self connectionSuccessCreatePost:recievedDict];
+        [self connectionSuccessCreatePost:responseDict];
     }
     else if([command isEqualToString:@"Login"])
     {
-        [self connectionSuccessLogin:recievedDict];
+        [self connectionSuccessLogin:responseDict];
     }
     else if([command isEqualToString:@"SignUp"])
     {
-        [self connectionSuccessSignUp:recievedDict];
+        [self connectionSuccessSignUp:responseDict];
+    }
+    else if([command isEqualToString:@"GetAllGroups"])
+    {
+        [self connectionSuccessGetAllGroups:responseDict];
+    }
+    else if([command isEqualToString:@"GetStreams"])
+    {
+        [self connectionSuccessGetStreams:responseDict];
     }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -131,30 +106,40 @@ Webservices *sharedObj;
     NSString *command = [userInfo objectForKey:@"command"];
     if([command isEqualToString:@"GetAccessToken"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED__GET_ACCESS_TOKEN object:nil userInfo:nil]];
     }
     else if([command isEqualToString:@"GetPromptImages"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED__GET_PROMPT_IMAGES object:nil userInfo:nil]];
+        [self.delegate fetchingPromptImagesFailedWithError];
     }
     else if([command isEqualToString:@"upload_to_s3"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_UPLOAD_POST_IMAGES object:nil userInfo:nil]];
+        [self.delegate uploadImageFailed];
+    }
+    else if([command isEqualToString:@"upload_multimedia"])
+    {
+        [self.delegate profileImageUploadFailed];
     }
     else if([command isEqualToString:@"createPost"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_CREATE_POST object:nil userInfo:nil]];
+        [self.delegate postCreationFailed];
     }
     else if([command isEqualToString:@"Login"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_LOGIN object:nil userInfo:nil]];
+        [self.delegate loginFailed];
     }
     else if([command isEqualToString:@"SignUp"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_SIGN_UP object:nil userInfo:nil]];
+        [self.delegate signUpFailed];
+    }
+    else if([command isEqualToString:@"GetAllGroups"])
+    {
+        [self.delegate fetchingGroupsFailedWithError];
+    }
+    else if([command isEqualToString:@"GetStreams"])
+    {
+        [self.delegate streamsFailed];
     }
 }
-
 #pragma mark -
 #pragma mark Connection Success Handlers 
 -(void)connectionSuccessGetAccessTokens:(NSDictionary *)respDict
@@ -173,7 +158,6 @@ Webservices *sharedObj;
     [tokens addObject:token];
     [[NSUserDefaults standardUserDefaults] setObject:respDict forKey:@"tokens"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_GET_ACCESS_TOKEN object:tokens userInfo:nil]];
 
 }
 -(void)connectionSuccessGetPromptImages:(NSDictionary *)respDict
@@ -182,13 +166,13 @@ Webservices *sharedObj;
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_GET_PROMPT_IMAGES object:[respDict objectForKey:@"body"] userInfo:nil]];
+        [self.delegate didReceivePromptImages:[respDict objectForKey:@"body"]];
 
     }
     
     else
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED__GET_PROMPT_IMAGES object:nil userInfo:nil]];
+        [self.delegate fetchingPromptImagesFailedWithError];
 
     }
 
@@ -204,13 +188,34 @@ Webservices *sharedObj;
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_UPLOAD_POST_IMAGES object:[NSDictionary dictionaryWithObjectsAndKeys:[response objectForKey:@"body"],@"response",identifier,@"identifier", nil] userInfo:nil]];
+        [self.delegate uploadImageSccess:[NSDictionary dictionaryWithObjectsAndKeys:[response objectForKey:@"body"],@"response",identifier,@"identifier", nil]];
         
     }
     
     else
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_UPLOAD_POST_IMAGES object:nil userInfo:nil]];
+        [self.delegate uploadImageFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessUploadProfileImages:(NSDictionary *)respDict
+{
+    NSDictionary *userInfo = [respDict objectForKey:@"userInfo"];
+    NSDictionary *response = [respDict objectForKey:@"response"];
+    NSString *identifier = [userInfo objectForKey:@"identifier"];
+    
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate profileImageUploadSccess:[NSDictionary dictionaryWithObjectsAndKeys:[response objectForKey:@"body"],@"response",identifier,@"identifier", nil]];
+    }
+    
+    else
+    {
+        [self.delegate profileImageUploadFailed];
         
     }
     
@@ -222,13 +227,13 @@ Webservices *sharedObj;
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_CREATE_POST object:[respDict objectForKey:@"body"] userInfo:nil]];
+        [self.delegate postCreationSccessfull:[respDict objectForKey:@"body"]];
         
     }
     
     else
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_CREATE_POST object:nil userInfo:nil]];
+        [self.delegate postCreationFailed];
         
     }
     
@@ -241,13 +246,13 @@ Webservices *sharedObj;
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_LOGIN object:[respDict objectForKey:@"body"] userInfo:nil]];
+        [self.delegate loginSccessfull:[respDict objectForKey:@"body"]];
         
     }
     
     else
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_LOGIN object:nil userInfo:nil]];
+        [self.delegate loginFailed];
         
     }
     
@@ -260,13 +265,49 @@ Webservices *sharedObj;
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_SUCCESS_SIGN_UP object:[respDict objectForKey:@"body"] userInfo:nil]];
+        [self.delegate signUpSccessfull:[respDict objectForKey:@"body"]];
         
     }
     
     else
     {
-        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:API_FAILED_SIGN_UP object:nil userInfo:nil]];
+        [self.delegate signUpFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessGetAllGroups:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate didReceiveGroups:[respDict objectForKey:@"body"]];
+        
+    }
+    
+    else
+    {
+        [self.delegate fetchingGroupsFailedWithError];
+        
+    }
+    
+}
+-(void)connectionSuccessGetStreams:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate didReceiveStreams:[respDict objectForKey:@"body"]];
+        
+    }
+    
+    else
+    {
+        [self.delegate streamsFailed];
         
     }
     

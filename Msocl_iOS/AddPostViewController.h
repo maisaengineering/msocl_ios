@@ -10,8 +10,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
 #import <AviarySDK/AviarySDK.h>
-
-@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+#import "Webservices.h"
+@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UIImagePickerController *imagePicker;
 

@@ -9,16 +9,24 @@
 #import "MainStreamsViewController.h"
 
 @implementation MainStreamsViewController
-
+{
+    StreamDisplayView *streamDisplay;
+}
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 100, 320, Deviceheight-130)];
+    streamDisplay.delegate = self;
+    [self.view addSubview:streamDisplay];
+   
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+
+    [streamDisplay callStreamsApi:@""];
 }
 
 -(IBAction)addClicked:(id)sender
