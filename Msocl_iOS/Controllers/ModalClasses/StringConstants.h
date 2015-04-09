@@ -20,6 +20,8 @@
 #define kAFAviaryAPIKey         @"e9d5541aa86c51c9"
 #define kAFAviarySecret         @"ea86727d549f068d"
 
+//FLURRY
+#define FLURRY_KEY       @"NXH4VDMB242THB6Y48CT"
 
 //Device Specifcs
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]

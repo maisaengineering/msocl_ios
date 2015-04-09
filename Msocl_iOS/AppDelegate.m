@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MBProgressHUD.h"
 #import "PromptImages.h"
+#import "StringConstants.h"
 
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
@@ -22,6 +23,12 @@
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
 
     return YES;
+}
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application
+{
+    [Flurry startSession:FLURRY_KEY];
+    [Flurry setCrashReportingEnabled:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

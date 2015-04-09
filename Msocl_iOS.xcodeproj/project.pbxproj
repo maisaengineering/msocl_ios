@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25214C341AD6C23C0084BAC4 /* libFlurry_6.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */; };
+		25214C361AD6C3A20084BAC4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -84,6 +86,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25214C321AD6C23C0084BAC4 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.3.0.a; sourceTree = "<group>"; };
+		25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -199,9 +204,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25214C361AD6C3A20084BAC4 /* SystemConfiguration.framework in Frameworks */,
 				7F8999091AD25E66007E2917 /* StoreKit.framework in Frameworks */,
 				7F8999071AD25E5E007E2917 /* MessageUI.framework in Frameworks */,
 				7F8999051AD25E57007E2917 /* libz.1.2.5.dylib in Frameworks */,
+				25214C341AD6C23C0084BAC4 /* libFlurry_6.3.0.a in Frameworks */,
 				7F8999031AD25E4F007E2917 /* libsqlite3.0.dylib in Frameworks */,
 				7F8999011AD25E41007E2917 /* CoreData.framework in Frameworks */,
 				7F8998FF1AD25E39007E2917 /* Accelerate.framework in Frameworks */,
@@ -225,6 +232,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25214C311AD6C23C0084BAC4 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				25214C321AD6C23C0084BAC4 /* Flurry.h */,
+				25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
 		7F7E55B81AD3D992007070EF /* AviarySDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -342,6 +358,7 @@
 		7F83BC221AD13BD1008DFD8B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				25214C311AD6C23C0084BAC4 /* Flurry */,
 				7F7E55B81AD3D992007070EF /* AviarySDK */,
 				7F8999101AD26489007E2917 /* Base64 */,
 				7F83BC311AD14CD9008DFD8B /* AFNetworking */,
@@ -431,6 +448,7 @@
 		7F89990A1AD25EE8007E2917 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */,
 				7F8999081AD25E66007E2917 /* StoreKit.framework */,
 				7F8999061AD25E5E007E2917 /* MessageUI.framework */,
 				7F8999041AD25E57007E2917 /* libz.1.2.5.dylib */,
@@ -808,6 +826,10 @@
 				INFOPLIST_FILE = Msocl_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Msocl_iOS/Flurry",
+				);
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",
@@ -828,6 +850,10 @@
 				INFOPLIST_FILE = Msocl_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Msocl_iOS/Flurry",
+				);
 				OTHER_LDFLAGS = (
 					"-Objc",
 					"-all_load",
