@@ -241,48 +241,69 @@
     //Start of Description Text
     yPosition += 21 + 5;
     
-    //Time
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 65)];
+    //Description
+    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 55)];
     [description setText:[storyDict objectForKey:@"content"]];
     [description setTextAlignment:NSTextAlignmentRight];
     [description setFont:[UIFont systemFontOfSize:12]];
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
     
+    yPosition += description.frame.size.height;
     
     if([[storyDict objectForKey:@"tags"] count] > 0)
     {
-        UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition+65, 140, 15)];
+        UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition, 140, 15)];
         [cell.contentView addSubview:tagsView];
         NSArray *tagsArray = [storyDict objectForKey:@"tags"];
-        //Time
-        UILabel *time = [[UILabel alloc] initWithFrame:tagsView.bounds];
-        [time setText:[tagsArray componentsJoinedByString:@" "]];
-        [time setFont:[UIFont systemFontOfSize:12]];
-        [tagsView addSubview:time];
+        for(int i=0,x=0; i <tagsArray.count ;i++)
+        {
+            NSString *tagName = tagsArray[i];
+            CGSize size = [tagName sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+            UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, MIN(size.width, 140 - x) , 15)];
+            [tag setText:tagName];
+            [tag setFont:[UIFont systemFontOfSize:12]];
+            [tag setBackgroundColor:[UIColor lightGrayColor]];
+            [tagsView addSubview:tag];
+            x += tag.frame.size.width + 3;
+            
+            if(x >= 140)
+                break;
+        
+        }
+        yPosition += 15;
     }
     
     //Time
-    UILabel *comments = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition+65+15, 140, 15)];
-    [comments setText:[storyDict objectForKey:@"time"]];
-    [comments setTextAlignment:NSTextAlignmentRight];
-    [comments setText:[NSString stringWithFormat:@"Comments(22) Upvotes(21)"]];
-    [comments setFont:[UIFont systemFontOfSize:12]];
+    UILabel *comments = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 15)];
+    [comments setText:[NSString stringWithFormat:@"Comments(22) Upvotses(21)"]];
+    [comments setFont:[UIFont systemFontOfSize:10]];
     [cell.contentView addSubview:comments];
+    
+    yPosition += 15;
     
     if([[storyDict objectForKey:@"commenters"] count] > 0)
     {
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition+65+15+15, 140, 15)];
+        NSMutableArray *commenters = [NSMutableArray arrayWithArray:[storyDict objectForKey:@"commenters"]];
+        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition, 140, 20)];
         [cell.contentView addSubview:commentersView];
+        
+        int x = 0;
+        for(int i = 0; i < commenters.count; i++)
+            //for(id dict in array)
+        {
+            
+            NSString *url = [commenters objectAtIndex:i];
+            UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 20, 20)];
+            [commentersView addSubview:imagVw];
+            
+            [imagVw setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+            x+= 20 + 3;
+            
+            if(i >= 6)
+                break;
+        }
     }
     
-    if([[storyDict objectForKey:@"tags"] count] == 0 && [[storyDict objectForKey:@"commenters"] count] == 0)
-    {
-        
-    }
-    else
-    {
-        
-    }
 }
 @end
