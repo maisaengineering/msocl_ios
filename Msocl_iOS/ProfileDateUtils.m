@@ -7,7 +7,7 @@
 //
 
 #import "ProfileDateUtils.h"
-
+#import "StringConstants.h"
 @implementation ProfileDateUtils
 
 - (NSString *)getAgeFromTwoDates:(NSString *)birthdate
@@ -195,7 +195,6 @@
     NSString *dateStr = currentDateTime; // @"05/31/2014 10:57am-0400"; //@"05/30/2014 08:11:00pm UTC";
     dateStr = [dateStr stringByReplacingOccurrencesOfString:@" EDT" withString:@"-0400"];
     dateStr = [dateStr stringByReplacingOccurrencesOfString:@" EST" withString:@"-0500"];
-    
     NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc] init];
     [dateFormatter1 setTimeZone:[NSTimeZone systemTimeZone]];
     

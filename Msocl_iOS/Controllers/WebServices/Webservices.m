@@ -9,7 +9,7 @@
 #import "Webservices.h"
 #import "Reachability.h"
 #import "AccessToken.h"
-
+#import "PostDetails.h"
 @implementation Webservices
 @synthesize delegate;
 -(id)init{
@@ -106,6 +106,7 @@
     NSString *command = [userInfo objectForKey:@"command"];
     if([command isEqualToString:@"GetAccessToken"])
     {
+        [self.delegate fetchingTokensFailedWithError];
     }
     else if([command isEqualToString:@"GetPromptImages"])
     {
@@ -156,9 +157,8 @@
     }
     
     [tokens addObject:token];
-    [[NSUserDefaults standardUserDefaults] setObject:respDict forKey:@"tokens"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 
+    [self.delegate didReceiveTokens:tokens];
 }
 -(void)connectionSuccessGetPromptImages:(NSDictionary *)respDict
 {
@@ -296,12 +296,22 @@
 }
 -(void)connectionSuccessGetStreams:(NSDictionary *)respDict
 {
-    
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
     NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [self.delegate didReceiveStreams:[respDict objectForKey:@"body"]];
+        NSArray *arrayPostDetails = [[respDict objectForKey:@"body"] objectForKey:@"posts"];
+        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+
+        for(NSDictionary *postDict in arrayPostDetails)
+        {
+            PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];
+            [arrayOfpostDetailsObjects addObject:postObject];
+        }
+        [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"posts"];
+        [self.delegate didReceiveStreams:dictCopty];
+        
         
     }
     

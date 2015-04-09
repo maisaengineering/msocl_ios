@@ -13,7 +13,7 @@
 #import "ProfilePhotoUtils.h"
 #import "ProfileDateUtils.h"
 #import "ModelManager.h"
-
+#import "PostDetails.h"
 @implementation StreamDisplayView
 {
     ProfilePhotoUtils *photoUtils;
@@ -132,14 +132,6 @@
         NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:storiesArray];
         storiesArray = [orderedSet.array mutableCopy];
         
-        //test if prompt is there yet
-        NSDictionary *dict1 = [[NSDictionary alloc]init];
-        
-        if ([storiesArray count]>1)
-        {
-            dict1 = [storiesArray objectAtIndex:1];
-        }
-        
         [streamTableView reloadData];
         
     }
@@ -172,8 +164,7 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     
-    
-    NSDictionary *storyDict  = [storiesArray objectAtIndex:indexPath.row];
+    PostDetails *postDetailsObject = [storiesArray objectAtIndex:indexPath.row];
     
     //removes any subviews from the cell
     for(UIView *viw in [[cell contentView] subviews])
@@ -181,7 +172,7 @@
         [viw removeFromSuperview];
     }
     
-    [self buildCell:cell withDetails:storyDict];
+    [self buildCell:cell withDetails:postDetailsObject];
     
     
     return cell;
@@ -191,7 +182,7 @@
 {
     
 }
--(void)buildCell:(UITableViewCell *)cell withDetails:(NSDictionary *)storyDict
+-(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
     float yPosition = 15;
     
@@ -202,18 +193,18 @@
     
     //Profile Image
     UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 100, 100)];
-    [profileImage setImageWithURL:[NSURL URLWithString:[storyDict objectForKey:@"image"]] placeholderImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+    [profileImage setImageWithURL:[NSURL URLWithString:postDetailsObject.profileImage] placeholderImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
     [cell.contentView addSubview:profileImage];
     
     //Profile name
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(120, yPosition, 140, 21)];
-    [name setText:[storyDict objectForKey:@"name"]];
+    [name setText:postDetailsObject.name];
     [name setFont:[UIFont systemFontOfSize:16]];
     [cell.contentView addSubview:name];
     
     //Time
     UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 21)];
-    [time setText:[storyDict objectForKey:@"time"]];
+    [time setText:postDetailsObject.time];
     [time setTextAlignment:NSTextAlignmentRight];
     [time setText:@"5 min ago"];
     [time setFont:[UIFont systemFontOfSize:12]];
@@ -229,12 +220,12 @@
     [upVote setFrame:CGRectMake(160, yPosition, 50, 40)];
     [cell.contentView addSubview:upVote];
     
-    [self addDescription:cell withDetails:storyDict];
+    [self addDescription:cell withDetails:postDetailsObject];
 
     
     
 }
--(void)addDescription:(UITableViewCell *)cell withDetails:(NSDictionary *)storyDict
+-(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
     float yPosition = 15;
     
@@ -243,7 +234,7 @@
     
     //Description
     UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 55)];
-    [description setText:[storyDict objectForKey:@"content"]];
+    [description setText:postDetailsObject.content];
     [description setTextAlignment:NSTextAlignmentRight];
     [description setFont:[UIFont systemFontOfSize:12]];
     [description setNumberOfLines:0];
@@ -251,11 +242,11 @@
     
     yPosition += description.frame.size.height;
     
-    if([[storyDict objectForKey:@"tags"] count] > 0)
+    if([postDetailsObject.tags count] > 0)
     {
         UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition, 140, 15)];
         [cell.contentView addSubview:tagsView];
-        NSArray *tagsArray = [storyDict objectForKey:@"tags"];
+        NSArray *tagsArray = postDetailsObject.tags;
         for(int i=0,x=0; i <tagsArray.count ;i++)
         {
             NSString *tagName = tagsArray[i];
@@ -282,9 +273,9 @@
     
     yPosition += 15;
     
-    if([[storyDict objectForKey:@"commenters"] count] > 0)
+    if([postDetailsObject.commenters count] > 0)
     {
-        NSMutableArray *commenters = [NSMutableArray arrayWithArray:[storyDict objectForKey:@"commenters"]];
+        NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
         UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition, 140, 20)];
         [cell.contentView addSubview:commentersView];
         

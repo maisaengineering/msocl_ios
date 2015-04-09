@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UIKit/UIKit.h>
 @interface ProfileDateUtils : NSObject
 
 - (NSString *)getAgeFromTwoDates:(NSString *)birthdate;

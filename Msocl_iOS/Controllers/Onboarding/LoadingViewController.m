@@ -18,6 +18,9 @@
     [super viewDidLoad];
     
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    webServices = [[Webservices alloc] init];
+    webServices.delegate = self;
+
     
     self.navigationItem.hidesBackButton = YES;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -40,42 +43,44 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
-        [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+    if([[ModelManager sharedModel] accessToken] != nil)
+    {
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
+            [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+        else
+            [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
+
+    }
     else
-        [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
-    //[self callAccessTokenApi];
+    {
+        [self callAccessTokenApi];
+    }
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [self.navigationItem setHidesBackButton:YES animated:YES];
     [super viewWillDisappear:YES];
 
 }
 ///Api call to get Accesstoken
 -(void)callAccessTokenApi
 {
-  /*  [appdelegate showOrhideIndicator:YES];
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveTokens:) name:API_SUCCESS_GET_ACCESS_TOKEN object:Nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(fetchingTokensFailedWithError) name:API_FAILED__GET_ACCESS_TOKEN object:Nil];
+    [appdelegate showOrhideIndicator:YES];
     
     //build an info object and convert to json
     NSDictionary* postData = @{@"grant_type": @"client_credentials",
                            @"client_id": CLIENT_ID,
                            @"client_secret": CLIENT_SECRET,
-                           @"scope": @"ikidslink"};
+                           @"scope": @"imsocl"};
     
     NSDictionary *userInfo = @{@"command": @"GetAccessToken"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@clients/token",BASE_URL];
-    */
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
 #pragma mark- AccessToken Api callback Methods
 #pragma mark-
-- (void)didReceiveTokens:(NSNotification *)notificationObject
+- (void)didReceiveTokens:(NSArray *)tokens
 {
 
-    NSArray *tokens = [notificationObject object];
     [appdelegate showOrhideIndicator:NO];
     ModelManager *sharedModel = [ModelManager sharedModel];
     sharedModel.accessToken = [tokens objectAtIndex:0];

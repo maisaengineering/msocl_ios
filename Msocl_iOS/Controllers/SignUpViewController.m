@@ -87,18 +87,22 @@
     
     NSString *command = @"SignUp";
     NSDictionary* postData = @{@"access_token": token.access_token,
-                               @"command": command,
+                               @"command": @"create",
                                @"body": postDetails};
     NSDictionary *userInfo = @{@"command": command};
-    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
 
 -(void)signUpSccessfull:(NSDictionary *)responseDict
 {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
     [appdelegate showOrhideIndicator:NO];
-    [self.navigationController popViewControllerAnimated:YES];
+    NSArray *viewControllers = [self.navigationController viewControllers];
+    [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
 }
 -(void)signUpFailed
 {
@@ -273,7 +277,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     profileImage.image = image;
-    [self UploadImage:image];
+    //[self UploadImage:image];
 }
 
 

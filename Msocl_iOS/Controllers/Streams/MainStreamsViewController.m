@@ -7,15 +7,18 @@
 //
 
 #import "MainStreamsViewController.h"
-
+#import "ModelManager.h"
+#import "LoginViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *streamDisplay;
+    ModelManager *modelManager;
+    
 }
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 100, 320, Deviceheight-130)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 100, 320, Deviceheight-100)];
     streamDisplay.delegate = self;
     [self.view addSubview:streamDisplay];
    
@@ -29,8 +32,18 @@
     [streamDisplay callStreamsApi:@""];
 }
 
+#pragma mark - 
+#pragma mark Call backs from stream display
+- (void)tableDidSelect:(int)index
+{
+
+}
+
 -(IBAction)addClicked:(id)sender
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
+    else
+    [self performSegueWithIdentifier: @"LoginSeague" sender: self];
 }
 @end

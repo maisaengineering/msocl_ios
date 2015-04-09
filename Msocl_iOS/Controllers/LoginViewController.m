@@ -93,6 +93,12 @@
 {
     
 }
+
+-(IBAction)registerClicked:(id)sender
+{
+    [self performSegueWithIdentifier: @"SignUpSeague" sender: self];
+    
+}
 #pragma mark - 
 #pragma mark Textfield methods
 -(void)resignKeyBoards

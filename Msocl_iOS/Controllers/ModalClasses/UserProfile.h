@@ -11,7 +11,7 @@
 @interface UserProfile : NSObject
 {
     NSString *auth_token;
-    NSString *kl_id;
+    NSString *uid;
     NSString *fname;
     NSString *mname;
     NSString *lname;
@@ -24,13 +24,12 @@
 }
 
 @property (strong, nonatomic) NSString *auth_token;
-@property (strong, nonatomic) NSString *kl_id;
+@property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSString *fname;
 @property (strong, nonatomic) NSString *mname;
 @property (strong, nonatomic) NSString *lname;
 @property (strong, nonatomic) NSString *email;
 @property (nonatomic)         BOOL      onboarding;
 @property (strong, nonatomic) NSString *country_code;
-@property (nonatomic) BOOL isNewUser;
 @property (nonatomic, assign) BOOL isKidsLinkPersonality;
 @end

@@ -13,8 +13,8 @@
 #define APP_VERSION     @"1.3.0"
 
 // Dev Credentials
-#define CLIENT_ID        @"f3fd3bf7df0689b995ae1375284e1d5040a5944575e890f80887010be6142011"
-#define CLIENT_SECRET    @"0aa3b89bf8fb4a9e052c34f0df438c06333f1ba7d0d58b59eaa3eaaa3a0c61d3"
+#define CLIENT_ID        @"3e0786a2f258e6f9b08250dbd7f35010480988e0d3d1ef373b79e07884be79f9"
+#define CLIENT_SECRET    @"813c95cc2eb6c0cf4f49d30d0add0c6fc3ea82863d30507beb6733c0e643927c"
 
 //AVIARY
 #define kAFAviaryAPIKey         @"e9d5541aa86c51c9"

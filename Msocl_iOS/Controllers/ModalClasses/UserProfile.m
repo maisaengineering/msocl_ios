@@ -10,13 +10,12 @@
 
 @implementation UserProfile
 @synthesize auth_token;
-@synthesize kl_id;
+@synthesize uid;
 @synthesize fname;
 @synthesize mname;
 @synthesize lname;
 @synthesize email;
 @synthesize onboarding;
 @synthesize country_code;
-@synthesize isNewUser;
 @synthesize isKidsLinkPersonality;
 @end

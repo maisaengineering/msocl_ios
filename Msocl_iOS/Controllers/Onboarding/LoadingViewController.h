@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Webservices.h"
 @class AppDelegate;
-@interface LoadingViewController : UIViewController
+@interface LoadingViewController : UIViewController<webServiceProtocol>
 {
 
     AppDelegate *appdelegate;
+    Webservices *webServices;
 }
 
 @end
