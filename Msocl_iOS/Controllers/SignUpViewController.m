@@ -21,8 +21,8 @@
     NSString *imageId;
     BOOL isUploadingImage;
     Webservices *webServices;
-
-
+    
+    
 }
 @synthesize txt_firstName;
 @synthesize txt_password;
@@ -30,6 +30,8 @@
 @synthesize txt_emailAddress;
 @synthesize txt_lastname;
 @synthesize profileImage;
+@synthesize txt_postal_code;
+@synthesize txt_phno;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,7 +51,7 @@
     
     // Start the Aviary Editor OpenGL Load
     [AFOpenGLManager beginOpenGLLoad];
-
+    
 }
 #pragma mark -
 #pragma mark Signup Methods
@@ -58,7 +60,7 @@
     [self resignKeyBoards];
     if( txt_password.text.length == 0 || txt_lastname.text.length == 0 || txt_firstName.text.length == 0|| txt_emailAddress.text.length == 0|| txt_confirmPassword.text.length == 0)
     {
-            ShowAlert(PROJECT_NAME,@"All fields are required", @"OK");
+        ShowAlert(PROJECT_NAME,@"All fields are required", @"OK");
         return;
     }
     else if(![txt_confirmPassword.text isEqualToString:txt_password.text])
@@ -68,9 +70,10 @@
     }
     else
     {
+        isSignupClicked = YES;
         [appdelegate showOrhideIndicator:YES];
         if(!isUploadingImage)
-        [self doSignup];
+            [self doSignup];
     }
 }
 -(void)doSignup
@@ -80,6 +83,11 @@
     [postDetails setObject:txt_firstName.text forKey:@"firsttname"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
     [postDetails setObject:txt_password.text forKey:@"password"];
+    [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
+    [postDetails setObject:txt_postal_code.text forKey:@"postal_code"];
+    [postDetails setObject:txt_phno.text forKey:@"phno"];
+    
+    
     [postDetails setObject:imageId forKey:@"imageId"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
@@ -415,16 +423,14 @@
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
-    UserProfile *_userProfile = sharedModel.userProfile;
     
     //build an info object and convert to json
     NSDictionary* postData = @{@"access_token": token.access_token,
-                               @"auth_token": _userProfile.auth_token,
-                               @"command": @"upload_multimedia",
+                               @"command": @"s3upload",
                                @"body": newImageDetails};
-    NSDictionary *userInfo = @{@"command": @"upload_to_s3",@"identifier":imageOrg.accessibilityIdentifier};
+    NSDictionary *userInfo = @{@"command": @"upload_Profile_Image"};
     
-    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     
     
@@ -432,14 +438,14 @@
 -(void)profileImageUploadSccess:(NSDictionary *)notifiDict
 {
     NSDictionary *responseDict = [notifiDict objectForKey:@"response"];
-    imageId = [responseDict objectForKey:@"id"];
+    imageId = [responseDict objectForKey:@"key"];
     if(isUploadingImage && isSignupClicked)
     {
         isSignupClicked = NO;
         [self doSignup];
     }
     isUploadingImage = NO;
-
+    
 }
 -(void)profileImageUploadFailed
 {
@@ -449,7 +455,7 @@
         [self doSignup];
     }
     isUploadingImage = NO;
-
+    
 }
 
 #pragma mark -

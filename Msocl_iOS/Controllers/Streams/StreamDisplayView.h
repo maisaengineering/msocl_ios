@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Webservices.h"
+
 @protocol StreamDisplayViewDelegate <NSObject>
 
 - (void)tableDidSelect:(int)index;
@@ -15,7 +16,7 @@
 @end
 @interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol>
 {
-
+    
 }
 @property (nonatomic, strong) NSString *profileID;
 @property (nonatomic, assign) id<StreamDisplayViewDelegate> delegate;
@@ -23,6 +24,8 @@
 @property (nonatomic, strong) UITableView *streamTableView;
 @property (nonatomic, assign) BOOL isMostRecent;
 @property (nonatomic, assign) BOOL isFollowing;
+@property (nonatomic, strong) NSString *timeStamp;
+
 -(void)callStreamsApi:(NSString *)step;
 -(void)resetData;
 

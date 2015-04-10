@@ -49,7 +49,7 @@
             ShowAlert(PROJECT_NAME,@"Please enter user name and password", @"OK");
             return;
         }
-
+        
     }
     else
     {
@@ -61,24 +61,28 @@
     [appdelegate showOrhideIndicator:YES];
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    [postDetails setObject:txt_username.text forKey:@"username"];
+    [postDetails setObject:txt_username.text forKey:@"email"];
     [postDetails setObject:txt_password.text forKey:@"password"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
-    NSString *command = @"Login";
     NSDictionary* postData = @{@"access_token": token.access_token,
-                               @"command": command,
+                               @"command": @"signIn",
                                @"body": postDetails};
-    NSDictionary *userInfo = @{@"command": command};
-    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+    NSDictionary *userInfo = @{@"command": @"Login"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
 -(void)loginSccessfull:(NSDictionary *)responseDict
 {
     [appdelegate showOrhideIndicator:NO];
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)loginFailed
@@ -99,7 +103,7 @@
     [self performSegueWithIdentifier: @"SignUpSeague" sender: self];
     
 }
-#pragma mark - 
+#pragma mark -
 #pragma mark Textfield methods
 -(void)resignKeyBoards
 {

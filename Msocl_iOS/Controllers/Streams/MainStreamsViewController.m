@@ -21,29 +21,30 @@
     streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 100, 320, Deviceheight-100)];
     streamDisplay.delegate = self;
     [self.view addSubview:streamDisplay];
-   
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
     [self.navigationItem setHidesBackButton:YES animated:YES];
-
+    
+    [streamDisplay resetData];
     [streamDisplay callStreamsApi:@""];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Call backs from stream display
 - (void)tableDidSelect:(int)index
 {
-
+    
 }
 
 -(IBAction)addClicked:(id)sender
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
+        [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
     else
-    [self performSegueWithIdentifier: @"LoginSeague" sender: self];
+        [self performSegueWithIdentifier: @"LoginSeague" sender: self];
 }
 @end

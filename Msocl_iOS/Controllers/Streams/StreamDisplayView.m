@@ -14,6 +14,7 @@
 #import "ProfileDateUtils.h"
 #import "ModelManager.h"
 #import "PostDetails.h"
+#import "SDWebImageManager.h"
 @implementation StreamDisplayView
 {
     ProfilePhotoUtils *photoUtils;
@@ -29,7 +30,7 @@
     NSNumber *postCount;
     BOOL bProcessing;
     BOOL isDragging;
-
+    
 }
 @synthesize storiesArray;
 @synthesize streamTableView;
@@ -37,6 +38,8 @@
 @synthesize profileID;
 @synthesize isMostRecent;
 @synthesize isFollowing;
+@synthesize timeStamp;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -50,6 +53,7 @@
 {
     postCount = 0;
     feedCount = 0;
+    timeStamp = @"";
 }
 -(void)baseInit
 {
@@ -85,7 +89,7 @@
     if (bProcessing) return;
     // Released above the header
     [self resetData];
-
+    
     [self performSelectorInBackground:@selector(callStreamsApi:) withObject:@"next"];
     
 }
@@ -99,20 +103,25 @@
     if(!bProcessing)
     {
         bProcessing = YES;
-
-      
-            NSDictionary* postData = @{@"command": @"all"};
-            NSDictionary *userInfo = @{@"command": @"GetStreams"};
-            
-            NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
-            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-
-            
+        
+        
+        NSDictionary* postData = @{@"command": @"all"};
+        NSDictionary *userInfo = @{@"command": @"GetStreams"};
+        
+        NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        
+        
     }
 }
 -(void) didReceiveStreams:(NSDictionary *)recievedDict
 {
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
+    
+    if([timeStamp length] == 0)
+    {
+        [self.storiesArray removeAllObjects];
+    }
     
     if([postArray count] > 0)
     {
@@ -136,12 +145,12 @@
         
     }
     [refreshControl endRefreshing];
-
+    
 }
 -(void) streamsFailed
 {
     [refreshControl endRefreshing];
-
+    
 }
 
 #pragma mark -
@@ -176,7 +185,7 @@
     
     
     return cell;
-
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -221,7 +230,7 @@
     [cell.contentView addSubview:upVote];
     
     [self addDescription:cell withDetails:postDetailsObject];
-
+    
     
     
 }
@@ -234,8 +243,46 @@
     
     //Description
     UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 55)];
-    [description setText:postDetailsObject.content];
-    [description setTextAlignment:NSTextAlignmentRight];
+    
+    NSString *input = @"test teste tetste \n::db1kj vf v f::\n test teste tte +\n::db2::\n+\n::db3::\n testette";
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:input attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    
+    do{
+        
+        NSArray *myArray = [regex matchesInString:attributedString.string options:0 range:NSMakeRange(0, [attributedString.string length])] ;
+        if(myArray.count > 0)
+        {
+            NSTextCheckingResult *match =  [myArray firstObject];
+            NSRange matchRange = [match rangeAtIndex:1];
+            NSLog(@"%@", [input substringWithRange:matchRange]);
+            
+            UIImage  *image = [photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(20, 20)];
+            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+            textAttachment.image = image;
+            
+            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+            [manager downloadImageWithURL:[NSURL URLWithString:@"https://test-kl-tmp.s3.amazonaws.com/uploads/image/source/5524da8a6639610003080000/canberra_hero_image.jpg"] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                textAttachment.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(20, 20)];
+                [description setNeedsDisplay];
+            }];
+            
+            NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
+        }
+        else
+        {
+            break;
+        }
+        
+    }while (1);
+    //This regex captures all items between []
+    
+    [description setAttributedText:attributedString];
+    [description setTextAlignment:NSTextAlignmentLeft];
     [description setFont:[UIFont systemFontOfSize:12]];
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
@@ -260,7 +307,7 @@
             
             if(x >= 140)
                 break;
-        
+            
         }
         yPosition += 15;
     }
@@ -297,4 +344,5 @@
     }
     
 }
+
 @end

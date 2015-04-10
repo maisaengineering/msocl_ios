@@ -50,7 +50,7 @@
      }
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         [self.delegate handleConnectionFailure:[NSDictionary dictionaryWithObjectsAndKeys:[postData objectForKey:@"command"],@"command", nil]];
+         [self.delegate handleConnectionFailure:[NSDictionary dictionaryWithObjectsAndKeys:[userInfo objectForKey:@"command"],@"command", nil]];
          
      }];
     [operation start];

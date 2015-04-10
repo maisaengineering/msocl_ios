@@ -14,12 +14,12 @@
 @synthesize delegate;
 -(id)init{
     
-        if (self=[super init]) {
-            //initialize the variables
-            apiConnector=[[APIConnector alloc] init];
-            apiConnector.delegate = self;
-        }
-        return self;
+    if (self=[super init]) {
+        //initialize the variables
+        apiConnector=[[APIConnector alloc] init];
+        apiConnector.delegate = self;
+    }
+    return self;
 }
 
 #pragma mark check Internet Connectivity
@@ -75,7 +75,7 @@
     {
         [self connectionSuccessUploadPostImages:recievedDict];
     }
-    else if([command isEqualToString:@"upload_multimedia"])
+    else if([command isEqualToString:@"upload_Profile_Image"])
     {
         [self connectionSuccessUploadProfileImages:recievedDict];
     }
@@ -142,7 +142,7 @@
     }
 }
 #pragma mark -
-#pragma mark Connection Success Handlers 
+#pragma mark Connection Success Handlers
 -(void)connectionSuccessGetAccessTokens:(NSDictionary *)respDict
 {
     NSMutableArray *tokens = [[NSMutableArray alloc] init];
@@ -157,7 +157,7 @@
     }
     
     [tokens addObject:token];
-
+    
     [self.delegate didReceiveTokens:tokens];
 }
 -(void)connectionSuccessGetPromptImages:(NSDictionary *)respDict
@@ -167,22 +167,22 @@
     if ([stringStatus1 isEqualToString:@"200"])
     {
         [self.delegate didReceivePromptImages:[respDict objectForKey:@"body"]];
-
+        
     }
     
     else
     {
         [self.delegate fetchingPromptImagesFailedWithError];
-
+        
     }
-
+    
 }
 -(void)connectionSuccessUploadPostImages:(NSDictionary *)respDict
 {
     NSDictionary *userInfo = [respDict objectForKey:@"userInfo"];
     NSDictionary *response = [respDict objectForKey:@"response"];
     NSString *identifier = [userInfo objectForKey:@"identifier"];
-
+    
     
     NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
     NSString *stringStatus1 = [validResponseStatus stringValue];
@@ -303,7 +303,7 @@
     {
         NSArray *arrayPostDetails = [[respDict objectForKey:@"body"] objectForKey:@"posts"];
         NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
-
+        
         for(NSDictionary *postDict in arrayPostDetails)
         {
             PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];

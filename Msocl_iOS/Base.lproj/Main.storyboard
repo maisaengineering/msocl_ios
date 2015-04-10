@@ -208,7 +208,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gor-D4-zcj">
-                                <rect key="frame" x="40" y="139" width="240" height="331"/>
+                                <rect key="frame" x="40" y="80" width="240" height="419"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Firstname" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGZ-36-8Wb">
                                         <rect key="frame" x="0.0" y="116" width="115" height="35"/>
@@ -267,7 +267,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnx-GZ-giW">
-                                        <rect key="frame" x="0.0" y="293" width="240" height="30"/>
+                                        <rect key="frame" x="0.0" y="371" width="240" height="30"/>
                                         <state key="normal" title="Sign Up">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -278,6 +278,22 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9vN-ph-kEP">
                                         <rect key="frame" x="80" y="7" width="79" height="64"/>
                                     </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Postal code" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LYp-85-g5c">
+                                        <rect key="frame" x="0.0" y="324" width="240" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="1A5-jJ-XHf" id="cVi-5n-rcA"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Phone number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pHb-IA-w36">
+                                        <rect key="frame" x="0.0" y="283" width="240" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="1A5-jJ-XHf" id="TTf-B7-tfq"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -292,6 +308,8 @@
                         <outlet property="txt_firstName" destination="tGZ-36-8Wb" id="tPQ-DZ-Fu0"/>
                         <outlet property="txt_lastname" destination="UhB-re-4Dz" id="10O-A2-wEz"/>
                         <outlet property="txt_password" destination="u8u-cN-ih1" id="48x-K6-iH9"/>
+                        <outlet property="txt_phno" destination="pHb-IA-w36" id="0wq-aO-lak"/>
+                        <outlet property="txt_postal_code" destination="LYp-85-g5c" id="n2U-Kc-KDe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypO-b5-kB1" userLabel="First Responder" sceneMemberID="firstResponder"/>

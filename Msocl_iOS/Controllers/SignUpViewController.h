@@ -16,7 +16,7 @@
 UIPopoverControllerDelegate>
 {
     UIImagePickerController *imagePicker;
-
+    
 }
 
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;
@@ -28,6 +28,9 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_password;
 @property (nonatomic, strong) IBOutlet UITextField *txt_confirmPassword;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImage;
+@property (nonatomic, strong) IBOutlet UITextField *txt_postal_code;
+@property (nonatomic, strong) IBOutlet UITextField *txt_phno;
+
 
 -(IBAction)signupClicked:(id)sender;
 -(IBAction)chosePhoto:(id)sender;
