@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import "PromptImages.h"
 #import "StringConstants.h"
+#import "Flurry.h"
 
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
