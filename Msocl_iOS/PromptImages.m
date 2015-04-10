@@ -9,6 +9,7 @@
 #import "PromptImages.h"
 #import "StringConstants.h"
 #import "Webservices.h"
+#import "ModelManager.h"
 
 @implementation PromptImages
 static PromptImages *romptImagesObject = nil;
@@ -86,7 +87,10 @@ static PromptImages *romptImagesObject = nil;
 #pragma mark Groups
 -(void)getAllGroups
 {
-    NSDictionary* postData = @{@"command": @"all"};
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+
+    NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token};
     NSDictionary *userInfo = @{@"command": @"GetAllGroups"};
     
     NSString *urlAsString = [NSString stringWithFormat:@"%@groups",BASE_URL];

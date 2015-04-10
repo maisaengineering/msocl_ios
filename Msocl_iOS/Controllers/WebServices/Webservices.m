@@ -99,11 +99,14 @@
     {
         [self connectionSuccessGetStreams:responseDict];
     }
+    else if([command isEqualToString:@"ShowPost"])
+    {
+        [self connectionSuccessGetShowPost:responseDict];
+    }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
-    NSDictionary *userInfo = [recievedDict objectForKey:@"userInfo"];
-    NSString *command = [userInfo objectForKey:@"command"];
+    NSString *command = [recievedDict objectForKey:@"command"];
     if([command isEqualToString:@"GetAccessToken"])
     {
         [self.delegate fetchingTokensFailedWithError];
@@ -116,7 +119,7 @@
     {
         [self.delegate uploadImageFailed];
     }
-    else if([command isEqualToString:@"upload_multimedia"])
+    else if([command isEqualToString:@"upload_Profile_Image"])
     {
         [self.delegate profileImageUploadFailed];
     }
@@ -140,6 +143,11 @@
     {
         [self.delegate streamsFailed];
     }
+    else if([command isEqualToString:@"ShowPost"])
+    {
+        [self.delegate showPostFailed];
+    }
+
 }
 #pragma mark -
 #pragma mark Connection Success Handlers
@@ -184,7 +192,7 @@
     NSString *identifier = [userInfo objectForKey:@"identifier"];
     
     
-    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSNumber *validResponseStatus = [response valueForKey:@"status"];
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
@@ -318,6 +326,33 @@
     else
     {
         [self.delegate streamsFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessGetShowPost:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        NSArray *arrayPostDetails = [[respDict objectForKey:@"body"] objectForKey:@"posts"];
+        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+        
+        for(NSDictionary *postDict in arrayPostDetails)
+        {
+            PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];
+            [arrayOfpostDetailsObjects addObject:postObject];
+        }
+        [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"posts"];
+        [self.delegate didReceiveShowPost:dictCopty];
+        
+    }
+    
+    else
+    {
+        [self.delegate showPostFailed];
         
     }
     

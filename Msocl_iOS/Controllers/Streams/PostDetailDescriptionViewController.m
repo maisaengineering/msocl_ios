@@ -1,12 +1,12 @@
 //
-//  StreamDisplayView.m
+//  PostDetailDescriptionViewController.m
 //  Msocl_iOS
 //
-//  Created by Maisa Solutions on 4/8/15.
+//  Created by Maisa Solutions on 4/10/15.
 //  Copyright (c) 2015 Maisa Solutions. All rights reserved.
 //
 
-#import "StreamDisplayView.h"
+#import "PostDetailDescriptionViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 #import "StringConstants.h"
@@ -15,144 +15,96 @@
 #import "ModelManager.h"
 #import "PostDetails.h"
 #import "SDWebImageManager.h"
-@implementation StreamDisplayView
+
+@implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
     ProfileDateUtils *profileDateUtils;
-    UIRefreshControl *refreshControl;
-    BOOL isMoreAvailabel;
-    BOOL isPrevious;
     ModelManager *sharedModel;
     
     Webservices *webServices;
-    
-    NSNumber *feedCount;
-    NSNumber *postCount;
-    BOOL bProcessing;
-    BOOL isDragging;
-    
 }
 @synthesize storiesArray;
+@synthesize postID;
 @synthesize streamTableView;
-@synthesize delegate;
-@synthesize profileID;
-@synthesize isMostRecent;
-@synthesize isFollowing;
-@synthesize timeStamp;
 
-- (id)initWithFrame:(CGRect)frame
+-(void)viewDidLoad
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        
-        [self baseInit];
-    }
-    return self;
-}
--(void)resetData
-{
-    postCount = 0;
-    feedCount = 0;
-    timeStamp = @"";
-}
--(void)baseInit
-{
+    [super viewDidLoad];
+    
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     
     photoUtils = [ProfilePhotoUtils alloc];
     profileDateUtils = [ProfileDateUtils alloc];
-    [self setBackgroundColor:[UIColor clearColor]];
     sharedModel   = [ModelManager sharedModel];
     
+    webServices = [[Webservices alloc] init];
+    webServices.delegate = self;
+    
+    
+    //Upvote
+    UIButton *follow = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [follow setTitle:@"Follow this post" forState:UIControlStateNormal];
+    [follow.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [follow setFrame:CGRectMake(0, 64, 320, 40)];
+    [self.view addSubview:follow];
+
+    
     storiesArray = [[NSMutableArray alloc] init];
-    streamTableView = [[UITableView alloc] initWithFrame:self.bounds];
+    streamTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, follow.frame.size.height+follow.frame.origin.y, 320, Deviceheight-(follow.frame.size.height+follow.frame.origin.y + 40))];
     streamTableView.delegate = self;
     streamTableView.dataSource = self;
     streamTableView.tableFooterView = nil;
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
     [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self addSubview:streamTableView];
+    [self.view addSubview:streamTableView];
     
-    refreshControl = [[UIRefreshControl alloc] init];
-    // refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-    refreshControl.backgroundColor= [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
+    self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 40)];
+    [self.view addSubview:self.commentView];
+    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 250, 40)];
+    [self.txt_comment setText:@"Add comment"];
+    self.txt_comment.delegate = self;
+    [self.commentView addSubview:self.txt_comment];
+    //Upvote
+    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [commentBtn setTitle:@"Comment" forState:UIControlStateNormal];
+    [commentBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [commentBtn setFrame:CGRectMake(250, 0, 70, 40)];
+    [commentBtn addTarget:self action:@selector(commentClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.commentView addSubview:commentBtn];
     
-    [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
-    [streamTableView addSubview:refreshControl];
+    [self.view addSubview:self.commentView];
+    
 }
--(void)handleRefresh:(id)sender
+-(void)viewWillAppear:(BOOL)animated
 {
-    //    UIRefreshControl *refresh = sender;
-    //     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
-    if (bProcessing) return;
-    // Released above the header
-    [self resetData];
-    
-    [self performSelectorInBackground:@selector(callStreamsApi:) withObject:@"next"];
-    
+    [super viewWillAppear:YES];
+    [self callShowPostApi];
 }
-
 #pragma mark -
 #pragma mark API calls to get Stream data
--(void)callStreamsApi:(NSString *)step
+-(void)callShowPostApi
 {
-    if(bProcessing)
-        return;
-    if(!bProcessing)
-    {
-        bProcessing = YES;
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSDictionary* postData = @{@"command": @"show",@"access_token": token.access_token};
+    NSDictionary *userInfo = @{@"command": @"ShowPost"};
         
-        
-        AccessToken* token = sharedModel.accessToken;
-        NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token};
-        NSDictionary *userInfo = @{@"command": @"GetStreams"};
-        
-        NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+        NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postID];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-        
-        
-    }
 }
--(void) didReceiveStreams:(NSDictionary *)recievedDict
+-(void) didReceiveShowPost:(NSDictionary *)recievedDict
 {
-    bProcessing = NO;
-
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
-    
-    if([timeStamp length] == 0)
-    {
-        [self.storiesArray removeAllObjects];
-    }
-    
-    if([postArray count] > 0)
-    {
-        
-        if([storiesArray count] > 0)
-        {
-            
-            [storiesArray addObjectsFromArray:postArray];
-            
-        }
-        else
-        {
-            storiesArray = [postArray mutableCopy];
-        }
-        
-        NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:storiesArray];
-        storiesArray = [orderedSet.array mutableCopy];
-        
-        [streamTableView reloadData];
-        
-    }
-    [refreshControl endRefreshing];
+    [storiesArray removeAllObjects];
+    [storiesArray addObjectsFromArray:postArray];
+    [streamTableView reloadData];
     
 }
--(void) streamsFailed
+-(void) showPostFailed
 {
-    bProcessing = NO;
-    [refreshControl endRefreshing];
     
 }
 
@@ -192,7 +144,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate tableDidSelect:(int)indexPath.row];
+    
 }
 -(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
@@ -248,8 +200,9 @@
     //Description
     UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 55)];
     
+    NSString *input = @"test teste tetste \n::db1kj vf v f::\n test teste tte +\n::db2::\n+\n::db3::\n testette";
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:input attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -261,14 +214,14 @@
         {
             NSTextCheckingResult *match =  [myArray firstObject];
             NSRange matchRange = [match rangeAtIndex:1];
-            NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
+            NSLog(@"%@", [input substringWithRange:matchRange]);
             
             UIImage  *image = [photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(20, 20)];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             textAttachment.image = image;
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
-            [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            [manager downloadImageWithURL:[NSURL URLWithString:@"https://test-kl-tmp.s3.amazonaws.com/uploads/image/source/5524da8a6639610003080000/canberra_hero_image.jpg"] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 textAttachment.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(20, 20)];
                 [description setNeedsDisplay];
             }];
@@ -347,5 +300,15 @@
     }
     
 }
+
+-(void)commentClicked:(id)sender
+{
+    
+}
+-(void)follow:(id)sender
+{
+    
+}
+
 
 @end

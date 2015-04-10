@@ -86,10 +86,10 @@
     sharedModel.accessToken = [tokens objectAtIndex:0];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
-    [self performSegueWithIdentifier: @"OnBoarding" sender: self];
-    else
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
-        
+    else
+        [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+    
 }
 
 - (void)fetchingTokensFailedWithError

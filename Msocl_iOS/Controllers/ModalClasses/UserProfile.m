@@ -9,13 +9,10 @@
 #import "UserProfile.h"
 
 @implementation UserProfile
-@synthesize auth_token;
 @synthesize uid;
 @synthesize fname;
-@synthesize mname;
 @synthesize lname;
 @synthesize email;
-@synthesize onboarding;
-@synthesize country_code;
-@synthesize isKidsLinkPersonality;
+@synthesize post_code;
+@synthesize image;
 @end

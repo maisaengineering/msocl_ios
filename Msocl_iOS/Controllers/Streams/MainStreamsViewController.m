@@ -9,10 +9,13 @@
 #import "MainStreamsViewController.h"
 #import "ModelManager.h"
 #import "LoginViewController.h"
+#import "PostDetailDescriptionViewController.h"
+#import "PostDetails.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *streamDisplay;
     ModelManager *modelManager;
+    NSString *selectedPostId;
     
 }
 -(void)viewDidLoad
@@ -37,8 +40,22 @@
 #pragma mark Call backs from stream display
 - (void)tableDidSelect:(int)index
 {
-    
+    if(!streamDisplay.hidden)
+    {
+        [self performSegueWithIdentifier: @"PostSeague" sender: self];
+        PostDetails *postObject = [streamDisplay.storiesArray objectAtIndex:index];
+        selectedPostId = postObject.uid;
+    }
 }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"PostSeague"])
+    {
+        PostDetailDescriptionViewController *destViewController = segue.destinationViewController;
+        destViewController.postID = selectedPostId;
+    }
+}
+
 
 -(IBAction)addClicked:(id)sender
 {

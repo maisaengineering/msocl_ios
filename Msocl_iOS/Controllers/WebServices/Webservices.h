@@ -29,6 +29,8 @@
 -(void) streamsFailed;
 -(void) didReceiveTokens:(NSArray *)tokens;
 -(void) fetchingTokensFailedWithError;
+-(void) didReceiveShowPost:(NSDictionary *)recievedDict;
+-(void) showPostFailed;
 @end
 
 

@@ -346,7 +346,7 @@
     //It used to identify the attched image when sending to srever
     NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
     image.accessibilityIdentifier = identifier;
- //   [self UploadImage:image];
+    [self UploadImage:image];
     
     image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(30, 30)];
     NSMutableAttributedString *attributedString = [textView.attributedText mutableCopy];
@@ -503,16 +503,14 @@
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
-    UserProfile *_userProfile = sharedModel.userProfile;
     
     //build an info object and convert to json
     NSDictionary* postData = @{@"access_token": token.access_token,
-                               @"auth_token": _userProfile.auth_token,
-                               @"command": @"upload_to_s3",
+                               @"command": @"s3upload",
                                @"body": newImageDetails};
     NSDictionary *userInfo = @{@"command": @"upload_to_s3",@"identifier":imageOrg.accessibilityIdentifier};
     
-    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
 
@@ -521,7 +519,7 @@
 {
     uploadingImages--;
     NSDictionary *responseDict = [notifiDict objectForKey:@"response"];
-    [imagesIdDict setObject:[responseDict objectForKey:@"id"] forKey:[notifiDict objectForKey:@"identifier"]];
+    [imagesIdDict setObject:[responseDict objectForKey:@"key"] forKey:[notifiDict objectForKey:@"identifier"]];
     if(uploadingImages == 0 && isPostClicked)
     {
         isPostClicked = NO;
@@ -564,7 +562,7 @@
         [viw removeFromSuperview];
     [cell.textLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
     cell.textLabel.text = [[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"uid"]])
+    if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     else
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -576,12 +574,12 @@
     if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
-        [selectedtagsArray removeObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"uid"]];
+        [selectedtagsArray removeObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     }
     else
     {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [selectedtagsArray addObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"uid"]];
+        [selectedtagsArray addObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     }
     [tagsTableView beginUpdates];
     [tagsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
@@ -620,7 +618,7 @@
     
     UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                                           @"Post as public", @"Post as private", nil];
-    addImageActionSheet.tag = 1;
+    addImageActionSheet.tag = 2;
     [addImageActionSheet setDelegate:self];
     [addImageActionSheet showInView:[UIApplication sharedApplication].keyWindow];
     
@@ -652,20 +650,20 @@
     
     //Text
     NSString *formatedDesc = [self formatStringForServer:textView.attributedText];
-    [postDetails setObject:formatedDesc forKey:@"additional_text"];
+    [postDetails setObject:formatedDesc forKey:@"content"];
 
     //Image Ids
-    [postDetails setObject:[imagesIdDict allValues] forKey:@"imageIds"];
+    [postDetails setObject:[imagesIdDict allValues] forKey:@"img_keys"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
  
-    NSString *command = @"create_post";
+    NSString *command = @"create";
     NSDictionary* postData = @{@"access_token": token.access_token,
                                @"command": command,
                                @"body": postDetails};
-    NSDictionary *userInfo = @{@"command": @"create_post"};
-    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+    NSDictionary *userInfo = @{@"command": @"createPost"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
@@ -693,9 +691,6 @@
     //for each attributed string replace with kl_id
     NSMutableAttributedString *newAttrString = [stringToFormat mutableCopy];
     
-    //first replace our special chars just in case
-    [[newAttrString mutableString] replaceOccurrencesOfString:@"::" withString:@"||" options:NSCaseInsensitiveSearch range:NSMakeRange(0, newAttrString.string.length)];
-    
     [newAttrString beginEditing];
     
     [newAttrString enumerateAttributesInRange:NSMakeRange(0, newAttrString.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:
@@ -707,7 +702,7 @@
          if(textAttachment != nil)
          {
              NSString *identifier = textAttachment.image.accessibilityIdentifier;
-             [[newAttrString mutableString] replaceCharactersInRange:attrRange withString:identifier];
+             [[newAttrString mutableString] replaceCharactersInRange:attrRange withString:[NSString stringWithFormat:@"::%@::",[imagesIdDict objectForKey:identifier]]];
          }
          
      }];

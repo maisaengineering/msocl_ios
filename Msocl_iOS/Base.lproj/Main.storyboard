@@ -112,6 +112,7 @@
                     <connections>
                         <segue destination="TdL-Fm-sQV" kind="modal" identifier="AddPostsSegue" id="qU5-jb-Cet"/>
                         <segue destination="n8D-mp-AZb" kind="push" identifier="LoginSeague" id="hpm-4X-7SC"/>
+                        <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="TSv-V5-Dr2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pif-PM-zA7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -315,6 +316,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypO-b5-kB1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="923" y="1173"/>
+        </scene>
+        <!--Socl-->
+        <scene sceneID="gXa-Jy-hXv">
+            <objects>
+                <viewController storyboardIdentifier="PostDetailDescriptionViewController" id="AU9-EA-d8R" customClass="PostDetailDescriptionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rsk-wy-wIA"/>
+                        <viewControllerLayoutGuide type="bottom" id="kW4-fg-hs9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OaQ-mb-sez">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Socl" id="wZw-f1-8db"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m5B-ZP-otY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="750" y="1835"/>
         </scene>
         <!--Add Post View Controller-->
         <scene sceneID="Mjk-Dq-2BD">

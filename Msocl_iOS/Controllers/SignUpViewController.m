@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "ProfilePhotoUtils.h"
 #import "Base64.h"
+#import "PromptImages.h"
 @implementation SignUpViewController
 {
     AppDelegate *appdelegate;
@@ -108,6 +109,8 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
+    [[ModelManager sharedModel] setUserDetails:responseDict];
+    [[PromptImages sharedInstance] getAllGroups];
     [appdelegate showOrhideIndicator:NO];
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
@@ -285,7 +288,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
     profileImage.image = image;
-    //[self UploadImage:image];
+    [self UploadImage:image];
 }
 
 

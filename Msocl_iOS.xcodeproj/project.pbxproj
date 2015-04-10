@@ -25,6 +25,7 @@
 		7F5DEFBC1AD7C50A00F2C60A /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAA1AD7C50A00F2C60A /* UIImageView+HighlightedWebCache.m */; };
 		7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAC1AD7C50A00F2C60A /* UIImageView+WebCache.m */; };
 		7F5DEFBE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m */; };
+		7F5DEFC11AD7CF0600F2C60A /* PostDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFC01AD7CF0600F2C60A /* PostDetailDescriptionViewController.m */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -138,6 +139,8 @@
 		7F5DEFAC1AD7C50A00F2C60A /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		7F5DEFAD1AD7C50A00F2C60A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		7F5DEFAE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		7F5DEFBF1AD7CF0600F2C60A /* PostDetailDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailDescriptionViewController.h; sourceTree = "<group>"; };
+		7F5DEFC01AD7CF0600F2C60A /* PostDetailDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailDescriptionViewController.m; sourceTree = "<group>"; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -422,6 +425,8 @@
 				7F80DE941AD6AB8000EA6D1F /* MainStreamsViewController.m */,
 				7F80DE951AD6AB8000EA6D1F /* StreamDisplayView.h */,
 				7F80DE961AD6AB8000EA6D1F /* StreamDisplayView.m */,
+				7F5DEFBF1AD7CF0600F2C60A /* PostDetailDescriptionViewController.h */,
+				7F5DEFC01AD7CF0600F2C60A /* PostDetailDescriptionViewController.m */,
 			);
 			path = Streams;
 			sourceTree = "<group>";
@@ -802,6 +807,7 @@
 				7F5DEFB81AD7C50A00F2C60A /* UIButton+WebCache.m in Sources */,
 				7F83BC671AD14CEF008DFD8B /* UIRefreshControl+AFNetworking.m in Sources */,
 				7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */,
+				7F5DEFC11AD7CF0600F2C60A /* PostDetailDescriptionViewController.m in Sources */,
 				7F83BC661AD14CEF008DFD8B /* UIProgressView+AFNetworking.m in Sources */,
 				7F5DEFB41AD7C50A00F2C60A /* SDWebImageDownloader.m in Sources */,
 				7F80DE871AD6AAF700EA6D1F /* UserProfile.m in Sources */,

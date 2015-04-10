@@ -10,7 +10,7 @@
 #import "ModelManager.h"
 #import "StringConstants.h"
 #import "AppDelegate.h"
-
+#import "PromptImages.h"
 @implementation LoginViewController
 {
     AppDelegate *appdelegate;
@@ -81,8 +81,8 @@
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
-    
+    [[ModelManager sharedModel] setUserDetails:responseDict];
+    [[PromptImages sharedInstance] getAllGroups];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)loginFailed

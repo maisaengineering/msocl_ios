@@ -35,9 +35,28 @@
 {
     accessToken         = NULL;
     
-    
+    userProfile = NULL;
 }
-
+-(void)setUserDetails:(NSDictionary *)detailsDict
+{
+    userProfile = [[UserProfile alloc] init];
+   
+        for (NSString *key in detailsDict.allKeys) {
+                if ([key isEqualToString:@"uid"]) {
+                    userProfile.uid=[detailsDict objectForKey:key];
+                }
+                else if ([key isEqualToString:@"fname"]) {
+                    userProfile.fname=[detailsDict objectForKey:key];
+                }
+                else if ([key isEqualToString:@"lname"]) {
+                    userProfile.lname = [detailsDict objectForKey:key];
+                }
+                else if ([key isEqualToString:@"photo"]) {
+                    userProfile.image = [detailsDict objectForKey:key];
+                }
+                
+            }
+}
 
 
 @end
