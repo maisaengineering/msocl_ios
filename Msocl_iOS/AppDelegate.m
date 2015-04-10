@@ -11,6 +11,7 @@
 #import "PromptImages.h"
 #import "StringConstants.h"
 #import "Flurry.h"
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
@@ -21,9 +22,35 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    [Parse setApplicationId:PARSE_APPLICATION_KEY
+                  clientKey:PARSE_CLIENT_KEY];
+    
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
 
     return YES;
+}
+
+//If the registration is successful, the callback method is the below one
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    [currentInstallation saveInBackground];
+}
+
+//When a push notification is received while the application is not in the foreground, it is displayed in the iOS Notification Center.
+//However, if the notification is received while the app is active, it is up to the app to handle it. To do so, we can implement this method
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [PFPush handlePush:userInfo];
+}
+
+//Handles the fail callback when registering Parse for remote notifications
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    DebugLog(@"Failed to get token for Remote notifications, error: %@", error);
 }
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application

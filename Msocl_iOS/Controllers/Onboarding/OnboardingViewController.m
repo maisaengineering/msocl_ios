@@ -121,7 +121,7 @@
 }
 -(void)loadLocalImages
 {
-    imageArray = @[[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_0.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_1.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_2.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_3.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil]];
+    imageArray = @[[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_0.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_1.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_2.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_3.png",@"name",[NSNumber numberWithBool:YES],@"perm_notification",nil]];
 }
 -(void)addScrollviewWithLocalImages
 {
@@ -389,6 +389,7 @@
 {
     if([sender tag] == 1)
     {
+        NSLog(@"%d",[[[imageArray objectAtIndex:imageID] objectForKey:@"perm_notification"] boolValue]);
         if ([[[imageArray objectAtIndex:imageID] objectForKey:@"perm_notification"] boolValue])
         {
             [self askForNotificationPermission];

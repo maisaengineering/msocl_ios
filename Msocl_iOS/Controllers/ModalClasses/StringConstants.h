@@ -23,6 +23,10 @@
 //FLURRY
 #define FLURRY_KEY       @"NXH4VDMB242THB6Y48CT"
 
+// PARSE
+#define PARSE_APPLICATION_KEY   @"7aRj7WVidMmPN5RpMzzUXVbCyG3edtVozRK2kBKu"
+#define PARSE_CLIENT_KEY        @"09oD7RgPSdqY7zwkDPNnGeDcq3dQu5T3HCcJSuyg"
+
 //Device Specifcs
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
 #define Deviceheight  [UIScreen mainScreen].bounds.size.height
