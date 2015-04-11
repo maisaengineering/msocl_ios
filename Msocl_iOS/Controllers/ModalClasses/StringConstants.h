@@ -10,18 +10,18 @@
 #define Msocl_iOS_StringConstants_h
 
 //APP VERSION
-#define APP_VERSION     @"1.3.0"
+#define APP_VERSION             @"1.3.0"
 
 // Dev Credentials
-#define CLIENT_ID        @"3e0786a2f258e6f9b08250dbd7f35010480988e0d3d1ef373b79e07884be79f9"
-#define CLIENT_SECRET    @"813c95cc2eb6c0cf4f49d30d0add0c6fc3ea82863d30507beb6733c0e643927c"
+#define CLIENT_ID               @"3e0786a2f258e6f9b08250dbd7f35010480988e0d3d1ef373b79e07884be79f9"
+#define CLIENT_SECRET           @"813c95cc2eb6c0cf4f49d30d0add0c6fc3ea82863d30507beb6733c0e643927c"
 
 //AVIARY
 #define kAFAviaryAPIKey         @"e9d5541aa86c51c9"
 #define kAFAviarySecret         @"ea86727d549f068d"
 
 //FLURRY
-#define FLURRY_KEY       @"NXH4VDMB242THB6Y48CT"
+#define FLURRY_KEY              @"NXH4VDMB242THB6Y48CT"
 
 // PARSE
 #define PARSE_APPLICATION_KEY   @"7aRj7WVidMmPN5RpMzzUXVbCyG3edtVozRK2kBKu"
@@ -34,13 +34,16 @@
 
 
 //API URLS
-#define kBASE_URL        @"https://msocl.herokuapp.com"
-#define BASE_URL         @"https://msocl.herokuapp.com/api/"
+#define kBASE_URL               @"https://msocl.herokuapp.com"
+#define BASE_URL                @"https://msocl.herokuapp.com/api/"
+
+// FACEBOOK URL
+#define FACEBOOK_URL                @"https://msocl.herokuapp.com/users/auth/facebook"
 
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."
 
-#define PROJECT_NAME     @"Socl"
+#define PROJECT_NAME            @"Socl"
 
 #ifdef DEBUG
 #define DebugLog( s, ... ) NSLog( @"<%p %@:%d (%@)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  NSStringFromSelector(_cmd), [NSString stringWithFormat:(s), ##__VA_ARGS__] )

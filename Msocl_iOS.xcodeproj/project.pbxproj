@@ -20,6 +20,7 @@
 		253C89551AD804C9002477A8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89541AD804C9002477A8 /* Social.framework */; };
 		25F51BB81AD8F08B00369764 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F51BB61AD8F08B00369764 /* Bolts.framework */; };
 		25F51BB91AD8F08B00369764 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F51BB71AD8F08B00369764 /* Parse.framework */; };
+		25F51BBC1AD8F1F200369764 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F51BBB1AD8F1F200369764 /* WebViewController.m */; };
 		7F5DEFAF1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF8F1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m */; };
 		7F5DEFB01AD7C50A00F2C60A /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF911AD7C50A00F2C60A /* NSData+ImageContentType.m */; };
 		7F5DEFB11AD7C50A00F2C60A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF931AD7C50A00F2C60A /* SDImageCache.m */; };
@@ -128,6 +129,8 @@
 		253C89541AD804C9002477A8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		25F51BB61AD8F08B00369764 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		25F51BB71AD8F08B00369764 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		25F51BBA1AD8F1F200369764 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		25F51BBB1AD8F1F200369764 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		7F5DEF8E1AD7C50A00F2C60A /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		7F5DEF8F1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		7F5DEF901AD7C50A00F2C60A /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -408,6 +411,8 @@
 				7F7E55C71AD3F793007070EF /* LoginViewController.m */,
 				7F7E55C91AD3F7A7007070EF /* SignUpViewController.h */,
 				7F7E55CA1AD3F7A7007070EF /* SignUpViewController.m */,
+				25F51BBA1AD8F1F200369764 /* WebViewController.h */,
+				25F51BBB1AD8F1F200369764 /* WebViewController.m */,
 			);
 			name = "Login & Signup";
 			sourceTree = "<group>";
@@ -849,6 +854,7 @@
 				7F83BC621AD14CEF008DFD8B /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				7F7E55CB1AD3F7A7007070EF /* SignUpViewController.m in Sources */,
 				7F5DEFB81AD7C50A00F2C60A /* UIButton+WebCache.m in Sources */,
+				25F51BBC1AD8F1F200369764 /* WebViewController.m in Sources */,
 				7F83BC671AD14CEF008DFD8B /* UIRefreshControl+AFNetworking.m in Sources */,
 				7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */,
 				7F5DEFC11AD7CF0600F2C60A /* PostDetailDescriptionViewController.m in Sources */,

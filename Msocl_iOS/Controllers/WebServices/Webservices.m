@@ -103,6 +103,11 @@
     {
         [self connectionSuccessGetShowPost:responseDict];
     }
+    else if([command isEqualToString:@"externalSignIn"])
+    {
+        [self connectionSuccessExternalSignIn:responseDict];
+    }
+
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -147,6 +152,11 @@
     {
         [self.delegate showPostFailed];
     }
+    else if([command isEqualToString:@"externalSignIn"])
+    {
+        [self.delegate showExternalSignInFailed];
+    }
+
 
 }
 #pragma mark -
@@ -353,6 +363,24 @@
     else
     {
         [self.delegate showPostFailed];
+        
+    }
+    
+}
+
+-(void)connectionSuccessExternalSignIn:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate didReceiveExternalSignIn:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate showExternalSignInFailed];
         
     }
     

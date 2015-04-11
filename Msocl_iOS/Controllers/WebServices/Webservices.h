@@ -31,6 +31,8 @@
 -(void) fetchingTokensFailedWithError;
 -(void) didReceiveShowPost:(NSDictionary *)recievedDict;
 -(void) showPostFailed;
+-(void) didReceiveExternalSignIn:(NSDictionary *)recievedDict;
+-(void) showExternalSignInFailed;
 @end
 
 

@@ -11,6 +11,8 @@
 #import "StringConstants.h"
 #import "AppDelegate.h"
 #import "PromptImages.h"
+#import "WebViewController.h"
+
 @implementation LoginViewController
 {
     AppDelegate *appdelegate;
@@ -81,6 +83,7 @@
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:responseDict];
     [[PromptImages sharedInstance] getAllGroups];
     [self.navigationController popViewControllerAnimated:YES];
@@ -102,6 +105,13 @@
 {
     [self performSegueWithIdentifier: @"SignUpSeague" sender: self];
     
+}
+
+- (IBAction)facebookButtonClikced:(id)sender
+{
+    UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
+    [self.navigationController pushViewController: webViewController animated:YES];
 }
 #pragma mark -
 #pragma mark Textfield methods
