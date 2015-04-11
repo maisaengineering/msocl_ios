@@ -163,6 +163,9 @@
 #pragma mark Connection Success Handlers
 -(void)connectionSuccessGetAccessTokens:(NSDictionary *)respDict
 {
+    [[NSUserDefaults standardUserDefaults] setObject:respDict forKey:@"tokens"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     NSMutableArray *tokens = [[NSMutableArray alloc] init];
     AccessToken *token = [[AccessToken alloc] init];
     

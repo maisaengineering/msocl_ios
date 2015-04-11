@@ -22,7 +22,6 @@
     webServices.delegate = self;
 
     
-    self.navigationItem.hidesBackButton = YES;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     //CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
@@ -43,12 +42,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    if([[ModelManager sharedModel] accessToken] != nil)
+
+    self.navigationItem.hidesBackButton = YES;
+
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
+        [[ModelManager sharedModel] setDetailsFromUserDefaults];
+
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
-            [self performSegueWithIdentifier: @"OnBoarding" sender: self];
-        else
             [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
+        else
+            [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+        
 
     }
     else

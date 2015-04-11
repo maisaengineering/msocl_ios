@@ -85,7 +85,15 @@
     [appdelegate showOrhideIndicator:NO];
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
+    
+   // [[NSUserDefaults standardUserDefaults] setObject:recievedDict forKey:@"userprofile"];
+    
+    NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];
+    [tokenDict setObject:[recievedDict objectForKey:@"access_token"] forKey:@"access_token"];
+    [[NSUserDefaults standardUserDefaults] setObject:tokenDict forKey:@"tokens"];
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [[[ModelManager sharedModel] accessToken] setAccess_token:[recievedDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:recievedDict];
     [[PromptImages sharedInstance] getAllGroups];

@@ -58,5 +58,23 @@
             }
 }
 
-
+-(void)setDetailsFromUserDefaults
+{
+    [self clear];
+    
+    NSDictionary *tokenDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"];
+//    NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"];
+//    [self setUserDetails:userDict];
+    
+    AccessToken *token = [[AccessToken alloc] init];
+    for (NSString *key in tokenDict)
+    {
+        if ([token respondsToSelector:NSSelectorFromString(key)]) {
+            
+            [token setValue:[tokenDict valueForKey:key] forKey:key];
+        }
+    }
+    self.accessToken = token;
+    
+}
 @end

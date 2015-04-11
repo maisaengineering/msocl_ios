@@ -17,4 +17,5 @@
 + (id)sharedModel;
 - (void) clear;
 -(void)setUserDetails:(NSDictionary *)detailsDict;
+-(void)setDetailsFromUserDefaults;
 @end

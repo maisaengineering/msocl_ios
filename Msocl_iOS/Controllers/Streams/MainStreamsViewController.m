@@ -25,15 +25,24 @@
     streamDisplay.delegate = self;
     [self.view addSubview:streamDisplay];
     
+    
+    UIImage *buttonImage = [UIImage imageNamed:@""];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:buttonImage forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, 0, 0);
+    
+    UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = customBarItem;
+
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationItem setHidesBackButton:YES animated:YES];
     
     [streamDisplay resetData];
     [streamDisplay callStreamsApi:@""];
+    
 }
 
 #pragma mark -
@@ -42,9 +51,9 @@
 {
     if(!streamDisplay.hidden)
     {
-        [self performSegueWithIdentifier: @"PostSeague" sender: self];
         PostDetails *postObject = [streamDisplay.storiesArray objectAtIndex:index];
         selectedPostId = postObject.uid;
+        [self performSegueWithIdentifier: @"PostSeague" sender: self];
     }
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
