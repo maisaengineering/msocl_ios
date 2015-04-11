@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		25214C341AD6C23C0084BAC4 /* libFlurry_6.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */; };
 		25214C361AD6C3A20084BAC4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */; };
-		253C89421AD80403002477A8 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89401AD80403002477A8 /* Bolts.framework */; };
-		253C89431AD80403002477A8 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89411AD80403002477A8 /* Parse.framework */; };
 		253C89451AD80473002477A8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89441AD80473002477A8 /* AudioToolbox.framework */; };
 		253C89471AD8047A002477A8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89461AD8047A002477A8 /* CFNetwork.framework */; };
 		253C89491AD8048E002477A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89481AD8048E002477A8 /* CoreLocation.framework */; };
@@ -20,6 +18,8 @@
 		253C89511AD804BA002477A8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89501AD804BA002477A8 /* libsqlite3.dylib */; };
 		253C89531AD804C0002477A8 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89521AD804C0002477A8 /* Accounts.framework */; };
 		253C89551AD804C9002477A8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89541AD804C9002477A8 /* Social.framework */; };
+		25F51BB81AD8F08B00369764 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F51BB61AD8F08B00369764 /* Bolts.framework */; };
+		25F51BB91AD8F08B00369764 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F51BB71AD8F08B00369764 /* Parse.framework */; };
 		7F5DEFAF1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF8F1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m */; };
 		7F5DEFB01AD7C50A00F2C60A /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF911AD7C50A00F2C60A /* NSData+ImageContentType.m */; };
 		7F5DEFB11AD7C50A00F2C60A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF931AD7C50A00F2C60A /* SDImageCache.m */; };
@@ -117,8 +117,6 @@
 		25214C321AD6C23C0084BAC4 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.3.0.a; sourceTree = "<group>"; };
 		25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		253C89401AD80403002477A8 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "../../Downloads/parse-library-1.7.1/Bolts.framework"; sourceTree = "<group>"; };
-		253C89411AD80403002477A8 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "../../Downloads/parse-library-1.7.1/Parse.framework"; sourceTree = "<group>"; };
 		253C89441AD80473002477A8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		253C89461AD8047A002477A8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		253C89481AD8048E002477A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -128,6 +126,8 @@
 		253C89501AD804BA002477A8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		253C89521AD804C0002477A8 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		253C89541AD804C9002477A8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		25F51BB61AD8F08B00369764 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		25F51BB71AD8F08B00369764 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		7F5DEF8E1AD7C50A00F2C60A /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		7F5DEF8F1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		7F5DEF901AD7C50A00F2C60A /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
@@ -278,11 +278,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25F51BB81AD8F08B00369764 /* Bolts.framework in Frameworks */,
 				253C89551AD804C9002477A8 /* Social.framework in Frameworks */,
 				253C89531AD804C0002477A8 /* Accounts.framework in Frameworks */,
 				253C89511AD804BA002477A8 /* libsqlite3.dylib in Frameworks */,
 				253C894F1AD804B1002477A8 /* libz.dylib in Frameworks */,
 				253C894D1AD804A1002477A8 /* Security.framework in Frameworks */,
+				25F51BB91AD8F08B00369764 /* Parse.framework in Frameworks */,
 				253C894B1AD80496002477A8 /* MobileCoreServices.framework in Frameworks */,
 				253C89491AD8048E002477A8 /* CoreLocation.framework in Frameworks */,
 				7F8998F91AD25DCB007E2917 /* CoreGraphics.framework in Frameworks */,
@@ -301,8 +303,6 @@
 				7F8998FB1AD25DDA007E2917 /* CoreText.framework in Frameworks */,
 				7F8998F71AD25DC5007E2917 /* QuartzCore.framework in Frameworks */,
 				7F8998F51AD25DAC007E2917 /* Foundation.framework in Frameworks */,
-				253C89421AD80403002477A8 /* Bolts.framework in Frameworks */,
-				253C89431AD80403002477A8 /* Parse.framework in Frameworks */,
 				7F8998F31AD25DA5007E2917 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -576,6 +576,8 @@
 		7F89990A1AD25EE8007E2917 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25F51BB61AD8F08B00369764 /* Bolts.framework */,
+				25F51BB71AD8F08B00369764 /* Parse.framework */,
 				253C89541AD804C9002477A8 /* Social.framework */,
 				253C89521AD804C0002477A8 /* Accounts.framework */,
 				253C89501AD804BA002477A8 /* libsqlite3.dylib */,
@@ -585,8 +587,6 @@
 				253C89481AD8048E002477A8 /* CoreLocation.framework */,
 				253C89461AD8047A002477A8 /* CFNetwork.framework */,
 				253C89441AD80473002477A8 /* AudioToolbox.framework */,
-				253C89401AD80403002477A8 /* Bolts.framework */,
-				253C89411AD80403002477A8 /* Parse.framework */,
 				25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */,
 				7F8999081AD25E66007E2917 /* StoreKit.framework */,
 				7F8999061AD25E5E007E2917 /* MessageUI.framework */,
@@ -979,6 +979,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
 					"/Users/maisa/Downloads/parse-library-1.7.1",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Msocl_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -1004,6 +1005,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
 					"/Users/maisa/Downloads/parse-library-1.7.1",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Msocl_iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
