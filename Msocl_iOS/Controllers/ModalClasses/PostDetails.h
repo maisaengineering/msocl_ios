@@ -18,6 +18,7 @@
 @property (nonatomic,strong) NSMutableDictionary *images;
 @property (nonatomic,strong) NSMutableArray *commenters;
 @property (nonatomic,strong) NSMutableArray *tags;
+@property (nonatomic,strong) NSMutableArray *comments;
 
 
 - (id)initWithDictionary:(NSDictionary*)response;

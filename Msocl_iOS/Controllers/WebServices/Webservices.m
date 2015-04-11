@@ -347,17 +347,13 @@
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        NSArray *arrayPostDetails = [[respDict objectForKey:@"body"] objectForKey:@"posts"];
-        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+        NSMutableArray *arrayOfpostDetailsObjects=[[NSMutableArray alloc] init];
         
-        for(NSDictionary *postDict in arrayPostDetails)
-        {
-            PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];
-            [arrayOfpostDetailsObjects addObject:postObject];
-        }
-        [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"posts"];
-        [self.delegate didReceiveShowPost:dictCopty];
         
+        PostDetails *postObject = [[PostDetails alloc] initWithDictionary:dictCopty];
+        [arrayOfpostDetailsObjects addObject:postObject];
+        
+        [self.delegate didReceiveShowPost:[NSDictionary dictionaryWithObject:arrayOfpostDetailsObjects forKey:@"posts"]];
     }
     
     else

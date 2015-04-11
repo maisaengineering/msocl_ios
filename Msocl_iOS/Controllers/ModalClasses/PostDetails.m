@@ -18,6 +18,7 @@
 @synthesize tags;
 @synthesize profileImage;
 @synthesize time;
+@synthesize comments;
 
 -(id)initWithDictionary:(NSDictionary *)response{
     
@@ -46,6 +47,9 @@
             }
             else if ([key isEqualToString:@"time"]) {
                 self.time = [response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"comments"]) {
+                self.comments = [response objectForKey:key];
             }
             
         }
