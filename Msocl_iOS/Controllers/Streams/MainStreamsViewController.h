@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "StreamDisplayView.h"
+#import "SlideNavigationController.h"
 
-@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate>
+@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate>
 
 -(IBAction)addClicked:(id)sender;
 @end

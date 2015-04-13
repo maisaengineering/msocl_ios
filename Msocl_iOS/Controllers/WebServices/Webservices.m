@@ -107,6 +107,10 @@
     {
         [self connectionSuccessExternalSignIn:responseDict];
     }
+    else if([command isEqualToString:@"signOut"])
+    {
+        [self connectionSuccessSignOut:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -156,7 +160,10 @@
     {
         [self.delegate showExternalSignInFailed];
     }
-
+    else if([command isEqualToString:@"signOut"])
+    {
+        [self.delegate signOutFailed];
+    }
 
 }
 #pragma mark -
@@ -384,4 +391,22 @@
     }
     
 }
+-(void)connectionSuccessSignOut:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate signOutSccessfull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate signOutFailed];
+        
+    }
+    
+}
+
 @end

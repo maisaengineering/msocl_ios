@@ -62,6 +62,6 @@
 #define EMAIL_PASS_REQUIRED     @"Please enter your email and password."
 #define ALL_FIELDS_REQUIRED     @"All fields are required"
 #define POST_CREATION_FAILED    @"Post creation failed"
-
+#define RELOAD_ON_LOG_OUT       @"TokenCreatedOnLogOut"
 
 #endif

@@ -12,7 +12,8 @@
 #import "StringConstants.h"
 #import "Flurry.h"
 #import <Parse/Parse.h>
-
+#import "SlideNavigationController.h"
+#import "SettingsMenuViewController.h"
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
 @end
@@ -27,6 +28,30 @@
                   clientKey:PARSE_CLIENT_KEY];
     
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    
+    SettingsMenuViewController *leftMenu = (SettingsMenuViewController*)[mainStoryboard
+                                                                 instantiateViewControllerWithIdentifier: @"SettingsMenuViewController"];
+    
+    [SlideNavigationController sharedInstance].leftMenu = leftMenu;
+    [SlideNavigationController sharedInstance].menuRevealAnimationDuration = .18;
+    [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidClose object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSString *menu = note.userInfo[@"menu"];
+        NSLog(@"Closed %@", menu);
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidOpen object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSString *menu = note.userInfo[@"menu"];
+        NSLog(@"Opened %@", menu);
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:SlideNavigationControllerDidReveal object:nil queue:nil usingBlock:^(NSNotification *note) {
+        NSString *menu = note.userInfo[@"menu"];
+        NSLog(@"Revealed %@", menu);
+    }];
+    
 
     return YES;
 }

@@ -53,8 +53,6 @@
             [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
         else
             [self performSegueWithIdentifier: @"OnBoarding" sender: self];
-        
-
     }
     else
     {

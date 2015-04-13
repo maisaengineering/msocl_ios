@@ -294,24 +294,11 @@
     
     if([postDetailsObject.tags count] > 0)
     {
-        UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition, 140, 15)];
-        [cell.contentView addSubview:tagsView];
-        NSArray *tagsArray = postDetailsObject.tags;
-        for(int i=0,x=0; i <tagsArray.count ;i++)
-        {
-            NSString *tagName = tagsArray[i];
-            CGSize size = [tagName sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
-            UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, MIN(size.width, 140 - x) , 15)];
-            [tag setText:tagName];
-            [tag setFont:[UIFont systemFontOfSize:12]];
-            [tag setBackgroundColor:[UIColor lightGrayColor]];
-            [tagsView addSubview:tag];
-            x += tag.frame.size.width + 3;
-            
-            if(x >= 140)
-                break;
-            
-        }
+        UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140 , 15)];
+        [tag setText:[postDetailsObject.tags componentsJoinedByString:@" "]];
+        [tag setFont:[UIFont systemFontOfSize:12]];
+        [tag setBackgroundColor:[UIColor lightGrayColor]];
+        [cell.contentView addSubview:tag];
         yPosition += 15;
     }
     

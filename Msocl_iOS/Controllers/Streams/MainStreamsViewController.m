@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "PostDetailDescriptionViewController.h"
 #import "PostDetails.h"
+#import "SettingsMenuViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *streamDisplay;
@@ -24,15 +25,6 @@
     streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 100, 320, Deviceheight-100)];
     streamDisplay.delegate = self;
     [self.view addSubview:streamDisplay];
-    
-    
-    UIImage *buttonImage = [UIImage imageNamed:@""];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:buttonImage forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 0, 0, 0);
-    
-    UIBarButtonItem *customBarItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = customBarItem;
 
     
 }
@@ -40,11 +32,25 @@
 {
     [super viewWillAppear:YES];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadOnLogOut)
+                                                 name:RELOAD_ON_LOG_OUT
+                                               object:nil];
+    
     [streamDisplay resetData];
     [streamDisplay callStreamsApi:@""];
     
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
+}
+-(void)reloadOnLogOut
+{
+    [streamDisplay resetData];
+    [streamDisplay callStreamsApi:@""];
+}
 #pragma mark -
 #pragma mark Call backs from stream display
 - (void)tableDidSelect:(int)index
@@ -73,4 +79,17 @@
     else
         [self performSegueWithIdentifier: @"LoginSeague" sender: self];
 }
+
+#pragma mark - SlideNavigationController Methods -
+
+- (BOOL)slideNavigationControllerShouldDisplayLeftMenu
+{
+    return YES;
+}
+
+- (BOOL)slideNavigationControllerShouldDisplayRightMenu
+{
+    return NO;
+}
+
 @end
