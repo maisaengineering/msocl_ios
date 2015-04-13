@@ -72,7 +72,7 @@
     streamTableView.tableFooterView = nil;
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
-    [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self addSubview:streamTableView];
     
     refreshControl = [[UIRefreshControl alloc] init];
@@ -160,7 +160,7 @@
 #pragma mark TableViewMethods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150;
+    return 126;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -196,42 +196,42 @@
 }
 -(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
-    float yPosition = 15;
+    float yPosition = 14;
     
-    //Back Ground Image
-    UIImageView *backGroundImage  = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
-    [backGroundImage setBackgroundColor:[UIColor lightGrayColor]];
-    [cell.contentView addSubview:backGroundImage];
     
     //Profile Image
-    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 100, 100)];
-    [profileImage setImageWithURL:[NSURL URLWithString:postDetailsObject.profileImage] placeholderImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 36, 36)];
+    __weak UIImageView *weakSelf = profileImage;
+
+    
+    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.profileImage]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(36,36)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(36, 36)] withRadious:0];
+         
+     }failure:nil];
+
+     
     [cell.contentView addSubview:profileImage];
     
     //Profile name
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(120, yPosition, 140, 21)];
+    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 232, 18)];
     [name setText:postDetailsObject.name];
-    [name setFont:[UIFont systemFontOfSize:16]];
+    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Thick" size:13]];
     [cell.contentView addSubview:name];
     
+    
+    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(288, yPosition, 8, 8)];
+    [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
+    [cell.contentView addSubview:timeIcon];
+
     //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 21)];
+    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(298, yPosition, 20, 8)];
     [time setText:postDetailsObject.time];
-    [time setTextAlignment:NSTextAlignmentRight];
-    [time setText:@"5 min ago"];
-    [time setFont:[UIFont systemFontOfSize:12]];
+    [time setTextAlignment:NSTextAlignmentLeft];
+    [time setText:@"5m"];
+    [time setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
+    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
     [cell.contentView addSubview:time];
-    
-    
-    //Start of Description Text and Upvote
-    yPosition += 21 + 5;
-    
-    //Upvote
-    UIButton *upVote = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [upVote setTitle:@"Up vote" forState:UIControlStateNormal];
-    [upVote.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [upVote setFrame:CGRectMake(260, yPosition, 50, 40)];
-    [cell.contentView addSubview:upVote];
     
     [self addDescription:cell withDetails:postDetailsObject];
     
@@ -240,16 +240,13 @@
 }
 -(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
-    float yPosition = 15;
-    
-    //Start of Description Text
-    yPosition += 21 + 5;
+    float yPosition = 32;
     
     //Description
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 55)];
+    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 232, 54)];
     
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -263,13 +260,15 @@
             NSRange matchRange = [match rangeAtIndex:1];
             NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
             
-            UIImage  *image = [photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(20, 20)];
+            UIImage  *image = [photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(26, 16)];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+
             textAttachment.image = image;
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                textAttachment.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(20, 20)];
+                
+                textAttachment.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(26, 16)];
                 [description setNeedsDisplay];
             }];
             
@@ -286,7 +285,6 @@
     
     [description setAttributedText:attributedString];
     [description setTextAlignment:NSTextAlignmentLeft];
-    [description setFont:[UIFont systemFontOfSize:12]];
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
     
@@ -294,26 +292,18 @@
     
     if([postDetailsObject.tags count] > 0)
     {
-        UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140 , 15)];
+        UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition+2, 232 , 11)];
         [tag setText:[postDetailsObject.tags componentsJoinedByString:@" "]];
-        [tag setFont:[UIFont systemFontOfSize:12]];
-        [tag setBackgroundColor:[UIColor lightGrayColor]];
+        [tag setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+        [tag setTextColor:[UIColor blueColor]];
         [cell.contentView addSubview:tag];
         yPosition += 15;
     }
     
-    //Time
-    UILabel *comments = [[UILabel alloc] initWithFrame:CGRectMake(115, yPosition, 140, 15)];
-    [comments setText:[NSString stringWithFormat:@"Comments(22) Upvotses(21)"]];
-    [comments setFont:[UIFont systemFontOfSize:10]];
-    [cell.contentView addSubview:comments];
-    
-    yPosition += 15;
-    
     if([postDetailsObject.commenters count] > 0)
     {
         NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(115, yPosition, 140, 20)];
+        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, yPosition, 232, 19)];
         [cell.contentView addSubview:commentersView];
         
         int x = 0;
@@ -322,17 +312,57 @@
         {
             
             NSString *url = [commenters objectAtIndex:i];
-            UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 20, 20)];
+            UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 19, 19)];
             [commentersView addSubview:imagVw];
             
-            [imagVw setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
-            x+= 20 + 3;
+            __weak UIImageView *weakSelf = imagVw;
             
-            if(i >= 6)
+            
+            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(19,19)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+             {
+                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(19, 19)] withRadious:0];
+                 
+             }failure:nil];
+            
+
+            x+= 19 + 3;
+            
+            if(i >= 9)
+            {
+                UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 19, 19)];
+                [imagVw setImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+                [commentersView addSubview:imagVw];
+                
+                UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, 19 , 19)];
+                [tag setText:[NSString stringWithFormat:@"+20"]];
+                [tag setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+                [tag setBackgroundColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
+                [imagVw addSubview:tag];
+
                 break;
+            }
         }
     }
     
 }
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
 
 @end

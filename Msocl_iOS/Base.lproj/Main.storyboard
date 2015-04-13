@@ -75,7 +75,7 @@
             </objects>
             <point key="canvasLocation" x="508" y="-210"/>
         </scene>
-        <!--Socl-->
+        <!--M SOCIAL-->
         <scene sceneID="WPi-qf-jqp">
             <objects>
                 <viewController id="pTI-2x-fJr" customClass="MainStreamsViewController" sceneMemberID="viewController">
@@ -87,23 +87,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AI-C3-WBq">
-                                <rect key="frame" x="59" y="69" width="88" height="30"/>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AI-C3-WBq">
+                                <rect key="frame" x="0.0" y="64" width="160" height="37"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <state key="normal" title="Most Recent">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="RecentOrFollowignClicked:" destination="pTI-2x-fJr" eventType="touchUpInside" id="hFd-iM-WqM"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISw-3K-hQX">
-                                <rect key="frame" x="195" y="69" width="66" height="30"/>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ISw-3K-hQX">
+                                <rect key="frame" x="161" y="65" width="160" height="37"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93333333333333335" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <state key="normal" title="Following">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="RecentOrFollowignClicked:" destination="pTI-2x-fJr" eventType="touchUpInside" id="ANX-Gy-MED"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Socl" id="60h-W4-ai0">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="XTs-Qb-feY">
+                    <navigationItem key="navigationItem" title="M SOCIAL" id="60h-W4-ai0">
+                        <barButtonItem key="rightBarButtonItem" image="icon-post-.png" style="plain" id="XTs-Qb-feY">
                             <connections>
                                 <action selector="addClicked:" destination="pTI-2x-fJr" id="JX4-M8-usB"/>
                             </connections>
@@ -438,15 +449,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YzJ-qM-ZRa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-335" y="-401"/>
+            <point key="canvasLocation" x="-302" y="-566"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-post-.png" width="24" height="24"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8rG-1t-Qni"/>
+        <segue reference="Ngw-Gf-AxF"/>
     </inferredMetricsTieBreakers>
 </document>

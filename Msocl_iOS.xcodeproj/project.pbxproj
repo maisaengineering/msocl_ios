@@ -86,6 +86,8 @@
 		7F86E5891ADBCFB00002493F /* SlideNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86E5831ADBCFB00002493F /* SlideNavigationController.m */; };
 		7F86E5911ADBD50E0002493F /* SettingsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F86E5901ADBD50E0002493F /* SettingsMenuViewController.m */; };
 		7F86E5931ADBEAD20002493F /* menu-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86E5921ADBEAD20002493F /* menu-button@2x.png */; };
+		7F86E5951ADBF0A50002493F /* icon-post-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86E5941ADBF0A50002493F /* icon-post-@2x.png */; };
+		7F86E5971ADC06C50002493F /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86E5961ADC06C50002493F /* time@2x.png */; };
 		7F8998F31AD25DA5007E2917 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8998F21AD25DA5007E2917 /* UIKit.framework */; };
 		7F8998F51AD25DAC007E2917 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8998F41AD25DAC007E2917 /* Foundation.framework */; };
 		7F8998F71AD25DC5007E2917 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8998F61AD25DC5007E2917 /* QuartzCore.framework */; };
@@ -268,6 +270,8 @@
 		7F86E58F1ADBD50E0002493F /* SettingsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMenuViewController.h; sourceTree = "<group>"; };
 		7F86E5901ADBD50E0002493F /* SettingsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuViewController.m; sourceTree = "<group>"; };
 		7F86E5921ADBEAD20002493F /* menu-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-button@2x.png"; sourceTree = "<group>"; };
+		7F86E5941ADBF0A50002493F /* icon-post-@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-post-@2x.png"; sourceTree = "<group>"; };
+		7F86E5961ADC06C50002493F /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
 		7F8998F21AD25DA5007E2917 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F8998F41AD25DAC007E2917 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7F8998F61AD25DC5007E2917 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -676,8 +680,10 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F86E5941ADBF0A50002493F /* icon-post-@2x.png */,
 				7F86E5921ADBEAD20002493F /* menu-button@2x.png */,
 				7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */,
+				7F86E5961ADC06C50002493F /* time@2x.png */,
 				7F8999181AD2B1EA007E2917 /* TourImages */,
 			);
 			name = Images;
@@ -851,6 +857,8 @@
 				7F8999251AD2B1F6007E2917 /* tour_4@2x.png in Resources */,
 				7F8999261AD2B1F6007E2917 /* tour_5@2x.png in Resources */,
 				7F86E5931ADBEAD20002493F /* menu-button@2x.png in Resources */,
+				7F86E5951ADBF0A50002493F /* icon-post-@2x.png in Resources */,
+				7F86E5971ADC06C50002493F /* time@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

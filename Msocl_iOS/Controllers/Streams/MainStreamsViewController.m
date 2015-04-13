@@ -14,18 +14,26 @@
 #import "SettingsMenuViewController.h"
 @implementation MainStreamsViewController
 {
-    StreamDisplayView *streamDisplay;
+    StreamDisplayView *mostRecent;
+    StreamDisplayView *following;
     ModelManager *modelManager;
     NSString *selectedPostId;
     
 }
+@synthesize mostRecentButton;
+@synthesize followingButton;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 100, 320, Deviceheight-100)];
-    streamDisplay.delegate = self;
-    [self.view addSubview:streamDisplay];
+    
+    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 113, 320, Deviceheight-113)];
+    mostRecent.delegate = self;
+    [self.view addSubview:mostRecent];
 
+    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 113, 320, Deviceheight-113)];
+    following.delegate = self;
+    [self.view addSubview:mostRecent];
+    following.hidden = YES;
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -37,8 +45,8 @@
                                                  name:RELOAD_ON_LOG_OUT
                                                object:nil];
     
-    [streamDisplay resetData];
-    [streamDisplay callStreamsApi:@""];
+    [mostRecent resetData];
+    [mostRecent callStreamsApi:@""];
     
 }
 -(void)viewWillDisappear:(BOOL)animated
@@ -48,16 +56,16 @@
 }
 -(void)reloadOnLogOut
 {
-    [streamDisplay resetData];
-    [streamDisplay callStreamsApi:@""];
+    [mostRecent resetData];
+    [mostRecent callStreamsApi:@""];
 }
 #pragma mark -
 #pragma mark Call backs from stream display
 - (void)tableDidSelect:(int)index
 {
-    if(!streamDisplay.hidden)
+    if(!mostRecent.hidden)
     {
-        PostDetails *postObject = [streamDisplay.storiesArray objectAtIndex:index];
+        PostDetails *postObject = [mostRecent.storiesArray objectAtIndex:index];
         selectedPostId = postObject.uid;
         [self performSegueWithIdentifier: @"PostSeague" sender: self];
     }
@@ -80,6 +88,17 @@
         [self performSegueWithIdentifier: @"LoginSeague" sender: self];
 }
 
+-(IBAction)RecentOrFollowignClicked:(id)sender
+{
+    if([sender tag] == 1)
+    {
+        
+    }
+    else if([sender tag] == 2)
+    {
+        
+    }
+}
 #pragma mark - SlideNavigationController Methods -
 
 - (BOOL)slideNavigationControllerShouldDisplayLeftMenu
@@ -91,5 +110,6 @@
 {
     return NO;
 }
+
 
 @end

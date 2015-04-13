@@ -29,6 +29,13 @@
     
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
     
+    //set the nav bar appearance for the entire application
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor blackColor], NSForegroundColorAttributeName,
+                                                           [UIFont fontWithName:@"HelveticaNeue-Light" size:22], NSFontAttributeName, nil]];
+
+    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
     
@@ -51,6 +58,7 @@
         NSString *menu = note.userInfo[@"menu"];
         NSLog(@"Revealed %@", menu);
     }];
+    
     
 
     return YES;

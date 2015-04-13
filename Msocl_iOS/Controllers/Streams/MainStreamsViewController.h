@@ -12,5 +12,10 @@
 
 @interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate>
 
+@property (nonatomic, strong) IBOutlet UIButton *mostRecentButton;
+@property (nonatomic, strong) IBOutlet UIButton *followingButton;
+
+
 -(IBAction)addClicked:(id)sender;
+-(IBAction)RecentOrFollowignClicked:(id)sender;
 @end
