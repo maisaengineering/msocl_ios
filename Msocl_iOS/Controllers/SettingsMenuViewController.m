@@ -116,8 +116,26 @@
 //                                                                     andCompletion:nil];
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
 }
+- (void)clearFBCookiesFromWebview
+{
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies])
+    {
+        NSString* domainName = [cookie domain];
+        NSRange domainRange = [domainName rangeOfString:@"facebook"];
+        if(domainRange.length > 0)
+        {
+            [storage deleteCookie:cookie];
+        }
+    }
+}
+
 -(void)logOut
 {
+    // call clearFBCookiesFromWebview 
+    [self clearFBCookiesFromWebview];
+    
     [appdelegate showOrhideIndicator:YES];
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
