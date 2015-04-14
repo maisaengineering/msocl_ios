@@ -57,6 +57,8 @@
 		7F80DE971AD6AB8000EA6D1F /* AddPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE921AD6AB8000EA6D1F /* AddPostViewController.m */; };
 		7F80DE981AD6AB8000EA6D1F /* MainStreamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE941AD6AB8000EA6D1F /* MainStreamsViewController.m */; };
 		7F80DE991AD6AB8000EA6D1F /* StreamDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE961AD6AB8000EA6D1F /* StreamDisplayView.m */; };
+		7F8334531ADCF0480067C538 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8334501ADCF0480067C538 /* STTweetLabel.m */; };
+		7F8334541ADCF0480067C538 /* STTweetTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8334521ADCF0480067C538 /* STTweetTextStorage.m */; };
 		7F83BC211AD13BC6008DFD8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F83BC201AD13BC6008DFD8B /* AppDelegate.m */; };
 		7F83BC261AD13C09008DFD8B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F83BC251AD13C09008DFD8B /* MBProgressHUD.m */; };
 		7F83BC301AD14ACA008DFD8B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F83BC2F1AD14ACA008DFD8B /* Reachability.m */; };
@@ -112,6 +114,7 @@
 		7FF5CC011ACE9E61004F4F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC001ACE9E61004F4F9B /* main.m */; };
 		7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF5CC081ACE9E61004F4F9B /* Main.storyboard */; };
 		7FF5CC1B1ACE9E61004F4F9B /* Msocl_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC1A1ACE9E61004F4F9B /* Msocl_iOSTests.m */; };
+		7FFCDE2A1ADD0F4B00D78D9B /* icon-heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FFCDE291ADD0F4B00D78D9B /* icon-heart@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -212,6 +215,10 @@
 		7F80DE941AD6AB8000EA6D1F /* MainStreamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainStreamsViewController.m; sourceTree = "<group>"; };
 		7F80DE951AD6AB8000EA6D1F /* StreamDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamDisplayView.h; sourceTree = "<group>"; };
 		7F80DE961AD6AB8000EA6D1F /* StreamDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamDisplayView.m; sourceTree = "<group>"; };
+		7F83344F1ADCF0480067C538 /* STTweetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetLabel.h; sourceTree = "<group>"; };
+		7F8334501ADCF0480067C538 /* STTweetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetLabel.m; sourceTree = "<group>"; };
+		7F8334511ADCF0480067C538 /* STTweetTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetTextStorage.h; sourceTree = "<group>"; };
+		7F8334521ADCF0480067C538 /* STTweetTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetTextStorage.m; sourceTree = "<group>"; };
 		7F83BC201AD13BC6008DFD8B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7F83BC241AD13C09008DFD8B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		7F83BC251AD13C09008DFD8B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -302,6 +309,7 @@
 		7FF5CC141ACE9E61004F4F9B /* Msocl_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Msocl_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF5CC191ACE9E61004F4F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF5CC1A1ACE9E61004F4F9B /* Msocl_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Msocl_iOSTests.m; sourceTree = "<group>"; };
+		7FFCDE291ADD0F4B00D78D9B /* icon-heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,6 +515,17 @@
 			path = "Add posts";
 			sourceTree = "<group>";
 		};
+		7F83344E1ADCEE900067C538 /* STTweetLabel */ = {
+			isa = PBXGroup;
+			children = (
+				7F83344F1ADCF0480067C538 /* STTweetLabel.h */,
+				7F8334501ADCF0480067C538 /* STTweetLabel.m */,
+				7F8334511ADCF0480067C538 /* STTweetTextStorage.h */,
+				7F8334521ADCF0480067C538 /* STTweetTextStorage.m */,
+			);
+			name = STTweetLabel;
+			sourceTree = "<group>";
+		};
 		7F83BC071AD11B06008DFD8B /* Appdelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -519,6 +538,7 @@
 		7F83BC221AD13BD1008DFD8B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				7F83344E1ADCEE900067C538 /* STTweetLabel */,
 				7F86E5761ADBCF900002493F /* SliderAnimation */,
 				7F5DEF8D1AD7C50A00F2C60A /* SDWebImage */,
 				25214C311AD6C23C0084BAC4 /* Flurry */,
@@ -680,6 +700,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FFCDE291ADD0F4B00D78D9B /* icon-heart@2x.png */,
 				7F86E5941ADBF0A50002493F /* icon-post-@2x.png */,
 				7F86E5921ADBEAD20002493F /* menu-button@2x.png */,
 				7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */,
@@ -852,6 +873,7 @@
 				7F8999241AD2B1F6007E2917 /* tour_3@2x.png in Resources */,
 				7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */,
 				7F8999211AD2B1F6007E2917 /* tour_0@2x.png in Resources */,
+				7FFCDE2A1ADD0F4B00D78D9B /* icon-heart@2x.png in Resources */,
 				7F8999271AD2B1F6007E2917 /* tour_6@2x.png in Resources */,
 				7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */,
 				7F8999251AD2B1F6007E2917 /* tour_4@2x.png in Resources */,
@@ -903,6 +925,7 @@
 				7F5DEFB21AD7C50A00F2C60A /* SDWebImageCompat.m in Sources */,
 				7F86E5841ADBCFB00002493F /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				7F5DEFBA1AD7C50A00F2C60A /* UIImage+MultiFormat.m in Sources */,
+				7F8334541ADCF0480067C538 /* STTweetTextStorage.m in Sources */,
 				7F83BC261AD13C09008DFD8B /* MBProgressHUD.m in Sources */,
 				7F80DE841AD6AAF700EA6D1F /* AccessToken.m in Sources */,
 				7F5DEFBB1AD7C50A00F2C60A /* UIImage+WebP.m in Sources */,
@@ -933,6 +956,7 @@
 				7F80DE871AD6AAF700EA6D1F /* UserProfile.m in Sources */,
 				7F86E5911ADBD50E0002493F /* SettingsMenuViewController.m in Sources */,
 				7F80DE861AD6AAF700EA6D1F /* PostDetails.m in Sources */,
+				7F8334531ADCF0480067C538 /* STTweetLabel.m in Sources */,
 				7F80DE721AD6901A00EA6D1F /* ProfileDateUtils.m in Sources */,
 				7F86E5871ADBCFB00002493F /* SlideNavigationContorllerAnimatorScale.m in Sources */,
 				7F80DE971AD6AB8000EA6D1F /* AddPostViewController.m in Sources */,

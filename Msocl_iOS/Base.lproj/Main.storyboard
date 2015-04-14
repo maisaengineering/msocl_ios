@@ -130,7 +130,7 @@
             </objects>
             <point key="canvasLocation" x="508" y="450"/>
         </scene>
-        <!--Socl-->
+        <!--M SOCAIL-->
         <scene sceneID="wLp-2J-jRR">
             <objects>
                 <viewController storyboardIdentifier="LoginViewController" id="n8D-mp-AZb" customClass="LoginViewController" sceneMemberID="viewController">
@@ -211,7 +211,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Socl" id="9Qn-K6-gx0"/>
+                    <navigationItem key="navigationItem" title="M SOCAIL" id="9Qn-K6-gx0"/>
                     <connections>
                         <outlet property="txt_password" destination="8DF-tk-oX9" id="5gQ-xm-VSy"/>
                         <outlet property="txt_username" destination="x6Y-dA-Emj" id="DWt-xz-sOp"/>
@@ -240,7 +240,7 @@
             </objects>
             <point key="canvasLocation" x="1284" y="-156"/>
         </scene>
-        <!--Socl-->
+        <!--M SOCIAL-->
         <scene sceneID="JHK-IK-3Gy">
             <objects>
                 <viewController storyboardIdentifier="SignUpViewController" id="1A5-jJ-XHf" customClass="SignUpViewController" sceneMemberID="viewController">
@@ -345,7 +345,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Socl" id="aia-LJ-syC"/>
+                    <navigationItem key="navigationItem" title="M SOCIAL" id="aia-LJ-syC"/>
                     <connections>
                         <outlet property="profileImage" destination="9vN-ph-kEP" id="eYS-DM-vS1"/>
                         <outlet property="txt_confirmPassword" destination="e1S-22-vQn" id="KPK-z3-iCl"/>
@@ -361,7 +361,7 @@
             </objects>
             <point key="canvasLocation" x="923" y="1173"/>
         </scene>
-        <!--Socl-->
+        <!--M SOCIAL-->
         <scene sceneID="gXa-Jy-hXv">
             <objects>
                 <viewController storyboardIdentifier="PostDetailDescriptionViewController" id="AU9-EA-d8R" customClass="PostDetailDescriptionViewController" sceneMemberID="viewController">
@@ -374,7 +374,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Socl" id="wZw-f1-8db"/>
+                    <navigationItem key="navigationItem" title="M SOCIAL" id="wZw-f1-8db"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m5B-ZP-otY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -646,6 +646,7 @@
         [postDetails setObject:@"public" forKey:@"scope"];
     
     //Tags
+    if([selectedtagsArray count] > 0)
     [postDetails setObject:selectedtagsArray forKey:@"tags"];
     
     //Text
@@ -653,6 +654,7 @@
     [postDetails setObject:formatedDesc forKey:@"content"];
 
     //Image Ids
+    if([[imagesIdDict allValues] count] > 0)
     [postDetails setObject:[imagesIdDict allValues] forKey:@"img_keys"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];

@@ -35,6 +35,8 @@
 -(void) showPostFailed;
 -(void) didReceiveExternalSignIn:(NSDictionary *)recievedDict;
 -(void) showExternalSignInFailed;
+-(void) commentSuccessful:(NSDictionary *)recievedDict;
+-(void) commentFailed;
 
 @end
 

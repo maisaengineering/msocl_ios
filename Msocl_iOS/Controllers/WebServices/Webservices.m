@@ -111,6 +111,10 @@
     {
         [self connectionSuccessSignOut:responseDict];
     }
+    else if([command isEqualToString:@"Comment"])
+    {
+        [self connectionSuccessComment:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -164,7 +168,10 @@
     {
         [self.delegate signOutFailed];
     }
-
+    else if([command isEqualToString:@"Comment"])
+    {
+        [self.delegate commentFailed];
+    }
 }
 #pragma mark -
 #pragma mark Connection Success Handlers
@@ -399,6 +406,23 @@
     if ([stringStatus1 isEqualToString:@"200"])
     {
         [self.delegate signOutSccessfull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate signOutFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessComment:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate commentSuccessful:dictCopty];
     }
     
     else

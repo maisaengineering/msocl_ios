@@ -15,6 +15,7 @@
 #import "ModelManager.h"
 #import "PostDetails.h"
 #import "SDWebImageManager.h"
+#import "STTweetLabel.h"
 @implementation StreamDisplayView
 {
     ProfilePhotoUtils *photoUtils;
@@ -292,11 +293,23 @@
     
     if([postDetailsObject.tags count] > 0)
     {
-        UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition+2, 232 , 11)];
-        [tag setText:[postDetailsObject.tags componentsJoinedByString:@" "]];
-        [tag setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
-        [tag setTextColor:[UIColor blueColor]];
-        [cell.contentView addSubview:tag];
+        NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
+        for(NSString *tag in postDetailsObject.tags)
+        {
+            [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
+        }
+        STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, yPosition, 232 , 15)];
+        [tweetLabel setText:[tagsArray componentsJoinedByString:@" "]];
+        tweetLabel.textAlignment = NSTextAlignmentLeft;
+        [cell.contentView addSubview:tweetLabel];
+        
+        
+        [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+
+            
+        }];
+
+        
         yPosition += 15;
     }
     
@@ -343,6 +356,7 @@
             }
         }
     }
+    
     
 }
 

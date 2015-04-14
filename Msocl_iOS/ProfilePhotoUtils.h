@@ -24,7 +24,7 @@
 - (void)clearCache;
 + (UIImage *)imageWithImage:(UIImage *)image scaledToMaxWidth:(CGFloat)width maxHeight:(CGFloat)height;
 - (void)saveRoundedRectImageToCache:(NSString *)url :(UIImage *)image;
-
+- (UIImage*) getSubImageFrom: (UIImage*) img WithRect: (CGRect) rect;
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;
 
 @end
