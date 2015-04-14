@@ -486,8 +486,8 @@
 -(void) commentSuccessful:(NSDictionary *)recievedDict
 {
     [appDelegate showOrhideIndicator:NO];
-    NSDictionary *dict = @{@"commenter": @{@"fname":sharedModel.userProfile.fname ,@"lname": sharedModel.userProfile.lname,@"photo":sharedModel.userProfile.image},@"editable": [NSNumber numberWithBool:YES],@"text":self.txt_comment};
-   
+    NSDictionary *dict = @{@"commenter": @{@"fname":@"" ,@"lname": @"",@"photo":@""},@"editable": [NSNumber numberWithBool:YES],@"text":self.txt_comment.text};
+    
     PostDetails *postDetls = [storiesArray lastObject];
     NSMutableArray *commentsArray = [postDetls.comments mutableCopy];
     [commentsArray addObject:dict];
