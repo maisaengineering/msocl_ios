@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Webservices.h"
-
-@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol>
+#import "SWTableViewCell.h"
+#import "CommentCell.h"
+@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate>
 
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSMutableArray *storiesArray;
-@property (nonatomic, strong) UITableView *streamTableView;
+@property (nonatomic, strong) IBOutlet UITableView *streamTableView;
 @property (nonatomic, strong) UIView *commentView;
 @property (nonatomic, strong) UITextView *txt_comment;
 

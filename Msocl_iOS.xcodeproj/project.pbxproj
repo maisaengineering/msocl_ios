@@ -40,6 +40,17 @@
 		7F5DEFC11AD7CF0600F2C60A /* PostDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFC01AD7CF0600F2C60A /* PostDetailDescriptionViewController.m */; };
 		7F5F18D41ADE3DD500C5B4EC /* comment_Count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */; };
 		7F5F18D61ADE3E0700C5B4EC /* icon-heart-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */; };
+		7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D71ADE7ABD00C5B4EC /* icon-comment-main@2x.png */; };
+		7F5F18E61ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18DB1ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.m */; };
+		7F5F18E71ADE997200C5B4EC /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18DD1ADE997200C5B4EC /* SWCellScrollView.m */; };
+		7F5F18E81ADE997200C5B4EC /* SWLongPressGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18DF1ADE997200C5B4EC /* SWLongPressGestureRecognizer.m */; };
+		7F5F18E91ADE997200C5B4EC /* SWTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18E11ADE997200C5B4EC /* SWTableViewCell.m */; };
+		7F5F18EA1ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18E31ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.m */; };
+		7F5F18EB1ADE997200C5B4EC /* SWUtilityButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18E51ADE997200C5B4EC /* SWUtilityButtonView.m */; };
+		7F5F18EF1ADE9B8700C5B4EC /* icon-delete-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18EC1ADE9B8700C5B4EC /* icon-delete-scroll@2x.png */; };
+		7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18ED1ADE9B8700C5B4EC /* icon-edit-scroll@2x.png */; };
+		7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */; };
+		7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -183,6 +194,24 @@
 		7F5DEFC01AD7CF0600F2C60A /* PostDetailDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailDescriptionViewController.m; sourceTree = "<group>"; };
 		7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_Count@2x.png"; sourceTree = "<group>"; };
 		7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-count@2x.png"; sourceTree = "<group>"; };
+		7F5F18D71ADE7ABD00C5B4EC /* icon-comment-main@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-comment-main@2x.png"; sourceTree = "<group>"; };
+		7F5F18DA1ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
+		7F5F18DB1ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+SWUtilityButtons.m"; sourceTree = "<group>"; };
+		7F5F18DC1ADE997200C5B4EC /* SWCellScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWCellScrollView.h; sourceTree = "<group>"; };
+		7F5F18DD1ADE997200C5B4EC /* SWCellScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWCellScrollView.m; sourceTree = "<group>"; };
+		7F5F18DE1ADE997200C5B4EC /* SWLongPressGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWLongPressGestureRecognizer.h; sourceTree = "<group>"; };
+		7F5F18DF1ADE997200C5B4EC /* SWLongPressGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWLongPressGestureRecognizer.m; sourceTree = "<group>"; };
+		7F5F18E01ADE997200C5B4EC /* SWTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWTableViewCell.h; sourceTree = "<group>"; };
+		7F5F18E11ADE997200C5B4EC /* SWTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWTableViewCell.m; sourceTree = "<group>"; };
+		7F5F18E21ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonTapGestureRecognizer.h; sourceTree = "<group>"; };
+		7F5F18E31ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonTapGestureRecognizer.m; sourceTree = "<group>"; };
+		7F5F18E41ADE997200C5B4EC /* SWUtilityButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWUtilityButtonView.h; sourceTree = "<group>"; };
+		7F5F18E51ADE997200C5B4EC /* SWUtilityButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWUtilityButtonView.m; sourceTree = "<group>"; };
+		7F5F18EC1ADE9B8700C5B4EC /* icon-delete-scroll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-delete-scroll@2x.png"; sourceTree = "<group>"; };
+		7F5F18ED1ADE9B8700C5B4EC /* icon-edit-scroll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-edit-scroll@2x.png"; sourceTree = "<group>"; };
+		7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-scroll@2x.png"; sourceTree = "<group>"; };
+		7F5F18F21ADE9E7D00C5B4EC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -409,6 +438,27 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		7F5F18D91ADE996300C5B4EC /* SWTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				7F5F18DA1ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.h */,
+				7F5F18DB1ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.m */,
+				7F5F18DC1ADE997200C5B4EC /* SWCellScrollView.h */,
+				7F5F18DD1ADE997200C5B4EC /* SWCellScrollView.m */,
+				7F5F18DE1ADE997200C5B4EC /* SWLongPressGestureRecognizer.h */,
+				7F5F18DF1ADE997200C5B4EC /* SWLongPressGestureRecognizer.m */,
+				7F5F18E01ADE997200C5B4EC /* SWTableViewCell.h */,
+				7F5F18E11ADE997200C5B4EC /* SWTableViewCell.m */,
+				7F5F18E21ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.h */,
+				7F5F18E31ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.m */,
+				7F5F18E41ADE997200C5B4EC /* SWUtilityButtonView.h */,
+				7F5F18E51ADE997200C5B4EC /* SWUtilityButtonView.m */,
+				7F5F18F21ADE9E7D00C5B4EC /* CommentCell.h */,
+				7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */,
+			);
+			name = SWTableViewCell;
+			sourceTree = "<group>";
+		};
 		7F7E55B81AD3D992007070EF /* AviarySDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,6 +592,7 @@
 		7F83BC221AD13BD1008DFD8B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				7F5F18D91ADE996300C5B4EC /* SWTableViewCell */,
 				7F83344E1ADCEE900067C538 /* STTweetLabel */,
 				7F86E5761ADBCF900002493F /* SliderAnimation */,
 				7F5DEF8D1AD7C50A00F2C60A /* SDWebImage */,
@@ -704,6 +755,10 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F5F18EC1ADE9B8700C5B4EC /* icon-delete-scroll@2x.png */,
+				7F5F18ED1ADE9B8700C5B4EC /* icon-edit-scroll@2x.png */,
+				7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */,
+				7F5F18D71ADE7ABD00C5B4EC /* icon-comment-main@2x.png */,
 				7FFCDE291ADD0F4B00D78D9B /* icon-heart@2x.png */,
 				7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */,
 				7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */,
@@ -872,11 +927,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F8999221AD2B1F6007E2917 /* tour_1@2x.png in Resources */,
+				7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */,
 				7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */,
+				7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */,
 				7F5F18D41ADE3DD500C5B4EC /* comment_Count@2x.png in Resources */,
 				7F83BC7E1AD17844008DFD8B /* Images.xcassets in Resources */,
 				7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */,
 				7F8999231AD2B1F6007E2917 /* tour_2@2x.png in Resources */,
+				7F5F18EF1ADE9B8700C5B4EC /* icon-delete-scroll@2x.png in Resources */,
 				7F8999241AD2B1F6007E2917 /* tour_3@2x.png in Resources */,
 				7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */,
 				7F8999211AD2B1F6007E2917 /* tour_0@2x.png in Resources */,
@@ -889,6 +947,7 @@
 				7F86E5931ADBEAD20002493F /* menu-button@2x.png in Resources */,
 				7F86E5951ADBF0A50002493F /* icon-post-@2x.png in Resources */,
 				7F86E5971ADC06C50002493F /* time@2x.png in Resources */,
+				7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,12 +979,16 @@
 				7F80DE5D1AD6544400EA6D1F /* ProfilePhotoUtils.m in Sources */,
 				7F83BC601AD14CEF008DFD8B /* AFURLSessionManager.m in Sources */,
 				7F83BC611AD14CEF008DFD8B /* AFNetworkActivityIndicatorManager.m in Sources */,
+				7F5F18E61ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				7F5DEFB01AD7C50A00F2C60A /* NSData+ImageContentType.m in Sources */,
 				7F8999131AD2649E007E2917 /* Base64.m in Sources */,
+				7F5F18E71ADE997200C5B4EC /* SWCellScrollView.m in Sources */,
 				7F80DE991AD6AB8000EA6D1F /* StreamDisplayView.m in Sources */,
+				7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */,
 				7F80DE791AD6AAB500EA6D1F /* Webservices.m in Sources */,
 				7F5DEFBE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m in Sources */,
 				7F80DE5E1AD6544400EA6D1F /* PromptImages.m in Sources */,
+				7F5F18EA1ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				7F83BC5D1AD14CEF008DFD8B /* AFURLConnectionOperation.m in Sources */,
 				7F83BC591AD14CEF008DFD8B /* AFHTTPRequestOperationManager.m in Sources */,
 				7F80DE981AD6AB8000EA6D1F /* MainStreamsViewController.m in Sources */,
@@ -933,6 +996,7 @@
 				7F5DEFB21AD7C50A00F2C60A /* SDWebImageCompat.m in Sources */,
 				7F86E5841ADBCFB00002493F /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				7F5DEFBA1AD7C50A00F2C60A /* UIImage+MultiFormat.m in Sources */,
+				7F5F18E91ADE997200C5B4EC /* SWTableViewCell.m in Sources */,
 				7F8334541ADCF0480067C538 /* STTweetTextStorage.m in Sources */,
 				7F83BC261AD13C09008DFD8B /* MBProgressHUD.m in Sources */,
 				7F80DE841AD6AAF700EA6D1F /* AccessToken.m in Sources */,
@@ -947,6 +1011,7 @@
 				7F5DEFAF1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m in Sources */,
 				7FF5CC011ACE9E61004F4F9B /* main.m in Sources */,
 				7F83BC5F1AD14CEF008DFD8B /* AFURLResponseSerialization.m in Sources */,
+				7F5F18E81ADE997200C5B4EC /* SWLongPressGestureRecognizer.m in Sources */,
 				7F7E55C81AD3F793007070EF /* LoginViewController.m in Sources */,
 				7F5DEFB31AD7C50A00F2C60A /* SDWebImageDecoder.m in Sources */,
 				7F80DE8D1AD6AB3000EA6D1F /* LoadingViewController.m in Sources */,
@@ -967,6 +1032,7 @@
 				7F8334531ADCF0480067C538 /* STTweetLabel.m in Sources */,
 				7F80DE721AD6901A00EA6D1F /* ProfileDateUtils.m in Sources */,
 				7F86E5871ADBCFB00002493F /* SlideNavigationContorllerAnimatorScale.m in Sources */,
+				7F5F18EB1ADE997200C5B4EC /* SWUtilityButtonView.m in Sources */,
 				7F80DE971AD6AB8000EA6D1F /* AddPostViewController.m in Sources */,
 				7F83BC681AD14CEF008DFD8B /* UIWebView+AFNetworking.m in Sources */,
 				7F83BC5A1AD14CEF008DFD8B /* AFHTTPSessionManager.m in Sources */,

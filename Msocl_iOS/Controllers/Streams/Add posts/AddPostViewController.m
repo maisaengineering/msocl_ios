@@ -615,13 +615,7 @@
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
     }
-    
-    UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
-                                          @"Post as public", @"Post as private", nil];
-    addImageActionSheet.tag = 2;
-    [addImageActionSheet setDelegate:self];
-    [addImageActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-    
+    [self createPost];
     
 }
 -(void)createPost
@@ -647,7 +641,7 @@
     
     //Tags
     if([selectedtagsArray count] > 0)
-    [postDetails setObject:selectedtagsArray forKey:@"tags"];
+    [postDetails setObject:selectedtagsArray forKey:@"tags_array"];
     
     //Text
     NSString *formatedDesc = [self formatStringForServer:textView.attributedText];

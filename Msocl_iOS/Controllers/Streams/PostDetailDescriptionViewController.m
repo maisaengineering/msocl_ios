@@ -17,6 +17,7 @@
 #import "SDWebImageManager.h"
 #import "STTweetLabel.h"
 #import "AppDelegate.h"
+
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -51,14 +52,10 @@
     */
     
     storiesArray = [[NSMutableArray alloc] init];
-    streamTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight-40)];
-    streamTableView.delegate = self;
-    streamTableView.dataSource = self;
-    streamTableView.tableFooterView = nil;
+    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-40);
+    streamTableView.tableFooterView = [[UIView alloc] init];
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
-    [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [self.view addSubview:streamTableView];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
@@ -68,14 +65,21 @@
     [self.txt_comment setText:@"Add comment"];
     self.txt_comment.delegate = self;
     [self.commentView addSubview:self.txt_comment];
+        
     //Upvote
-    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [commentBtn setTitle:@"Comment" forState:UIControlStateNormal];
-    [commentBtn.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [commentBtn setFrame:CGRectMake(250, 0, 70, 40)];
+    UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [commentBtn setFrame:CGRectMake(275, 0, 45, 41)];
+    [commentBtn setImage:[UIImage imageNamed:@"icon-comment-main.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(commentClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.commentView addSubview:commentBtn];
     [self.view addSubview:self.commentView];
+        
+    UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 320, 0.5)];
+    line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+    [line setTextAlignment:NSTextAlignmentLeft];
+    line.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
+    [self.commentView addSubview:line];
+
     
     }
     
@@ -130,14 +134,20 @@
 #pragma mark TableViewMethods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(indexPath.row == 0)
     return [self cellHeight:[storiesArray objectAtIndex:indexPath.row]];
+    else
+        return [self cellHeightForComment:(int )indexPath.row-1];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [storiesArray count];
+    PostDetails *post = [storiesArray lastObject];
+    return [storiesArray count] + post.comments.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(indexPath.row == 0)
+    {
     static NSString *simpleTableIdentifier = @"StreamCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     if (cell == nil)
@@ -158,10 +168,109 @@
     
     
     return cell;
+    }
+    else
+    {
+        static NSString *simpleTableIdentifier = @"CommentCell";
+        CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier forIndexPath:indexPath];
+        if (cell == nil)
+        {
+            cell = (CommentCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
+        
+        //removes any subviews from the cell
+        for(UIView *viw in [[cell contentView] subviews])
+        {
+            [viw removeFromSuperview];
+        }
+        
+        
+        // Add utility buttons
+        NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+        
+        [rightUtilityButtons sw_addUtilityButtonWithColor:
+         [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                    icon:[UIImage imageNamed:@"icon-heart-scroll.png"]];
+        [rightUtilityButtons sw_addUtilityButtonWithColor:
+         [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                    icon:[UIImage imageNamed:@"icon-edit-scroll.png"]];
+        [rightUtilityButtons sw_addUtilityButtonWithColor:
+         [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
+                                                    icon:[UIImage imageNamed:@"icon-heart-count.png"]];
+        
+        
+        cell.leftUtilityButtons = rightUtilityButtons;
+        cell.delegate = self;
+
+        
+        PostDetails *postDetailsObject = [storiesArray lastObject];
+        NSDictionary *commentDict = [postDetailsObject.comments objectAtIndex:indexPath.row - 1];
+        
+        [self buildCommentCell:commentDict :cell];
+        return cell;
+    }
     
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+}
+-(void)buildCommentCell:(NSDictionary *)commentDict :(UITableViewCell *)cell
+{
+    CGSize expectedLabelSize;
+    
+        UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(16, 8, 28, 28)];
+        [imagVw setImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+    __weak UIImageView *weakSelf = imagVw;
+
+        //add initials
+        //NSString *nickname = [dict valueForKey:@"commented_by"];
+        
+        NSString *url = [[commentDict objectForKey:@"commenter"] objectForKey:@"photo"];
+        if(url != (id)[NSNull null] && url.length > 0)
+        {
+            // Fetch image, cache it, and add it to the tag.
+            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+             {
+                 [photoUtils saveImageToCache:url :image];
+                 
+                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
+                 
+             }
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
+             {
+                 DebugLog(@"fail");
+             }];
+        }
+        
+        [cell.contentView addSubview:imagVw];
+        
+        // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
+        
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(260,8,110,12)];
+        [dateLabel setBackgroundColor:[UIColor clearColor]];
+        
+        NSString *milestoneDate = [commentDict objectForKey:@"created_at"];
+        NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
+        
+        [dateLabel setText:@"1 day"];
+        [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
+        [dateLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
+        [dateLabel setNumberOfLines:0];
+        [dateLabel setTextAlignment:NSTextAlignmentRight];
+        [cell.contentView addSubview:dateLabel];
+        
+        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
+        
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[commentDict objectForKey:@"text"]   attributes:attributes];
+        UILabel *comment = [UILabel new];
+        comment.numberOfLines = 0;
+        comment.attributedText = attributedString;
+        [cell.contentView addSubview:comment];
+        
+        expectedLabelSize = [comment sizeThatFits:CGSizeMake(220, 9999)];
+        comment.frame =  CGRectMake(53, 12, 220, expectedLabelSize.height);
     
 }
 -(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
@@ -240,7 +349,7 @@
     //This regex captures all items between []
     
     CGRect contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
-                                                        options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                        options:(NSStringDrawingUsesLineFragmentOrigin)
                                                         context:nil];
     description.frame = CGRectMake(44, yPosition, 264, contentSize.size.height);
 
@@ -255,7 +364,7 @@
     //Tags
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [heartButton setImage:[UIImage imageNamed:@"icon-heart.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(287, yPosition, 17, 16)];
+    [heartButton setFrame:CGRectMake(287, yPosition+3, 17, 16)];
     [cell.contentView addSubview:heartButton];
 
     
@@ -284,12 +393,8 @@
             yPosition += tagsSize.height+10;
         
     }
-    
-    UILabel *line1 = [[UILabel alloc] initWithFrame: CGRectMake(10, yPosition, 300, 0.5)];
-    line1.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-    [line1 setTextAlignment:NSTextAlignmentLeft];
-    line1.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
-    [cell.contentView addSubview:line1];
+    else
+        yPosition += 21+10;
 
     UIView *likesView = [[UIView alloc] init];
     [likesView setBackgroundColor:[UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1.0f]];
@@ -324,144 +429,6 @@
             }
         }
     likesView.frame = CGRectMake(0, yPosition, 320, y);
-    
-    //Comments list
-     y = yPosition;
-    CGSize expectedLabelSize;
-    NSArray *commentsArray = postDetailsObject.comments;
-    for (int i = 0; i < commentsArray.count; i++)
-    {
-        NSDictionary *dict = [commentsArray objectAtIndex:i];
-        
-        UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(20, y, 47, 47)];
-        [imagVw setImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
-        //add initials
-        //NSString *nickname = [dict valueForKey:@"commented_by"];
-        NSString *nickname = @"test";
-        NSArray *nameArray = [nickname componentsSeparatedByString:@" "];
-        
-        NSString *firstName = [[nameArray.firstObject substringToIndex:1]uppercaseString];;
-        NSString *lastName = [[nameArray.lastObject substringToIndex:1] uppercaseString];;
-        
-        
-        NSMutableString *commenterInitial = [[NSMutableString alloc] init];
-        [commenterInitial appendString:firstName];
-        [commenterInitial appendString:lastName];
-        
-        NSMutableAttributedString *attributedTextForComment = [[NSMutableAttributedString alloc] initWithString:commenterInitial attributes:nil];
-        
-        NSRange range;
-        if(firstName.length > 0)
-        {
-            range.location = 0;
-            range.length = 1;
-            [attributedTextForComment setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:(123/255.f) green:(123/255.f) blue:(123/255.f) alpha:1],NSFontAttributeName:[UIFont systemFontOfSize:13]}
-                                              range:range];
-        }
-        if(lastName.length > 0)
-        {
-            range.location = 1;
-            range.length = 1;
-            [attributedTextForComment setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:(123/255.f) green:(123/255.f) blue:(123/255.f) alpha:1],NSFontAttributeName:[UIFont systemFontOfSize:13]}
-                                              range:range];
-        }
-        
-        
-        UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 47, 47)];
-        initial.attributedText = attributedTextForComment;
-        [initial setBackgroundColor:[UIColor clearColor]];
-        initial.textAlignment = NSTextAlignmentCenter;
-        [imagVw addSubview:initial];
-        //end add initials
-        
-        __weak UIImageView *weakSelf = imagVw;
-        DebugLog(@"*************%@",dict);
-        NSString *url = [[dict objectForKey:@"commenter"] objectForKey:@"photo"];
-        if(url != (id)[NSNull null] && url.length > 0)
-        {
-            // Fetch image, cache it, and add it to the tag.
-            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-             {
-                 [photoUtils saveImageToCache:url :image];
-                 
-                 [weakSelf setImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
-                 UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 47, 47)];
-                 userImage.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(51, 51)] withRadious:0];
-                 [weakSelf addSubview:userImage];
-                 [initial removeFromSuperview];
-             }
-                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
-             {
-                 DebugLog(@"fail");
-             }];
-        }
-        
-        [cell.contentView addSubview:imagVw];
-        
-        // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
-        NSString *temp = @"test";
-        UILabel *nameLabel;
-        if (temp != (id)[NSNull null] && temp.length > 0)
-        {
-            NSDictionary *attribs = @{
-                                      NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Medium" size:15]
-                                      };
-            expectedLabelSize = [temp boundingRectWithSize:CGSizeMake(200, 9999) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:attribs context:nil].size;
-            nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(77,y+2,130,12)];
-            [nameLabel setBackgroundColor:[UIColor clearColor]];
-            [nameLabel setText:[temp capitalizedString]];
-            [nameLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:11]];
-            [nameLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-            [nameLabel setNumberOfLines:0];
-            [cell.contentView addSubview:nameLabel];
-            attribs = @{
-                        NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Medium" size:10]
-                        };
-            expectedLabelSize = [temp boundingRectWithSize:CGSizeMake(200, 9999) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:attribs context:nil].size;
-            
-        }
-        
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(190,y+2,110,12)];
-        [dateLabel setBackgroundColor:[UIColor clearColor]];
-        
-        NSString *milestoneDate = [dict objectForKey:@"created_at"];
-        NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
-        
-        [dateLabel setText:formattedTime];
-        [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
-        [dateLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-        [dateLabel setNumberOfLines:0];
-        [dateLabel setTextAlignment:NSTextAlignmentRight];
-        [cell.contentView addSubview:dateLabel];
-        
-        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]};
-        
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[dict objectForKey:@"text"]   attributes:attributes];
-        UILabel *comment = [UILabel new];
-        comment.numberOfLines = 0;
-        comment.attributedText = attributedString;
-        [cell.contentView addSubview:comment];
-        
-        expectedLabelSize = [comment sizeThatFits:CGSizeMake(198, 9999)];
-        comment.frame =  CGRectMake(77, y+14, 203, expectedLabelSize.height);
-        
-        
-        if(comment.frame.size.height+14 > 47)
-            y+=expectedLabelSize.height+5+14;
-        else
-            y+=47+5;
-        
-        
-        UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(20, y, 280, 0.5)];
-        line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-        [line setTextAlignment:NSTextAlignmentLeft];
-        line.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
-        [cell.contentView addSubview:line];
-        
-        y+=5;
-        
-        
-    }
     
     
 }
@@ -511,9 +478,10 @@
     CGFloat height = 5;
     
     //Calculating content height
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
+    
     
     do{
         
@@ -521,12 +489,10 @@
         if(myArray.count > 0)
         {
             NSTextCheckingResult *match =  [myArray firstObject];
-            NSRange matchRange = [match rangeAtIndex:1];
-            NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
-            
-            UIImage  *image = [photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(262, 114)];
+            UIImage  *image = [UIImage imageNamed:@"EmptyProfilePic.jpg"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            textAttachment.image = image;
+            textAttachment.image = [photoUtils getSubImageFrom:image WithRect:CGRectMake(0, 0, 262, 114)];
+            
             NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
         }
@@ -536,10 +502,12 @@
         }
         
     }while (1);
+    //This regex captures all items between []
     
-    CGRect contentSize = [attributedString boundingRectWithSize:CGSizeMake(262, CGFLOAT_MAX)
-                                                        options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+    CGRect contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
+                                                        options:(NSStringDrawingUsesLineFragmentOrigin)
                                                         context:nil];
+
         height = 40 + contentSize.size.height;
 
     
@@ -552,41 +520,62 @@
     
     NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
     CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(240, CGFLOAT_MAX)
-                                            options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                            options:(NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;
+    
+    if(postDetailsObject.tags.count > 0)
         height += tagsSize.height+10;
-    
-    
-    //Comments list
-    
-    int taggedPhotosHeight1 = (([postDetailsObject.comments count]%9)!=0?1:0)+(int)[postDetailsObject.comments count]/9;
-    height += taggedPhotosHeight1 * 30;
-    
-    NSArray *commentsArray = postDetailsObject.comments;
-    
-    for(int i=0;i<commentsArray.count;i++) //increase the size for each comment
-    {
-        NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
-        
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[[commentsArray objectAtIndex:i] objectForKey:@"text"]   attributes:attributes];
-        
-        UILabel *comment = [UILabel new];
-        comment.numberOfLines = 0;
-        comment.attributedText = attributedString;
-        CGSize expectedLabelSize = [comment sizeThatFits:CGSizeMake(198, 9999)];
-        
-        if(expectedLabelSize.height+14 > 47) //if there is a lot of text
-        {
-            height+=expectedLabelSize.height+10+14;
-        }
-        else //set a default size
-        {
-            height+=47+10;
-        }
-    }
-    
+    else
+            height += 21+10;
+
     return height;
 }
+
+-(CGFloat)cellHeightForComment:(int )row
+{
+    NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
+    
+    PostDetails *postDetails = [storiesArray lastObject];
+    NSArray *commentsArray = postDetails.comments;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[[commentsArray objectAtIndex:row] objectForKey:@"text"]   attributes:attributes];
+    UILabel *comment = [UILabel new];
+    comment.numberOfLines = 0;
+    comment.attributedText = attributedString;
+    CGSize expectedLabelSize = [comment sizeThatFits:CGSizeMake(220, 9999)];
+
+    CGFloat height;
+    if(expectedLabelSize.height+12 > 44) //if there is a lot of text
+    {
+        height+=expectedLabelSize.height+12+12;
+    }
+    else //set a default size
+    {
+        height+=44;
+    }
+    return height;
+}
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+    switch (index) {
+        case 0:
+        {
+            // More button is pressed
+            UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
+            [shareActionSheet showInView:self.view];
+            
+            [cell hideUtilityButtonsAnimated:YES];
+            break;
+        }
+        case 1:
+        {
+            // Delete button is pressed
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 
 //Code from Brett Schumann
 -(void) keyboardWillShow:(NSNotification *)note{
