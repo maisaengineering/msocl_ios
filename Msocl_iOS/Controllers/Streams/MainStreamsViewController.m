@@ -26,11 +26,11 @@
 {
     [super viewDidLoad];
     
-    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 113, 320, Deviceheight-113)];
+    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 102, 320, Deviceheight-102)];
     mostRecent.delegate = self;
     [self.view addSubview:mostRecent];
 
-    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 113, 320, Deviceheight-113)];
+    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 102, 320, Deviceheight-102)];
     following.delegate = self;
     [self.view addSubview:mostRecent];
     following.hidden = YES;

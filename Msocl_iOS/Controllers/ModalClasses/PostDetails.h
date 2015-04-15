@@ -16,10 +16,11 @@
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic, strong) NSString * profileImage;
 @property (nonatomic,strong) NSMutableDictionary *images;
+@property (nonatomic,strong) NSMutableDictionary *owner;
 @property (nonatomic,strong) NSMutableArray *commenters;
 @property (nonatomic,strong) NSMutableArray *tags;
 @property (nonatomic,strong) NSMutableArray *comments;
-
+@property (nonatomic, assign) BOOL anonymous;
 
 - (id)initWithDictionary:(NSDictionary*)response;
 

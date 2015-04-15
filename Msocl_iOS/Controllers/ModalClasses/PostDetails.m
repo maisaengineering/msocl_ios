@@ -18,6 +18,7 @@
 @synthesize tags;
 @synthesize profileImage;
 @synthesize time;
+@synthesize owner;
 @synthesize comments;
 
 -(id)initWithDictionary:(NSDictionary *)response{
@@ -50,6 +51,12 @@
             }
             else if ([key isEqualToString:@"comments"]) {
                 self.comments = [response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"owner"]) {
+                self.owner = [response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"anonymous"]) {
+                self.anonymous = [[response objectForKey:key] boolValue];
             }
             
         }

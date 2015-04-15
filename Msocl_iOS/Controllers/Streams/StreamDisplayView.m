@@ -205,7 +205,7 @@
     __weak UIImageView *weakSelf = profileImage;
 
     
-    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.profileImage]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(36,36)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(36,36)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(36, 36)] withRadious:0];
          
@@ -216,7 +216,7 @@
     
     //Profile name
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 232, 18)];
-    [name setText:postDetailsObject.name];
+    [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Thick" size:13]];
     [cell.contentView addSubview:name];
     
@@ -244,10 +244,10 @@
     float yPosition = 32;
     
     //Description
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 232, 54)];
+    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 232, 50)];
     
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:11],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -313,10 +313,23 @@
         yPosition += 15;
     }
     
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(287, yPosition+9, 11, 10)];
+    [heartCntImage setImage:[UIImage imageNamed:@"icon-heart-count.png"]];
+    [cell.contentView addSubview:heartCntImage];
+
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(299, yPosition+9, 20, 10)];
+    [heartCount setText:postDetailsObject.time];
+    [heartCount setTextAlignment:NSTextAlignmentLeft];
+    [heartCount setText:@"10"];
+    [heartCount setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
+    [heartCount setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
+    [cell.contentView addSubview:heartCount];
+
+    
     if([postDetailsObject.commenters count] > 0)
     {
         NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, yPosition, 232, 19)];
+        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, yPosition+4, 232, 19)];
         [cell.contentView addSubview:commentersView];
         
         int x = 0;
@@ -343,7 +356,7 @@
             if(i >= 9)
             {
                 UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 19, 19)];
-                [imagVw setImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+                [imagVw setImage:[UIImage imageNamed:@"comment_Count.png"]];
                 [commentersView addSubview:imagVw];
                 
                 UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, 19 , 19)];

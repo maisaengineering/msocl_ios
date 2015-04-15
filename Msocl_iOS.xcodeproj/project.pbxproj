@@ -38,6 +38,8 @@
 		7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAC1AD7C50A00F2C60A /* UIImageView+WebCache.m */; };
 		7F5DEFBE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m */; };
 		7F5DEFC11AD7CF0600F2C60A /* PostDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFC01AD7CF0600F2C60A /* PostDetailDescriptionViewController.m */; };
+		7F5F18D41ADE3DD500C5B4EC /* comment_Count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */; };
+		7F5F18D61ADE3E0700C5B4EC /* icon-heart-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -179,6 +181,8 @@
 		7F5DEFAE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		7F5DEFBF1AD7CF0600F2C60A /* PostDetailDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailDescriptionViewController.h; sourceTree = "<group>"; };
 		7F5DEFC01AD7CF0600F2C60A /* PostDetailDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailDescriptionViewController.m; sourceTree = "<group>"; };
+		7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_Count@2x.png"; sourceTree = "<group>"; };
+		7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-count@2x.png"; sourceTree = "<group>"; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -701,6 +705,8 @@
 			isa = PBXGroup;
 			children = (
 				7FFCDE291ADD0F4B00D78D9B /* icon-heart@2x.png */,
+				7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */,
+				7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */,
 				7F86E5941ADBF0A50002493F /* icon-post-@2x.png */,
 				7F86E5921ADBEAD20002493F /* menu-button@2x.png */,
 				7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */,
@@ -867,6 +873,7 @@
 			files = (
 				7F8999221AD2B1F6007E2917 /* tour_1@2x.png in Resources */,
 				7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */,
+				7F5F18D41ADE3DD500C5B4EC /* comment_Count@2x.png in Resources */,
 				7F83BC7E1AD17844008DFD8B /* Images.xcassets in Resources */,
 				7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */,
 				7F8999231AD2B1F6007E2917 /* tour_2@2x.png in Resources */,
@@ -874,6 +881,7 @@
 				7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */,
 				7F8999211AD2B1F6007E2917 /* tour_0@2x.png in Resources */,
 				7FFCDE2A1ADD0F4B00D78D9B /* icon-heart@2x.png in Resources */,
+				7F5F18D61ADE3E0700C5B4EC /* icon-heart-count@2x.png in Resources */,
 				7F8999271AD2B1F6007E2917 /* tour_6@2x.png in Resources */,
 				7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */,
 				7F8999251AD2B1F6007E2917 /* tour_4@2x.png in Resources */,
