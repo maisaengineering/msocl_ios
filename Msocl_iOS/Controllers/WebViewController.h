@@ -15,4 +15,5 @@
     AppDelegate *appdelegate;
     Webservices *webServices;
 }
+@property (nonatomic) int tagValue;
 @end

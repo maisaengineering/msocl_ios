@@ -131,10 +131,43 @@
     }
 }
 
+- (void)clearTwitterCookiesFromWebview
+{
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies])
+    {
+        NSString* domainName = [cookie domain];
+        NSRange domainRange = [domainName rangeOfString:@"twitter"];
+        if(domainRange.length > 0)
+        {
+            [storage deleteCookie:cookie];
+        }
+    }
+}
+
+- (void)clearGMAILCookiesFromWebview
+{
+    NSHTTPCookie *cookie;
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (cookie in [storage cookies])
+    {
+        NSString* domainName = [cookie domain];
+        NSRange domainRange = [domainName rangeOfString:@"google"];
+        if(domainRange.length > 0)
+        {
+            [storage deleteCookie:cookie];
+        }
+    }
+}
+
+
 -(void)logOut
 {
-    // call clearFBCookiesFromWebview 
+    // call clearCookiesFromWebview
     [self clearFBCookiesFromWebview];
+    [self clearTwitterCookiesFromWebview];
+    [self clearGMAILCookiesFromWebview];
     
     [appdelegate showOrhideIndicator:YES];
     

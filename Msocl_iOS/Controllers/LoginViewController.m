@@ -120,6 +120,7 @@
 {
     UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
+    webViewController.tagValue = [sender tag];
     [self.navigationController pushViewController: webViewController animated:YES];
 }
 #pragma mark -

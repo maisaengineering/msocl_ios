@@ -37,8 +37,9 @@
 #define kBASE_URL               @"https://msocl.herokuapp.com"
 #define BASE_URL                @"https://msocl.herokuapp.com/api/"
 
-// FACEBOOK URL
-#define FACEBOOK_URL                @"https://msocl.herokuapp.com/users/auth/facebook"
+// OAUTH URL
+#define OAUTH_URL                @"https://msocl.herokuapp.com/users/auth/"
+#define OAUTH_URL2                @"http://msocl.herokuapp.com/users/auth/"
 
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."
