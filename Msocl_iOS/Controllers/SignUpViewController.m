@@ -53,7 +53,70 @@
     // Start the Aviary Editor OpenGL Load
     [AFOpenGLManager beginOpenGLLoad];
     
+    UIColor *color = [UIColor lightGrayColor];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
+    
+    txt_password.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    txt_firstName.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter first name"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    txt_lastname.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter last name"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    txt_confirmPassword.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+
+    txt_confirmPassword.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+
+    txt_emailAddress.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter email id"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+
+    
 }
+-(IBAction)backClickes:(id)sender
+{
+    [self resignKeyBoards];
+    NSArray *viewControllers = [self.navigationController viewControllers];
+    [self.navigationController popToViewController:viewControllers[viewControllers.count - 2] animated:NO];
+}
+
+-(IBAction)closeClicked:(id)sender
+{
+    [self resignKeyBoards];
+    NSArray *viewControllers = [self.navigationController viewControllers];
+    [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
+}
+
 #pragma mark -
 #pragma mark Signup Methods
 -(IBAction)signupClicked:(id)sender
@@ -121,7 +184,7 @@
     [[PromptImages sharedInstance] getAllGroups];
     [appdelegate showOrhideIndicator:NO];
     NSArray *viewControllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
+    [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
 }
 -(void)signUpFailed
 {

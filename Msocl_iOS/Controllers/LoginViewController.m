@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "PromptImages.h"
 #import "WebViewController.h"
-
+#import "SignUpViewController.h"
 @implementation LoginViewController
 {
     AppDelegate *appdelegate;
@@ -27,6 +27,39 @@
     appdelegate = [[UIApplication sharedApplication] delegate];
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
+    
+    UIColor *color = [UIColor lightGrayColor];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
+    
+    txt_password.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    txt_username.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter email id"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+ 
+    [self preferredStatusBarStyle];
+}
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
+-(IBAction)closeClicked:(id)sender
+{
+    [self resignKeyBoards];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 #pragma mark -
 #pragma mark Login Methods
@@ -95,7 +128,7 @@
     [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:responseDict];
     [[PromptImages sharedInstance] getAllGroups];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)loginFailed
 {
@@ -112,15 +145,16 @@
 
 -(IBAction)registerClicked:(id)sender
 {
-    [self performSegueWithIdentifier: @"SignUpSeague" sender: self];
-    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SignUpViewController *signUP = [mainStoryboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
+    [self.navigationController pushViewController:signUP animated:NO];
 }
 
 - (IBAction)facebookButtonClikced:(id)sender
 {
     UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
-    webViewController.tagValue = [sender tag];
+    webViewController.tagValue = (int)[sender tag];
     [self.navigationController pushViewController: webViewController animated:YES];
 }
 #pragma mark -

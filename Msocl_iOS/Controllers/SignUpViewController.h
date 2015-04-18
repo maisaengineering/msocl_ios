@@ -31,7 +31,8 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_postal_code;
 @property (nonatomic, strong) IBOutlet UITextField *txt_phno;
 
-
+-(IBAction)backClickes:(id)sender;
+-(IBAction)closeClicked:(id)sender;
 -(IBAction)signupClicked:(id)sender;
 -(IBAction)chosePhoto:(id)sender;
 @end

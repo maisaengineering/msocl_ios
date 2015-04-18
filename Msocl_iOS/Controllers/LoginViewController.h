@@ -17,5 +17,5 @@
 -(IBAction)forgotPasswordClicked:(id)sender;
 -(IBAction)registerClicked:(id)sender;
 - (IBAction)facebookButtonClikced:(id)sender;
-
+-(IBAction)closeClicked:(id)sender;
 @end

@@ -35,6 +35,7 @@
     webServices.delegate = self;
 
    appdelegate = [[UIApplication sharedApplication] delegate];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 
     
 }
@@ -42,9 +43,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 7;
 }
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(indexPath.row == 0)
+        return 75;
+    else return 35;
+}
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 20)];
@@ -59,23 +65,51 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
     
-    cell.textLabel.textColor = [UIColor blackColor];
+    if(indexPath.row == 0)
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftTopCell"];
+        cell.backgroundColor = [UIColor clearColor];
+
+        return cell;
+
+    }
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+
     switch (indexPath.row)
     {
-        case 0:
-            cell.textLabel.text = @"Home";
-            break;
-            
         case 1:
-            cell.textLabel.text = @"Profile";
+            cell.textLabel.text = @"Wall";
+            cell.imageView.image = [UIImage imageNamed:@"menu-home.png"];
             break;
             
         case 2:
-            cell.textLabel.text = @"Sign Out";
+            cell.textLabel.text = @"Create Post";
+            cell.imageView.image = [UIImage imageNamed:@"menu-createpost.png"];
             break;
             
+        case 3:
+            cell.textLabel.text = @"Profile";
+            cell.imageView.image = [UIImage imageNamed:@"menu-profile.png"];
+            break;
+
+        case 4:
+            cell.textLabel.text = @"Settings";
+            cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
+            break;
+
+        case 5:
+            cell.textLabel.text = @"Notifications";
+            cell.imageView.image = [UIImage imageNamed:@"menu-notifications.png"];
+            break;
+
+        case 6:
+            cell.textLabel.text = @"Logout";
+            cell.imageView.image = [UIImage imageNamed:@"menu-logout.png"];
+            break;
     }
     
     cell.backgroundColor = [UIColor clearColor];
@@ -115,6 +149,23 @@
 //                                                             withSlideOutAnimation:self.slideOutAnimationEnabled
 //                                                                     andCompletion:nil];
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 - (void)clearFBCookiesFromWebview
 {

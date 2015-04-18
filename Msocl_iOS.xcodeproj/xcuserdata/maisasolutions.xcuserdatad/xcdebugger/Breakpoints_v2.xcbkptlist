@@ -52,12 +52,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/SignUpViewController.m"
-            timestampString = "450450695.933475"
+            timestampString = "451045462.914935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "-signUpFailed"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-signUpSccessfull:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,6 +74,22 @@
             startingLineNumber = "559"
             endingLineNumber = "559"
             landmarkName = "-swipeableTableViewCell:didTriggerRightUtilityButtonWithIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/WebServices/Webservices.m"
+            timestampString = "451030637.112976"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "-connectionSuccessGetShowPost:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -53,6 +53,10 @@
     [webView setDelegate:self];
     [self.view addSubview:webView];
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO];
+}
 #pragma mark -
 #pragma mark - UIWebViewDelegate methods
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

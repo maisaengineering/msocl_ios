@@ -12,6 +12,7 @@
 #import "PostDetailDescriptionViewController.h"
 #import "PostDetails.h"
 #import "SettingsMenuViewController.h"
+#import "LoginViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -39,7 +40,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    
+    [self.navigationController setNavigationBarHidden:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadOnLogOut)
                                                  name:RELOAD_ON_LOG_OUT
@@ -85,7 +86,11 @@
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
     else
-        [self performSegueWithIdentifier: @"LoginSeague" sender: self];
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [self.navigationController pushViewController:login animated:NO];
+    }
 }
 
 -(IBAction)RecentOrFollowignClicked:(id)sender
