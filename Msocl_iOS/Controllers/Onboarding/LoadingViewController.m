@@ -12,6 +12,8 @@
 #import "Webservices.h"
 #import "AppDelegate.h"
 #import "ModelManager.h"
+#import "PageGuidePopUps.h"
+
 @implementation LoadingViewController
 - (void)viewDidLoad
 {
@@ -87,6 +89,13 @@
     [appdelegate showOrhideIndicator:NO];
     ModelManager *sharedModel = [ModelManager sharedModel];
     sharedModel.accessToken = [tokens objectAtIndex:0];
+    
+    // Get the PageGuidePopUpImages
+    NSMutableArray *pageGuidePopUpData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    if ([pageGuidePopUpData count] == 0)
+    {
+        [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
+    }
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];

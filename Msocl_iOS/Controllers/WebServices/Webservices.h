@@ -37,6 +37,10 @@
 -(void) showExternalSignInFailed;
 -(void) commentSuccessful:(NSDictionary *)recievedDict;
 -(void) commentFailed;
+-(void) didReceivePageGuideImagesSuccessful:(NSMutableArray *)recievedArray;
+-(void) pageGuideImagesFailed;
+-(void) didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray;
+-(void) visitedPageGuidesFailed;
 
 @end
 

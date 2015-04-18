@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		25214C341AD6C23C0084BAC4 /* libFlurry_6.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */; };
 		25214C361AD6C3A20084BAC4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */; };
+		2527723C1AE288FC008ECE78 /* PageGuidePopUps.m in Sources */ = {isa = PBXBuildFile; fileRef = 2527723B1AE288FC008ECE78 /* PageGuidePopUps.m */; };
 		253C89451AD80473002477A8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89441AD80473002477A8 /* AudioToolbox.framework */; };
 		253C89471AD8047A002477A8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89461AD8047A002477A8 /* CFNetwork.framework */; };
 		253C89491AD8048E002477A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89481AD8048E002477A8 /* CoreLocation.framework */; };
@@ -156,6 +157,8 @@
 		25214C321AD6C23C0084BAC4 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.3.0.a; sourceTree = "<group>"; };
 		25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		2527723A1AE288FC008ECE78 /* PageGuidePopUps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageGuidePopUps.h; sourceTree = SOURCE_ROOT; };
+		2527723B1AE288FC008ECE78 /* PageGuidePopUps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageGuidePopUps.m; sourceTree = SOURCE_ROOT; };
 		253C89441AD80473002477A8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		253C89461AD8047A002477A8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		253C89481AD8048E002477A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -512,6 +515,8 @@
 				7F80DE5A1AD6544400EA6D1F /* ProfilePhotoUtils.m */,
 				7F80DE5B1AD6544400EA6D1F /* PromptImages.h */,
 				7F80DE5C1AD6544400EA6D1F /* PromptImages.m */,
+				2527723A1AE288FC008ECE78 /* PageGuidePopUps.h */,
+				2527723B1AE288FC008ECE78 /* PageGuidePopUps.m */,
 				7F80DE701AD6901A00EA6D1F /* ProfileDateUtils.h */,
 				7F80DE711AD6901A00EA6D1F /* ProfileDateUtils.m */,
 			);
@@ -1071,6 +1076,7 @@
 				25F51BBC1AD8F1F200369764 /* WebViewController.m in Sources */,
 				7F83BC671AD14CEF008DFD8B /* UIRefreshControl+AFNetworking.m in Sources */,
 				7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */,
+				2527723C1AE288FC008ECE78 /* PageGuidePopUps.m in Sources */,
 				7F5DEFC11AD7CF0600F2C60A /* PostDetailDescriptionViewController.m in Sources */,
 				7F83BC661AD14CEF008DFD8B /* UIProgressView+AFNetworking.m in Sources */,
 				7F5DEFB41AD7C50A00F2C60A /* SDWebImageDownloader.m in Sources */,

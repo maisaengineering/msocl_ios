@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "StreamDisplayView.h"
 #import "SlideNavigationController.h"
+#import "PageGuidePopUps.h"
 
 @interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate>
-
+{
+    PageGuidePopUps *pageGuidePopUpsObj;
+}
 @property (nonatomic, strong) IBOutlet UIButton *mostRecentButton;
 @property (nonatomic, strong) IBOutlet UIButton *followingButton;
 

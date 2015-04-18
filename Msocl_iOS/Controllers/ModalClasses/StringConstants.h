@@ -32,6 +32,7 @@
 #define Deviceheight  [UIScreen mainScreen].bounds.size.height
 #define Devicewidth  [UIScreen mainScreen].bounds.size.width
 
+#define DEVICE_UUID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
 //API URLS
 #define kBASE_URL               @"https://msocl.herokuapp.com"

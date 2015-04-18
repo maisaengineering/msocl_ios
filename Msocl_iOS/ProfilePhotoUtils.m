@@ -160,6 +160,23 @@
         [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:path]];
     }
 }
+- (void)saveImageToCacheWithOutCompression:(NSString *)url :(UIImage *)image
+{
+    if (image != nil)
+    {
+        url = [url stringByReplacingOccurrencesOfString:@"/" withString:@""];
+        url = [url stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        url = [url stringByReplacingOccurrencesOfString:@":" withString:@""];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                             NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent: [NSString stringWithString:url] ];
+        NSData* data = UIImageJPEGRepresentation(image, 0.0);
+        [data writeToFile:path atomically:YES];
+        [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:path]];
+    }
+}
 - (void)saveRoundedRectImageToCache:(NSString *)url :(UIImage *)image
 {
     if (image != nil)

@@ -36,10 +36,16 @@
     [self.view addSubview:mostRecent];
     following.hidden = YES;
     
+    pageGuidePopUpsObj = [[PageGuidePopUps alloc] init];
+
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        [self check];
+    }
     [self.navigationController setNavigationBarHidden:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadOnLogOut)
@@ -53,6 +59,11 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
+    
+    //Invalidate the timer
+    if([[pageGuidePopUpsObj  timer] isValid])
+        [[pageGuidePopUpsObj timer] invalidate];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
 }
 -(void)reloadOnLogOut
@@ -115,6 +126,26 @@
 {
     return NO;
 }
-
+-(void)check
+{
+    NSMutableArray *timedReminderData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    
+    for(int index = 0; index < [timedReminderData count]; index++)
+    {
+        NSMutableDictionary *eachPage = [timedReminderData objectAtIndex:index];
+        NSString *context_name = [eachPage objectForKey:@"context_name"];
+        if ([context_name isEqualToString:@"Homepage"])
+        {
+            if (![[pageGuidePopUpsObj timer] isValid])
+            {
+                pageGuidePopUpsObj.dicVisitedPage = eachPage;
+                [pageGuidePopUpsObj setUpTimerWithStartIn];
+                break;
+                
+            }
+            
+        }
+    }
+}
 
 @end

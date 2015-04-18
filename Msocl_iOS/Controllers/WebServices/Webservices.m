@@ -115,7 +115,14 @@
     {
         [self connectionSuccessComment:responseDict];
     }
-
+    else if([command isEqualToString:@"page_guides"])
+    {
+        [self connectionSuccessPageGuidePopUpImages:responseDict];
+    }
+    else if([command isEqualToString:@"visited_page_guides"])
+    {
+        [self connectionSuccessVisitedPageGuides:responseDict];
+    }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -171,6 +178,14 @@
     else if([command isEqualToString:@"Comment"])
     {
         [self.delegate commentFailed];
+    }
+    else if([command isEqualToString:@"page_guides"])
+    {
+        [self.delegate pageGuideImagesFailed];
+    }
+    else if([command isEqualToString:@"visited_page_guides"])
+    {
+        [self.delegate visitedPageGuidesFailed];
     }
 }
 #pragma mark -
@@ -433,4 +448,36 @@
     
 }
 
+-(void)connectionSuccessPageGuidePopUpImages:(NSDictionary *)respDict
+{
+    NSMutableArray *arrayCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate didReceivePageGuideImagesSuccessful:arrayCopty];
+    }
+    
+    else
+    {
+        [self.delegate pageGuideImagesFailed];
+        
+    }
+}
+-(void)connectionSuccessVisitedPageGuides:(NSDictionary *)respDict
+{
+    NSMutableArray *arrayCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate didReceiveVisitedPageGuidesSuccessful:arrayCopty];
+    }
+    
+    else
+    {
+        [self.delegate visitedPageGuidesFailed];
+        
+    }
+}
 @end
