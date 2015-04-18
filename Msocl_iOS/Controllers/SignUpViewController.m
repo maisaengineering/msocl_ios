@@ -22,7 +22,7 @@
     NSString *imageId;
     BOOL isUploadingImage;
     Webservices *webServices;
-    
+    UIImage *selectedImage;
     
 }
 @synthesize txt_firstName;
@@ -358,7 +358,8 @@
 -(void)finishedEditingImage:(UIImage *)image
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    profileImage.image = image;
+    profileImage.image = [photoUtils makeRoundKidPhoto:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(50, 50)]];
+    selectedImage = image;
     [self UploadImage:image];
 }
 

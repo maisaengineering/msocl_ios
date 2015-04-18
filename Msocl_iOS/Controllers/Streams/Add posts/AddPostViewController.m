@@ -46,34 +46,18 @@
     uploadingImages = 0;
     selectedtagsArray = [[NSMutableArray alloc] init];
     tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,screenWidth, 64)];
-    [topView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:topView];
-    UIImageView *lineImage = [[UIImageView alloc] init];
-    [lineImage setBackgroundColor:[UIColor colorWithRed:192/255.0 green:184/255.0 blue:176/255.0 alpha:1.0]];
-    [lineImage setFrame:CGRectMake(0, 63.5f, screenWidth, 0.5f)];
-    [self.view addSubview:lineImage];
     
     
-    
-    CGRect frame = CGRectMake(0, 17, screenWidth, 44);
-    UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor colorWithRed:69.0/255.0 green:199.0/255.0 blue:242.0/255.0 alpha:1.0];
-    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22.0];
-    label.text = @"Add post";
-    [topView addSubview:label];
    
-    UIButton *cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
-    [cancelButton addTarget:self action:@selector(cancelClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [cancelButton setTitleColor:[UIColor colorWithRed:(251/255.f) green:(176/255.f) blue:(64/255.f) alpha:1] forState:UIControlStateNormal];
-    [cancelButton setFrame:CGRectMake(-0.5, 20.5, 80, 44)];
-    [cancelButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
-    [topView addSubview:cancelButton];
+    
+    UIImage *background = [UIImage imageNamed:@"icon-back.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [button setImage:background forState:UIControlStateNormal];
+    button.frame = CGRectMake(0 ,0,13,17);
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [postButton setTitle:@"Post" forState:UIControlStateNormal];
@@ -81,7 +65,10 @@
     [postButton setTitleColor:[UIColor colorWithRed:(251/255.f) green:(176/255.f) blue:(64/255.f) alpha:1] forState:UIControlStateNormal];
     [postButton setFrame:CGRectMake(240, 20.5, 80, 44)];
     [postButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
-    [topView addSubview:postButton];
+    
+    UIBarButtonItem *rightbarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
+    self.navigationItem.rightBarButtonItem = rightbarButton;
+
     
     imagesIdDict = [[NSMutableDictionary alloc] init];
     
@@ -100,20 +87,21 @@
     // Start the Aviary Editor OpenGL Load
     [AFOpenGLManager beginOpenGLLoad];
 }
--(void)cancelClicked:(id)sender
+
+-(void)backClicked
 {
     [textView resignFirstResponder];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 -(void)postDetailsScroll
 {
     int height = Deviceheight-64;
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, 320, height)];
-    scrollView.backgroundColor = [UIColor lightGrayColor];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
+    scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:scrollView];
 
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(10,10,300, 100)];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(10,10,300, 70)];
     textView.font = [UIFont systemFontOfSize:16];
     textView.delegate = self;
     [scrollView addSubview:textView];
@@ -138,12 +126,12 @@
     [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:addPhotoBtn];
     
-    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+20, 300, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"verdana" size:15]];
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+10, 300, 20)];
+    [selectTagslabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
     
-    tagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height, 300, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height)];
+    tagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 320, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height)];
     tagsTableView.delegate = self;
     tagsTableView.dataSource = self;
     tagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -560,12 +548,20 @@
     }
     for(UIView *viw in [[cell contentView] subviews])
         [viw removeFromSuperview];
-    [cell.textLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
     cell.textLabel.text = [[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])
+    {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [cell.textLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+
+    }
     else
+    {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+
+    }
         return cell;
 }
 - (void)tableView:(UITableView *)tableView1 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -574,11 +570,14 @@
     if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
         [selectedtagsArray removeObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
+        
     }
     else
     {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [cell.textLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [selectedtagsArray addObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     }
     [tagsTableView beginUpdates];
@@ -669,7 +668,7 @@
     isPostClicked = NO;
     postButton.enabled = YES;
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)postCreationFailed
 {

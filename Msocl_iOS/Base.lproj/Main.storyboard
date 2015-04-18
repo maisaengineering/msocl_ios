@@ -121,7 +121,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="TdL-Fm-sQV" kind="modal" identifier="AddPostsSegue" id="qU5-jb-Cet"/>
+                        <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="qU5-jb-Cet"/>
                         <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="TSv-V5-Dr2"/>
                     </connections>
                 </viewController>
@@ -476,7 +476,7 @@
             </objects>
             <point key="canvasLocation" x="750" y="1835"/>
         </scene>
-        <!--Add Post View Controller-->
+        <!--ADD POST-->
         <scene sceneID="Mjk-Dq-2BD">
             <objects>
                 <viewController id="TdL-Fm-sQV" customClass="AddPostViewController" sceneMemberID="viewController">
@@ -489,6 +489,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="ADD POST" id="REQ-hX-Kp0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xat-Po-jKT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
