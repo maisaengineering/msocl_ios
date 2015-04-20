@@ -25,7 +25,8 @@
 @property (nonatomic, assign) BOOL isMostRecent;
 @property (nonatomic, assign) BOOL isFollowing;
 @property (nonatomic, strong) NSString *timeStamp;
-
+@property (nonatomic, strong) NSString *etag;
+@property (nonatomic, strong) NSNumber *postCount;
 -(void)callStreamsApi:(NSString *)step;
 -(void)resetData;
 

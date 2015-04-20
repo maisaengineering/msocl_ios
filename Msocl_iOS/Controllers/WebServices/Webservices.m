@@ -123,6 +123,10 @@
     {
         [self connectionSuccessVisitedPageGuides:responseDict];
     }
+    else if([command isEqualToString:@"updatePost"])
+    {
+        [self connectionSuccessUpdatePost:responseDict];
+    }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -186,6 +190,10 @@
     else if([command isEqualToString:@"visited_page_guides"])
     {
         [self.delegate visitedPageGuidesFailed];
+    }
+    else if([command isEqualToString:@"updatePost"])
+    {
+        [self.delegate updatePostFailed];
     }
 }
 #pragma mark -
@@ -284,6 +292,24 @@
     else
     {
         [self.delegate postCreationFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessUpdatePost:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate updatePostSccessfull:[respDict objectForKey:@"body"]];
+        
+    }
+    
+    else
+    {
+        [self.delegate updatePostFailed];
         
     }
     

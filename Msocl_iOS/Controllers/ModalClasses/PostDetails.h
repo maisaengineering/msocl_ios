@@ -20,6 +20,8 @@
 @property (nonatomic,strong) NSMutableArray *commenters;
 @property (nonatomic,strong) NSMutableArray *tags;
 @property (nonatomic,strong) NSMutableArray *comments;
+@property (nonatomic,assign) int upVoteCount;
+
 @property (nonatomic, assign) BOOL anonymous;
 
 - (id)initWithDictionary:(NSDictionary*)response;

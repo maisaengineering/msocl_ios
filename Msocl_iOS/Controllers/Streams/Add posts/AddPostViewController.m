@@ -13,7 +13,8 @@
 #import "Base64.h"
 #import "Webservices.h"
 #import "ProfilePhotoUtils.h"
-
+#import "DXPopover.h"
+#import "SDWebImageManager.h"
 @implementation AddPostViewController
 {
     UITextView *textView;
@@ -30,9 +31,12 @@
     UIButton *postButton;
     BOOL isPrivate;
     Webservices *webServices;
+    DXPopover *popover;
+    UIView *popView;
 
 }
 @synthesize scrollView;
+@synthesize postDetailsObject;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,7 +51,8 @@
     selectedtagsArray = [[NSMutableArray alloc] init];
     tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     
-    
+    popover = [DXPopover popover];
+
    
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
@@ -59,6 +64,7 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
+    
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [postButton setTitle:@"Post" forState:UIControlStateNormal];
     [postButton addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -66,8 +72,20 @@
     [postButton setFrame:CGRectMake(240, 20.5, 80, 44)];
     [postButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
     
-    UIBarButtonItem *rightbarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
-    self.navigationItem.rightBarButtonItem = rightbarButton;
+    
+
+    UIButton *anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [anonymousButton setTitle:@"anon" forState:UIControlStateNormal];
+    [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [anonymousButton setTitleColor:[UIColor colorWithRed:(251/255.f) green:(176/255.f) blue:(64/255.f) alpha:1] forState:UIControlStateNormal];
+    [anonymousButton setFrame:CGRectMake(240, 20.5, 40, 44)];
+    [anonymousButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
+
+    
+    UIBarButtonItem *postBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
+    UIBarButtonItem *anonymousBarButton = [[UIBarButtonItem alloc] initWithCustomView:anonymousButton];
+
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:postBarButton,anonymousBarButton, nil];
 
     
     imagesIdDict = [[NSMutableDictionary alloc] init];
@@ -86,6 +104,28 @@
     
     // Start the Aviary Editor OpenGL Load
     [AFOpenGLManager beginOpenGLLoad];
+    
+    popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+    UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+    [postAsLabel setText:@"Post as"];
+    [postAsLabel setTextAlignment:NSTextAlignmentCenter];
+    [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+    [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [popView addSubview:postAsLabel];
+    
+    UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(183, 5, 25, 20)];
+    [anonymusImage setImage:[UIImage imageNamed:@""]];
+    [popView addSubview:anonymusImage];
+    
+    UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    postBtn.frame = CGRectMake(0, 0, 300, 30);
+    [postBtn addTarget:self action:@selector(postAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
+    [popView addSubview:postBtn];
+    
+    if(postDetailsObject != (PostDetails*) [NSNull null] )
+    {
+        [self setDetails];
+    }
 }
 
 -(void)backClicked
@@ -121,13 +161,13 @@
     
     
     UIButton *addPhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addPhotoBtn.frame = CGRectMake(10, textView.frame.origin.y+textView.frame.size.height, 100, 30);
-    [addPhotoBtn setTitle:@"Add Photo" forState:UIControlStateNormal];
+    addPhotoBtn.frame = CGRectMake(10, textView.frame.origin.y+textView.frame.size.height+10, 28, 23);
+    [addPhotoBtn setImage:[UIImage imageNamed:@"icon-camera-add.png"] forState:UIControlStateNormal];
     [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:addPhotoBtn];
     
-    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+10, 300, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(15, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+10, 300, 20)];
+    [selectTagslabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
     
@@ -137,9 +177,58 @@
     tagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [scrollView addSubview:tagsTableView];
 
+    
+    
 }
+-(void)setDetails
+{
+    [postButton setTitle:@"Save" forState:UIControlStateNormal];
+    
+    [postButton addTarget:self action:@selector(callEditPostApi) forControlEvents:UIControlEventTouchUpInside];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:11],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    
+    do{
+        
+        NSArray *myArray = [regex matchesInString:attributedString.string options:0 range:NSMakeRange(0, [attributedString.string length])] ;
+        if(myArray.count > 0)
+        {
+            NSTextCheckingResult *match =  [myArray firstObject];
+            NSRange matchRange = [match rangeAtIndex:1];
+            NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
+            
+            UIImage  *image = [photoUtils imageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
+            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
+            
+            textAttachment.image = image;
+            
+            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+            [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                
+                textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
+                [textView setNeedsDisplay];
+            }];
+            
+            NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
+            
+        }
 
+        else
+        {
+            break;
+        }
+        
+    }while (1);
 
+    textView.attributedText = attributedString;
+
+    selectedtagsArray = [postDetailsObject.tags mutableCopy];
+    [tagsTableView reloadData];
+
+}
 #pragma mark -
 #pragma mark Image Methods
 
@@ -336,7 +425,7 @@
     image.accessibilityIdentifier = identifier;
     [self UploadImage:image];
     
-    image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(30, 30)];
+    image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
     NSMutableAttributedString *attributedString = [textView.attributedText mutableCopy];
     NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
     image.accessibilityIdentifier = identifier;
@@ -606,6 +695,23 @@
 
 #pragma mark -
 #pragma mark Post Methods
+-(void)postAsAnonymous
+{
+    
+    [popover dismiss];
+    if(textView.text.length == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        return;
+    }
+    isPrivate = YES;
+    [self createPost];
+}
+-(void)anonymousPostClicked:(id)sender
+{
+    [popover showAtView:sender withContentView:popView];
+
+}
 -(void)postClicked
 {
     
@@ -614,6 +720,8 @@
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
     }
+    
+    isPrivate = NO;
     [self createPost];
     
 }
@@ -627,6 +735,8 @@
         [self callPostApi];
     }
 }
+
+#pragma mark Create Post
 -(void)callPostApi
 {
     
@@ -634,9 +744,9 @@
     
     //Visiblity
     if(isPrivate)
-        [postDetails setObject:@"private" forKey:@"scope"];
+        [postDetails setObject:[NSNumber numberWithBool:YES] forKey:@"anonymous"];
     else
-        [postDetails setObject:@"public" forKey:@"scope"];
+        [postDetails setObject:[NSNumber numberWithBool:NO] forKey:@"anonymous"];
     
     //Tags
     if([selectedtagsArray count] > 0)
@@ -661,6 +771,8 @@
     NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    
+    isPrivate = postDetailsObject.anonymous;
 }
 -(void)postCreationSccessfull:(NSDictionary *)notificationDict
 {
@@ -678,6 +790,51 @@
     postButton.enabled = YES;
     
     ShowAlert(@"Error", POST_CREATION_FAILED, @"OK");
+}
+
+#pragma Edit Post
+-(void)callEditPostApi
+{
+    
+    NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+    
+    //Visiblity
+    if(isPrivate)
+        [postDetails setObject:[NSNumber numberWithBool:YES] forKey:@"anonymous"];
+    else
+        [postDetails setObject:[NSNumber numberWithBool:NO] forKey:@"anonymous"];
+    
+    //Tags
+    if([selectedtagsArray count] > 0)
+        [postDetails setObject:selectedtagsArray forKey:@"tags_array"];
+    
+    //Text
+    NSString *formatedDesc = [self formatStringForServer:textView.attributedText];
+    [postDetails setObject:formatedDesc forKey:@"content"];
+    
+    //Image Ids
+    if([[imagesIdDict allValues] count] > 0)
+        [postDetails setObject:[imagesIdDict allValues] forKey:@"img_keys"];
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSString *command = @"update";
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": command,
+                               @"body": postDetails};
+    NSDictionary *userInfo = @{@"command": @"updatePost"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postDetailsObject.uid];
+    
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+-(void) updatePostSccessfull:(NSDictionary *)recievedDict
+{
+    
+}
+-(void) updatePostFailed
+{
+    
 }
 #pragma mark -
 #pragma mark Methods To Proccess String For Server

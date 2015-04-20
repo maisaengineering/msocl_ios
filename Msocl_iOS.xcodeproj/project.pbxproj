@@ -30,6 +30,9 @@
 		7F0AB8F11AE27280009219B2 /* menu-settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0AB8EB1AE27280009219B2 /* menu-settings@2x.png */; };
 		7F0AB8F31AE295CF009219B2 /* AddPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AB8F21AE295CF009219B2 /* AddPostViewController.m */; };
 		7F0AB8F51AE2960E009219B2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AB8F41AE2960E009219B2 /* SignUpViewController.m */; };
+		7F2178AE1AE5151B003D8A33 /* icon-camera-add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2178AD1AE5151A003D8A33 /* icon-camera-add@2x.png */; };
+		7F2178B71AE51862003D8A33 /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2178B61AE51862003D8A33 /* DXPopover.m */; };
+		7F2178B91AE52A80003D8A33 /* icon-edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2178B81AE52A80003D8A33 /* icon-edit@2x.png */; };
 		7F2A598E1AE241DD0089EDBB /* icon-back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A598D1AE241DD0089EDBB /* icon-back@2x.png */; };
 		7F2A59901AE252520089EDBB /* icon-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A598F1AE252520089EDBB /* icon-close@2x.png */; };
 		7F2A59941AE2563E0089EDBB /* btn-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59911AE2563E0089EDBB /* btn-facebook@2x.png */; };
@@ -180,6 +183,10 @@
 		7F0AB8EB1AE27280009219B2 /* menu-settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-settings@2x.png"; sourceTree = "<group>"; };
 		7F0AB8F21AE295CF009219B2 /* AddPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostViewController.m; sourceTree = "<group>"; };
 		7F0AB8F41AE2960E009219B2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		7F2178AD1AE5151A003D8A33 /* icon-camera-add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-camera-add@2x.png"; sourceTree = "<group>"; };
+		7F2178B51AE51862003D8A33 /* DXPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DXPopover.h; path = Msocl_iOS/DXPopover.h; sourceTree = SOURCE_ROOT; };
+		7F2178B61AE51862003D8A33 /* DXPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DXPopover.m; path = Msocl_iOS/DXPopover.m; sourceTree = SOURCE_ROOT; };
+		7F2178B81AE52A80003D8A33 /* icon-edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-edit@2x.png"; sourceTree = "<group>"; };
 		7F2A598D1AE241DD0089EDBB /* icon-back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-back@2x.png"; sourceTree = "<group>"; };
 		7F2A598F1AE252520089EDBB /* icon-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-close@2x.png"; sourceTree = "<group>"; };
 		7F2A59911AE2563E0089EDBB /* btn-facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-facebook@2x.png"; sourceTree = "<group>"; };
@@ -519,6 +526,8 @@
 				2527723B1AE288FC008ECE78 /* PageGuidePopUps.m */,
 				7F80DE701AD6901A00EA6D1F /* ProfileDateUtils.h */,
 				7F80DE711AD6901A00EA6D1F /* ProfileDateUtils.m */,
+				7F2178B51AE51862003D8A33 /* DXPopover.h */,
+				7F2178B61AE51862003D8A33 /* DXPopover.m */,
 			);
 			name = Utitlities;
 			path = Controllers/Utitlities;
@@ -784,7 +793,9 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F2178B81AE52A80003D8A33 /* icon-edit@2x.png */,
 				7F2A59971AE258950089EDBB /* icon-profile-register@2x.png */,
+				7F2178AD1AE5151A003D8A33 /* icon-camera-add@2x.png */,
 				7F0AB8E61AE27280009219B2 /* menu-createpost@2x.png */,
 				7F0AB8E71AE27280009219B2 /* menu-home@2x.png */,
 				7F0AB8E81AE27280009219B2 /* menu-logout@2x.png */,
@@ -974,6 +985,7 @@
 				7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */,
 				7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */,
 				7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */,
+				7F2178AE1AE5151B003D8A33 /* icon-camera-add@2x.png in Resources */,
 				7F5F18D41ADE3DD500C5B4EC /* comment_Count@2x.png in Resources */,
 				7F0AB8F11AE27280009219B2 /* menu-settings@2x.png in Resources */,
 				7F83BC7E1AD17844008DFD8B /* Images.xcassets in Resources */,
@@ -991,6 +1003,7 @@
 				7F8999271AD2B1F6007E2917 /* tour_6@2x.png in Resources */,
 				7F2A59981AE258950089EDBB /* icon-profile-register@2x.png in Resources */,
 				7F0AB8EC1AE27280009219B2 /* menu-createpost@2x.png in Resources */,
+				7F2178B91AE52A80003D8A33 /* icon-edit@2x.png in Resources */,
 				7F2A59941AE2563E0089EDBB /* btn-facebook@2x.png in Resources */,
 				7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */,
 				7F8999251AD2B1F6007E2917 /* tour_4@2x.png in Resources */,
@@ -1089,6 +1102,7 @@
 				7F86E5871ADBCFB00002493F /* SlideNavigationContorllerAnimatorScale.m in Sources */,
 				7F5F18EB1ADE997200C5B4EC /* SWUtilityButtonView.m in Sources */,
 				7F83BC681AD14CEF008DFD8B /* UIWebView+AFNetworking.m in Sources */,
+				7F2178B71AE51862003D8A33 /* DXPopover.m in Sources */,
 				7F83BC5A1AD14CEF008DFD8B /* AFHTTPSessionManager.m in Sources */,
 				7F83BC301AD14ACA008DFD8B /* Reachability.m in Sources */,
 			);

@@ -104,24 +104,13 @@
 
 -(UIImage *)makeRoundedCornersWithBorder:(UIImage *)fooImage withRadious:(float)value
 {
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:fooImage];
-    
-    UIGraphicsBeginImageContextWithOptions(fooImage.size, NO, 0.0);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    // Create the clipping path and add it
-    CGRect imageRect = CGRectMake(0, 0, fooImage.size.width, fooImage.size.height);
-    
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:imageView.bounds cornerRadius:value];
-    [path addClip];
-    [fooImage drawInRect:imageRect];
-    
-    CGContextSetStrokeColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
-    [path setLineWidth:5];
-    [path stroke];
-    
-    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsBeginImageContextWithOptions(fooImage.size, NO, 0);
+    [[UIBezierPath bezierPathWithRoundedRect:(CGRect){CGPointZero, fooImage.size}
+                                cornerRadius:value] addClip];
+    [fooImage drawInRect:(CGRect){CGPointZero, fooImage.size}];
+    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return  roundedImage;
+    return result;
 }
 
 - (UIImage *)getImageFromCache:(NSString *)url
@@ -328,7 +317,7 @@
 }
 
 
-+ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)size {
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)size withRadious:(CGFloat )radious{
     if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
         UIGraphicsBeginImageContextWithOptions(size, NO, [[UIScreen mainScreen] scale]);
     } else {
@@ -338,10 +327,13 @@
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    return [self makeRoundedCornersWithBorder:newImage withRadious:radious];
+
+    
     return newImage;
 }
 
-+ (UIImage *)imageWithImage:(UIImage *)image scaledToMaxWidth:(CGFloat)width maxHeight:(CGFloat)height {
+- (UIImage *)imageWithImage:(UIImage *)image scaledToMaxWidth:(CGFloat)width maxHeight:(CGFloat)height {
     CGFloat oldWidth = image.size.width;
     CGFloat oldHeight = image.size.height;
     
@@ -351,7 +343,8 @@
     CGFloat newWidth = oldWidth * scaleFactor;
     CGSize newSize = CGSizeMake(newWidth, newHeight);
     
-    return [self imageWithImage:image scaledToSize:newSize];
+    image = [self imageWithImage:image scaledToSize:newSize withRadious:3.0];
+    return [self makeRoundedCornersWithBorder:image withRadious:3.0];
 }
 
 #pragma mark- Excluding a File from Backups on iOS 5.1 and Later

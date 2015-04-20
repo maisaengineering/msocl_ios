@@ -17,6 +17,8 @@
 #import "SDWebImageManager.h"
 #import "STTweetLabel.h"
 #import "AppDelegate.h"
+#import "DXPopover.h"
+#import "AddPostViewController.h"
 
 @implementation PostDetailDescriptionViewController
 {
@@ -25,6 +27,11 @@
     ModelManager *sharedModel;
     AppDelegate *appDelegate;
     Webservices *webServices;
+    UILabel *placeholderLabel;
+    BOOL isAnonymous;
+    DXPopover *popover;
+    UIView *popView;
+
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -57,22 +64,61 @@
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
     
+    UIImage *background = [UIImage imageNamed:@"icon-back.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [button setImage:background forState:UIControlStateNormal];
+    button.frame = CGRectMake(0 ,0,13,17);
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+
+    UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
+    editButton.frame = CGRectMake(0 ,0,20,18);
+    
+    UIBarButtonItem *rightbarButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+    self.navigationItem.rightBarButtonItem = rightbarButton;
+
+    
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
     self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 40)];
+        self.commentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.commentView];
-    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 250, 40)];
-    [self.txt_comment setText:@"Add comment"];
+    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 40)];
     self.txt_comment.delegate = self;
+        [self.txt_comment setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+
     [self.commentView addSubview:self.txt_comment];
+        
+        placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, self.txt_comment.frame.size.width - 15.0, 40)];
+        //[placeholderLabel setText:placeholder];
+        [placeholderLabel setBackgroundColor:[UIColor clearColor]];
+        [placeholderLabel setNumberOfLines:0];
+        placeholderLabel.text = @"Write a comment";
+        [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
+        [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]];
+        [placeholderLabel setTextColor:[UIColor lightGrayColor]];
+        [self.txt_comment addSubview:placeholderLabel];
+
         
     //Upvote
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commentBtn setFrame:CGRectMake(275, 0, 45, 41)];
+    [commentBtn setFrame:CGRectMake(235, 0, 45, 41)];
     [commentBtn setImage:[UIImage imageNamed:@"icon-comment-main.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(commentClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.commentView addSubview:commentBtn];
     [self.view addSubview:self.commentView];
+    
+        //Upvote
+        UIButton *anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [anonymousButton setFrame:CGRectMake(280, 0, 27, 27)];
+        [anonymousButton setImage:[UIImage imageNamed:@"icon-comment-main.png"] forState:UIControlStateNormal];
+        [anonymousButton addTarget:self action:@selector(anonymousCommentClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self.commentView addSubview:anonymousButton];
+        [self.view addSubview:self.commentView];
         
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 320, 0.5)];
     line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
@@ -81,7 +127,28 @@
     [self.commentView addSubview:line];
 
     
+        popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+        UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
+        [postAsLabel setText:@"Comment as"];
+        [postAsLabel setTextAlignment:NSTextAlignmentCenter];
+        [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+        [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+        [popView addSubview:postAsLabel];
+        
+        UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(183, 5, 25, 20)];
+        [anonymusImage setImage:[UIImage imageNamed:@""]];
+        [popView addSubview:anonymusImage];
+        
+        UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        postBtn.frame = CGRectMake(0, 0, 300, 30);
+        [postBtn addTarget:self action:@selector(commentAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
+        [popView addSubview:postBtn];
+        
+        popover = [DXPopover popover];
+
+        
     }
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -104,6 +171,21 @@
     [super viewWillDisappear:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+-(void)backClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+-(void)editClicked
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    
+    AddPostViewController *addPost = (AddPostViewController*)[mainStoryboard
+                                                                         instantiateViewControllerWithIdentifier: @"AddPostViewController"];
+    addPost.postDetailsObject = [storiesArray lastObject];
+    [self.navigationController pushViewController:addPost animated:YES];
 }
 #pragma mark -
 #pragma mark API calls to get Stream data
@@ -329,11 +411,11 @@
             
             UIImage  *image = [UIImage imageNamed:@"EmptyProfilePic.jpg"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            textAttachment.image = [photoUtils getSubImageFrom:image WithRect:CGRectMake(0, 0, 262, 114)];
+            textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(262, 114) withRadious:5.0];
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                textAttachment.image = [photoUtils getSubImageFrom:image WithRect:CGRectMake(0, 0, 262, 114)];
+                textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(262, 114) withRadious:5.0];
                 [description setNeedsDisplay];
             }];
             
@@ -399,6 +481,15 @@
     UIView *likesView = [[UIView alloc] init];
     [likesView setBackgroundColor:[UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1.0f]];
     [cell.contentView addSubview:likesView];
+    
+    UIButton *follow = [UIButton buttonWithType:UIButtonTypeCustom];
+    [follow setTitle:@"Follow" forState:UIControlStateNormal];
+    [follow setTitleColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [follow.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thick" size:16]];
+    [follow.titleLabel setFont:[UIFont systemFontOfSize:13]];
+    [follow addTarget:self action:@selector(follow:) forControlEvents:UIControlEventTouchUpInside];
+    [follow setFrame:CGRectMake(264, 0, 50, 32)];
+    [likesView addSubview:follow];
 
     NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
         
@@ -425,29 +516,63 @@
             if( i%9 == 0)
             {
                 x = 22;
-                y += 30;
+                y += 32;
             }
         }
-    likesView.frame = CGRectMake(0, yPosition, 320, y);
+    likesView.frame = CGRectMake(0, yPosition, 320, y+32);
+    
     
     
 }
 
+#pragma mark -
+#pragma mark Comment Methods
+-(void)anonymousCommentClicked:(id)sender
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = [(UIButton *)sender frame];
+    frame.origin.y = self.commentView.frame.origin.y;
+    btn.frame = frame;
+    [popover showAtView:btn withContentView:popView];
+    
+}
+-(void)commentAsAnonymous
+{
+    [popover dismiss];
+    if(self.txt_comment.text.length == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        return;
+    }
+
+    isAnonymous = YES;
+    [self callCommentApi];
+}
 -(void)commentClicked:(id)sender
+{
+    if(self.txt_comment.text.length == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        return;
+    }
+
+    isAnonymous = NO;
+    [self callCommentApi];
+}
+-(void)callCommentApi
 {
     [appDelegate showOrhideIndicator:YES];
     
     PostDetails *postDetls = [storiesArray lastObject];
-
+    
     AccessToken* token = sharedModel.accessToken;
     
-    NSDictionary* postData = @{@"command": @"create",@"access_token": token.access_token,@"body":@{@"post_id":postDetls.uid,@"text":self.txt_comment.text}};
+    NSDictionary* postData = @{@"command": @"create",@"access_token": token.access_token,@"body":@{@"post_id":postDetls.uid,@"text":self.txt_comment.text,@"anonymous":[NSNumber numberWithBool:isAnonymous]}};
     NSDictionary *userInfo = @{@"command": @"Comment"};
     
     NSString *urlAsString = [NSString stringWithFormat:@"%@comments",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     [self.txt_comment resignFirstResponder];
-    
 
 }
 -(void) commentSuccessful:(NSDictionary *)recievedDict
@@ -527,6 +652,12 @@
         height += tagsSize.height+10;
     else
             height += 21+10;
+    
+    int taggedPhotosHeight1 = (([postDetailsObject.commenters count]%10)!=0?1:0)+(int)[postDetailsObject.commenters count]/10;
+    if(taggedPhotosHeight1 == 0)
+        taggedPhotosHeight1 = 1;
+    
+    height += 32*taggedPhotosHeight1;
 
     return height;
 }
@@ -626,6 +757,44 @@
     [UIView commitAnimations];
 }
 
+
+#pragma mark -
+#pragma mark TextView Delegate Methods
+- (void)textViewDidBeginEditing:(UITextView *)textView1
+{
+    [placeholderLabel removeFromSuperview];
+}
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
+{
+        [placeholderLabel removeFromSuperview];
+    
+    return YES;
+    
+}
+- (void)textViewDidEndEditing:(UITextView *)txtView
+{
+    if (![txtView hasText])
+        [txtView addSubview:placeholderLabel];
+}
+- (void)textViewDidChange:(UITextView *)textView1
+{
+    if(![textView1 hasText])
+    {
+        [textView1 addSubview:placeholderLabel];
+    }
+    else if ([[textView1 subviews] containsObject:placeholderLabel])
+    {
+        [placeholderLabel removeFromSuperview];
+        
+    }
+    
+}
+
+-(void)textChangedCustomEvent
+{
+    [placeholderLabel removeFromSuperview];
+    
+}
 
 
 @end

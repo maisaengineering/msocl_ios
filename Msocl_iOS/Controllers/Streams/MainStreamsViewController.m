@@ -52,10 +52,9 @@
                                                  name:RELOAD_ON_LOG_OUT
                                                object:nil];
     
-    [mostRecent resetData];
-    [mostRecent callStreamsApi:@""];
-    
+    [self refreshWall];
 }
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
@@ -70,6 +69,20 @@
 {
     [mostRecent resetData];
     [mostRecent callStreamsApi:@""];
+}
+-(void)refreshWall
+{
+    if(!mostRecent.hidden)
+    {
+        [mostRecent resetData];
+        [mostRecent callStreamsApi:@"next"];
+    }
+    else
+    {
+        [following resetData];
+        [following callStreamsApi:@"next"];
+
+    }
 }
 #pragma mark -
 #pragma mark Call backs from stream display

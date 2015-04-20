@@ -479,7 +479,7 @@
         <!--ADD POST-->
         <scene sceneID="Mjk-Dq-2BD">
             <objects>
-                <viewController id="TdL-Fm-sQV" customClass="AddPostViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddPostViewController" id="TdL-Fm-sQV" customClass="AddPostViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VM9-Ao-YGg"/>
                         <viewControllerLayoutGuide type="bottom" id="WMg-k0-5oL"/>

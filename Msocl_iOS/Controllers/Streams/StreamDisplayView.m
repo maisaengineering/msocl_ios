@@ -27,8 +27,6 @@
     
     Webservices *webServices;
     
-    NSNumber *feedCount;
-    NSNumber *postCount;
     BOOL bProcessing;
     BOOL isDragging;
     
@@ -52,9 +50,10 @@
 }
 -(void)resetData
 {
-    postCount = 0;
-    feedCount = 0;
-    timeStamp = @"";
+    self.postCount = 0;
+    self.timeStamp = @"";
+    self.etag = @"";
+    
 }
 -(void)baseInit
 {
@@ -106,13 +105,22 @@
         bProcessing = YES;
         
         
+        
         AccessToken* token = sharedModel.accessToken;
+        
+        NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
+        [body setValue:self.timeStamp forKeyPath:@"last_modified"];
+        [body setValue:self.postCount forKeyPath:@"post_count"];
+        [body setValue:self.etag forKey:@"etag"];
+        [body setValue:step forKeyPath:@"step"];
+        [body setObject:[NSNumber numberWithBool:TRUE] forKey:@"paginate"];
+
+        
         NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token};
         NSDictionary *userInfo = @{@"command": @"GetStreams"};
         
         NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-        
         
     }
 }
@@ -120,6 +128,11 @@
 {
     bProcessing = NO;
 
+    self.timeStamp = [recievedDict objectForKey:@"last_modified"];
+    self.postCount = [recievedDict objectForKey:@"post_count"];
+    self.etag = [recievedDict objectForKey:@"etag"];
+
+    
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
     
     if([timeStamp length] == 0)
@@ -147,6 +160,7 @@
         [streamTableView reloadData];
         
     }
+    
     [refreshControl endRefreshing];
     
 }
@@ -261,7 +275,7 @@
             NSRange matchRange = [match rangeAtIndex:1];
             NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
             
-            UIImage  *image = [photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(26, 16)];
+            UIImage  *image = [photoUtils imageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
 
             textAttachment.image = image;
@@ -269,7 +283,7 @@
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
-                textAttachment.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(26, 16)];
+                textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
                 [description setNeedsDisplay];
             }];
             
@@ -313,14 +327,14 @@
         yPosition += 15;
     }
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(287, yPosition+9, 11, 10)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(287, 106, 11, 10)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-heart-count.png"]];
     [cell.contentView addSubview:heartCntImage];
 
-    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(299, yPosition+9, 20, 10)];
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(299, 106, 20, 10)];
     [heartCount setText:postDetailsObject.time];
     [heartCount setTextAlignment:NSTextAlignmentLeft];
-    [heartCount setText:@"10"];
+    [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [heartCount setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
     [heartCount setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
     [cell.contentView addSubview:heartCount];
@@ -389,6 +403,9 @@
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
+    
+    if(indexPath.row == storiesArray.count - 1)
+        [self callStreamsApi:@"next"];
 }
 
 

@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AviarySDK/AviarySDK.h>
 #import "Webservices.h"
+#import "PostDetails.h"
 @interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UIImagePickerController *imagePicker;
@@ -21,6 +22,7 @@
 //For Aviary
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;
 @property (nonatomic, strong) NSMutableArray      * sessions;
+@property (nonatomic, strong) PostDetails *postDetailsObject;
 
 
 @end

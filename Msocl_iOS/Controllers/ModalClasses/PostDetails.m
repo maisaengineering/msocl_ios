@@ -19,6 +19,7 @@
 @synthesize profileImage;
 @synthesize time;
 @synthesize owner;
+@synthesize upVoteCount;
 @synthesize comments;
 
 -(id)initWithDictionary:(NSDictionary *)response{
@@ -58,7 +59,9 @@
             else if ([key isEqualToString:@"anonymous"]) {
                 self.anonymous = [[response objectForKey:key] boolValue];
             }
-            
+            else if ([key isEqualToString:@"upvote_count"]) {
+                self.upVoteCount = [[response objectForKey:key] intValue];
+            }
         }
     }
     return self;

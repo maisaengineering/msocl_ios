@@ -41,6 +41,8 @@
 -(void) pageGuideImagesFailed;
 -(void) didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray;
 -(void) visitedPageGuidesFailed;
+-(void) updatePostSccessfull:(NSDictionary *)recievedDict;
+-(void) updatePostFailed;
 
 @end
 
