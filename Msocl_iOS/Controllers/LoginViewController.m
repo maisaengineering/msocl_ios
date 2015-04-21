@@ -116,7 +116,7 @@
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
 
-   // [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
+    [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
     
     NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];
     [tokenDict setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];

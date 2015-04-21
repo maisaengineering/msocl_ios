@@ -21,6 +21,7 @@
 @synthesize owner;
 @synthesize upVoteCount;
 @synthesize comments;
+@synthesize upvoted;
 
 -(id)initWithDictionary:(NSDictionary *)response{
     
@@ -61,6 +62,15 @@
             }
             else if ([key isEqualToString:@"upvote_count"]) {
                 self.upVoteCount = [[response objectForKey:key] intValue];
+            }
+            else if ([key isEqualToString:@"editable"]) {
+                self.editable = [[response objectForKey:key] intValue];
+            }
+            else if ([key isEqualToString:@"createdAt"]) {
+                self.time = [response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"upvoted"]) {
+                self.upvoted = [[response objectForKey:key] intValue];
             }
         }
     }

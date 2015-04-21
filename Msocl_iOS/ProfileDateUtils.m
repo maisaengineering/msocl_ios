@@ -338,11 +338,64 @@
     {
         if(days > 5)
         {
-            [dateFormatter1 setDateFormat:@"MMMM dd, yyyy"];
+            [dateFormatter1 setDateFormat:@"MM/dd/yy"];
             overdueMessage = [dateFormatter1 stringFromDate:date];
         }
             else
-        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"day ago":@"days ago")];
+        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"d":@"d")];
+        
+    }
+    else if (hours>0)
+    {
+        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(hours), (hours==1?@"h":@"h")];
+        
+    }
+    else if (minutes>0)
+    {
+        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(minutes), (minutes==1?@"m":@"m")];
+        
+    }
+    else if (overdueTimeInterval<60)
+    {
+        overdueMessage = [NSString stringWithFormat:@"%ld s",(long)overdueTimeInterval];
+    }
+    return overdueMessage;
+    
+}
+-(NSString*)dailyLanguageForShowPOST:(NSString *)postedDate
+{
+    NSString *dateStr = postedDate;
+    dateStr = [dateStr stringByReplacingOccurrencesOfString:@" UTC" withString:@"-0000"];
+    NSTimeZone *timeZone = [NSTimeZone systemTimeZone];
+    NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc] init];
+    [dateFormatter1 setTimeZone:timeZone];
+    
+    NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+    [dateFormatter1 setLocale:enUSPOSIXLocale];
+    
+    [dateFormatter1 setDateFormat:@"MM/dd/yyyy hh:mmaZZZ"];
+    
+    NSDate *date = [dateFormatter1 dateFromString:dateStr];
+    
+    NSTimeInterval overdueTimeInterval = [[NSDate date] timeIntervalSinceDate:date];
+    
+    if (overdueTimeInterval<0)
+        overdueTimeInterval*=-1;
+    NSInteger minutes = round(overdueTimeInterval)/60;
+    NSInteger hours   = minutes/60;
+    NSInteger days    = hours/24;
+    //NSInteger months  = days/30;
+    // NSInteger years   = months/12;
+    NSString* overdueMessage;
+    if (days>0)
+    {
+        if(days > 5)
+        {
+            [dateFormatter1 setDateFormat:@"MM/dd/yyyy"];
+            overdueMessage = [dateFormatter1 stringFromDate:date];
+        }
+        else
+            overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"day ago":@"days ago")];
         
     }
     else if (hours>0)
@@ -373,7 +426,7 @@
     NSLocale *enUSPOSIXLocale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
     [dateFormatter1 setLocale:enUSPOSIXLocale];
     
-    [dateFormatter1 setDateFormat:@"MM/dd/yyyy hh:mmaZZZ"];
+    [dateFormatter1 setDateFormat:@"MMMM dd, yyyy HH:mm"];
 
     
     NSDate *date = [dateFormatter1 dateFromString:dateStr];

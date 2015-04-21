@@ -36,7 +36,6 @@
 @synthesize storiesArray;
 @synthesize postID;
 @synthesize streamTableView;
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -71,19 +70,8 @@
     button.frame = CGRectMake(0 ,0,13,17);
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
-    self.navigationItem.leftBarButtonItem = barButton;
-
-    UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
-    [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
-    editButton.frame = CGRectMake(0 ,0,20,18);
+    self.navigationItem.leftBarButtonItem = barButton;    
     
-    UIBarButtonItem *rightbarButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
-    self.navigationItem.rightBarButtonItem = rightbarButton;
-
-    
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    {
     self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 40)];
         self.commentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.commentView];
@@ -145,11 +133,6 @@
         [popView addSubview:postBtn];
         
         popover = [DXPopover popover];
-
-        
-    }
-    
-    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -202,6 +185,18 @@
 -(void) didReceiveShowPost:(NSDictionary *)recievedDict
 {
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
+    PostDetails *postObject = [postArray lastObject];
+    if(postObject.editable)
+    {
+        UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+        [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
+        editButton.frame = CGRectMake(0 ,0,20,18);
+        
+        UIBarButtonItem *rightbarButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
+        self.navigationItem.rightBarButtonItem = rightbarButton;
+
+    }
     [storiesArray removeAllObjects];
     [storiesArray addObjectsFromArray:postArray];
     [streamTableView reloadData];
@@ -303,7 +298,7 @@
     CGSize expectedLabelSize;
     
         UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(16, 8, 28, 28)];
-        [imagVw setImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+        [imagVw setImage:[UIImage imageNamed:@"icon-profile-register.png"]];
     __weak UIImageView *weakSelf = imagVw;
 
         //add initials
@@ -333,10 +328,10 @@
         UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(260,8,110,12)];
         [dateLabel setBackgroundColor:[UIColor clearColor]];
         
-        NSString *milestoneDate = [commentDict objectForKey:@"created_at"];
+        NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
         NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
         
-        [dateLabel setText:@"1 day"];
+        [dateLabel setText:formattedTime];
         [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
         [dateLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
         [dateLabel setNumberOfLines:0];
@@ -363,7 +358,20 @@
     
     //Profile Image
     UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(19, yPosition, 20, 20)];
-    [profileImage setImageWithURL:[NSURL URLWithString:postDetailsObject.profileImage] placeholderImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"]];
+    if(!postDetailsObject.anonymous)
+    {
+        __weak UIImageView *weakSelf = profileImage;
+        
+        [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(20, 20)] withRadious:0];
+             
+         }failure:nil];
+    }
+    else
+        [profileImage setImage:[UIImage imageNamed:@"icon-profile-register.png"]];
+
+    
     [cell.contentView addSubview:profileImage];
     
     //Profile name
@@ -375,7 +383,7 @@
     //Time
     UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 20)];
     [time setTextAlignment:NSTextAlignmentRight];
-    [time setText:@"5 min ago"];
+    [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
     [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
     [cell.contentView addSubview:time];
@@ -430,10 +438,10 @@
     }while (1);
     //This regex captures all items between []
     
-    CGRect contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
+    CGRect contentSize = [attributedString boundingRectWithSize:CGSizeMake(262, CGFLOAT_MAX)
                                                         options:(NSStringDrawingUsesLineFragmentOrigin)
                                                         context:nil];
-    description.frame = CGRectMake(44, yPosition, 264, contentSize.size.height);
+    description.frame = CGRectMake(44, yPosition, 262, contentSize.size.height);
 
         yPosition += contentSize.size.height;
     
@@ -445,9 +453,19 @@
     
     //Tags
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    if(postDetailsObject.upvoted)
     [heartButton setImage:[UIImage imageNamed:@"icon-heart.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(287, yPosition+3, 17, 16)];
+    else
+    [heartButton setImage:[UIImage imageNamed:@"icon-heart-list.png"] forState:UIControlStateNormal];
+    [heartButton setFrame:CGRectMake(272, yPosition+3, 17, 16)];
+    [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:heartButton];
+    
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(290, yPosition+3, 20 , 16)];
+    [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+    [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [cell.contentView addSubview:upVoteCount];
 
     
     if([postDetailsObject.tags count] > 0)
@@ -477,51 +495,6 @@
     }
     else
         yPosition += 21+10;
-
-    UIView *likesView = [[UIView alloc] init];
-    [likesView setBackgroundColor:[UIColor colorWithRed:249/255.0 green:249/255.0 blue:249/255.0 alpha:1.0f]];
-    [cell.contentView addSubview:likesView];
-    
-    UIButton *follow = [UIButton buttonWithType:UIButtonTypeCustom];
-    [follow setTitle:@"Follow" forState:UIControlStateNormal];
-    [follow setTitleColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [follow.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thick" size:16]];
-    [follow.titleLabel setFont:[UIFont systemFontOfSize:13]];
-    [follow addTarget:self action:@selector(follow:) forControlEvents:UIControlEventTouchUpInside];
-    [follow setFrame:CGRectMake(264, 0, 50, 32)];
-    [likesView addSubview:follow];
-
-    NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-        
-        float x = 22,y = 0;
-        for(int i = 0; i < commenters.count; i++)
-        {
-            
-            NSString *url = [commenters objectAtIndex:i];
-            UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, y+10, 19, 19)];
-            [likesView addSubview:imagVw];
-            
-            __weak UIImageView *weakSelf = imagVw;
-            
-            
-            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(19,19)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-             {
-                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(19, 19)] withRadious:0];
-                 
-             }failure:nil];
-            
-            
-            x+= 19 + 3;
-            
-            if( i%9 == 0)
-            {
-                x = 22;
-                y += 32;
-            }
-        }
-    likesView.frame = CGRectMake(0, yPosition, 320, y+32);
-    
-    
     
 }
 
@@ -529,11 +502,18 @@
 #pragma mark Comment Methods
 -(void)anonymousCommentClicked:(id)sender
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = [(UIButton *)sender frame];
     frame.origin.y = self.commentView.frame.origin.y;
     btn.frame = frame;
     [popover showAtView:btn withContentView:popView];
+    }
+    else
+    {
+        
+    }
     
 }
 -(void)commentAsAnonymous
@@ -550,6 +530,8 @@
 }
 -(void)commentClicked:(id)sender
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
     if(self.txt_comment.text.length == 0)
     {
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
@@ -558,6 +540,11 @@
 
     isAnonymous = NO;
     [self callCommentApi];
+    }
+    else
+    {
+        
+    }
 }
 -(void)callCommentApi
 {
@@ -578,17 +565,21 @@
 -(void) commentSuccessful:(NSDictionary *)recievedDict
 {
     [appDelegate showOrhideIndicator:NO];
-    NSDictionary *dict = @{@"commenter": @{@"fname":@"" ,@"lname": @"",@"photo":@""},@"editable": [NSNumber numberWithBool:YES],@"text":self.txt_comment.text};
+    NSDictionary *dict = @{@"commenter": @{@"fname":@"" ,@"lname": @"",@"photo":@""},@"anonymous":[NSNumber numberWithBool:isAnonymous],@"editable": [NSNumber numberWithBool:YES],@"text":self.txt_comment.text};
     
     PostDetails *postDetls = [storiesArray lastObject];
     NSMutableArray *commentsArray = [postDetls.comments mutableCopy];
+    if(commentsArray == nil)
+        commentsArray = [[NSMutableArray alloc] init];
     [commentsArray addObject:dict];
     postDetls.comments = commentsArray;
     [storiesArray replaceObjectAtIndex:0 withObject:postDetls];
     [streamTableView reloadData];
+    self.txt_comment.text = @"";
 }
 -(void) commentFailed
 {
+    self.txt_comment.text = @"";
     [appDelegate showOrhideIndicator:NO];
 }
 -(void)follow:(id)sender
@@ -653,12 +644,6 @@
     else
             height += 21+10;
     
-    int taggedPhotosHeight1 = (([postDetailsObject.commenters count]%10)!=0?1:0)+(int)[postDetailsObject.commenters count]/10;
-    if(taggedPhotosHeight1 == 0)
-        taggedPhotosHeight1 = 1;
-    
-    height += 32*taggedPhotosHeight1;
-
     return height;
 }
 
@@ -766,9 +751,16 @@
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
         [placeholderLabel removeFromSuperview];
-    
-    return YES;
+        return YES;
+
+    }
+    else
+    {
+        return NO;
+    }
     
 }
 - (void)textViewDidEndEditing:(UITextView *)txtView
@@ -796,5 +788,43 @@
     
 }
 
+#pragma mark -
+#pragma mark Heart Button Actions
+-(void)heartButtonClicked:(id)sender
+{
+    [appDelegate showOrhideIndicator:YES];
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSDictionary* postData;
+    PostDetails *postDetails = [storiesArray lastObject];
+    
+    if(postDetails.upvoted)
+    {
+        postDetails.upvoted = NO;
+        postDetails.upVoteCount -= 1;
+        postData = @{@"command": @"undoVoting",@"access_token": token.access_token};
+    }
+    else
+    {
+        postDetails.upvoted = YES;
+        postDetails.upVoteCount += 1;
+        postData = @{@"command": @"upvote",@"access_token": token.access_token};
+    }
+    NSDictionary *userInfo = @{@"command": @"hearting"};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postID];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+   
+    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+    [streamTableView reloadData];
 
+}
+-(void) heartingSuccessFull:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+-(void) heartingFailed
+{
+     [appDelegate showOrhideIndicator:NO];
+}
 @end

@@ -23,6 +23,9 @@
 @property (nonatomic,assign) int upVoteCount;
 
 @property (nonatomic, assign) BOOL anonymous;
+@property (nonatomic, assign) BOOL editable;
+@property (nonatomic, assign) BOOL upvoted;
+
 
 - (id)initWithDictionary:(NSDictionary*)response;
 

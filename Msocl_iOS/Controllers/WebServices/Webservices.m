@@ -127,6 +127,11 @@
     {
         [self connectionSuccessUpdatePost:responseDict];
     }
+    else if([command isEqualToString:@"hearting"])
+    {
+        [self connectionSuccessHearting:responseDict];
+    }
+
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -195,6 +200,10 @@
     {
         [self.delegate updatePostFailed];
     }
+    else if([command isEqualToString:@"hearting"])
+    {
+        [self.delegate heartingFailed];
+    }
 }
 #pragma mark -
 #pragma mark Connection Success Handlers
@@ -259,16 +268,12 @@
 }
 -(void)connectionSuccessUploadProfileImages:(NSDictionary *)respDict
 {
-    NSDictionary *userInfo = [respDict objectForKey:@"userInfo"];
     NSDictionary *response = [respDict objectForKey:@"response"];
-    NSString *identifier = [userInfo objectForKey:@"identifier"];
-    
-    
-    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSNumber *validResponseStatus = [response valueForKey:@"status"];
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [self.delegate profileImageUploadSccess:[NSDictionary dictionaryWithObjectsAndKeys:[response objectForKey:@"body"],@"response",identifier,@"identifier", nil]];
+        [self.delegate profileImageUploadSccess:[response objectForKey:@"body"]];
     }
     
     else
@@ -505,5 +510,22 @@
         [self.delegate visitedPageGuidesFailed];
         
     }
+}
+-(void)connectionSuccessHearting:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate heartingSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate heartingFailed];
+        
+    }
+    
 }
 @end

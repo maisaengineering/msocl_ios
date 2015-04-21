@@ -13,12 +13,14 @@
 #import "PostDetails.h"
 #import "SettingsMenuViewController.h"
 #import "LoginViewController.h"
+#import "SlideNavigationController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
     StreamDisplayView *following;
     ModelManager *modelManager;
     NSString *selectedPostId;
+    BOOL isShowPostCalled;
     
 }
 @synthesize mostRecentButton;
@@ -42,16 +44,22 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    {
-        [self check];
-    }
     [self.navigationController setNavigationBarHidden:NO];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadOnLogOut)
                                                  name:RELOAD_ON_LOG_OUT
                                                object:nil];
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        [self check];
+        
+    }
+    else
+        [self.navigationItem setHidesBackButton:YES];
+
+
     [self refreshWall];
 }
 
@@ -67,11 +75,16 @@
 }
 -(void)reloadOnLogOut
 {
+    self.navigationItem.leftBarButtonItem.enabled = NO;
+    self.navigationItem.leftBarButtonItem.title = @"";
+
     [mostRecent resetData];
     [mostRecent callStreamsApi:@""];
 }
 -(void)refreshWall
 {
+    if(!isShowPostCalled)
+    {
     if(!mostRecent.hidden)
     {
         [mostRecent resetData];
@@ -83,6 +96,8 @@
         [following callStreamsApi:@"next"];
 
     }
+    }
+    isShowPostCalled = NO;
 }
 #pragma mark -
 #pragma mark Call backs from stream display
@@ -90,6 +105,7 @@
 {
     if(!mostRecent.hidden)
     {
+        isShowPostCalled = YES;
         PostDetails *postObject = [mostRecent.storiesArray objectAtIndex:index];
         selectedPostId = postObject.uid;
         [self performSegueWithIdentifier: @"PostSeague" sender: self];
@@ -132,13 +148,18 @@
 
 - (BOOL)slideNavigationControllerShouldDisplayLeftMenu
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     return YES;
+    else
+        return NO;
 }
 
 - (BOOL)slideNavigationControllerShouldDisplayRightMenu
 {
     return NO;
 }
+
+
 -(void)check
 {
     NSMutableArray *timedReminderData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];

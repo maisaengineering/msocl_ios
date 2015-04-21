@@ -122,20 +122,19 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
     
-    UIViewController *vc ;
+    UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"AddPostViewController"];
     
     switch (indexPath.row)
     {
         case 0:
             break;
             
-        case 1:
+        case 2:
+            [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
             break;
             
-        case 2:
-            if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+        case 6:
             [self logOut];
-            ;
             break;
             
         case 3:
@@ -234,8 +233,6 @@
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-    
-    
 }
 -(void) signOutSccessfull:(NSDictionary *)recievedDict
 {
@@ -244,7 +241,7 @@
 }
 -(void) signOutFailed
 {
-    [appdelegate showOrhideIndicator:YES];
+    [appdelegate showOrhideIndicator:NO];
 }
 
 

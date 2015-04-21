@@ -90,7 +90,7 @@ static PromptImages *romptImagesObject = nil;
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
 
-    NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token};
+    NSDictionary* postData = @{@"command": @"favourites",@"access_token": token.access_token};
     NSDictionary *userInfo = @{@"command": @"GetAllGroups"};
     
     NSString *urlAsString = [NSString stringWithFormat:@"%@groups",BASE_URL];

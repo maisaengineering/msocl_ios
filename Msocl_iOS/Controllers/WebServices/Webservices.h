@@ -43,6 +43,8 @@
 -(void) visitedPageGuidesFailed;
 -(void) updatePostSccessfull:(NSDictionary *)recievedDict;
 -(void) updatePostFailed;
+-(void) heartingSuccessFull:(NSDictionary *)recievedDict;
+-(void) heartingFailed;
 
 @end
 

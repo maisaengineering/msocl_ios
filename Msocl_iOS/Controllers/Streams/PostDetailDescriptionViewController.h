@@ -17,7 +17,6 @@
 @property (nonatomic, strong) IBOutlet UITableView *streamTableView;
 @property (nonatomic, strong) UIView *commentView;
 @property (nonatomic, strong) UITextView *txt_comment;
-
 -(void)commentClicked:(id)sender;
 -(void)follow:(id)sender;
 @end

@@ -143,16 +143,12 @@
 -(void)doSignup
 {
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    [postDetails setObject:txt_lastname.text forKey:@"lastname"];
-    [postDetails setObject:txt_firstName.text forKey:@"firsttname"];
+    [postDetails setObject:txt_lastname.text forKey:@"lname"];
+    [postDetails setObject:txt_firstName.text forKey:@"fname"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
     [postDetails setObject:txt_password.text forKey:@"password"];
     [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
-    [postDetails setObject:txt_postal_code.text forKey:@"postal_code"];
-    [postDetails setObject:txt_phno.text forKey:@"phno"];
-    
-    
-    [postDetails setObject:imageId forKey:@"imageId"];
+    [postDetails setObject:imageId forKey:@"key"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
@@ -171,7 +167,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
 
- //   [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
+    [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
     
     NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];
     [tokenDict setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];
@@ -512,8 +508,7 @@
 }
 -(void)profileImageUploadSccess:(NSDictionary *)notifiDict
 {
-    NSDictionary *responseDict = [notifiDict objectForKey:@"response"];
-    imageId = [responseDict objectForKey:@"key"];
+    imageId = [notifiDict objectForKey:@"key"];
     if(isUploadingImage && isSignupClicked)
     {
         isSignupClicked = NO;

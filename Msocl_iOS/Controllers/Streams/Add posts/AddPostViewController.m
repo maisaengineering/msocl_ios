@@ -122,7 +122,7 @@
     [postBtn addTarget:self action:@selector(postAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
     [popView addSubview:postBtn];
     
-    if(postDetailsObject != (PostDetails*) [NSNull null] )
+    if(postDetailsObject != nil)
     {
         [self setDetails];
     }
@@ -183,8 +183,8 @@
 -(void)setDetails
 {
     [postButton setTitle:@"Save" forState:UIControlStateNormal];
-    
-    [postButton addTarget:self action:@selector(callEditPostApi) forControlEvents:UIControlEventTouchUpInside];
+    [postButton removeTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
+    [postButton addTarget:self action:@selector(editPostClicked) forControlEvents:UIControlEventTouchUpInside];
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:11],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
@@ -202,12 +202,16 @@
             UIImage  *image = [photoUtils imageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             
+            NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
+            image.accessibilityIdentifier = identifier;
             textAttachment.image = image;
-            
+            [imagesIdDict setObject:[attributedString.string substringWithRange:matchRange] forKey:identifier];
+
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                
-                textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
+                image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
+                image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
+                textAttachment.image = image;
                 [textView setNeedsDisplay];
             }];
             
@@ -600,6 +604,9 @@
     if(uploadingImages == 0 && isPostClicked)
     {
         isPostClicked = NO;
+        if(postDetailsObject != nil)
+            [self callEditPostApi];
+        else
         [self callPostApi];
     }
     
@@ -610,7 +617,10 @@
     if(uploadingImages == 0 && isPostClicked)
     {
         isPostClicked = NO;
-        [self callPostApi];
+            if(postDetailsObject != nil)
+                [self callEditPostApi];
+            else
+                [self callPostApi];
     }
 }
 
@@ -793,6 +803,29 @@
 }
 
 #pragma Edit Post
+-(void)editPostClicked
+{
+    if(textView.text.length == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        return;
+    }
+    
+    isPrivate = NO;
+    [self editPost];
+
+}
+-(void)editPost
+{
+    [appdelegate showOrhideIndicator:YES];
+    isPostClicked = YES;
+    postButton.enabled = NO;
+    if(uploadingImages == 0)
+    {
+        [self callEditPostApi];
+    }
+
+}
 -(void)callEditPostApi
 {
     
@@ -830,11 +863,21 @@
 }
 -(void) updatePostSccessfull:(NSDictionary *)recievedDict
 {
+    [appdelegate showOrhideIndicator:NO];
+    isPostClicked = NO;
+    postButton.enabled = YES;
     
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 -(void) updatePostFailed
 {
+    [appdelegate showOrhideIndicator:NO];
     
+    isPostClicked = NO;
+    postButton.enabled = YES;
+    
+    ShowAlert(@"Error", POST_CREATION_FAILED, @"OK");
 }
 #pragma mark -
 #pragma mark Methods To Proccess String For Server

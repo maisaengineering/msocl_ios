@@ -63,8 +63,8 @@
     [self clear];
     
     NSDictionary *tokenDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"];
-//    NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"];
-//    [self setUserDetails:userDict];
+    NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"];
+    [self setUserDetails:userDict];
     
     AccessToken *token = [[AccessToken alloc] init];
     for (NSString *key in tokenDict)

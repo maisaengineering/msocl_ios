@@ -104,8 +104,6 @@
     {
         bProcessing = YES;
         
-        
-        
         AccessToken* token = sharedModel.accessToken;
         
         NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
@@ -113,10 +111,9 @@
         [body setValue:self.postCount forKeyPath:@"post_count"];
         [body setValue:self.etag forKey:@"etag"];
         [body setValue:step forKeyPath:@"step"];
-        [body setObject:[NSNumber numberWithBool:TRUE] forKey:@"paginate"];
 
         
-        NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token};
+        NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token,@"body":body};
         NSDictionary *userInfo = @{@"command": @"GetStreams"};
         
         NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
@@ -127,11 +124,6 @@
 -(void) didReceiveStreams:(NSDictionary *)recievedDict
 {
     bProcessing = NO;
-
-    self.timeStamp = [recievedDict objectForKey:@"last_modified"];
-    self.postCount = [recievedDict objectForKey:@"post_count"];
-    self.etag = [recievedDict objectForKey:@"etag"];
-
     
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
     
@@ -162,6 +154,11 @@
     }
     
     [refreshControl endRefreshing];
+    
+    self.timeStamp = [recievedDict objectForKey:@"last_modified"];
+    self.postCount = [recievedDict objectForKey:@"post_count"];
+    self.etag = [recievedDict objectForKey:@"etag"];
+
     
 }
 -(void) streamsFailed
@@ -216,34 +213,37 @@
     
     //Profile Image
     UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 36, 36)];
-    __weak UIImageView *weakSelf = profileImage;
+    if(!postDetailsObject.anonymous)
+    {
+        __weak UIImageView *weakSelf = profileImage;
 
-    
-    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(36,36)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(36, 36)] withRadious:0];
          
      }failure:nil];
+    }
+    else
+        [profileImage setImage:[UIImage imageNamed:@"icon-profile-register.png"]];
 
-     
+    
     [cell.contentView addSubview:profileImage];
     
     //Profile name
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 232, 18)];
+    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 200, 18)];
     [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Thick" size:13]];
     [cell.contentView addSubview:name];
     
     
-    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(288, yPosition, 8, 8)];
+    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(257, yPosition, 8, 8)];
     [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
     [cell.contentView addSubview:timeIcon];
 
     //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(298, yPosition, 20, 8)];
-    [time setText:postDetailsObject.time];
+    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(267, yPosition, 51, 8)];
+    [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextAlignment:NSTextAlignmentLeft];
-    [time setText:@"5m"];
     [time setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
     [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
     [cell.contentView addSubview:time];
@@ -258,7 +258,7 @@
     float yPosition = 32;
     
     //Description
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(57, yPosition, 232, 50)];
+    UILabel *description = [[UILabel alloc] init];
     
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:11],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
@@ -303,7 +303,13 @@
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
     
-    yPosition += description.frame.size.height;
+    CGSize size = [description sizeThatFits:CGSizeMake(232, 50)];
+    
+    if(size.height < 50)
+        description.frame = CGRectMake(57, yPosition+4, 232, size.height);
+    else
+        description.frame = CGRectMake(57, yPosition+4, 232, 50);
+    yPosition += 50;
     
     if([postDetailsObject.tags count] > 0)
     {
@@ -336,7 +342,7 @@
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [heartCount setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-    [heartCount setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
+    [heartCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
     [cell.contentView addSubview:heartCount];
 
     
