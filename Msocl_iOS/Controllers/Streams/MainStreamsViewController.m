@@ -146,7 +146,7 @@
     for(int index = 0; index < [timedReminderData count]; index++)
     {
         NSMutableDictionary *eachPage = [timedReminderData objectAtIndex:index];
-        NSString *context_name = [eachPage objectForKey:@"context_name"];
+        NSString *context_name = [eachPage objectForKey:@"context"];
         if ([context_name isEqualToString:@"Homepage"])
         {
             if (![[pageGuidePopUpsObj timer] isValid])

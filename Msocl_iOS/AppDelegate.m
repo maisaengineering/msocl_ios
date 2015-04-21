@@ -15,6 +15,7 @@
 #import "SlideNavigationController.h"
 #import "SettingsMenuViewController.h"
 #import "PageGuidePopUps.h"
+#import "ModelManager.h"
 
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
@@ -119,9 +120,17 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"] && token.access_token.length>0)
+    {
+        [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

@@ -85,7 +85,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     
     for(int index = 0; index < [pageGuidesArray count]; index++)
     {
-        NSString *url = [[pageGuidesArray objectAtIndex:index] objectForKey:@"graphic_img_url"];
+        NSString *url = [[pageGuidesArray objectAtIndex:index] objectForKey:@"asset"];
         UIImage *thumb = [photoUtils getImageFromCache:url];
         if (thumb == nil)
         {
@@ -104,7 +104,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 
 -(void)setUpTimerWithStartIn
 {
-    NSTimeInterval timeInterval = [[dicVisitedPage objectForKey:@"start_in"] doubleValue];
+    NSTimeInterval timeInterval = [[dicVisitedPage objectForKey:@"start"] doubleValue];
     
     if (!timer) {
         
@@ -146,7 +146,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     UIImageView *popUpContent = [[UIImageView alloc] init];
     [popUpContent setFrame:CGRectMake(19, screenHeight, 283, 377)];
     
-    NSString *imageURL = [dicVisitedPage objectForKey:@"graphic_img_url"];
+    NSString *imageURL = [dicVisitedPage objectForKey:@"asset"];
     UIImage *thumb;
     if (imageURL.length >0)
     {
@@ -241,6 +241,9 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     //TODO:FIRST DOUBLE CHECK WITH THE UPENDHAR REGARDING THE COMMAND AND BODY
     //TODO: THEN UNCOMMENT BELOW TO SEND THE VISITED PAGES TO THE SERVER WHEN USER MINIMIZE THE APP.
     
+    NSMutableArray *pageGuidesArray = [[NSMutableArray alloc]init];
+    [[NSUserDefaults standardUserDefaults] setObject:pageGuidesArray forKey:@"PageGuidePopUpImages"];
+    
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
@@ -248,7 +251,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     
     NSMutableDictionary *bodyDetails  = [NSMutableDictionary dictionary];
     [bodyDetails setValue:DEVICE_UUID      forKey:@"devise_uid"];
-    [bodyDetails setValue:arrVisitedPages      forKey:@"visited_page_guide_uids"];
+    [bodyDetails setValue:arrVisitedPages      forKey:@"guide_uids"];
     
     NSDictionary* postData = @{@"access_token": token.access_token,
                                @"command": command,
