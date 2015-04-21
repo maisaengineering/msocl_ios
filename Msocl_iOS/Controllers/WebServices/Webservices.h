@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "StringConstants.h"
 #import "APIConnector.h"
+#import "PostDetails.h"
 @protocol webServiceProtocol<NSObject>
 @optional
 -(void) loginSccessfull:(NSDictionary *)recievedDict;
@@ -41,10 +42,12 @@
 -(void) pageGuideImagesFailed;
 -(void) didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray;
 -(void) visitedPageGuidesFailed;
--(void) updatePostSccessfull:(NSDictionary *)recievedDict;
+-(void) updatePostSccessfull:(PostDetails *)postDetails;
 -(void) updatePostFailed;
 -(void) heartingSuccessFull:(NSDictionary *)recievedDict;
 -(void) heartingFailed;
+-(void) postDeleteSuccessFull:(NSDictionary *)recievedDict;
+-(void) postDeleteFailed;
 
 @end
 

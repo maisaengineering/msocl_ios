@@ -10,13 +10,23 @@
 #import "Webservices.h"
 #import "SWTableViewCell.h"
 #import "CommentCell.h"
-@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate>
+#import "PostDetails.h"
+#import "AddPostViewController.h"
+@protocol PostDetailsProtocol<NSObject>
+-(void) PostEditedFromPostDetails:(PostDetails *)postDetails;
+@end
+
+
+@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate,EditPostProtocol>
 
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSMutableArray *storiesArray;
 @property (nonatomic, strong) IBOutlet UITableView *streamTableView;
 @property (nonatomic, strong) UIView *commentView;
 @property (nonatomic, strong) UITextView *txt_comment;
+@property (nonatomic,weak) id <PostDetailsProtocol>delegate;
+
+@property (nonatomic, strong) PostDetails *postObjectFromWall;
 -(void)commentClicked:(id)sender;
 -(void)follow:(id)sender;
 @end

@@ -37,6 +37,7 @@
 }
 @synthesize scrollView;
 @synthesize postDetailsObject;
+@synthesize delegate;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -861,13 +862,13 @@
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
--(void) updatePostSccessfull:(NSDictionary *)recievedDict
+-(void) updatePostSccessfull:(PostDetails *)postDetails
 {
     [appdelegate showOrhideIndicator:NO];
     isPostClicked = NO;
     postButton.enabled = YES;
-    
     [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate PostEdited:postDetails];
 
 }
 -(void) updatePostFailed

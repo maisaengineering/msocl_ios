@@ -12,6 +12,11 @@
 #import <AviarySDK/AviarySDK.h>
 #import "Webservices.h"
 #import "PostDetails.h"
+
+@protocol EditPostProtocol<NSObject>
+-(void) PostEdited:(PostDetails *)postDetails;
+@end
+
 @interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UITableViewDataSource,UITableViewDelegate>
 {
     UIImagePickerController *imagePicker;
@@ -23,6 +28,7 @@
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;
 @property (nonatomic, strong) NSMutableArray      * sessions;
 @property (nonatomic, strong) PostDetails *postDetailsObject;
+@property (nonatomic,weak) id <EditPostProtocol>delegate;
 
 
 @end

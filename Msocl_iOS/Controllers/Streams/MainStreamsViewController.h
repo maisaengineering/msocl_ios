@@ -10,8 +10,10 @@
 #import "StreamDisplayView.h"
 #import "SlideNavigationController.h"
 #import "PageGuidePopUps.h"
+#import "PostDetailDescriptionViewController.h"
 
-@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate>
+
+@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol>
 {
     PageGuidePopUps *pageGuidePopUpsObj;
 }

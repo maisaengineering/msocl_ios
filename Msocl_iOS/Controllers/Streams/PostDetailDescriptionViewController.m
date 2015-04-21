@@ -13,7 +13,6 @@
 #import "ProfilePhotoUtils.h"
 #import "ProfileDateUtils.h"
 #import "ModelManager.h"
-#import "PostDetails.h"
 #import "SDWebImageManager.h"
 #import "STTweetLabel.h"
 #import "AppDelegate.h"
@@ -36,6 +35,8 @@
 @synthesize storiesArray;
 @synthesize postID;
 @synthesize streamTableView;
+@synthesize postObjectFromWall;
+@synthesize delegate;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -157,6 +158,7 @@
 }
 -(void)backClicked
 {
+    [self.delegate PostEditedFromPostDetails:postObjectFromWall];
     [self.navigationController popViewControllerAnimated:YES];
     
 }
@@ -164,10 +166,10 @@
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
-    
     AddPostViewController *addPost = (AddPostViewController*)[mainStoryboard
                                                                          instantiateViewControllerWithIdentifier: @"AddPostViewController"];
     addPost.postDetailsObject = [storiesArray lastObject];
+    addPost.delegate = self;
     [self.navigationController pushViewController:addPost animated:YES];
 }
 #pragma mark -
@@ -299,6 +301,8 @@
     
         UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(16, 8, 28, 28)];
         [imagVw setImage:[UIImage imageNamed:@"icon-profile-register.png"]];
+    if(![[commentDict objectForKey:@"anonymous"] boolValue])
+    {
     __weak UIImageView *weakSelf = imagVw;
 
         //add initials
@@ -320,12 +324,12 @@
                  DebugLog(@"fail");
              }];
         }
-        
+    }
         [cell.contentView addSubview:imagVw];
         
         // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
         
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(260,8,110,12)];
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(250,8,60,12)];
         [dateLabel setBackgroundColor:[UIColor clearColor]];
         
         NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
@@ -826,5 +830,11 @@
 -(void) heartingFailed
 {
      [appDelegate showOrhideIndicator:NO];
+}
+
+-(void) PostEdited:(PostDetails *)postDetails
+{
+    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+    [streamTableView reloadData];
 }
 @end

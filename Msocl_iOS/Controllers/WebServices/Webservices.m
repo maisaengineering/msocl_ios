@@ -131,6 +131,10 @@
     {
         [self connectionSuccessHearting:responseDict];
     }
+    else if([command isEqualToString:@"deletePost"])
+    {
+        [self connectionSuccessDeletePost:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -203,6 +207,10 @@
     else if([command isEqualToString:@"hearting"])
     {
         [self.delegate heartingFailed];
+    }
+    else if([command isEqualToString:@"deletePost"])
+    {
+        [self.delegate postDeleteFailed];
     }
 }
 #pragma mark -
@@ -303,12 +311,13 @@
 }
 -(void)connectionSuccessUpdatePost:(NSDictionary *)respDict
 {
-    
+    PostDetails *postObject = [[PostDetails alloc] initWithDictionary:[respDict objectForKey:@"body"]];
+   
     NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
     {
-        [self.delegate updatePostSccessfull:[respDict objectForKey:@"body"]];
+        [self.delegate updatePostSccessfull:postObject];
         
     }
     
@@ -528,4 +537,21 @@
     }
     
 }
+-(void)connectionSuccessDeletePost:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate postDeleteSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate postDeleteFailed];
+        
+    }
+}
+
 @end

@@ -9,7 +9,6 @@
 #import "MainStreamsViewController.h"
 #import "ModelManager.h"
 #import "LoginViewController.h"
-#import "PostDetailDescriptionViewController.h"
 #import "PostDetails.h"
 #import "SettingsMenuViewController.h"
 #import "LoginViewController.h"
@@ -21,6 +20,8 @@
     ModelManager *modelManager;
     NSString *selectedPostId;
     BOOL isShowPostCalled;
+    PostDetails *selectedPost;
+    int selectedIndex;
     
 }
 @synthesize mostRecentButton;
@@ -97,6 +98,14 @@
 
     }
     }
+    else
+    {
+        if(!mostRecent.hidden)
+        {
+            [mostRecent.streamTableView reloadData];
+        }
+
+    }
     isShowPostCalled = NO;
 }
 #pragma mark -
@@ -108,6 +117,7 @@
         isShowPostCalled = YES;
         PostDetails *postObject = [mostRecent.storiesArray objectAtIndex:index];
         selectedPostId = postObject.uid;
+        selectedPost = postObject;
         [self performSegueWithIdentifier: @"PostSeague" sender: self];
     }
 }
@@ -117,10 +127,17 @@
     {
         PostDetailDescriptionViewController *destViewController = segue.destinationViewController;
         destViewController.postID = selectedPostId;
+        destViewController.delegate = self;
+        destViewController.postObjectFromWall = selectedPost;
     }
 }
-
-
+-(void) PostEditedFromPostDetails:(PostDetails *)postDetails
+{
+    if(!mostRecent.hidden)
+    {
+        [mostRecent.storiesArray replaceObjectAtIndex:selectedIndex withObject:postDetails];
+    }
+}
 -(IBAction)addClicked:(id)sender
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
