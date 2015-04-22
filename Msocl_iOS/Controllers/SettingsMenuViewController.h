@@ -10,11 +10,14 @@
 #import "SlideNavigationController.h"
 #import "AppDelegate.h"
 #import "Webservices.h"
+#import "UIImageView+AFNetworking.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface SettingsMenuViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,webServiceProtocol>
 {
     AppDelegate *appdelegate;
     Webservices *webServices;
+    
 }
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, assign) BOOL slideOutAnimationEnabled;

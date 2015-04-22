@@ -13,7 +13,8 @@
 #import "PostDetails.h"
 #import "AddPostViewController.h"
 @protocol PostDetailsProtocol<NSObject>
--(void) PostEditedFromPostDetails:(PostDetails *)postDetails;
+-(void)PostEditedFromPostDetails:(PostDetails *)postDetails;
+-(void)PostDeletedFromPostDetails;
 @end
 
 

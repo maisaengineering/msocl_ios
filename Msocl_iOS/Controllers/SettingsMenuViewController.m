@@ -14,8 +14,12 @@
 #import "SlideNavigationContorllerAnimatorSlideAndFade.h"
 #import "ModelManager.h"
 #import "MainStreamsViewController.h"
+#import "ProfilePhotoUtils.h"
 @implementation SettingsMenuViewController
-
+{
+    ModelManager *sharedModel;
+    ProfilePhotoUtils *photoUtils;
+}
 #pragma mark - UIViewController Methods -
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -33,7 +37,8 @@
 
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
-
+    sharedModel = [ModelManager sharedModel];
+    photoUtils = [ProfilePhotoUtils alloc];
    appdelegate = [[UIApplication sharedApplication] delegate];
     self.tableView.tableFooterView = [[UIView alloc] init];
 
@@ -70,7 +75,17 @@
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftTopCell"];
         cell.backgroundColor = [UIColor clearColor];
-
+        
+        UIImageView *profileImage = (UIImageView *)[cell viewWithTag:1];
+            __weak UIImageView *weakSelf = profileImage;
+            
+            [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+             {
+                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(35, 35)] withRadious:0];
+                 
+             }failure:nil];
+        [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
+        
         return cell;
 
     }

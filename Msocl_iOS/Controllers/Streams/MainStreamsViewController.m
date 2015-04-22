@@ -118,6 +118,7 @@
         PostDetails *postObject = [mostRecent.storiesArray objectAtIndex:index];
         selectedPostId = postObject.uid;
         selectedPost = postObject;
+        selectedIndex = index;
         [self performSegueWithIdentifier: @"PostSeague" sender: self];
     }
 }
@@ -137,6 +138,15 @@
     {
         [mostRecent.storiesArray replaceObjectAtIndex:selectedIndex withObject:postDetails];
     }
+}
+-(void)PostDeletedFromPostDetails
+{
+    if(!mostRecent.hidden)
+    {
+        [mostRecent.storiesArray removeObjectAtIndex:selectedIndex];
+        [mostRecent.streamTableView reloadData];
+    }
+
 }
 -(IBAction)addClicked:(id)sender
 {

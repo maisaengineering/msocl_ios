@@ -158,6 +158,14 @@
 }
 -(void)backClicked
 {
+    PostDetails *post = [storiesArray lastObject];
+    postObjectFromWall.tags = post.tags;
+    postObjectFromWall.upVoteCount = post.upVoteCount;
+    postObjectFromWall.upvoted = post.upvoted;
+    postObjectFromWall.content = post.content;
+    postObjectFromWall.anonymous = post.anonymous;
+    postObjectFromWall.time = post.time;
+    
     [self.delegate PostEditedFromPostDetails:postObjectFromWall];
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -213,18 +221,29 @@
 #pragma mark TableViewMethods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PostDetails *post = [storiesArray lastObject];
+
     if(indexPath.row == 0)
     return [self cellHeight:[storiesArray objectAtIndex:indexPath.row]];
+    else if([storiesArray count] + post.comments.count == indexPath.row)
+        return 44;
     else
         return [self cellHeightForComment:(int )indexPath.row-1];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     PostDetails *post = [storiesArray lastObject];
-    return [storiesArray count] + post.comments.count;
+    long int count =0;
+    count = [storiesArray count] + post.comments.count;
+    if([storiesArray count] > 0 && post.editable)
+        count += 1;
+    return count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    PostDetails *postDetailsObject = [storiesArray lastObject];
+
+    
     if(indexPath.row == 0)
     {
     static NSString *simpleTableIdentifier = @"StreamCell";
@@ -235,7 +254,6 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     
-    PostDetails *postDetailsObject = [storiesArray objectAtIndex:indexPath.row];
     
     //removes any subviews from the cell
     for(UIView *viw in [[cell contentView] subviews])
@@ -247,6 +265,24 @@
     
     
     return cell;
+    }
+    else if([storiesArray count] + postDetailsObject.comments.count == indexPath.row)
+    {
+        static NSString *simpleTableIdentifier = @"DeleteCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        if (cell == nil)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
+    
+        UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [deleteButton setFrame:CGRectMake(100, 0, 120, 44)];
+        [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        [deleteButton addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:deleteButton];
+        
+        return cell;
     }
     else
     {
@@ -837,4 +873,30 @@
     [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
     [streamTableView reloadData];
 }
+#pragma mark -
+#pragma mark Delete Methods
+-(void)deleteButtonClicked
+{
+    [appDelegate showOrhideIndicator:YES];
+    AccessToken* token = sharedModel.accessToken;
+
+   NSDictionary *postData = @{@"command": @"destroy",@"access_token": token.access_token};
+    NSDictionary *userInfo = @{@"command": @"deletePost"};
+
+    NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postID];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+
+}
+-(void) postDeleteSuccessFull:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+    [self.delegate PostDeletedFromPostDetails];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
+-(void) postDeleteFailed
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+
 @end
