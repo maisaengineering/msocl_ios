@@ -18,6 +18,7 @@
 #import "AppDelegate.h"
 #import "DXPopover.h"
 #import "AddPostViewController.h"
+#import "LoginViewController.h"
 
 @implementation PostDetailDescriptionViewController
 {
@@ -95,16 +96,16 @@
         
     //Upvote
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commentBtn setFrame:CGRectMake(235, 0, 45, 41)];
-    [commentBtn setImage:[UIImage imageNamed:@"icon-comment-main.png"] forState:UIControlStateNormal];
+    [commentBtn setFrame:CGRectMake(244, 6, 41, 28)];
+    [commentBtn setImage:[UIImage imageNamed:@"comment-post.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(commentClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.commentView addSubview:commentBtn];
     [self.view addSubview:self.commentView];
     
         //Upvote
         UIButton *anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [anonymousButton setFrame:CGRectMake(280, 0, 27, 27)];
-        [anonymousButton setImage:[UIImage imageNamed:@"icon-comment-main.png"] forState:UIControlStateNormal];
+        [anonymousButton setFrame:CGRectMake(285.3, 6, 26, 28)];
+        [anonymousButton setImage:[UIImage imageNamed:@"comment-ana.png"] forState:UIControlStateNormal];
         [anonymousButton addTarget:self action:@selector(anonymousCommentClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.commentView addSubview:anonymousButton];
         [self.view addSubview:self.commentView];
@@ -124,10 +125,10 @@
         [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
         [popView addSubview:postAsLabel];
         
-        UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(183, 5, 25, 20)];
-        [anonymusImage setImage:[UIImage imageNamed:@""]];
-        [popView addSubview:anonymusImage];
-        
+    UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(192, 3, 32, 24)];
+    [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
+    [popView addSubview:anonymusImage];
+    
         UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         postBtn.frame = CGRectMake(0, 0, 300, 30);
         [postBtn addTarget:self action:@selector(commentAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
@@ -416,7 +417,7 @@
     
     //Profile name
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 140, 20)];
-    [name setText:postDetailsObject.name];
+    [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
     [cell.contentView addSubview:name];
     
@@ -438,7 +439,7 @@
     float yPosition = 5;
     
     //Start of Description Text
-    yPosition += 35;
+    yPosition += 30;
     
     //Description
     UILabel *description = [[UILabel alloc] init];
@@ -492,17 +493,17 @@
     [cell.contentView addSubview:description];
     
     //Tags
-    UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     if(postDetailsObject.upvoted)
-    [heartButton setImage:[UIImage imageNamed:@"icon-heart.png"] forState:UIControlStateNormal];
+    [heartButton setImage:[UIImage imageNamed:@"icon-upvote.png"] forState:UIControlStateNormal];
     else
-    [heartButton setImage:[UIImage imageNamed:@"icon-heart-list.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(272, yPosition+3, 17, 16)];
+    [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
+    [heartButton setFrame:CGRectMake(269, yPosition+1, 20, 20)];
     [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
     [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:heartButton];
     
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(290, yPosition+3, 20 , 16)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(290, yPosition+4, 20 , 16)];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [cell.contentView addSubview:upVoteCount];
@@ -546,13 +547,13 @@
     {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = [(UIButton *)sender frame];
-    frame.origin.y = self.commentView.frame.origin.y;
+    frame.origin.y = self.commentView.frame.origin.y+2;
     btn.frame = frame;
     [popover showAtView:btn withContentView:popView];
     }
     else
     {
-        
+        [self gotoLoginScreen];
     }
     
 }
@@ -583,7 +584,7 @@
     }
     else
     {
-        
+        [self gotoLoginScreen];
     }
 }
 -(void)callCommentApi
@@ -664,7 +665,7 @@
                                                         options:(NSStringDrawingUsesLineFragmentOrigin)
                                                         context:nil];
 
-        height = 40 + contentSize.size.height;
+        height = 35 + contentSize.size.height;
 
     
     //Tags height
@@ -832,6 +833,9 @@
 #pragma mark Heart Button Actions
 -(void)heartButtonClicked:(id)sender
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+
     [appDelegate showOrhideIndicator:YES];
     AccessToken* token = sharedModel.accessToken;
     
@@ -857,6 +861,11 @@
    
     [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
     [streamTableView reloadData];
+    }
+    else
+    {
+        [self gotoLoginScreen];
+    }
 
 }
 -(void) heartingSuccessFull:(NSDictionary *)recievedDict
@@ -899,4 +908,11 @@
     [appDelegate showOrhideIndicator:NO];
 }
 
+-(void)gotoLoginScreen
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    [self.navigationController pushViewController:login animated:NO];
+
+}
 @end

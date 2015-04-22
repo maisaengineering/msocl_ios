@@ -422,6 +422,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="M SOCIAL" id="aia-LJ-syC"/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="profileImage" destination="9vN-ph-kEP" id="eYS-DM-vS1"/>
                         <outlet property="txt_confirmPassword" destination="e1S-22-vQn" id="KPK-z3-iCl"/>
@@ -433,7 +434,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypO-b5-kB1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="923" y="1173"/>
+            <point key="canvasLocation" x="937" y="1121"/>
         </scene>
         <!--M SOCIAL-->
         <scene sceneID="gXa-Jy-hXv">
@@ -474,7 +475,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m5B-ZP-otY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="1835"/>
+            <point key="canvasLocation" x="596" y="1808"/>
         </scene>
         <!--ADD POST-->
         <scene sceneID="Mjk-Dq-2BD">

@@ -33,6 +33,7 @@
     Webservices *webServices;
     DXPopover *popover;
     UIView *popView;
+    UIButton *anonymousButton;
 
 }
 @synthesize scrollView;
@@ -67,27 +68,21 @@
     
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [postButton setTitle:@"Post" forState:UIControlStateNormal];
     [postButton addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setTitleColor:[UIColor colorWithRed:(251/255.f) green:(176/255.f) blue:(64/255.f) alpha:1] forState:UIControlStateNormal];
-    [postButton setFrame:CGRectMake(240, 20.5, 80, 44)];
+    [postButton setFrame:CGRectMake(260, 13, 34, 19)];
+    [postButton setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
     [postButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
     
     
 
-    UIButton *anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [anonymousButton setTitle:@"anon" forState:UIControlStateNormal];
+    anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [anonymousButton setImage:[UIImage imageNamed:@"ana-post.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setTitleColor:[UIColor colorWithRed:(251/255.f) green:(176/255.f) blue:(64/255.f) alpha:1] forState:UIControlStateNormal];
-    [anonymousButton setFrame:CGRectMake(240, 20.5, 40, 44)];
+    [anonymousButton setFrame:CGRectMake(294.3, 13, 17, 19)];
     [anonymousButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
 
-    
-    UIBarButtonItem *postBarButton = [[UIBarButtonItem alloc] initWithCustomView:postButton];
-    UIBarButtonItem *anonymousBarButton = [[UIBarButtonItem alloc] initWithCustomView:anonymousButton];
-
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:postBarButton,anonymousBarButton, nil];
-
+    [self.navigationController.navigationBar addSubview:postButton];
+    [self.navigationController.navigationBar addSubview:anonymousButton];
     
     imagesIdDict = [[NSMutableDictionary alloc] init];
     
@@ -114,8 +109,8 @@
     [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
     [popView addSubview:postAsLabel];
     
-    UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(183, 5, 25, 20)];
-    [anonymusImage setImage:[UIImage imageNamed:@""]];
+    UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(182, 3, 32, 24)];
+    [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
     [popView addSubview:anonymusImage];
     
     UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -132,6 +127,8 @@
 -(void)backClicked
 {
     [textView resignFirstResponder];
+    [postButton removeFromSuperview];
+    [anonymousButton removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 
 }
@@ -143,7 +140,7 @@
     [self.view addSubview:scrollView];
 
     textView = [[UITextView alloc] initWithFrame:CGRectMake(10,10,300, 70)];
-    textView.font = [UIFont systemFontOfSize:16];
+    textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
     textView.delegate = self;
     [scrollView addSubview:textView];
     
@@ -183,10 +180,11 @@
 }
 -(void)setDetails
 {
+    
     [postButton setTitle:@"Save" forState:UIControlStateNormal];
     [postButton removeTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
     [postButton addTarget:self action:@selector(editPostClicked) forControlEvents:UIControlEventTouchUpInside];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:11],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -437,11 +435,28 @@
     textAttachment.image = image;
 
   //  textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage scale:1 orientation:UIImageOrientationUp];
-    NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
-    [attributedString appendAttributedString:attrStringWithImage];
-    [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+   
+    
+    
+   NSRange selectedrange = textView.selectedRange;
+    if(textView.text.length > textView.selectedRange.location)
+    {
+        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location];
+        [attributedString insertAttributedString:attrStringWithImage atIndex:selectedrange.location+1];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location+2];
+
+    }
+    else
+    {
+        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        [attributedString appendAttributedString:attrStringWithImage];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+
+    }
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
+
     textView.attributedText = attributedString;
     
     uploadingImages ++;
@@ -720,7 +735,12 @@
 }
 -(void)anonymousPostClicked:(id)sender
 {
-    [popover showAtView:sender withContentView:popView];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = [(UIButton *)sender frame];
+    frame.origin.y += 15;
+    btn.frame = frame;
+
+    [popover showAtView:btn withContentView:popView];
 
 }
 -(void)postClicked
@@ -738,6 +758,7 @@
 }
 -(void)createPost
 {
+    
     [appdelegate showOrhideIndicator:YES];
     isPostClicked = YES;
     postButton.enabled = NO;
@@ -750,6 +771,7 @@
 #pragma mark Create Post
 -(void)callPostApi
 {
+    [textView resignFirstResponder];
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     
@@ -791,6 +813,9 @@
     isPostClicked = NO;
     postButton.enabled = YES;
     
+    [postButton removeFromSuperview];
+    [anonymousButton removeFromSuperview];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)postCreationFailed
@@ -830,6 +855,7 @@
 -(void)callEditPostApi
 {
     
+    [textView resignFirstResponder];
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     
     //Visiblity
@@ -867,6 +893,9 @@
     [appdelegate showOrhideIndicator:NO];
     isPostClicked = NO;
     postButton.enabled = YES;
+    
+    [postButton removeFromSuperview];
+    [anonymousButton removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate PostEdited:postDetails];
 
