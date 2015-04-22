@@ -41,7 +41,7 @@
 		7F599E261AE66E1E00DED294 /* MainStreamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E251AE66E1E00DED294 /* MainStreamsViewController.m */; };
 		7F599E281AE66E3C00DED294 /* StreamDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E271AE66E3C00DED294 /* StreamDisplayView.m */; };
 		7F599E2B1AE66E5B00DED294 /* PostDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E291AE66E5B00DED294 /* PostDetailDescriptionViewController.m */; };
-		7F599E2D1AE66E8100DED294 /* SettingsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E2C1AE66E8100DED294 /* SettingsMenuViewController.m */; };
+		7F599E2D1AE66E8100DED294 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E2C1AE66E8100DED294 /* MenuViewController.m */; };
 		7F599E311AE66EC700DED294 /* ProfileDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E301AE66EC700DED294 /* ProfileDateUtils.m */; };
 		7F599E341AE66EE100DED294 /* Webservices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E331AE66EE100DED294 /* Webservices.m */; };
 		7F599E371AE66EF500DED294 /* PostDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E361AE66EF500DED294 /* PostDetails.m */; };
@@ -86,6 +86,8 @@
 		7F714F381AE79A2B00C69BF4 /* icon-upvote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */; };
 		7F714F3A1AE7A50A00C69BF4 /* icon-upvote-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F391AE7A50A00C69BF4 /* icon-upvote-gray@2x.png */; };
 		7F714F3C1AE7B1CB00C69BF4 /* btn-delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F3B1AE7B1CB00C69BF4 /* btn-delete@2x.png */; };
+		7F714F451AE7D25300C69BF4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F714F441AE7D25300C69BF4 /* SettingsViewController.m */; };
+		7F714F481AE7D2B700C69BF4 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F714F471AE7D2B700C69BF4 /* ChangePasswordViewController.m */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -207,7 +209,7 @@
 		7F599E271AE66E3C00DED294 /* StreamDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamDisplayView.m; sourceTree = "<group>"; };
 		7F599E291AE66E5B00DED294 /* PostDetailDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailDescriptionViewController.m; sourceTree = "<group>"; };
 		7F599E2A1AE66E5B00DED294 /* PostDetailDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDetailDescriptionViewController.h; sourceTree = "<group>"; };
-		7F599E2C1AE66E8100DED294 /* SettingsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMenuViewController.m; sourceTree = "<group>"; };
+		7F599E2C1AE66E8100DED294 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		7F599E301AE66EC700DED294 /* ProfileDateUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileDateUtils.m; path = Msocl_iOS/ProfileDateUtils.m; sourceTree = SOURCE_ROOT; };
 		7F599E321AE66EE100DED294 /* Webservices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Webservices.h; sourceTree = "<group>"; };
 		7F599E331AE66EE100DED294 /* Webservices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Webservices.m; sourceTree = "<group>"; };
@@ -278,6 +280,10 @@
 		7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote@2x.png"; sourceTree = "<group>"; };
 		7F714F391AE7A50A00C69BF4 /* icon-upvote-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote-gray@2x.png"; sourceTree = "<group>"; };
 		7F714F3B1AE7B1CB00C69BF4 /* btn-delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-delete@2x.png"; sourceTree = "<group>"; };
+		7F714F431AE7D25300C69BF4 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		7F714F441AE7D25300C69BF4 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		7F714F461AE7D2B700C69BF4 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		7F714F471AE7D2B700C69BF4 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -364,7 +370,7 @@
 		7F86E5811ADBCFB00002493F /* SlideNavigationContorllerAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationContorllerAnimator.h; sourceTree = "<group>"; };
 		7F86E5821ADBCFB00002493F /* SlideNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideNavigationController.h; sourceTree = "<group>"; };
 		7F86E5831ADBCFB00002493F /* SlideNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideNavigationController.m; sourceTree = "<group>"; };
-		7F86E58F1ADBD50E0002493F /* SettingsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMenuViewController.h; sourceTree = "<group>"; };
+		7F86E58F1ADBD50E0002493F /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		7F86E5921ADBEAD20002493F /* menu-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-button@2x.png"; sourceTree = "<group>"; };
 		7F86E5941ADBF0A50002493F /* icon-post-@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-post-@2x.png"; sourceTree = "<group>"; };
 		7F86E5961ADC06C50002493F /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
@@ -766,8 +772,12 @@
 		7F86E58E1ADBD4F80002493F /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				7F86E58F1ADBD50E0002493F /* SettingsMenuViewController.h */,
-				7F599E2C1AE66E8100DED294 /* SettingsMenuViewController.m */,
+				7F86E58F1ADBD50E0002493F /* MenuViewController.h */,
+				7F599E2C1AE66E8100DED294 /* MenuViewController.m */,
+				7F714F431AE7D25300C69BF4 /* SettingsViewController.h */,
+				7F714F441AE7D25300C69BF4 /* SettingsViewController.m */,
+				7F714F461AE7D2B700C69BF4 /* ChangePasswordViewController.h */,
+				7F714F471AE7D2B700C69BF4 /* ChangePasswordViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1116,6 +1126,7 @@
 				7F5DEFB71AD7C50A00F2C60A /* SDWebImagePrefetcher.m in Sources */,
 				7F86E5881ADBCFB00002493F /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */,
 				7F83BC211AD13BC6008DFD8B /* AppDelegate.m in Sources */,
+				7F714F481AE7D2B700C69BF4 /* ChangePasswordViewController.m in Sources */,
 				7F599E2B1AE66E5B00DED294 /* PostDetailDescriptionViewController.m in Sources */,
 				7F83BC5E1AD14CEF008DFD8B /* AFURLRequestSerialization.m in Sources */,
 				7F5DEFAF1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m in Sources */,
@@ -1147,7 +1158,8 @@
 				7F83BC681AD14CEF008DFD8B /* UIWebView+AFNetworking.m in Sources */,
 				7F2178B71AE51862003D8A33 /* DXPopover.m in Sources */,
 				7F83BC5A1AD14CEF008DFD8B /* AFHTTPSessionManager.m in Sources */,
-				7F599E2D1AE66E8100DED294 /* SettingsMenuViewController.m in Sources */,
+				7F714F451AE7D25300C69BF4 /* SettingsViewController.m in Sources */,
+				7F599E2D1AE66E8100DED294 /* MenuViewController.m in Sources */,
 				7F83BC301AD14ACA008DFD8B /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

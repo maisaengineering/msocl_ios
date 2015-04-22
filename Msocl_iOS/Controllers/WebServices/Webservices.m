@@ -139,6 +139,10 @@
     {
         [self connectionSuccessCommentUpVote:responseDict];
     }
+    else if([command isEqualToString:@"commentUpvote"])
+    {
+        [self connectionSuccessChangePassword:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -219,6 +223,10 @@
     else if([command isEqualToString:@"commentUpvote"])
     {
         [self.delegate commentUpVoteFailed];
+    }
+    else if([command isEqualToString:@"changePassword"])
+    {
+        [self.delegate changePasswordFailed];
     }
 }
 #pragma mark -
@@ -574,6 +582,22 @@
     else
     {
         [self.delegate commentUpVoteFailed];
+        
+    }
+}
+-(void)connectionSuccessChangePassword:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate changePasswordSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate changePasswordFailed];
         
     }
 }

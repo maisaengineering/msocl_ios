@@ -50,7 +50,8 @@
 -(void) postDeleteFailed;
 -(void) commentUpVoteSuccessFull:(NSDictionary *)recievedDict;
 -(void) commentUpVoteFailed;
-
+-(void) changePasswordSuccessFull:(NSDictionary *)recievedDict;
+-(void) changePasswordFailed;
 @end
 
 

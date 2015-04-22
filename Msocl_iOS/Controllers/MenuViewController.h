@@ -13,7 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface SettingsMenuViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,webServiceProtocol>
+@interface MenuViewController : UIViewController <UITableViewDelegate, UITableViewDataSource,webServiceProtocol>
 {
     AppDelegate *appdelegate;
     Webservices *webServices;

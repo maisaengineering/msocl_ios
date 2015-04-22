@@ -212,8 +212,6 @@
     }
     [storiesArray removeAllObjects];
     [storiesArray addObjectsFromArray:postArray];
-    [self.streamTableView setDelegate:self];
-    [self.streamTableView setDataSource:self];
     [self.streamTableView reloadData];
 }
 -(void) showPostFailed

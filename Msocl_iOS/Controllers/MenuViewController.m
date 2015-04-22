@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Maisa Solutions. All rights reserved.
 //
 
-#import "SettingsMenuViewController.h"
+#import "MenuViewController.h"
 #import "SlideNavigationContorllerAnimatorFade.h"
 #import "SlideNavigationContorllerAnimatorSlide.h"
 #import "SlideNavigationContorllerAnimatorScale.h"
@@ -15,7 +15,7 @@
 #import "ModelManager.h"
 #import "MainStreamsViewController.h"
 #import "ProfilePhotoUtils.h"
-@implementation SettingsMenuViewController
+@implementation MenuViewController
 {
     ModelManager *sharedModel;
     ProfilePhotoUtils *photoUtils;
@@ -134,10 +134,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                             bundle: nil];
-    
-    UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"AddPostViewController"];
     
     switch (indexPath.row)
     {
@@ -145,12 +141,29 @@
             break;
             
         case 2:
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            
+            UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"AddPostViewController"];
+
             [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
+        }
             break;
             
         case 6:
             [self logOut];
             break;
+            
+        case 4:
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            
+            UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
+            
+            [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
+        }            break;
             
         case 3:
            // [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];

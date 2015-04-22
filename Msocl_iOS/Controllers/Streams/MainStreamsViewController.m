@@ -10,7 +10,7 @@
 #import "ModelManager.h"
 #import "LoginViewController.h"
 #import "PostDetails.h"
-#import "SettingsMenuViewController.h"
+#import "MenuViewController.h"
 #import "LoginViewController.h"
 #import "SlideNavigationController.h"
 @implementation MainStreamsViewController

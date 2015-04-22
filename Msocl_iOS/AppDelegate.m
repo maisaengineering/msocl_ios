@@ -13,7 +13,7 @@
 #import "Flurry.h"
 #import <Parse/Parse.h>
 #import "SlideNavigationController.h"
-#import "SettingsMenuViewController.h"
+#import "MenuViewController.h"
 #import "PageGuidePopUps.h"
 #import "ModelManager.h"
 #import "PostDetailDescriptionViewController.h"
@@ -45,7 +45,7 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
     
-    SettingsMenuViewController *leftMenu = (SettingsMenuViewController*)[mainStoryboard
+    MenuViewController *leftMenu = (MenuViewController*)[mainStoryboard
                                                                  instantiateViewControllerWithIdentifier: @"SettingsMenuViewController"];
     
     [SlideNavigationController sharedInstance].leftMenu = leftMenu;

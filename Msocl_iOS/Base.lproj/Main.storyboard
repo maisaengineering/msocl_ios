@@ -477,6 +477,96 @@
             </objects>
             <point key="canvasLocation" x="596" y="1808"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="Kor-5d-Tor">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="zEq-YT-i0r" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="faF-17-Gfn"/>
+                        <viewControllerLayoutGuide type="bottom" id="LFF-CV-8VW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eqc-LR-Uil">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eA6-sx-v3p">
+                                <rect key="frame" x="104" y="77" width="112" height="30"/>
+                                <state key="normal" title="Reset Password">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="changePassword:" destination="zEq-YT-i0r" eventType="touchUpInside" id="5Ip-eB-fXJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="96l-RF-OED" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="630" y="2455"/>
+        </scene>
+        <!--Change Password View Controller-->
+        <scene sceneID="1vl-IF-yjt">
+            <objects>
+                <viewController storyboardIdentifier="ChangePasswordViewController" id="Ao1-Qk-3Bt" customClass="ChangePasswordViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gu2-iJ-kXG"/>
+                        <viewControllerLayoutGuide type="bottom" id="kYu-2i-7ko"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BZE-gB-YKt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Old Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8SU-4P-L6L">
+                                <rect key="frame" x="17" y="93" width="278" height="18"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ao1-Qk-3Bt" id="lae-Wg-IwZ"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="New password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1aL-cU-KPR">
+                                <rect key="frame" x="17" y="138" width="278" height="18"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ao1-Qk-3Bt" id="2uH-Dq-bqY"/>
+                                </connections>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u3V-3J-Iqq">
+                                <rect key="frame" x="16" y="113" width="288" height="1"/>
+                                <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wbc-Rh-b1W">
+                                <rect key="frame" x="16" y="158" width="288" height="1"/>
+                                <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u3g-8s-HnG">
+                                <rect key="frame" x="17" y="183" width="278" height="18"/>
+                                <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Ao1-Qk-3Bt" id="LHf-CV-Dj1"/>
+                                </connections>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qb9-ON-3Qt">
+                                <rect key="frame" x="16" y="203" width="288" height="1"/>
+                                <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="txt_Password" destination="1aL-cU-KPR" id="rxu-BO-XIH"/>
+                        <outlet property="txt_confirmPassword" destination="u3g-8s-HnG" id="PaJ-tG-e6s"/>
+                        <outlet property="txt_oldPassword" destination="8SU-4P-L6L" id="tyY-5m-8Op"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="clR-X9-rz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="630" y="3089"/>
+        </scene>
         <!--ADD POST-->
         <scene sceneID="Mjk-Dq-2BD">
             <objects>
@@ -496,10 +586,10 @@
             </objects>
             <point key="canvasLocation" x="937" y="-156"/>
         </scene>
-        <!--Settings Menu View Controller-->
+        <!--Menu View Controller-->
         <scene sceneID="Ixl-9i-Qlh">
             <objects>
-                <viewController storyboardIdentifier="SettingsMenuViewController" id="Nmc-Lx-03S" customClass="SettingsMenuViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsMenuViewController" id="Nmc-Lx-03S" customClass="MenuViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Ex-tA-dBf"/>
                         <viewControllerLayoutGuide type="bottom" id="6qc-at-B2c"/>
