@@ -48,6 +48,8 @@
 -(void) heartingFailed;
 -(void) postDeleteSuccessFull:(NSDictionary *)recievedDict;
 -(void) postDeleteFailed;
+-(void) commentUpVoteSuccessFull:(NSDictionary *)recievedDict;
+-(void) commentUpVoteFailed;
 
 @end
 

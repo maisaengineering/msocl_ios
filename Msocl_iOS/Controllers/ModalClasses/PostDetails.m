@@ -52,7 +52,7 @@
                 self.time = [response objectForKey:key];
             }
             else if ([key isEqualToString:@"comments"]) {
-                self.comments = [response objectForKey:key];
+                self.comments = [[response objectForKey:key] mutableCopy];
             }
             else if ([key isEqualToString:@"owner"]) {
                 self.owner = [response objectForKey:key];

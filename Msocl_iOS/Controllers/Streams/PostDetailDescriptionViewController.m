@@ -31,6 +31,7 @@
     BOOL isAnonymous;
     DXPopover *popover;
     UIView *popView;
+    long int commentIndex;
 
 }
 @synthesize storiesArray;
@@ -79,7 +80,7 @@
     [self.view addSubview:self.commentView];
     self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 40)];
     self.txt_comment.delegate = self;
-        [self.txt_comment setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+        [self.txt_comment setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
 
     [self.commentView addSubview:self.txt_comment];
         
@@ -277,9 +278,9 @@
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
     
-        UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [deleteButton setFrame:CGRectMake(100, 0, 120, 44)];
-        [deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+        UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [deleteButton setFrame:CGRectMake(0, 0, 320, 44)];
+        [deleteButton setImage:[UIImage imageNamed:@"btn-delete.png"] forState:UIControlStateNormal];
         [deleteButton addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
         [cell.contentView addSubview:deleteButton];
         
@@ -292,7 +293,6 @@
         if (cell == nil)
         {
             cell = (CommentCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         
         //removes any subviews from the cell
@@ -300,7 +300,8 @@
         {
             [viw removeFromSuperview];
         }
-        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
         
         // Add utility buttons
         NSMutableArray *rightUtilityButtons = [NSMutableArray new];
@@ -366,7 +367,7 @@
         
         // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
         
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(250,8,60,12)];
+        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(250,2,60,12)];
         [dateLabel setBackgroundColor:[UIColor clearColor]];
         
         NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
@@ -378,7 +379,28 @@
         [dateLabel setNumberOfLines:0];
         [dateLabel setTextAlignment:NSTextAlignmentRight];
         [cell.contentView addSubview:dateLabel];
-        
+    
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(200, 2, 12, 12)];
+    [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
+    [cell.contentView addSubview:heartCntImage];
+
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(218,2,30,12)];
+    [upVoteCount setBackgroundColor:[UIColor clearColor]];
+    [upVoteCount setText:[NSString stringWithFormat:@"%i",[[commentDict objectForKey:@"upvote_count"] intValue] ]];
+    [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
+    [upVoteCount setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
+    [upVoteCount setNumberOfLines:1];
+    [upVoteCount setTextAlignment:NSTextAlignmentLeft];
+    [cell.contentView addSubview:upVoteCount];
+
+    UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [moreButton setImage:[UIImage imageNamed:@"icon-more.png"] forState:UIControlStateNormal];
+    [moreButton addTarget:self action:@selector(moreClicked:) forControlEvents:UIControlEventTouchUpInside];
+    moreButton.frame = CGRectMake(280, 12, 20, 20);
+    [moreButton setTag:[[streamTableView indexPathForRowAtPoint:cell.center] row]];
+    [cell.contentView addSubview:moreButton];
+    
+    
         NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[commentDict objectForKey:@"text"]   attributes:attributes];
@@ -606,21 +628,22 @@
 -(void) commentSuccessful:(NSDictionary *)recievedDict
 {
     [appDelegate showOrhideIndicator:NO];
-    NSDictionary *dict = @{@"commenter": @{@"fname":@"" ,@"lname": @"",@"photo":@""},@"anonymous":[NSNumber numberWithBool:isAnonymous],@"editable": [NSNumber numberWithBool:YES],@"text":self.txt_comment.text};
     
     PostDetails *postDetls = [storiesArray lastObject];
     NSMutableArray *commentsArray = [postDetls.comments mutableCopy];
     if(commentsArray == nil)
         commentsArray = [[NSMutableArray alloc] init];
-    [commentsArray addObject:dict];
+    [commentsArray addObject:recievedDict];
     postDetls.comments = commentsArray;
     [storiesArray replaceObjectAtIndex:0 withObject:postDetls];
     [streamTableView reloadData];
     self.txt_comment.text = @"";
+    [self.txt_comment addSubview:placeholderLabel];
 }
 -(void) commentFailed
 {
     self.txt_comment.text = @"";
+    [self.txt_comment addSubview:placeholderLabel];
     [appDelegate showOrhideIndicator:NO];
 }
 -(void)follow:(id)sender
@@ -700,7 +723,7 @@
     comment.attributedText = attributedString;
     CGSize expectedLabelSize = [comment sizeThatFits:CGSizeMake(220, 9999)];
 
-    CGFloat height;
+    CGFloat height =0;
     if(expectedLabelSize.height+12 > 44) //if there is a lot of text
     {
         height+=expectedLabelSize.height+12+12;
@@ -915,4 +938,91 @@
     [self.navigationController pushViewController:login animated:NO];
 
 }
+
+#pragma mark -
+#pragma mark More Options In Comment
+-(void)moreClicked:(id)sender
+{
+    PostDetails *post = [storiesArray lastObject];
+    NSDictionary * commentDict = [post.comments objectAtIndex:[sender tag]-1];
+    commentIndex = [sender tag]-1;
+   
+    UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] init];
+    if([[commentDict objectForKey:@"upvoted"] boolValue])
+    {
+    [addImageActionSheet addButtonWithTitle:@"Undo Upvote"];
+    }
+    else
+    {
+        [addImageActionSheet addButtonWithTitle:@"Upvote"];
+    }
+    
+    addImageActionSheet.cancelButtonIndex = [addImageActionSheet addButtonWithTitle:@"Cancel"];
+
+    addImageActionSheet.tag = 1;
+    [addImageActionSheet setDelegate:self];
+    [addImageActionSheet showInView:[UIApplication sharedApplication].keyWindow];
+
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:@"Upvote"])
+    {
+        [self CommentUpVote];
+    }
+    else if(([title isEqualToString:@"Undo Upvote"]))
+    {
+        [self CommentUpVote];
+    }
+}
+-(void)CommentUpVote
+{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        
+        [appDelegate showOrhideIndicator:YES];
+        AccessToken* token = sharedModel.accessToken;
+        
+        NSDictionary* postData;
+        PostDetails *postDetails = [storiesArray lastObject];
+        NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
+        if([[commentDict objectForKey:@"upvoted"] boolValue])
+        {
+            [commentDict setObject:[NSNumber numberWithBool:NO] forKey:@"upvoted"];
+            [commentDict setObject:[NSNumber numberWithInt:[[commentDict objectForKey:@"upvote_count"] intValue]-1] forKey:@"upvote_count"];
+
+            postData = @{@"command": @"undoVoting",@"access_token": token.access_token};
+        }
+        else
+        {
+            [commentDict setObject:[NSNumber numberWithBool:YES] forKey:@"upvoted"];
+            [commentDict setObject:[NSNumber numberWithInt:[[commentDict objectForKey:@"upvote_count"] intValue]+1] forKey:@"upvote_count"];
+            postData = @{@"command": @"upvote",@"access_token": token.access_token};
+        }
+        
+        [postDetails.comments replaceObjectAtIndex:commentIndex withObject:commentDict];
+        
+        NSDictionary *userInfo = @{@"command": @"commentUpvote"};
+        NSString *urlAsString = [NSString stringWithFormat:@"%@comments/%@",BASE_URL,[commentDict objectForKey:@"uid"]];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        
+        [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+        [streamTableView reloadData];
+    }
+    else
+    {
+        [self gotoLoginScreen];
+    }
+    
+}
+-(void) commentUpVoteSuccessFull:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+-(void) commentUpVoteFailed
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+
 @end

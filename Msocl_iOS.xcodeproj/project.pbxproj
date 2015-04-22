@@ -85,6 +85,7 @@
 		7F714F371AE79A2B00C69BF4 /* icon-more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2F1AE79A2B00C69BF4 /* icon-more@2x.png */; };
 		7F714F381AE79A2B00C69BF4 /* icon-upvote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */; };
 		7F714F3A1AE7A50A00C69BF4 /* icon-upvote-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F391AE7A50A00C69BF4 /* icon-upvote-gray@2x.png */; };
+		7F714F3C1AE7B1CB00C69BF4 /* btn-delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F3B1AE7B1CB00C69BF4 /* btn-delete@2x.png */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -276,6 +277,7 @@
 		7F714F2F1AE79A2B00C69BF4 /* icon-more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-more@2x.png"; sourceTree = "<group>"; };
 		7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote@2x.png"; sourceTree = "<group>"; };
 		7F714F391AE7A50A00C69BF4 /* icon-upvote-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote-gray@2x.png"; sourceTree = "<group>"; };
+		7F714F3B1AE7B1CB00C69BF4 /* btn-delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-delete@2x.png"; sourceTree = "<group>"; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -813,6 +815,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F714F3B1AE7B1CB00C69BF4 /* btn-delete@2x.png */,
 				7F714F391AE7A50A00C69BF4 /* icon-upvote-gray@2x.png */,
 				7F599E3A1AE6809300DED294 /* icon-heart-list@2x.png */,
 				7F2178B81AE52A80003D8A33 /* icon-edit@2x.png */,
@@ -1018,6 +1021,7 @@
 				7F714F321AE79A2B00C69BF4 /* btn-post@2x.png in Resources */,
 				7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */,
 				7F2178AE1AE5151B003D8A33 /* icon-camera-add@2x.png in Resources */,
+				7F714F3C1AE7B1CB00C69BF4 /* btn-delete@2x.png in Resources */,
 				7F5F18D41ADE3DD500C5B4EC /* comment_Count@2x.png in Resources */,
 				7F0AB8F11AE27280009219B2 /* menu-settings@2x.png in Resources */,
 				7F83BC7E1AD17844008DFD8B /* Images.xcassets in Resources */,

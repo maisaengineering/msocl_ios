@@ -135,6 +135,10 @@
     {
         [self connectionSuccessDeletePost:responseDict];
     }
+    else if([command isEqualToString:@"commentUpvote"])
+    {
+        [self connectionSuccessCommentUpVote:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -211,6 +215,10 @@
     else if([command isEqualToString:@"deletePost"])
     {
         [self.delegate postDeleteFailed];
+    }
+    else if([command isEqualToString:@"commentUpvote"])
+    {
+        [self.delegate commentUpVoteFailed];
     }
 }
 #pragma mark -
@@ -550,6 +558,22 @@
     else
     {
         [self.delegate postDeleteFailed];
+        
+    }
+}
+-(void)connectionSuccessCommentUpVote:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate commentUpVoteSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate commentUpVoteFailed];
         
     }
 }

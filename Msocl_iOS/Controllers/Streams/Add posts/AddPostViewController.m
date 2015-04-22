@@ -730,14 +730,22 @@
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
     }
+    if([tagsArray count] == 0)
+    {
+            ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
+            return;
+    }
     isPrivate = YES;
+    if(postDetailsObject != nil)
+        [self editPost];
+    else
     [self createPost];
 }
 -(void)anonymousPostClicked:(id)sender
 {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = [(UIButton *)sender frame];
-    frame.origin.y += 15;
+    frame.origin.y += 20;
     btn.frame = frame;
 
     [popover showAtView:btn withContentView:popView];
@@ -751,7 +759,11 @@
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
     }
-    
+    if([tagsArray count] == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
+        return;
+    }
     isPrivate = NO;
     [self createPost];
     
@@ -836,7 +848,11 @@
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
     }
-    
+    if([tagsArray count] == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
+        return;
+    }
     isPrivate = NO;
     [self editPost];
 
