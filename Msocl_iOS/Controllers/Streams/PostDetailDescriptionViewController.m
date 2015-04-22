@@ -139,6 +139,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    DebugLog(@"postID:%@",postID);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -211,8 +212,9 @@
     }
     [storiesArray removeAllObjects];
     [storiesArray addObjectsFromArray:postArray];
-    [streamTableView reloadData];
-    
+    [self.streamTableView setDelegate:self];
+    [self.streamTableView setDataSource:self];
+    [self.streamTableView reloadData];
 }
 -(void) showPostFailed
 {

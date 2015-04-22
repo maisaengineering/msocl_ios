@@ -65,5 +65,5 @@
 #define ALL_FIELDS_REQUIRED     @"All fields are required"
 #define POST_CREATION_FAILED    @"Post creation failed"
 #define RELOAD_ON_LOG_OUT       @"TokenCreatedOnLogOut"
-
+#define DEVICE_TOKEN_KEY        @"Device_token_key"
 #endif

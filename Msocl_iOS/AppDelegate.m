@@ -16,6 +16,7 @@
 #import "SettingsMenuViewController.h"
 #import "PageGuidePopUps.h"
 #import "ModelManager.h"
+#import "PostDetailDescriptionViewController.h"
 
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
@@ -27,8 +28,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
+    /*
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
+     */
     
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
     
@@ -70,19 +73,48 @@
 //If the registration is successful, the callback method is the below one
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    /*
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackground];
+     */
+
+    NSString *strDeviceToken = [deviceToken description];
+    strDeviceToken = [strDeviceToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    strDeviceToken = [strDeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+    // Store the Device token in UserDefaulst for future purpose
+    [[NSUserDefaults standardUserDefaults] setObject:strDeviceToken forKey:DEVICE_TOKEN_KEY];
+    
+    NSLog(@"My Device token is:%@", strDeviceToken);
 }
 
 //When a push notification is received while the application is not in the foreground, it is displayed in the iOS Notification Center.
 //However, if the notification is received while the app is active, it is up to the app to handle it. To do so, we can implement this method
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    [PFPush handlePush:userInfo];
-}
+    //[PFPush handlePush:userInfo];
+    [self addMessageFromRemoteNotification:userInfo updateUI:YES];
 
+}
+- (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
+{
+    NSString *postID = [userInfo valueForKey:@"page_id"];
+    
+    [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    
+    PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
+                                                                                                                      instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
+    
+    postDetailDescriptionViewController.postID = postID;
+    SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+    self.window.rootViewController = slide;
+}
 //Handles the fail callback when registering Parse for remote notifications
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
 {
