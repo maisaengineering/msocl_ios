@@ -44,6 +44,53 @@
             </objects>
             <point key="canvasLocation" x="53.866666666666667" y="73.840000000000003"/>
         </scene>
+        <!--PROFILE-->
+        <scene sceneID="xqr-dQ-dso">
+            <objects>
+                <viewController storyboardIdentifier="UserProfileViewCotroller" id="a4M-BD-S81" customClass="UserProfileViewCotroller" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pwj-Bu-6Na"/>
+                        <viewControllerLayoutGuide type="bottom" id="EX2-bz-xgw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1Kt-nA-VYc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-profile-register.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Xo-L3-LQf">
+                                <rect key="frame" x="108" y="74" width="93" height="93"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sadashiv" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05K-Xq-L3v">
+                                <rect key="frame" x="0.0" y="167" width="320" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLN-UP-Hog">
+                                <rect key="frame" x="125" y="196" width="70" height="23"/>
+                                <color key="backgroundColor" red="0.12156862745098039" green="0.37647058823529411" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <state key="normal" title="Follow">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="followOrEditClicked:" destination="a4M-BD-S81" eventType="touchUpInside" id="g1h-PP-WNT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="PROFILE" id="6tI-RL-ekl"/>
+                    <connections>
+                        <outlet property="followOrEditBtn" destination="RLN-UP-Hog" id="y7m-g1-Hai"/>
+                        <outlet property="nameLabel" destination="05K-Xq-L3v" id="IQ8-AC-IlK"/>
+                        <outlet property="profileImageVw" destination="3Xo-L3-LQf" id="CDv-aa-qb3"/>
+                        <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="iax-nE-auz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uxC-iZ-i4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="937" y="-866"/>
+        </scene>
         <!--Onboarding View Controller-->
         <scene sceneID="EaA-Uh-g5J">
             <objects>
@@ -88,7 +135,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AI-C3-WBq">
-                                <rect key="frame" x="0.0" y="64" width="160" height="37"/>
+                                <rect key="frame" x="0.0" y="65" width="160" height="37"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                 <state key="normal" title="Most Recent">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -121,8 +168,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="followingButton" destination="ISw-3K-hQX" id="26H-U8-9U6"/>
+                        <outlet property="mostRecentButton" destination="9AI-C3-WBq" id="CW0-mS-34J"/>
                         <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="qU5-jb-Cet"/>
                         <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="TSv-V5-Dr2"/>
+                        <segue destination="a4M-BD-S81" kind="push" identifier="UserProfile" id="hMW-K8-sV6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pif-PM-zA7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -675,5 +725,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="iax-nE-auz"/>
     </inferredMetricsTieBreakers>
 </document>

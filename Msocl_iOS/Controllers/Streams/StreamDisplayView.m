@@ -37,8 +37,9 @@
 @synthesize profileID;
 @synthesize isMostRecent;
 @synthesize isFollowing;
+@synthesize isUserProfilePosts;
 @synthesize timeStamp;
-
+@synthesize userProfileId;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -111,9 +112,20 @@
         [body setValue:self.postCount forKeyPath:@"post_count"];
         [body setValue:self.etag forKey:@"etag"];
         [body setValue:step forKeyPath:@"step"];
+        NSString *command = @"all";
+        if(isFollowing)
+        {
+            [body setValue:@"favourites" forKeyPath:@"by"];
+            command = @"filter";
+        }
+        else if(isUserProfilePosts)
+        {
+            [body setValue:userProfileId forKeyPath:@"key"];
+            command = @"filter";
 
+        }
         
-        NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token,@"body":body};
+        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
         NSDictionary *userInfo = @{@"command": @"GetStreams"};
         
         NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
@@ -165,7 +177,6 @@
 {
     bProcessing = NO;
     [refreshControl endRefreshing];
-    
 }
 
 #pragma mark -
@@ -234,6 +245,12 @@
     [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Thick" size:13]];
     [cell.contentView addSubview:name];
+    
+    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+    [profileButton setFrame:CGRectMake(57, yPosition, 200, 20)];
+    [cell.contentView addSubview:profileButton];
     
     
     UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(257, yPosition, 8, 8)];
@@ -414,5 +431,8 @@
         [self callStreamsApi:@"next"];
 }
 
-
+-(void)profileButtonClicked:(id)sender
+{
+    [self.delegate userProifleClicked:(int)[sender tag]];
+}
 @end

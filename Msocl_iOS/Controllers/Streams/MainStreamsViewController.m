@@ -11,8 +11,8 @@
 #import "LoginViewController.h"
 #import "PostDetails.h"
 #import "MenuViewController.h"
-#import "LoginViewController.h"
 #import "SlideNavigationController.h"
+#import "UserProfileViewCotroller.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -30,13 +30,16 @@
 {
     [super viewDidLoad];
     
+    mostRecentButton.userInteractionEnabled = NO;
+    
     mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 102, 320, Deviceheight-102)];
     mostRecent.delegate = self;
     [self.view addSubview:mostRecent];
 
     following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 102, 320, Deviceheight-102)];
     following.delegate = self;
-    [self.view addSubview:mostRecent];
+    following.isFollowing = YES;
+    [self.view addSubview:following];
     following.hidden = YES;
     
     pageGuidePopUpsObj = [[PageGuidePopUps alloc] init];
@@ -104,18 +107,34 @@
         {
             [mostRecent.streamTableView reloadData];
         }
+        else
+            [following.streamTableView reloadData];
 
     }
     isShowPostCalled = NO;
 }
 #pragma mark -
 #pragma mark Call backs from stream display
+- (void)userProifleClicked:(int)index
+{
+    selectedIndex = index;
+    [self performSegueWithIdentifier: @"UserProfile" sender: self];
+}
 - (void)tableDidSelect:(int)index
 {
     if(!mostRecent.hidden)
     {
         isShowPostCalled = YES;
         PostDetails *postObject = [mostRecent.storiesArray objectAtIndex:index];
+        selectedPostId = postObject.uid;
+        selectedPost = postObject;
+        selectedIndex = index;
+        [self performSegueWithIdentifier: @"PostSeague" sender: self];
+    }
+    else
+    {
+        isShowPostCalled = YES;
+        PostDetails *postObject = [following.storiesArray objectAtIndex:index];
         selectedPostId = postObject.uid;
         selectedPost = postObject;
         selectedIndex = index;
@@ -131,6 +150,19 @@
         destViewController.delegate = self;
         destViewController.postObjectFromWall = selectedPost;
     }
+    else if ([segue.identifier isEqualToString:@"UserProfile"])
+    {
+        PostDetails *postObject;
+        if(!mostRecent.hidden)
+            postObject = [mostRecent.storiesArray objectAtIndex:selectedIndex];
+        else
+            postObject = [following.storiesArray objectAtIndex:selectedIndex];
+
+        UserProfileViewCotroller *destViewController = segue.destinationViewController;
+        destViewController.photo = postObject.profileImage;
+        destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
+        destViewController.profileId = [postObject.owner objectForKey:@"uid"];
+    }
 }
 -(void) PostEditedFromPostDetails:(PostDetails *)postDetails
 {
@@ -138,6 +170,8 @@
     {
         [mostRecent.storiesArray replaceObjectAtIndex:selectedIndex withObject:postDetails];
     }
+    else
+        [following.storiesArray replaceObjectAtIndex:selectedIndex withObject:postDetails];
 }
 -(void)PostDeletedFromPostDetails
 {
@@ -145,6 +179,12 @@
     {
         [mostRecent.storiesArray removeObjectAtIndex:selectedIndex];
         [mostRecent.streamTableView reloadData];
+    }
+    else
+    {
+        [following.storiesArray removeObjectAtIndex:selectedIndex];
+        [following.streamTableView reloadData];
+
     }
 
 }
@@ -164,11 +204,31 @@
 {
     if([sender tag] == 1)
     {
+        [mostRecent setHidden:NO];
+        [following setHidden:YES];
+        mostRecentButton.userInteractionEnabled = NO;
+         followingButton.userInteractionEnabled = YES;
+        mostRecentButton.backgroundColor = [UIColor clearColor];
+        followingButton.backgroundColor = [UIColor colorWithRed:239/255.0 green:238/255.0 blue:239/255.0 alpha:1.0];
+
+        [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [mostRecent resetData];
+        [mostRecent callStreamsApi:@"next"];
         
     }
     else if([sender tag] == 2)
     {
+        [mostRecent setHidden:YES];
+        [following setHidden:NO];
+        followingButton.userInteractionEnabled = NO;
+        mostRecentButton.userInteractionEnabled = YES;
+        followingButton.backgroundColor = [UIColor clearColor];
+        mostRecentButton.backgroundColor = [UIColor colorWithRed:239/255.0 green:238/255.0 blue:239/255.0 alpha:1.0];
         
+        [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [following resetData];
+        [following callStreamsApi:@"next"];
+
     }
 }
 #pragma mark - SlideNavigationController Methods -

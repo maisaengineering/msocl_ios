@@ -139,7 +139,7 @@
     {
         [self connectionSuccessCommentUpVote:responseDict];
     }
-    else if([command isEqualToString:@"commentUpvote"])
+    else if([command isEqualToString:@"changePassword"])
     {
         [self connectionSuccessChangePassword:responseDict];
     }

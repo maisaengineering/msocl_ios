@@ -44,11 +44,41 @@
     [rightButton setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
     [rightButton setTitle:@"Reset" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [rightButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
-    rightButton.frame = CGRectMake(0 ,0,60,30);
+    [rightButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
+    rightButton.frame = CGRectMake(0 ,0,50,30);
+    rightButton.layer.cornerRadius = 5; // this value vary as per your desire
+    rightButton.clipsToBounds = YES;
+
     
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;
+
+    UIColor *color = [UIColor lightGrayColor];
+    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
+    
+    txt_oldPassword.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter current password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+
+    txt_Password.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter new password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+
+    txt_confirmPassword.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
 
     
 

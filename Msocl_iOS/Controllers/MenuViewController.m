@@ -15,6 +15,7 @@
 #import "ModelManager.h"
 #import "MainStreamsViewController.h"
 #import "ProfilePhotoUtils.h"
+#import "UserProfileViewCotroller.h"
 @implementation MenuViewController
 {
     ModelManager *sharedModel;
@@ -48,7 +49,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 6;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -116,12 +117,8 @@
             cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
             break;
 
-        case 5:
-            cell.textLabel.text = @"Notifications";
-            cell.imageView.image = [UIImage imageNamed:@"menu-notifications.png"];
-            break;
 
-        case 6:
+        case 5:
             cell.textLabel.text = @"Logout";
             cell.imageView.image = [UIImage imageNamed:@"menu-logout.png"];
             break;
@@ -151,7 +148,7 @@
         }
             break;
             
-        case 6:
+        case 5:
             [self logOut];
             break;
             
@@ -166,9 +163,18 @@
         }            break;
             
         case 3:
-           // [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-            //[[SlideNavigationController sharedInstance] popToRootViewControllerAnimated:YES];
-            return;
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            
+            UserProfileViewCotroller *destViewController = (UserProfileViewCotroller *)[mainStoryboard instantiateViewControllerWithIdentifier:@"UserProfileViewCotroller"];
+            UserProfile *userProfile = sharedModel.userProfile;
+            destViewController.photo = userProfile.image;
+            destViewController.name = [NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname];
+            destViewController.profileId = userProfile.uid;
+            [[SlideNavigationController sharedInstance] pushViewController:destViewController animated:YES];
+
+        }return;
             break;
     }
     

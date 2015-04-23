@@ -63,6 +63,7 @@
 		7F5DEFBC1AD7C50A00F2C60A /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAA1AD7C50A00F2C60A /* UIImageView+HighlightedWebCache.m */; };
 		7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAC1AD7C50A00F2C60A /* UIImageView+WebCache.m */; };
 		7F5DEFBE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFAE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m */; };
+		7F5EB3941AE8CC58004780A9 /* UserProfileViewCotroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5EB3931AE8CC58004780A9 /* UserProfileViewCotroller.m */; };
 		7F5F18D41ADE3DD500C5B4EC /* comment_Count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */; };
 		7F5F18D61ADE3E0700C5B4EC /* icon-heart-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */; };
 		7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18D71ADE7ABD00C5B4EC /* icon-comment-main@2x.png */; };
@@ -250,6 +251,8 @@
 		7F5DEFAC1AD7C50A00F2C60A /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		7F5DEFAD1AD7C50A00F2C60A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		7F5DEFAE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		7F5EB3921AE8CC58004780A9 /* UserProfileViewCotroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewCotroller.h; sourceTree = "<group>"; };
+		7F5EB3931AE8CC58004780A9 /* UserProfileViewCotroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewCotroller.m; sourceTree = "<group>"; };
 		7F5F18D31ADE3DD500C5B4EC /* comment_Count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_Count@2x.png"; sourceTree = "<group>"; };
 		7F5F18D51ADE3E0700C5B4EC /* icon-heart-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-count@2x.png"; sourceTree = "<group>"; };
 		7F5F18D71ADE7ABD00C5B4EC /* icon-comment-main@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-comment-main@2x.png"; sourceTree = "<group>"; };
@@ -500,6 +503,15 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		7F5EB3911AE8CC3C004780A9 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				7F5EB3921AE8CC58004780A9 /* UserProfileViewCotroller.h */,
+				7F5EB3931AE8CC58004780A9 /* UserProfileViewCotroller.m */,
+			);
+			name = UserProfile;
+			sourceTree = "<group>";
+		};
 		7F5F18D91ADE996300C5B4EC /* SWTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +545,7 @@
 		7F7E55BE1AD3F643007070EF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7F5EB3911AE8CC3C004780A9 /* UserProfile */,
 				7F86E58E1ADBD4F80002493F /* Settings */,
 				7F80DE8F1AD6AB8000EA6D1F /* Streams */,
 				7F80DE881AD6AB3000EA6D1F /* Onboarding */,
@@ -1089,6 +1102,7 @@
 				7F83BC631AD14CEF008DFD8B /* UIAlertView+AFNetworking.m in Sources */,
 				7F83BC651AD14CEF008DFD8B /* UIImageView+AFNetworking.m in Sources */,
 				7F86E5891ADBCFB00002493F /* SlideNavigationController.m in Sources */,
+				7F5EB3941AE8CC58004780A9 /* UserProfileViewCotroller.m in Sources */,
 				7F83BC641AD14CEF008DFD8B /* UIButton+AFNetworking.m in Sources */,
 				7F83BC581AD14CEF008DFD8B /* AFHTTPRequestOperation.m in Sources */,
 				7F80DE781AD6AAB500EA6D1F /* APIConnector.m in Sources */,
