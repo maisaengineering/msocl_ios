@@ -759,7 +759,7 @@
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
     }
-    if([tagsArray count] == 0)
+    if([selectedtagsArray count] == 0)
     {
         ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
         return;
@@ -848,7 +848,7 @@
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
     }
-    if([tagsArray count] == 0)
+    if([selectedtagsArray count] == 0)
     {
         ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
         return;

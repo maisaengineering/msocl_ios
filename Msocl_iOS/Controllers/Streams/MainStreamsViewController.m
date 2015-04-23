@@ -91,11 +91,13 @@
     {
     if(!mostRecent.hidden)
     {
+        [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         [mostRecent resetData];
         [mostRecent callStreamsApi:@"next"];
     }
     else
     {
+        [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         [following resetData];
         [following callStreamsApi:@"next"];
 
@@ -119,6 +121,10 @@
 {
     selectedIndex = index;
     [self performSegueWithIdentifier: @"UserProfile" sender: self];
+}
+- (void)recievedData:(BOOL)isFollowing
+{
+    
 }
 - (void)tableDidSelect:(int)index
 {

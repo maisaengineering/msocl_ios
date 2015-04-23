@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "StreamDisplayView.h"
 #import "PostDetailDescriptionViewController.h"
-@interface UserProfileViewCotroller : UIViewController<StreamDisplayViewDelegate,PostDetailsProtocol>
+#import "Webservices.h"
+@interface UserProfileViewCotroller : UIViewController<StreamDisplayViewDelegate,PostDetailsProtocol,webServiceProtocol>
 
 @property (nonatomic, strong) NSString *profileId;
 @property (nonatomic, strong) NSString *photo;

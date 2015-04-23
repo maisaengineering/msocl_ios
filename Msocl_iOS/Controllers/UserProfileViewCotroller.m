@@ -12,6 +12,7 @@
 #import "PostDetails.h"
 #import "UIImageView+AFNetworking.h"
 #import "ProfilePhotoUtils.h"
+#import "AppDelegate.h"
 
 @implementation UserProfileViewCotroller
 {
@@ -22,6 +23,8 @@
     PostDetails *selectedPost;
     ProfilePhotoUtils *photoUtils;
     int selectedIndex;
+    Webservices *webServices;
+    AppDelegate *appdelegate;
 }
 @synthesize name;
 @synthesize profileId;
@@ -56,14 +59,19 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
 
+    appdelegate = [[UIApplication sharedApplication] delegate];
     
-    
+    webServices = [[Webservices alloc] init];
+    webServices.delegate = self;
+
     modelManager = [ModelManager sharedModel];
     photoUtils = [ProfilePhotoUtils alloc];
     if([modelManager.userProfile.uid isEqualToString:profileId])
     {
         [followOrEditBtn setTitle:@"Edit" forState:UIControlStateNormal];
     }
+    else
+        followOrEditBtn.hidden = YES;
     
     nameLabel.text = name;
 
@@ -100,12 +108,66 @@
     }
     isShowPostCalled = NO;
 }
+#pragma mark -
+#pragma mark Follow or Unfollow Methods
 -(IBAction)followOrEditClicked:(id)sender
 {
-    
+    UIButton *button = (UIButton *)sender;
+    if([[button titleForState:UIControlStateNormal] isEqualToString:@"Edit"])
+    {
+        
+    }
+    else
+    {
+        [appdelegate showOrhideIndicator:YES];
+        AccessToken* token = modelManager.accessToken;
+        NSString *command;
+        if([[button titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
+            command = @"follow";
+        else
+            command = @"unfollow";
+        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
+        NSDictionary *userInfo = @{@"command": @"followUser"};
+        NSString *urlAsString = [NSString stringWithFormat:@"%@users/%@",BASE_URL,profileId];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+
+    }
+}
+-(void) followingUserSuccessFull:(NSDictionary *)recievedDict
+{
+    [appdelegate showOrhideIndicator:NO];
+    if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
+    [followOrEditBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
+    else
+        [followOrEditBtn setTitle:@"Follow" forState:UIControlStateNormal];
+}
+-(void) followingUserFailed
+{
+    [appdelegate showOrhideIndicator:NO];
 }
 #pragma mark -
 #pragma mark Call backs from stream display
+-(void)userProifleClicked:(int)index
+{
+    
+}
+- (void)recievedData:(BOOL)isFollowing
+{
+    
+    if(![modelManager.userProfile.uid isEqualToString:profileId])
+    {
+        followOrEditBtn.hidden = NO;
+    if(isFollowing)
+    {
+        [followOrEditBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
+        
+    }
+    else
+    {
+        [followOrEditBtn setTitle:@"Follow" forState:UIControlStateNormal];
+    }
+    }
+}
 - (void)tableDidSelect:(int)index
 {
         isShowPostCalled = YES;

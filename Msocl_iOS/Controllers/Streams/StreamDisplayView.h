@@ -13,6 +13,7 @@
 
 - (void)tableDidSelect:(int)index;
 - (void)userProifleClicked:(int)index;
+- (void)recievedData:(BOOL)isFollowing;
 
 @end
 @interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol>
@@ -31,6 +32,8 @@
 @property (nonatomic, strong) NSString *timeStamp;
 @property (nonatomic, strong) NSString *etag;
 @property (nonatomic, strong) NSNumber *postCount;
+
+
 
 
 -(void)callStreamsApi:(NSString *)step;

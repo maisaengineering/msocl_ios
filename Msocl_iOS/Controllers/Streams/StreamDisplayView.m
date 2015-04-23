@@ -136,6 +136,7 @@
 -(void) didReceiveStreams:(NSDictionary *)recievedDict
 {
     bProcessing = NO;
+    [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
     
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
     

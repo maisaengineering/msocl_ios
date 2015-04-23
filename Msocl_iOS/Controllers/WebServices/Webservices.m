@@ -143,7 +143,10 @@
     {
         [self connectionSuccessChangePassword:responseDict];
     }
-
+    else if([command isEqualToString:@"followUser"])
+    {
+        [self connectionSuccessFollowUser:responseDict];
+    }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -227,6 +230,10 @@
     else if([command isEqualToString:@"changePassword"])
     {
         [self.delegate changePasswordFailed];
+    }
+    else if([command isEqualToString:@"followUser"])
+    {
+        [self.delegate followingUserFailed];
     }
 }
 #pragma mark -
@@ -585,6 +592,23 @@
         
     }
 }
+-(void)connectionSuccessFollowUser:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate followingUserSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate followingUserFailed];
+        
+    }
+}
+
 -(void)connectionSuccessChangePassword:(NSDictionary *)respDict
 {
     NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
