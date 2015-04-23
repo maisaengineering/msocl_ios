@@ -54,6 +54,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES];
+
 }
 
 -(IBAction)closeClicked:(id)sender

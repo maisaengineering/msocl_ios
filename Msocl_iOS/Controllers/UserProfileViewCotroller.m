@@ -13,7 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ProfilePhotoUtils.h"
 #import "AppDelegate.h"
-
+#import "UpdateUserDetailsViewController.h"
 @implementation UserProfileViewCotroller
 {
     StreamDisplayView *streamDisplay;
@@ -80,7 +80,7 @@
         
         [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photo]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(36, 36)] withRadious:0];
+             weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
              
          }failure:nil];
     
@@ -112,26 +112,37 @@
 #pragma mark Follow or Unfollow Methods
 -(IBAction)followOrEditClicked:(id)sender
 {
-    UIButton *button = (UIButton *)sender;
-    if([[button titleForState:UIControlStateNormal] isEqualToString:@"Edit"])
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
+        UIButton *button = (UIButton *)sender;
+        if([[button titleForState:UIControlStateNormal] isEqualToString:@"Edit"])
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
+            [self.navigationController pushViewController:login animated:NO];
+            
+        }
+        else
+        {
+            [appdelegate showOrhideIndicator:YES];
+            AccessToken* token = modelManager.accessToken;
+            NSString *command;
+            if([[button titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
+                command = @"follow";
+            else
+                command = @"unfollow";
+            NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
+            NSDictionary *userInfo = @{@"command": @"followUser"};
+            NSString *urlAsString = [NSString stringWithFormat:@"%@users/%@",BASE_URL,profileId];
+            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+            
+        }
         
     }
     else
     {
-        [appdelegate showOrhideIndicator:YES];
-        AccessToken* token = modelManager.accessToken;
-        NSString *command;
-        if([[button titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
-            command = @"follow";
-        else
-            command = @"unfollow";
-        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
-        NSDictionary *userInfo = @{@"command": @"followUser"};
-        NSString *urlAsString = [NSString stringWithFormat:@"%@users/%@",BASE_URL,profileId];
-        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-
     }
+
 }
 -(void) followingUserSuccessFull:(NSDictionary *)recievedDict
 {

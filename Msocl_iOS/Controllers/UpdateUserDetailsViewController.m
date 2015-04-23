@@ -1,19 +1,20 @@
 //
-//  SignUpViewController.m
+//  UpdateUserDetailsViewController.m
 //  Msocl_iOS
 //
-//  Created by Maisa Solutions on 4/7/15.
+//  Created by Maisa Solutions on 4/23/15.
 //  Copyright (c) 2015 Maisa Solutions. All rights reserved.
 //
 
-#import "SignUpViewController.h"
+#import "UpdateUserDetailsViewController.h"
 #import "ModelManager.h"
 #import "StringConstants.h"
 #import "AppDelegate.h"
 #import "ProfilePhotoUtils.h"
 #import "Base64.h"
 #import "PromptImages.h"
-@implementation SignUpViewController
+#import "UIImageView+AFNetworking.h"
+@implementation UpdateUserDetailsViewController
 {
     AppDelegate *appdelegate;
     BOOL photoFromCamera;
@@ -23,16 +24,16 @@
     BOOL isUploadingImage;
     Webservices *webServices;
     UIImage *selectedImage;
-    
+    ModelManager *sharedModel;
+
 }
 @synthesize txt_firstName;
-@synthesize txt_password;
-@synthesize txt_confirmPassword;
 @synthesize txt_emailAddress;
 @synthesize txt_lastname;
 @synthesize profileImage;
 @synthesize txt_postal_code;
 @synthesize txt_phno;
+@synthesize txt_blog;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,6 +41,7 @@
     photoUtils = [ProfilePhotoUtils alloc];
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
+    sharedModel = [ModelManager sharedModel];
     imageId = @"";
     //Aviary
     // Aviary iOS 7 Start
@@ -56,13 +58,6 @@
     UIColor *color = [UIColor lightGrayColor];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
     
-    txt_password.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter password"
-                                    attributes:@{
-                                                 NSForegroundColorAttributeName: color,
-                                                 NSFontAttributeName : font
-                                                 }
-     ];
     txt_firstName.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Enter first name"
                                     attributes:@{
@@ -77,22 +72,7 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
-    txt_confirmPassword.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
-                                    attributes:@{
-                                                 NSForegroundColorAttributeName: color,
-                                                 NSFontAttributeName : font
-                                                 }
-     ];
-
-    txt_confirmPassword.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
-                                    attributes:@{
-                                                 NSForegroundColorAttributeName: color,
-                                                 NSFontAttributeName : font
-                                                 }
-     ];
-
+    
     txt_emailAddress.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Enter email id"
                                     attributes:@{
@@ -100,37 +80,69 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
+    txt_blog.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Enter blog url"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    
+    
+    [self setDetails];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES];
+    
+}
 
+-(void)backClicked
+{
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+-(void)setDetails
+{
+    [txt_firstName setText:sharedModel.userProfile.fname];
+    [txt_lastname setText:sharedModel.userProfile.lname];
+
+    __weak UIImageView *weakSelf = profileImage;
+    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    
+    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(50, 50)] withRadious:0];
+         
+     }failure:nil];
     
 }
 -(IBAction)backClickes:(id)sender
 {
     [self resignKeyBoards];
-    NSArray *viewControllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:viewControllers[viewControllers.count - 2] animated:NO];
+    [self.navigationController  popViewControllerAnimated:YES];
 }
 
 -(IBAction)closeClicked:(id)sender
 {
     [self resignKeyBoards];
-    NSArray *viewControllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
+    [self.navigationController  popViewControllerAnimated:YES];
 }
-
 #pragma mark -
 #pragma mark Signup Methods
 -(IBAction)signupClicked:(id)sender
 {
     [self resignKeyBoards];
-    if( txt_password.text.length == 0 || txt_lastname.text.length == 0 || txt_firstName.text.length == 0|| txt_emailAddress.text.length == 0|| txt_confirmPassword.text.length == 0)
+    if(  txt_lastname.text.length == 0 )
     {
-        ShowAlert(PROJECT_NAME,@"All fields are required", @"OK");
+        ShowAlert(PROJECT_NAME,@"Please enter last name", @"OK");
         return;
     }
-    else if(![txt_confirmPassword.text isEqualToString:txt_password.text])
+    else if(txt_firstName.text.length == 0)
     {
-        ShowAlert(PROJECT_NAME,@"Password and Confirm Password are not matching", @"OK");
+        ShowAlert(PROJECT_NAME,@"Please enter first name", @"OK");
         return;
+
     }
     else
     {
@@ -145,17 +157,15 @@
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
-    [postDetails setObject:txt_emailAddress.text forKey:@"email"];
-    [postDetails setObject:txt_password.text forKey:@"password"];
-    [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
+    [postDetails setObject:txt_blog.text forKey:@"blog"];
+    if(imageId.length > 0)
     [postDetails setObject:imageId forKey:@"key"];
     
-    ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
     NSString *command = @"SignUp";
     NSDictionary* postData = @{@"access_token": token.access_token,
-                               @"command": @"create",
+                               @"command": @"update",
                                @"body": postDetails};
     NSDictionary *userInfo = @{@"command": command};
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
@@ -165,27 +175,18 @@
 
 -(void)signUpSccessfull:(NSDictionary *)responseDict
 {
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
-
+    
     [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
     
-    NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];
-    [tokenDict setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];
-    [[NSUserDefaults standardUserDefaults] setObject:tokenDict forKey:@"tokens"];
-    
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
-    [[ModelManager sharedModel] setUserDetails:responseDict];
-    [[PromptImages sharedInstance] getAllGroups];
+    [sharedModel setUserDetails:responseDict];
+
     [appdelegate showOrhideIndicator:NO];
-    NSArray *viewControllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)signUpFailed
 {
     [appdelegate showOrhideIndicator:NO];
-    ShowAlert(@"Error", @"Signup Failed", @"OK");
+    ShowAlert(@"Error", @"Updation Failed", @"OK");
 }
 #pragma mark -
 #pragma mark Image Selection Methods
@@ -493,7 +494,6 @@
     [newImageDetails setValue:stringContentType   forKey:@"content_type"];
     [newImageDetails setValue:stringContent       forKey:@"content"];
     
-    ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
     //build an info object and convert to json
@@ -548,4 +548,5 @@
     [textField resignFirstResponder];
     return NO;
 }
+
 @end

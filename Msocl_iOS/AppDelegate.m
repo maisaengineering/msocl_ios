@@ -46,7 +46,7 @@
                                                              bundle: nil];
     
     MenuViewController *leftMenu = (MenuViewController*)[mainStoryboard
-                                                                 instantiateViewControllerWithIdentifier: @"SettingsMenuViewController"];
+                                                                 instantiateViewControllerWithIdentifier: @"MenuViewController"];
     
     [SlideNavigationController sharedInstance].leftMenu = leftMenu;
     [SlideNavigationController sharedInstance].menuRevealAnimationDuration = .18;
