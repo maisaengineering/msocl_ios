@@ -90,7 +90,22 @@
 {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
-    
+    if([modelManager.userProfile.uid isEqualToString:profileId])
+    {
+        
+        
+        nameLabel.text = [NSString stringWithFormat:@"%@ %@",modelManager.userProfile.fname,modelManager.userProfile.lname];
+        __weak UIImageView *weakSelf = profileImageVw;
+        __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+
+        [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:modelManager.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
+             
+         }failure:nil];
+        
+
+    }
     [self refreshWall];
 }
 -(void)backClicked

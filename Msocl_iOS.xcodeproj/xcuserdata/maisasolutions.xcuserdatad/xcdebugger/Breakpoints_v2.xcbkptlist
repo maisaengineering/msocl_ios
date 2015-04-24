@@ -68,12 +68,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/SlideNavigationController.m"
-            timestampString = "451490438.69576"
+            timestampString = "451547682.064604"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "398"
-            endingLineNumber = "398"
-            landmarkName = "-updateMenuFrameAndTransformAccordingToOrientation"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "-openMenu:withDuration:andCompletion:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -83,13 +83,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/SlideNavigationController.m"
-            timestampString = "451490443.024544"
+            filePath = "Msocl_iOS/Controllers/UpdateUserDetailsViewController.m"
+            timestampString = "451547775.55382"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "596"
-            endingLineNumber = "596"
-            landmarkName = "-prepareMenuForReveal:"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "-signUpSccessfull:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/UpdateUserDetailsViewController.m"
+            timestampString = "451547857.529944"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "-signUpFailed"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/MenuViewController.m"
+            timestampString = "451547910.769519"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

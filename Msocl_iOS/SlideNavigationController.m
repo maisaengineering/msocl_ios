@@ -27,7 +27,7 @@
 
 #import "SlideNavigationController.h"
 #import "SlideNavigationContorllerAnimator.h"
-
+#import "MenuViewController.h"
 typedef enum {
 	PopTypeAll,
 	PopTypeRoot
@@ -476,6 +476,7 @@ static SlideNavigationController *singletonInstance;
 
 - (void)openMenu:(Menu)menu withDuration:(float)duration andCompletion:(void (^)())completion
 {
+    [[(MenuViewController *)self.leftMenu tableView] reloadData];
 	[self enableTapGestureToCloseMenu:YES];
 
 	[self prepareMenuForReveal:menu];

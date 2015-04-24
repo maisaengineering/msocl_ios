@@ -45,6 +45,10 @@
 
     
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+}
 #pragma mark - UITableView Delegate & Datasrouce -
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
