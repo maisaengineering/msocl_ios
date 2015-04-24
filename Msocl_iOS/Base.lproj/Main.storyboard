@@ -538,17 +538,6 @@
                     <view key="view" contentMode="scaleToFill" id="eqc-LR-Uil">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eA6-sx-v3p">
-                                <rect key="frame" x="104" y="77" width="112" height="30"/>
-                                <state key="normal" title="Reset Password">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="changePassword:" destination="zEq-YT-i0r" eventType="touchUpInside" id="5Ip-eB-fXJ"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
@@ -827,6 +816,53 @@
             </objects>
             <point key="canvasLocation" x="937" y="1748"/>
         </scene>
+        <!--Manage Tags View Controller-->
+        <scene sceneID="Qip-zu-ylm">
+            <objects>
+                <viewController storyboardIdentifier="ManageTagsViewController" id="HDs-61-Olz" customClass="ManageTagsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TFC-qr-Nwu"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ga4-Uh-lul"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="01d-4Z-odt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBE-jT-neA">
+                                <rect key="frame" x="0.0" y="65" width="160" height="37"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                <state key="normal" title="Recommend">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recomondOrManageClicked:" destination="HDs-61-Olz" eventType="touchUpInside" id="VEt-Me-Ac3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H3F-Tw-6Yn">
+                                <rect key="frame" x="161" y="65" width="160" height="37"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93333333330000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                <state key="normal" title="Manage">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="recomondOrManageClicked:" destination="HDs-61-Olz" eventType="touchUpInside" id="lOu-Hy-Vss"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="manageButton" destination="H3F-Tw-6Yn" id="J3k-gh-LWw"/>
+                        <outlet property="recomondedButton" destination="xBE-jT-neA" id="t6I-ey-5Dl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1dB-9O-cDJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="986" y="2455"/>
+        </scene>
     </scenes>
     <resources>
         <image name="btn-facebook.png" width="96" height="32"/>
@@ -844,6 +880,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="iax-nE-auz"/>
+        <segue reference="TSv-V5-Dr2"/>
     </inferredMetricsTieBreakers>
 </document>

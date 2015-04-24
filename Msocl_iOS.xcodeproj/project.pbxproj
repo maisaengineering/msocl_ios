@@ -78,6 +78,7 @@
 		7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18ED1ADE9B8700C5B4EC /* icon-edit-scroll@2x.png */; };
 		7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */; };
 		7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */; };
+		7F63515F1AEA1C8A0059EA0E /* ManageTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F63515E1AEA1C8A0059EA0E /* ManageTagsViewController.m */; };
 		7F714F311AE79A2B00C69BF4 /* ana-post@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F291AE79A2B00C69BF4 /* ana-post@2x.png */; };
 		7F714F321AE79A2B00C69BF4 /* btn-post@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2A1AE79A2B00C69BF4 /* btn-post@2x.png */; };
 		7F714F331AE79A2B00C69BF4 /* comment-ana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2B1AE79A2B00C69BF4 /* comment-ana@2x.png */; };
@@ -276,6 +277,8 @@
 		7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-scroll@2x.png"; sourceTree = "<group>"; };
 		7F5F18F21ADE9E7D00C5B4EC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		7F63515D1AEA1C890059EA0E /* ManageTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageTagsViewController.h; sourceTree = "<group>"; };
+		7F63515E1AEA1C8A0059EA0E /* ManageTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageTagsViewController.m; sourceTree = "<group>"; };
 		7F714F291AE79A2B00C69BF4 /* ana-post@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ana-post@2x.png"; sourceTree = "<group>"; };
 		7F714F2A1AE79A2B00C69BF4 /* btn-post@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-post@2x.png"; sourceTree = "<group>"; };
 		7F714F2B1AE79A2B00C69BF4 /* comment-ana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-ana@2x.png"; sourceTree = "<group>"; };
@@ -796,6 +799,8 @@
 				7F714F441AE7D25300C69BF4 /* SettingsViewController.m */,
 				7F714F461AE7D2B700C69BF4 /* ChangePasswordViewController.h */,
 				7F714F471AE7D2B700C69BF4 /* ChangePasswordViewController.m */,
+				7F63515D1AEA1C890059EA0E /* ManageTagsViewController.h */,
+				7F63515E1AEA1C8A0059EA0E /* ManageTagsViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1104,6 +1109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F86E5851ADBCFB00002493F /* SlideNavigationContorllerAnimatorFade.m in Sources */,
+				7F63515F1AEA1C8A0059EA0E /* ManageTagsViewController.m in Sources */,
 				7F83BC631AD14CEF008DFD8B /* UIAlertView+AFNetworking.m in Sources */,
 				7F83BC651AD14CEF008DFD8B /* UIImageView+AFNetworking.m in Sources */,
 				7F86E5891ADBCFB00002493F /* SlideNavigationController.m in Sources */,

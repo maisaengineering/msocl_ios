@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController
+@interface SettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
 -(IBAction)changePassword:(id)sender;
 @end

@@ -18,7 +18,7 @@
 @end
 
 
-@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate,EditPostProtocol,UIActionSheetDelegate>
+@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate,EditPostProtocol,UIActionSheetDelegate,UITextViewDelegate>
 
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSMutableArray *storiesArray;

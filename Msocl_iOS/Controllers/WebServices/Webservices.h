@@ -54,6 +54,13 @@
 -(void) changePasswordFailed;
 -(void) followingUserSuccessFull:(NSDictionary *)recievedDict;
 -(void) followingUserFailed;
+-(void) followingGroupSuccessFull:(NSDictionary *)recievedDict;
+-(void) followingGroupFailed;
+-(void) flagSuccessFull:(NSDictionary *)recievedDict;
+-(void) flagFailed;
+-(void) flagCommentSuccessFull:(NSDictionary *)recievedDict;
+-(void) flagCommentFailed;
+
 @end
 
 

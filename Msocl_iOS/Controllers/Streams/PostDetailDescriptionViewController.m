@@ -32,6 +32,8 @@
     DXPopover *popover;
     UIView *popView;
     long int commentIndex;
+    UIView *flagView;
+    UITextView *flagTextview;
 
 }
 @synthesize storiesArray;
@@ -136,6 +138,14 @@
         [popView addSubview:postBtn];
         
         popover = [DXPopover popover];
+    
+    flagView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Devicewidth, Deviceheight)];
+    [flagView setBackgroundColor:[UIColor lightGrayColor]];
+   flagTextview = [[UITextView alloc] initWithFrame:CGRectMake(10, 100, 300, 100)];
+    flagTextview.delegate = self;
+    [flagTextview setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
+    flagTextview.returnKeyType = UIReturnKeyDone;
+    [flagView addSubview:flagTextview];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -514,6 +524,8 @@
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
     
+
+    
     //Tags
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     if(postDetailsObject.upvoted)
@@ -529,6 +541,15 @@
     [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [cell.contentView addSubview:upVoteCount];
+    
+    
+    UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [flagButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [flagButton setTitle:@"Flag" forState:UIControlStateNormal];
+    [flagButton setFrame:CGRectMake(224, yPosition+1, 40, 20)];
+    [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [flagButton addTarget:self action:@selector(flagButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:flagButton];
 
     
     if([postDetailsObject.tags count] > 0)
@@ -540,11 +561,11 @@
             }
             
             NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
-            CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(240, CGFLOAT_MAX)
+            CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
                                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                     context:nil].size;
             
-            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition, 240 , tagsSize.height)];
+            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition, 200 , tagsSize.height)];
             [tweetLabel setText:tagsStr.string];
             tweetLabel.textAlignment = NSTextAlignmentLeft;
             [cell.contentView addSubview:tweetLabel];
@@ -558,6 +579,8 @@
     }
     else
         yPosition += 21+10;
+    
+
     
 }
 
@@ -699,7 +722,7 @@
     }
     
     NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
-    CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(240, CGFLOAT_MAX)
+    CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
                                             options:(NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;
     
@@ -943,6 +966,8 @@
 #pragma mark More Options In Comment
 -(void)moreClicked:(id)sender
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
     PostDetails *post = [storiesArray lastObject];
     NSDictionary * commentDict = [post.comments objectAtIndex:[sender tag]-1];
     commentIndex = [sender tag]-1;
@@ -956,13 +981,18 @@
     {
         [addImageActionSheet addButtonWithTitle:@"Upvote"];
     }
-    
+        [addImageActionSheet addButtonWithTitle:@"Flag"];
+        
     addImageActionSheet.cancelButtonIndex = [addImageActionSheet addButtonWithTitle:@"Cancel"];
 
     addImageActionSheet.tag = 1;
     [addImageActionSheet setDelegate:self];
     [addImageActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-
+    }
+    else
+    {
+        [self gotoLoginScreen];
+    }
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -974,6 +1004,13 @@
     else if(([title isEqualToString:@"Undo Upvote"]))
     {
         [self CommentUpVote];
+    }
+    else if([title isEqualToString:@"Flag"])
+    {
+        flagTextview.tag = 2;
+        [flagTextview setText:@""];
+        [flagTextview becomeFirstResponder];
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:flagView];
     }
 }
 -(void)CommentUpVote
@@ -1025,4 +1062,102 @@
     [appDelegate showOrhideIndicator:NO];
 }
 
+#pragma mark -
+#pragma mark Post Flag
+-(void)flagButtonClicked
+{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+    flagTextview.tag = 1;
+    [flagTextview setText:@""];
+    [flagTextview becomeFirstResponder];
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:flagView];
+    }
+    else
+        [self gotoLoginScreen];
+}
+-(void)flag
+{
+        [appDelegate showOrhideIndicator:YES];
+        AccessToken* token = sharedModel.accessToken;
+        
+        NSDictionary* postData;
+        PostDetails *postDetails = [storiesArray lastObject];
+        
+        postDetails.flagged = YES;
+    postData = @{@"command": @"flag",@"access_token": token.access_token,@"body":@{@"reason":flagTextview.text}};
+        NSDictionary *userInfo = @{@"command": @"flag"};
+        
+        NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postID];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        
+        [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+        [streamTableView reloadData];
+  
+}
+-(void) flagSuccessFull:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+-(void) flagFailed
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+
+#pragma mark -
+#pragma mark Textview Delegate Methods
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"])
+    {
+        if(textView.text.length ==0)
+        {
+            ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        }
+        else
+        {
+            [flagView removeFromSuperview];
+            if(textView.tag == 1)
+            [self flag];
+            else if(textView.tag == 2)
+                [self flagComment];
+        }
+        return NO;
+        
+    }
+    return YES;
+}
+
+#pragma mark - 
+#pragma mark Comment Flag Methods
+-(void)flagComment
+{
+    [appDelegate showOrhideIndicator:YES];
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSDictionary* postData;
+    PostDetails *postDetails = [storiesArray lastObject];
+    NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
+
+    
+    postData = @{@"command": @"flag",@"access_token": token.access_token,@"body":@{@"reason":flagTextview.text}};
+    NSDictionary *userInfo = @{@"command": @"flagComment"};
+    
+
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@comments/%@",BASE_URL,[commentDict objectForKey:@"uid"]];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    
+    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+    [streamTableView reloadData];
+    
+}
+-(void) flagCommentSuccessFull:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+-(void) flagCommentFailed
+{
+    [appDelegate showOrhideIndicator:NO];
+}
 @end

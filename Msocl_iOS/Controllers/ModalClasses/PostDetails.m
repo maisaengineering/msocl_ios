@@ -22,6 +22,7 @@
 @synthesize upVoteCount;
 @synthesize comments;
 @synthesize upvoted;
+@synthesize flagged;
 
 -(id)initWithDictionary:(NSDictionary *)response{
     
@@ -64,13 +65,16 @@
                 self.upVoteCount = [[response objectForKey:key] intValue];
             }
             else if ([key isEqualToString:@"editable"]) {
-                self.editable = [[response objectForKey:key] intValue];
+                self.editable = [[response objectForKey:key] boolValue];
             }
             else if ([key isEqualToString:@"createdAt"]) {
                 self.time = [response objectForKey:key];
             }
             else if ([key isEqualToString:@"upvoted"]) {
-                self.upvoted = [[response objectForKey:key] intValue];
+                self.upvoted = [[response objectForKey:key] boolValue];
+            }
+            else if ([key isEqualToString:@"flagged"]) {
+                self.flagged = [[response objectForKey:key] boolValue];
             }
         }
     }

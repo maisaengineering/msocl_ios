@@ -147,6 +147,19 @@
     {
         [self connectionSuccessFollowUser:responseDict];
     }
+    else if([command isEqualToString:@"followGroup"])
+    {
+        [self connectionSuccessFollowGroup:responseDict];
+    }
+    else if([command isEqualToString:@"flag"])
+    {
+        [self connectionSuccessFlag:responseDict];
+    }
+    else if([command isEqualToString:@"flagComment"])
+    {
+        [self connectionSuccessFlagComment:responseDict];
+    }
+
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -234,6 +247,18 @@
     else if([command isEqualToString:@"followUser"])
     {
         [self.delegate followingUserFailed];
+    }
+    else if([command isEqualToString:@"followGroup"])
+    {
+        [self.delegate followingGroupFailed];
+    }
+    else if([command isEqualToString:@"flag"])
+    {
+        [self.delegate flagFailed];
+    }
+    else if([command isEqualToString:@"flagComment"])
+    {
+        [self.delegate flagCommentFailed];
     }
 }
 #pragma mark -
@@ -622,6 +647,56 @@
     else
     {
         [self.delegate changePasswordFailed];
+        
+    }
+}
+
+-(void)connectionSuccessFollowGroup:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate followingGroupSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate followingGroupFailed];
+        
+    }
+}
+
+-(void)connectionSuccessFlag:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate flagSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate flagFailed];
+        
+    }
+}
+-(void)connectionSuccessFlagComment:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate flagCommentSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate flagCommentFailed];
         
     }
 }
