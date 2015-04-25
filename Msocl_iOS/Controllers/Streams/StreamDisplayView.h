@@ -14,6 +14,7 @@
 - (void)tableDidSelect:(int)index;
 - (void)userProifleClicked:(int)index;
 - (void)recievedData:(BOOL)isFollowing;
+- (void)tagCicked:(NSString *)tagName;
 
 @end
 @interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol>
@@ -27,12 +28,15 @@
 @property (nonatomic, assign) BOOL isMostRecent;
 @property (nonatomic, assign) BOOL isFollowing;
 @property (nonatomic, assign) BOOL isUserProfilePosts;
+@property (nonatomic, assign) BOOL isTag;
+
 @property (nonatomic, strong) NSString *userProfileId;
+@property (nonatomic, strong) NSString *tagName;
 
 @property (nonatomic, strong) NSString *timeStamp;
 @property (nonatomic, strong) NSString *etag;
 @property (nonatomic, strong) NSNumber *postCount;
-
+@property (nonatomic, strong) NSString *tagId;
 
 
 

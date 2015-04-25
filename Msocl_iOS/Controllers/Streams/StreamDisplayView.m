@@ -40,6 +40,9 @@
 @synthesize isUserProfilePosts;
 @synthesize timeStamp;
 @synthesize userProfileId;
+@synthesize isTag;
+@synthesize tagName;
+@synthesize tagId;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -124,6 +127,13 @@
             command = @"filter";
 
         }
+        else if(isTag)
+        {
+            [body setValue:tagName forKeyPath:@"key"];
+            [body setValue:@"tag" forKeyPath:@"by"];
+            command = @"filter";
+
+        }
         
         NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
         NSDictionary *userInfo = @{@"command": @"GetStreams"};
@@ -136,7 +146,7 @@
 -(void) didReceiveStreams:(NSDictionary *)recievedDict
 {
     bProcessing = NO;
-    [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
+    self.tagId = [recievedDict objectForKey:@"tag_id"];
     
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
     
@@ -172,7 +182,8 @@
     self.postCount = [recievedDict objectForKey:@"post_count"];
     self.etag = [recievedDict objectForKey:@"etag"];
 
-    
+    [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
+
 }
 -(void) streamsFailed
 {
@@ -343,7 +354,7 @@
         
         
         [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
-
+            [self.delegate tagCicked:[string stringByReplacingOccurrencesOfString:@"#" withString:@""]];
             
         }];
 

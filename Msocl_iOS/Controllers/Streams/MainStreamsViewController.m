@@ -13,6 +13,7 @@
 #import "MenuViewController.h"
 #import "SlideNavigationController.h"
 #import "UserProfileViewCotroller.h"
+#import "TagViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -22,7 +23,7 @@
     BOOL isShowPostCalled;
     PostDetails *selectedPost;
     int selectedIndex;
-    
+    NSString *selectedTag;
 }
 @synthesize mostRecentButton;
 @synthesize followingButton;
@@ -126,6 +127,11 @@
 {
     
 }
+- (void)tagCicked:(NSString *)tagName
+{
+    selectedTag = tagName;
+    [self performSegueWithIdentifier: @"TagView" sender: self];
+}
 - (void)tableDidSelect:(int)index
 {
     if(!mostRecent.hidden)
@@ -169,6 +175,13 @@
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
     }
+    else if ([segue.identifier isEqualToString:@"TagView"])
+    {
+        
+        TagViewController *destViewController = segue.destinationViewController;
+        destViewController.tagName = selectedTag;
+    }
+    
 }
 -(void) PostEditedFromPostDetails:(PostDetails *)postDetails
 {
