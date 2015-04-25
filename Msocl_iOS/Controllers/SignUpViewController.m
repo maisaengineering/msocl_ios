@@ -150,6 +150,8 @@
     [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
     if(imageId.length > 0)
     [postDetails setObject:imageId forKey:@"key"];
+    [postDetails setObject:DEVICE_UUID forKey:@"device_token"];
+    [postDetails setObject:@"iOS" forKey:@"platform"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;

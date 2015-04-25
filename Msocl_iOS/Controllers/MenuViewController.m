@@ -260,6 +260,8 @@
     [appdelegate showOrhideIndicator:YES];
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+    [postDetails setObject:DEVICE_UUID forKey:@"device_token"];
+    [postDetails setObject:@"iOS" forKey:@"platform"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;

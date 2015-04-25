@@ -99,6 +99,8 @@
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_username.text forKey:@"email"];
     [postDetails setObject:txt_password.text forKey:@"password"];
+    [postDetails setObject:DEVICE_UUID forKey:@"device_token"];
+    [postDetails setObject:@"iOS" forKey:@"platform"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
