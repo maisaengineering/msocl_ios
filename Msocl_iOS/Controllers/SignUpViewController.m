@@ -148,6 +148,7 @@
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
     [postDetails setObject:txt_password.text forKey:@"password"];
     [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
+    if(imageId.length > 0)
     [postDetails setObject:imageId forKey:@"key"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
