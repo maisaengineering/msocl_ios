@@ -10,5 +10,7 @@
 
 @interface SettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 -(IBAction)changePassword:(id)sender;
+-(IBAction)manageTags:(id)sender;
 @end

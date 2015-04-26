@@ -25,7 +25,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Manage tags";
+    self.title = @"MANAGE TAGS";
     
     sharedModel = [ModelManager sharedModel];
 
@@ -47,16 +47,17 @@
     manageTagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     manageTagsTableView.tag = 2;
     [self.view addSubview:manageTagsTableView];
-    manageTagsTableView.hidden = YES;
     
     recomondedTagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,100, 320, Deviceheight - 100)];
     recomondedTagsTableView.delegate = self;
     recomondedTagsTableView.dataSource = self;
     recomondedTagsTableView.tag = 1;
     recomondedTagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    recomondedTagsTableView.hidden = YES;
+
     [self.view addSubview:recomondedTagsTableView];
     
-    recomondedButton.userInteractionEnabled = NO;
+    manageButton.userInteractionEnabled = NO;
     
     [self getAllGroups];
 }
@@ -131,6 +132,10 @@
 {
     return 1;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(tableView.tag == 1)
@@ -153,11 +158,11 @@
         for(UIView *viw in [[cell contentView] subviews])
             [viw removeFromSuperview];
         cell.textLabel.text = [[recomondedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-        [cell.textLabel setTextColor:[UIColor colorWithRed:113/255.0 green:113/255.0 blue:113/255.0 alpha:1.0]];
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+        [cell.textLabel setTextColor:[UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0]];
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(270, 5, 50, 34)];
-        [imageView setImage:[UIImage imageNamed:@""]];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(287, 10, 20, 20)];
+        [imageView setImage:[UIImage imageNamed:@"icon-addsub.png"]];
         [cell.contentView addSubview:imageView];
 
         return cell;
@@ -174,11 +179,11 @@
         for(UIView *viw in [[cell contentView] subviews])
             [viw removeFromSuperview];
         cell.textLabel.text = [[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
-        [cell.textLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+        [cell.textLabel setTextColor:[UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0]];
 
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(270, 5, 50, 34)];
-        [imageView setImage:[UIImage imageNamed:@""]];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(287, 10, 20, 20)];
+        [imageView setImage:[UIImage imageNamed:@"icon-unsubscribe.png"]];
         [cell.contentView addSubview:imageView];
         
         return cell;
@@ -217,6 +222,23 @@
         [recomondedTagsArray addObject:dict];
         [manageTagsTableView reloadData];
 
+    }
+}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
     }
 }
 

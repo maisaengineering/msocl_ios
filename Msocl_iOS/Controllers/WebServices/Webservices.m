@@ -159,6 +159,10 @@
     {
         [self connectionSuccessFlagComment:responseDict];
     }
+    else if([command isEqualToString:@"resetPassword"])
+    {
+        [self connectionSuccessResetPassword:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -259,6 +263,10 @@
     else if([command isEqualToString:@"flagComment"])
     {
         [self.delegate flagCommentFailed];
+    }
+    else if([command isEqualToString:@"resetPassword"])
+    {
+        [self.delegate resetPasswordFailed];
     }
 }
 #pragma mark -
@@ -697,6 +705,21 @@
     else
     {
         [self.delegate flagCommentFailed];
+        
+    }
+}
+-(void)connectionSuccessResetPassword:(NSDictionary *)respDict
+{
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate resetPasswordSuccessFull:respDict];
+    }
+    
+    else
+    {
+        [self.delegate resetPasswordFailed];
         
     }
 }

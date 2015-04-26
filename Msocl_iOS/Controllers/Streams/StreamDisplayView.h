@@ -22,7 +22,7 @@
     
 }
 @property (nonatomic, strong) NSString *profileID;
-@property (nonatomic, assign) id<StreamDisplayViewDelegate> delegate;
+@property (nonatomic, weak) id<StreamDisplayViewDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *storiesArray;
 @property (nonatomic, strong) UITableView *streamTableView;
 @property (nonatomic, assign) BOOL isMostRecent;

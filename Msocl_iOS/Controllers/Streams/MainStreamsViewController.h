@@ -18,7 +18,6 @@
     PageGuidePopUps *pageGuidePopUpsObj;
 }
 @property (nonatomic, strong) IBOutlet UIButton *mostRecentButton;
-@property (nonatomic, strong) IBOutlet UIButton *followingButton;
 
 
 -(IBAction)addClicked:(id)sender;

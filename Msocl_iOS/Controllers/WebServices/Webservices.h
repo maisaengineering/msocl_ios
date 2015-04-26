@@ -60,6 +60,8 @@
 -(void) flagFailed;
 -(void) flagCommentSuccessFull:(NSDictionary *)recievedDict;
 -(void) flagCommentFailed;
+-(void) resetPasswordSuccessFull:(NSDictionary *)recievedDict;
+-(void) resetPasswordFailed;
 
 @end
 

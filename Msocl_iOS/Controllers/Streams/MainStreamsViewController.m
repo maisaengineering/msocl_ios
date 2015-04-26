@@ -26,18 +26,17 @@
     NSString *selectedTag;
 }
 @synthesize mostRecentButton;
-@synthesize followingButton;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-    mostRecentButton.userInteractionEnabled = NO;
+    [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
     
-    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 102, 320, Deviceheight-102)];
+    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 95, 320, Deviceheight-95)];
     mostRecent.delegate = self;
     [self.view addSubview:mostRecent];
 
-    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 102, 320, Deviceheight-102)];
+    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 95, 320, Deviceheight-95)];
     following.delegate = self;
     following.isFollowing = YES;
     [self.view addSubview:following];
@@ -221,34 +220,34 @@
 
 -(IBAction)RecentOrFollowignClicked:(id)sender
 {
-    if([sender tag] == 1)
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
+    
+    if(mostRecentButton.selected)
+    {
+        
         [mostRecent setHidden:NO];
         [following setHidden:YES];
-        mostRecentButton.userInteractionEnabled = NO;
-         followingButton.userInteractionEnabled = YES;
-        mostRecentButton.backgroundColor = [UIColor clearColor];
-        followingButton.backgroundColor = [UIColor colorWithRed:239/255.0 green:238/255.0 blue:239/255.0 alpha:1.0];
 
         [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         [mostRecent resetData];
         [mostRecent callStreamsApi:@"next"];
         
     }
-    else if([sender tag] == 2)
+    else
     {
         [mostRecent setHidden:YES];
         [following setHidden:NO];
-        followingButton.userInteractionEnabled = NO;
-        mostRecentButton.userInteractionEnabled = YES;
-        followingButton.backgroundColor = [UIColor clearColor];
-        mostRecentButton.backgroundColor = [UIColor colorWithRed:239/255.0 green:238/255.0 blue:239/255.0 alpha:1.0];
         
         [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         [following resetData];
         [following callStreamsApi:@"next"];
 
     }
+    mostRecentButton.selected = !mostRecentButton.selected;
+    }
+    else
+        [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
 }
 #pragma mark - SlideNavigationController Methods -
 

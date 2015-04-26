@@ -13,6 +13,7 @@
 #import "PromptImages.h"
 #import "WebViewController.h"
 #import "SignUpViewController.h"
+#import "FogotPasswordViewController.h"
 @implementation LoginViewController
 {
     AppDelegate *appdelegate;
@@ -143,14 +144,19 @@
 #pragma mark Fogot Password Methods
 -(IBAction)forgotPasswordClicked:(id)sender
 {
-    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    FogotPasswordViewController *forgetPassVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"FogotPasswordViewController"];
+    [self.navigationController pushViewController:forgetPassVC animated:NO];
+
 }
 
 -(IBAction)registerClicked:(id)sender
 {
+    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SignUpViewController *signUP = [mainStoryboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
-    [self.navigationController pushViewController:signUP animated:NO];
+    [self.navigationController pushViewController:signUP animated:YES];
+
 }
 
 - (IBAction)facebookButtonClikced:(id)sender

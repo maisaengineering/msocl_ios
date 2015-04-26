@@ -33,7 +33,7 @@
     UIView *popView;
     long int commentIndex;
     UIView *flagView;
-    UITextView *flagTextview;
+    UITextField *flagTextview;
 
 }
 @synthesize storiesArray;
@@ -116,7 +116,7 @@
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 320, 0.5)];
     line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
-    line.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
+    line.backgroundColor = [UIColor colorWithRed:(225/255.f) green:(225/255.f) blue:(225/255.f) alpha:1];
     [self.commentView addSubview:line];
 
     
@@ -136,19 +136,25 @@
         postBtn.frame = CGRectMake(0, 0, 300, 30);
         [postBtn addTarget:self action:@selector(commentAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
         [popView addSubview:postBtn];
-        
+    
+    
+    
         popover = [DXPopover popover];
     
-    flagView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Devicewidth, Deviceheight)];
-    [flagView setBackgroundColor:[UIColor lightGrayColor]];
-   flagTextview = [[UITextView alloc] initWithFrame:CGRectMake(10, 100, 300, 100)];
+    flagView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 30)];
+    [flagView setBackgroundColor:[UIColor whiteColor]];
+   flagTextview = [[UITextField alloc] initWithFrame:CGRectMake(5, 5, 270, 20)];
     flagTextview.delegate = self;
+    flagTextview.placeholder = @"Enter reason";
     [flagTextview setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
+    [flagTextview setBorderStyle:UITextBorderStyleNone];
     flagTextview.returnKeyType = UIReturnKeyDone;
     [flagView addSubview:flagTextview];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:NO];
+
     DebugLog(@"postID:%@",postID);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -238,7 +244,7 @@
     if(indexPath.row == 0)
     return [self cellHeight:[storiesArray objectAtIndex:indexPath.row]];
     else if([storiesArray count] + post.comments.count == indexPath.row)
-        return 44;
+        return 45;
     else
         return [self cellHeightForComment:(int )indexPath.row-1];
 }
@@ -376,25 +382,16 @@
         [cell.contentView addSubview:imagVw];
         
         // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
-        
-        UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(250,2,60,12)];
-        [dateLabel setBackgroundColor:[UIColor clearColor]];
-        
+    
         NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
         NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
         
-        [dateLabel setText:formattedTime];
-        [dateLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
-        [dateLabel setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-        [dateLabel setNumberOfLines:0];
-        [dateLabel setTextAlignment:NSTextAlignmentRight];
-        [cell.contentView addSubview:dateLabel];
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(200, 2, 12, 12)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(257, 16, 12, 12)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
     [cell.contentView addSubview:heartCntImage];
 
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(218,2,30,12)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(270,16.5,20,12)];
     [upVoteCount setBackgroundColor:[UIColor clearColor]];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",[[commentDict objectForKey:@"upvote_count"] intValue] ]];
     [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
@@ -406,21 +403,24 @@
     UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [moreButton setImage:[UIImage imageNamed:@"icon-more.png"] forState:UIControlStateNormal];
     [moreButton addTarget:self action:@selector(moreClicked:) forControlEvents:UIControlEventTouchUpInside];
-    moreButton.frame = CGRectMake(280, 12, 20, 20);
+    moreButton.frame = CGRectMake(290, 2, 20, 40);
     [moreButton setTag:[[streamTableView indexPathForRowAtPoint:cell.center] row]];
     [cell.contentView addSubview:moreButton];
     
     
-        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
+        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(34/255.f) green:(34/255.f) blue:(34/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[commentDict objectForKey:@"text"]   attributes:attributes];
+    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:(170/255.f) green:(170/255.f) blue:(170/255.f) alpha:1],NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:7]}];
+    [attributedString appendAttributedString:timAttr];
+
         UILabel *comment = [UILabel new];
         comment.numberOfLines = 0;
         comment.attributedText = attributedString;
         [cell.contentView addSubview:comment];
         
-        expectedLabelSize = [comment sizeThatFits:CGSizeMake(220, 9999)];
-        comment.frame =  CGRectMake(53, 12, 220, expectedLabelSize.height);
+        expectedLabelSize = [comment sizeThatFits:CGSizeMake(205, 9999)];
+        comment.frame =  CGRectMake(53, 12, 205, expectedLabelSize.height);
     
 }
 -(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
@@ -449,16 +449,18 @@
     
     //Profile name
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 140, 20)];
-    [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
+    [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
+    [name setTextColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]];
+    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
     [cell.contentView addSubview:name];
     
     //Time
     UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 20)];
     [time setTextAlignment:NSTextAlignmentRight];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
-    [time setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
+    [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
+    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:8]];
+
     [cell.contentView addSubview:time];
         
     [self addDescription:cell withDetails:postDetailsObject];
@@ -477,7 +479,7 @@
     UILabel *description = [[UILabel alloc] init];
     
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:10],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -544,11 +546,10 @@
     
     
     UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [flagButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [flagButton setTitle:@"Flag" forState:UIControlStateNormal];
-    [flagButton setFrame:CGRectMake(224, yPosition+1, 40, 20)];
+    [flagButton setImage:[UIImage imageNamed:@"flag-inactive.png"] forState:UIControlStateNormal];
+    [flagButton setFrame:CGRectMake(240, yPosition+3, 30, 20)];
     [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
-    [flagButton addTarget:self action:@selector(flagButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:flagButton];
 
     
@@ -565,7 +566,7 @@
                                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                     context:nil].size;
             
-            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition, 200 , tagsSize.height)];
+            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition+5, 200 , tagsSize.height)];
             [tweetLabel setText:tagsStr.string];
             tweetLabel.textAlignment = NSTextAlignmentLeft;
             [cell.contentView addSubview:tweetLabel];
@@ -738,13 +739,22 @@
 {
     NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
     
+
+    
     PostDetails *postDetails = [storiesArray lastObject];
     NSArray *commentsArray = postDetails.comments;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[[commentsArray objectAtIndex:row] objectForKey:@"text"]   attributes:attributes];
+    NSDictionary *commentDict = [commentsArray objectAtIndex:row];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[commentDict objectForKey:@"text"]   attributes:attributes];
+    NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
+    NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
+
+    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:7]}];
+    [attributedString appendAttributedString:timAttr];
+
     UILabel *comment = [UILabel new];
     comment.numberOfLines = 0;
     comment.attributedText = attributedString;
-    CGSize expectedLabelSize = [comment sizeThatFits:CGSizeMake(220, 9999)];
+    CGSize expectedLabelSize = [comment sizeThatFits:CGSizeMake(205, 9999)];
 
     CGFloat height =0;
     if(expectedLabelSize.height+12 > 44) //if there is a lot of text
@@ -1010,7 +1020,7 @@
         flagTextview.tag = 2;
         [flagTextview setText:@""];
         [flagTextview becomeFirstResponder];
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:flagView];
+        [popover showAtView:nil withContentView:flagView];
     }
 }
 -(void)CommentUpVote
@@ -1064,14 +1074,21 @@
 
 #pragma mark -
 #pragma mark Post Flag
--(void)flagButtonClicked
+-(void)flagButtonClicked:(id)sender
 {
+    
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
     flagTextview.tag = 1;
     [flagTextview setText:@""];
     [flagTextview becomeFirstResponder];
-    [[[[UIApplication sharedApplication] delegate] window] addSubview:flagView];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        CGRect frame = [(UIButton *)sender frame];
+        frame.origin.y = frame.origin.y+55;
+        btn.frame = frame;
+
+        [popover showAtView:btn withContentView:flagView];
     }
     else
         [self gotoLoginScreen];
@@ -1116,7 +1133,7 @@
         }
         else
         {
-            [flagView removeFromSuperview];
+            [popover dismiss];
             if(textView.tag == 1)
             [self flag];
             else if(textView.tag == 2)
