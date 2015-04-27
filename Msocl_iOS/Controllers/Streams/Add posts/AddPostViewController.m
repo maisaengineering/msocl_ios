@@ -76,7 +76,7 @@
     
 
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [anonymousButton setImage:[UIImage imageNamed:@"ana-post.png"] forState:UIControlStateNormal];
+    [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
     [anonymousButton setFrame:CGRectMake(294.3, 0, 17, 40)];
     [anonymousButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
@@ -442,17 +442,13 @@
     if(textView.text.length > textView.selectedRange.location)
     {
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location];
         [attributedString insertAttributedString:attrStringWithImage atIndex:selectedrange.location+1];
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location+2];
 
     }
     else
     {
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
         [attributedString appendAttributedString:attrStringWithImage];
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
 
     }
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
