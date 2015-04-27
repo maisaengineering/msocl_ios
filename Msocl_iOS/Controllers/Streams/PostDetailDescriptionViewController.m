@@ -244,7 +244,7 @@
     if(indexPath.row == 0)
     return [self cellHeight:[storiesArray objectAtIndex:indexPath.row]];
     else if([storiesArray count] + post.comments.count == indexPath.row)
-        return 45;
+        return 44;
     else
         return [self cellHeightForComment:(int )indexPath.row-1];
 }
@@ -479,7 +479,7 @@
     UILabel *description = [[UILabel alloc] init];
     
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:10],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:9],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -502,7 +502,9 @@
                 [description setNeedsDisplay];
             }];
             
-            NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:1]}];
+            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+            
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
         }
         else
@@ -513,16 +515,16 @@
     }while (1);
     //This regex captures all items between []
     
-    CGRect contentSize = [attributedString boundingRectWithSize:CGSizeMake(262, CGFLOAT_MAX)
-                                                        options:(NSStringDrawingUsesLineFragmentOrigin)
-                                                        context:nil];
-    description.frame = CGRectMake(44, yPosition, 262, contentSize.size.height);
-
-        yPosition += contentSize.size.height;
-    
     [description setAttributedText:attributedString];
-    [description setTextAlignment:NSTextAlignmentLeft];
-    [description setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+
+    UILabel *label = [UILabel alloc];
+    [label setAttributedText:attributedString];
+    
+    CGSize contentSize = [label sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
+    description.frame = CGRectMake(44, yPosition, 262, contentSize.height);
+
+        yPosition += contentSize.height;
+
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
     
@@ -682,7 +684,7 @@
     CGFloat height = 5;
     
     //Calculating content height
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:9],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -697,7 +699,8 @@
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             textAttachment.image = [photoUtils getSubImageFrom:image WithRect:CGRectMake(0, 0, 262, 114)];
             
-            NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:1]}];
+            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
         }
         else
@@ -708,11 +711,11 @@
     }while (1);
     //This regex captures all items between []
     
-    CGRect contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
-                                                        options:(NSStringDrawingUsesLineFragmentOrigin)
-                                                        context:nil];
+    UILabel *label = [UILabel alloc];
+    label.attributedText = attributedString;
+    CGSize contentSize = [label sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
 
-        height = 35 + contentSize.size.height;
+        height = 35 + contentSize.height;
 
     
     //Tags height
@@ -724,7 +727,7 @@
     
     NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
     CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
-                                            options:(NSStringDrawingUsesLineFragmentOrigin)
+                                            options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;
     
     if(postDetailsObject.tags.count > 0)

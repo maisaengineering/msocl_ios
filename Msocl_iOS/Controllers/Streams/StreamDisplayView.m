@@ -316,9 +316,12 @@
                 
                 textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
                 [description setNeedsDisplay];
+                
             }];
             
-            NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        
+            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:1]}];
+            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
         }
         else
