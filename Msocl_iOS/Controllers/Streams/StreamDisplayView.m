@@ -263,7 +263,7 @@
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
-    [profileButton setFrame:CGRectMake(57, yPosition, 200, 20)];
+    [profileButton setFrame:CGRectMake(0, yPosition, 54, 18)];
     [cell.contentView addSubview:profileButton];
     
     
