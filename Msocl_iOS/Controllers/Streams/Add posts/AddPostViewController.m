@@ -69,7 +69,7 @@
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [postButton addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setFrame:CGRectMake(260, 13, 34, 19)];
+    [postButton setFrame:CGRectMake(260, 0, 34, 40)];
     [postButton setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
     [postButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
     
@@ -78,7 +78,7 @@
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [anonymousButton setImage:[UIImage imageNamed:@"ana-post.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(294.3, 13, 17, 19)];
+    [anonymousButton setFrame:CGRectMake(294.3, 0, 17, 40)];
     [anonymousButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
 
     [self.navigationController.navigationBar addSubview:postButton];

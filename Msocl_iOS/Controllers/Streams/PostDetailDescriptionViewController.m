@@ -1118,6 +1118,8 @@
 -(void) flagSuccessFull:(NSDictionary *)recievedDict
 {
     [appDelegate showOrhideIndicator:NO];
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 -(void) flagFailed
 {
@@ -1126,6 +1128,23 @@
 
 #pragma mark -
 #pragma mark Textview Delegate Methods
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if(textField.text.length ==0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+    }
+    else
+    {
+        [popover dismiss];
+        if(textField.tag == 1)
+            [self flag];
+        else if(textField.tag == 2)
+            [self flagComment];
+    }
+
+    return YES;
+}
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     if ([text isEqualToString:@"\n"])
@@ -1174,6 +1193,12 @@
 }
 -(void) flagCommentSuccessFull:(NSDictionary *)recievedDict
 {
+    PostDetails *postDetails = [storiesArray lastObject];
+    [postDetails.comments removeObjectAtIndex:commentIndex];
+    
+    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+    [streamTableView reloadData];
+
     [appDelegate showOrhideIndicator:NO];
 }
 -(void) flagCommentFailed
