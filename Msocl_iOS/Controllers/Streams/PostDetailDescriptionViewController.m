@@ -20,7 +20,8 @@
 #import "AddPostViewController.h"
 #import "LoginViewController.h"
 #import "UIImage+ResizeMagick.h"
-
+#import "Base64.h"
+#import "CustomCipher.h"
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -33,8 +34,8 @@
     DXPopover *popover;
     UIView *popView;
     long int commentIndex;
-    UIView *flagView;
-    UITextField *flagTextview;
+    MFMailComposeViewController *mailComposer;
+
 
 }
 @synthesize storiesArray;
@@ -142,15 +143,6 @@
     
         popover = [DXPopover popover];
     
-    flagView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 30)];
-    [flagView setBackgroundColor:[UIColor whiteColor]];
-   flagTextview = [[UITextField alloc] initWithFrame:CGRectMake(5, 5, 270, 20)];
-    flagTextview.delegate = self;
-    flagTextview.placeholder = @"Enter reason";
-    [flagTextview setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
-    [flagTextview setBorderStyle:UITextBorderStyleNone];
-    flagTextview.returnKeyType = UIReturnKeyDone;
-    [flagView addSubview:flagTextview];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -1041,10 +1033,21 @@
     }
     else if([title isEqualToString:@"Flag"])
     {
-        flagTextview.tag = 2;
-        [flagTextview setText:@""];
-        [flagTextview becomeFirstResponder];
-        [popover showAtView:nil withContentView:flagView];
+        PostDetails *postDetails = [storiesArray lastObject];
+        NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
+        NSString *itemDate = [commentDict objectForKey:@"createdAt"];
+        NSString *itemId = [commentDict objectForKey:@"uid"];
+        NSString *emailId = [NSString stringWithFormat:@"%@ %@", itemDate, itemId];
+        NSString *emailIdBase64 = [emailId base64EncodedString];
+        NSString *emailIdCipher = [CustomCipher encrypt:emailIdBase64];
+        
+        NSString *bodyText = [NSString stringWithFormat:@"Dear KidsLink,\r\n\r\nPlease review the content for a post item dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdCipher];
+        
+        NSMutableDictionary *emailData = [[NSMutableDictionary alloc] init];
+        [emailData setValue:@"Inappropriate content" forKey:@"subject"];
+        [emailData setValue:bodyText forKey:@"body"];
+        [self sendInappropriateEmail:emailData];
+
     }
 }
 -(void)CommentUpVote
@@ -1103,127 +1106,76 @@
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-    flagTextview.tag = 1;
-    [flagTextview setText:@""];
-    [flagTextview becomeFirstResponder];
+        PostDetails *postDetails = [self.storiesArray lastObject];
+        NSString *itemDate = postDetails.time;
+        NSString *itemId = postID;
+        NSString *emailId = [NSString stringWithFormat:@"%@ %@", itemDate, itemId];
+        NSString *emailIdBase64 = [emailId base64EncodedString];
+        NSString *emailIdCipher = [CustomCipher encrypt:emailIdBase64];
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        CGRect frame = [(UIButton *)sender frame];
-        frame.origin.y = frame.origin.y+55;
-        btn.frame = frame;
-
-        [popover showAtView:btn withContentView:flagView];
-    }
-    else
+        NSString *bodyText = [NSString stringWithFormat:@"Dear KidsLink,\r\n\r\nPlease review the content for a post item dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdCipher];
+        
+        NSMutableDictionary *emailData = [[NSMutableDictionary alloc] init];
+        [emailData setValue:@"Inappropriate content" forKey:@"subject"];
+        [emailData setValue:bodyText forKey:@"body"];
+        [self sendInappropriateEmail:emailData];
+        
+    }    else
         [self gotoLoginScreen];
 }
--(void)flag
-{
-        [appDelegate showOrhideIndicator:YES];
-        AccessToken* token = sharedModel.accessToken;
-        
-        NSDictionary* postData;
-        PostDetails *postDetails = [storiesArray lastObject];
-        
-        postDetails.flagged = YES;
-    postData = @{@"command": @"flag",@"access_token": token.access_token,@"body":@{@"reason":flagTextview.text}};
-        NSDictionary *userInfo = @{@"command": @"flag"};
-        
-        NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postID];
-        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-        
-        [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
-        [streamTableView reloadData];
-  
-}
--(void) flagSuccessFull:(NSDictionary *)recievedDict
-{
-    [appDelegate showOrhideIndicator:NO];
-    [self.navigationController popViewControllerAnimated:YES];
-
-}
--(void) flagFailed
-{
-    [appDelegate showOrhideIndicator:NO];
-}
-
-#pragma mark -
-#pragma mark Textview Delegate Methods
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if(textField.text.length ==0)
-    {
-        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
-    }
-    else
-    {
-        [popover dismiss];
-        if(textField.tag == 1)
-            [self flag];
-        else if(textField.tag == 2)
-            [self flagComment];
-    }
-
-    return YES;
-}
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"])
-    {
-        if(textView.text.length ==0)
-        {
-            ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
-        }
-        else
-        {
-            [popover dismiss];
-            if(textView.tag == 1)
-            [self flag];
-            else if(textView.tag == 2)
-                [self flagComment];
-        }
-        return NO;
-        
-    }
-    return YES;
-}
-
+#
 #pragma mark - 
-#pragma mark Comment Flag Methods
--(void)flagComment
-{
-    [appDelegate showOrhideIndicator:YES];
-    AccessToken* token = sharedModel.accessToken;
-    
-    NSDictionary* postData;
-    PostDetails *postDetails = [storiesArray lastObject];
-    NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
+#pragma mark Flag Methods
 
-    
-    postData = @{@"command": @"flag",@"access_token": token.access_token,@"body":@{@"reason":flagTextview.text}};
-    NSDictionary *userInfo = @{@"command": @"flagComment"};
-    
-
-    
-    NSString *urlAsString = [NSString stringWithFormat:@"%@comments/%@",BASE_URL,[commentDict objectForKey:@"uid"]];
-    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-    
-    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
-    [streamTableView reloadData];
-    
-}
--(void) flagCommentSuccessFull:(NSDictionary *)recievedDict
+-(void)sendInappropriateEmail: (NSDictionary *) dict
 {
-    PostDetails *postDetails = [storiesArray lastObject];
-    [postDetails.comments removeObjectAtIndex:commentIndex];
-    
-    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
-    [streamTableView reloadData];
+    NSString *subject =  dict[@"subject"];
+    NSString *body =  dict[@"body"];
+    [self displayMailComposerSheet:subject :body];
+}
 
-    [appDelegate showOrhideIndicator:NO];
-}
--(void) flagCommentFailed
+- (void)displayMailComposerSheet: (NSString *)subject : (NSString *)body
 {
-    [appDelegate showOrhideIndicator:NO];
+    if([MFMailComposeViewController canSendMail])
+    {
+        mailComposer= [[MFMailComposeViewController alloc] init];
+        [mailComposer setMailComposeDelegate:self];
+        [mailComposer setSubject:subject];
+        [mailComposer setMessageBody:body isHTML:NO];
+        mailComposer.navigationBar.barStyle = UIBarStyleBlackOpaque;
+        [mailComposer setToRecipients:[NSArray arrayWithObjects: @"contact@maisasolutions.com",nil]];
+        
+        //        [self presentModalViewController:mailComposer animated:TRUE];
+        [self presentViewController:mailComposer animated:TRUE completion:NULL];
+    }
 }
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    
+    NSString *messageStr = nil;
+    switch (result){
+            
+        case MFMailComposeResultSaved:; //Mail is saved
+            messageStr = @"Email saved successfully";
+            break;
+            
+        case MFMailComposeResultSent:; //Mail is sent
+            messageStr = @"Email sent successfully";
+            break;
+            
+            
+        case MFMailComposeResultFailed:;    //Mail sending id failed.
+            //messageStr = @"Email sending failed";
+            break;
+            
+        case MFMailComposeResultCancelled: break; //If we click on the cancle.
+            
+        default: break;
+            
+    }
+    //    [self dismissModalViewControllerAnimated:TRUE];
+    [self dismissViewControllerAnimated:TRUE completion:NULL];
+}
+
+
 @end

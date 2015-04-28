@@ -170,6 +170,7 @@
 		7F8D80B41AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80B21AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		7F8D80BA1AEF702400D3F052 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80B91AEF702400D3F052 /* UIImage+ResizeMagick.m */; };
 		7F8D80BD1AEF981B00D3F052 /* VSWordDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80BC1AEF981B00D3F052 /* VSWordDetector.m */; };
+		7F8D80CF1AEFB5C800D3F052 /* CustomCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80CE1AEFB5C800D3F052 /* CustomCipher.m */; };
 		7FF5CC011ACE9E61004F4F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC001ACE9E61004F4F9B /* main.m */; };
 		7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF5CC081ACE9E61004F4F9B /* Main.storyboard */; };
 		7FF5CC1B1ACE9E61004F4F9B /* Msocl_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC1A1ACE9E61004F4F9B /* Msocl_iOSTests.m */; };
@@ -439,6 +440,8 @@
 		7F8D80B91AEF702400D3F052 /* UIImage+ResizeMagick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ResizeMagick.m"; path = "Msocl_iOS/UIImage+ResizeMagick.m"; sourceTree = SOURCE_ROOT; };
 		7F8D80BB1AEF981B00D3F052 /* VSWordDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSWordDetector.h; sourceTree = "<group>"; };
 		7F8D80BC1AEF981B00D3F052 /* VSWordDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSWordDetector.m; sourceTree = "<group>"; };
+		7F8D80CD1AEFB5C800D3F052 /* CustomCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomCipher.h; path = Msocl_iOS/CustomCipher.h; sourceTree = SOURCE_ROOT; };
+		7F8D80CE1AEFB5C800D3F052 /* CustomCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCipher.m; path = Msocl_iOS/CustomCipher.m; sourceTree = SOURCE_ROOT; };
 		7FF5CBFB1ACE9E60004F4F9B /* Msocl_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Msocl_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF5CBFF1ACE9E60004F4F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF5CC001ACE9E61004F4F9B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -601,6 +604,8 @@
 		7F7E55C31AD3F643007070EF /* Utitlities */ = {
 			isa = PBXGroup;
 			children = (
+				7F8D80CD1AEFB5C800D3F052 /* CustomCipher.h */,
+				7F8D80CE1AEFB5C800D3F052 /* CustomCipher.m */,
 				7F80DE591AD6544400EA6D1F /* ProfilePhotoUtils.h */,
 				7F80DE5A1AD6544400EA6D1F /* ProfilePhotoUtils.m */,
 				7F80DE5B1AD6544400EA6D1F /* PromptImages.h */,
@@ -1235,6 +1240,7 @@
 				7F5F18E81ADE997200C5B4EC /* SWLongPressGestureRecognizer.m in Sources */,
 				7F7E55C81AD3F793007070EF /* LoginViewController.m in Sources */,
 				7F5DEFB31AD7C50A00F2C60A /* SDWebImageDecoder.m in Sources */,
+				7F8D80CF1AEFB5C800D3F052 /* CustomCipher.m in Sources */,
 				7F80DE8D1AD6AB3000EA6D1F /* LoadingViewController.m in Sources */,
 				7F5DEFBC1AD7C50A00F2C60A /* UIImageView+HighlightedWebCache.m in Sources */,
 				7F83BC621AD14CEF008DFD8B /* UIActivityIndicatorView+AFNetworking.m in Sources */,

@@ -449,14 +449,18 @@
     if(textView.text.length > textView.selectedRange.location)
     {
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location];
         [attributedString insertAttributedString:attrStringWithImage atIndex:selectedrange.location+1];
-
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location+2];
+        
     }
     else
     {
         NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
         [attributedString appendAttributedString:attrStringWithImage];
-
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        
     }
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
 

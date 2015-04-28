@@ -334,30 +334,30 @@
     //NSInteger months  = days/30;
    // NSInteger years   = months/12;
     NSString* overdueMessage;
-     if (days>0)
+    if (days>0)
     {
         if(days > 5)
         {
-            [dateFormatter1 setDateFormat:@"MM/dd/yy"];
+            [dateFormatter1 setDateFormat:@"MM/dd/yyyy"];
             overdueMessage = [dateFormatter1 stringFromDate:date];
         }
-            else
-        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"d":@"d")];
+        else
+            overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"day ago":@"days ago")];
         
     }
     else if (hours>0)
     {
-        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(hours), (hours==1?@"h":@"h")];
+        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(hours), (hours==1?@"hour ago":@"hours ago")];
         
     }
     else if (minutes>0)
     {
-        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(minutes), (minutes==1?@"m":@"m")];
+        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(minutes), (minutes==1?@"minute ago":@"minutes ago")];
         
     }
     else if (overdueTimeInterval<60)
     {
-        overdueMessage = [NSString stringWithFormat:@"%ld s",(long)overdueTimeInterval];
+        overdueMessage = [NSString stringWithFormat:@"seconds ago"];
     }
     return overdueMessage;
     
