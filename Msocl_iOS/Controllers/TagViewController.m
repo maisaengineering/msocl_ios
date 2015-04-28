@@ -35,6 +35,9 @@
 {
     [super viewDidLoad];
     
+    [followOrEditBtn setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
+
+    
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 228.5, 320, 0.5)];
     line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
@@ -58,6 +61,7 @@
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
+
     
     appdelegate = [[UIApplication sharedApplication] delegate];
     
@@ -80,6 +84,19 @@
     
     */
 }
+-(IBAction)addClicked:(id)sender
+{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+        [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
+    else
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [self.navigationController pushViewController:login animated:NO];
+    }
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
@@ -107,11 +124,10 @@
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-        UIButton *button = (UIButton *)sender;
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = modelManager.accessToken;
             NSString *command;
-            if([[button titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
+            if(!followOrEditBtn.selected)
                 command = @"follow";
             else
                 command = @"unfollow";
@@ -131,11 +147,7 @@
 -(void) followingGroupSuccessFull:(NSDictionary *)recievedDict
 {
     [appdelegate showOrhideIndicator:NO];
-    if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
-        [followOrEditBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
-    else
-        [followOrEditBtn setTitle:@"Follow" forState:UIControlStateNormal];
-
+    followOrEditBtn.selected = !followOrEditBtn.selected;
 }
 -(void) followingGroupFailed
 {
@@ -162,12 +174,12 @@
         followOrEditBtn.hidden = NO;
         if(isFollowing)
         {
-            [followOrEditBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
+            [followOrEditBtn setSelected:YES];
             
         }
         else
         {
-            [followOrEditBtn setTitle:@"Follow" forState:UIControlStateNormal];
+            [followOrEditBtn setSelected:YES];
         }
     
     }
@@ -190,6 +202,11 @@
         destViewController.delegate = self;
         destViewController.postObjectFromWall = selectedPost;
     }
+    else if ([segue.identifier isEqualToString:@"AddPostsSegue"])
+        {
+            AddPostViewController *destViewController = segue.destinationViewController;
+            destViewController.selectedtagsArray = [NSMutableArray arrayWithObject:tagName];
+        }
 }
 -(void) PostEditedFromPostDetails:(PostDetails *)postDetails
 {

@@ -66,10 +66,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLN-UP-Hog">
-                                <rect key="frame" x="125" y="196" width="70" height="23"/>
-                                <color key="backgroundColor" red="0.12156862745098039" green="0.37647058823529411" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="196" width="320" height="23"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <state key="normal" title="Follow">
+                                <state key="normal" image="icon-favorite-disable.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -165,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pif-PM-zA7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="403" y="479"/>
+            <point key="canvasLocation" x="434" y="543"/>
         </scene>
         <!--M SOCAIL-->
         <scene sceneID="wLp-2J-jRR">
@@ -909,10 +908,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCC-yp-Lgw">
-                                <rect key="frame" x="125" y="196" width="70" height="23"/>
-                                <color key="backgroundColor" red="0.1215686275" green="0.37647058820000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="0.0" y="196" width="320" height="23"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <state key="normal" title="Follow">
+                                <state key="normal" image="icon-favorite-disable.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -922,11 +920,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TAG VIEW" id="NsE-NG-ANl"/>
+                    <navigationItem key="navigationItem" title="TAG VIEW" id="NsE-NG-ANl">
+                        <barButtonItem key="rightBarButtonItem" image="icon-create.png" id="TRj-sO-i3u">
+                            <connections>
+                                <action selector="addClicked:" destination="rfw-mt-SzH" id="vEV-Zd-Zwe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="followOrEditBtn" destination="CCC-yp-Lgw" id="pNh-SZ-YJ8"/>
                         <outlet property="nameLabel" destination="cyk-Xj-8yD" id="pgy-iW-VHv"/>
                         <outlet property="profileImageVw" destination="5X5-sC-iHe" id="vRd-88-bhe"/>
+                        <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="fCv-1J-IEX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y69-Xu-VKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -986,8 +991,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="iax-nE-auz"/>
         <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="TSv-V5-Dr2"/>
-        <segue reference="Wlp-Jd-hhp"/>
+        <segue reference="m3S-0J-NjW"/>
+        <segue reference="fCv-1J-IEX"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -195,7 +195,7 @@
 #pragma mark TableViewMethods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 106;
+    return 111;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -267,17 +267,31 @@
     [cell.contentView addSubview:profileButton];
     
     
-    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(257, 10, 8, 8)];
+    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(257, 5, 8, 8)];
     [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
     [cell.contentView addSubview:timeIcon];
 
     //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(267, 10, 51, 8)];
+    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(267, 4, 51, 10)];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextAlignment:NSTextAlignmentLeft];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:8]];
+    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
     [cell.contentView addSubview:time];
+
+    
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(206, 3, 10, 10)];
+    [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
+    [cell.contentView addSubview:heartCntImage];
+    
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(217, 4, 40, 10)];
+    [heartCount setText:postDetailsObject.time];
+    [heartCount setTextAlignment:NSTextAlignmentLeft];
+    [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+    [heartCount setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
+    [heartCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
+    [cell.contentView addSubview:heartCount];
+
     
     [self addDescription:cell withDetails:postDetailsObject];
     
@@ -286,13 +300,13 @@
 }
 -(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
-    float yPosition = 10;
+    float yPosition = 15;
     
     //Description
     UILabel *description = [[UILabel alloc] init];
     
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:9],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -337,12 +351,12 @@
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
     
-    CGSize size = [description sizeThatFits:CGSizeMake(208, 50)];
+    CGSize size = [description sizeThatFits:CGSizeMake(240, 50)];
     
     if(size.height < 50)
-        description.frame = CGRectMake(57, yPosition, 208, size.height);
+        description.frame = CGRectMake(57, yPosition, 240, size.height);
     else
-        description.frame = CGRectMake(57, yPosition, 208, 50);
+        description.frame = CGRectMake(57, yPosition, 240, 50);
     yPosition += 50;
     
     if([postDetailsObject.tags count] > 0)
@@ -352,9 +366,9 @@
         {
             [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
         }
-        STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 60, 208 , 15)];
+        STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 65, 240 , 15)];
         [tweetLabel setText:[tagsArray componentsJoinedByString:@" "]];
-        tweetLabel.textAlignment = NSTextAlignmentLeft;
+        tweetLabel.textAlignment = NSTextAlignmentCenter;
         [cell.contentView addSubview:tweetLabel];
         
         
@@ -367,26 +381,18 @@
         yPosition += 15;
     }
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(282, 80, 15, 15)];
-    [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
-    [cell.contentView addSubview:heartCntImage];
-
-    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(299, 82, 40, 15)];
-    [heartCount setText:postDetailsObject.time];
-    [heartCount setTextAlignment:NSTextAlignmentLeft];
-    [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
-    [heartCount setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
-    [heartCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:9]];
-    [cell.contentView addSubview:heartCount];
 
     
     if([postDetailsObject.commenters count] > 0)
     {
         NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 78, 208, 19)];
+        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 83, 240, 19)];
         [cell.contentView addSubview:commentersView];
         
-        int x = 0;
+        long int x = 0;
+        
+        if(commenters.count < 6)
+        x = (220 - (19*commenters.count + 3*commenters.count - 1))/2;
         for(int i = 0; i < commenters.count; i++)
             //for(id dict in array)
         {

@@ -39,6 +39,9 @@
 {
     [super viewDidLoad];
     
+    [followOrEditBtn setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
+
+    
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 228.5, 320, 0.5)];
     line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
@@ -144,7 +147,7 @@
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = modelManager.accessToken;
             NSString *command;
-            if([[button titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
+            if(!followOrEditBtn.selected)
                 command = @"follow";
             else
                 command = @"unfollow";
@@ -163,11 +166,8 @@
 }
 -(void) followingUserSuccessFull:(NSDictionary *)recievedDict
 {
+    followOrEditBtn.selected = !followOrEditBtn.selected;
     [appdelegate showOrhideIndicator:NO];
-    if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"Follow"])
-    [followOrEditBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
-    else
-        [followOrEditBtn setTitle:@"Follow" forState:UIControlStateNormal];
 }
 -(void) followingUserFailed
 {
@@ -193,12 +193,11 @@
         followOrEditBtn.hidden = NO;
     if(isFollowing)
     {
-        [followOrEditBtn setTitle:@"Unfollow" forState:UIControlStateNormal];
-        
+        followOrEditBtn.selected = YES;
     }
     else
     {
-        [followOrEditBtn setTitle:@"Follow" forState:UIControlStateNormal];
+        followOrEditBtn.selected = NO;
     }
     }
 }

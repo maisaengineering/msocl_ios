@@ -19,6 +19,7 @@
 #import "DXPopover.h"
 #import "AddPostViewController.h"
 #import "LoginViewController.h"
+#import "UIImage+ResizeMagick.h"
 
 @implementation PostDetailDescriptionViewController
 {
@@ -498,7 +499,7 @@
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(262, 114) withRadious:5.0];
+                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"262x114#"] withRadious:5.0];
                 [description setNeedsDisplay];
             }];
             
@@ -570,7 +571,7 @@
             
             STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition+5, 200 , tagsSize.height)];
             [tweetLabel setText:tagsStr.string];
-            tweetLabel.textAlignment = NSTextAlignmentLeft;
+            tweetLabel.textAlignment = NSTextAlignmentCenter;
             [cell.contentView addSubview:tweetLabel];
             
             [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
@@ -1008,11 +1009,11 @@
     UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] init];
     if([[commentDict objectForKey:@"upvoted"] boolValue])
     {
-    [addImageActionSheet addButtonWithTitle:@"Undo Upvote"];
+    [addImageActionSheet addButtonWithTitle:@"Undo Like"];
     }
     else
     {
-        [addImageActionSheet addButtonWithTitle:@"Upvote"];
+        [addImageActionSheet addButtonWithTitle:@"Like"];
     }
         [addImageActionSheet addButtonWithTitle:@"Flag"];
         

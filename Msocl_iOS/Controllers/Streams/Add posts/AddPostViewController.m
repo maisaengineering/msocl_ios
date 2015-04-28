@@ -26,7 +26,6 @@
     int uploadingImages;
     NSArray *tagsArray;
     UITableView *tagsTableView;
-    NSMutableArray *selectedtagsArray;
     UIView *inputView;
     UIButton *postButton;
     BOOL isPrivate;
@@ -39,6 +38,7 @@
 @synthesize scrollView;
 @synthesize postDetailsObject;
 @synthesize delegate;
+@synthesize selectedtagsArray;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -50,6 +50,7 @@
     
     photoUtils = [ProfilePhotoUtils alloc];
     uploadingImages = 0;
+    if(selectedtagsArray.count == 0)
     selectedtagsArray = [[NSMutableArray alloc] init];
     tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     
@@ -122,6 +123,9 @@
     {
         [self setDetails];
     }
+    if(selectedtagsArray.count > 0)
+    [tagsTableView reloadData];
+
 }
 
 -(void)backClicked

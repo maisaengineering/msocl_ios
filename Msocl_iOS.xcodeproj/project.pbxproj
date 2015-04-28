@@ -168,6 +168,8 @@
 		7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8999201AD2B1F6007E2917 /* tour_7@2x.png */; };
 		7F8D80B31AEF5C8D00D3F052 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80B01AEF5C8D00D3F052 /* TPKeyboardAvoidingScrollView.m */; };
 		7F8D80B41AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80B21AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		7F8D80BA1AEF702400D3F052 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80B91AEF702400D3F052 /* UIImage+ResizeMagick.m */; };
+		7F8D80BD1AEF981B00D3F052 /* VSWordDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80BC1AEF981B00D3F052 /* VSWordDetector.m */; };
 		7FF5CC011ACE9E61004F4F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC001ACE9E61004F4F9B /* main.m */; };
 		7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF5CC081ACE9E61004F4F9B /* Main.storyboard */; };
 		7FF5CC1B1ACE9E61004F4F9B /* Msocl_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC1A1ACE9E61004F4F9B /* Msocl_iOSTests.m */; };
@@ -433,6 +435,10 @@
 		7F8D80B01AEF5C8D00D3F052 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		7F8D80B11AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		7F8D80B21AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		7F8D80B81AEF702400D3F052 /* UIImage+ResizeMagick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ResizeMagick.h"; path = "Msocl_iOS/UIImage+ResizeMagick.h"; sourceTree = SOURCE_ROOT; };
+		7F8D80B91AEF702400D3F052 /* UIImage+ResizeMagick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ResizeMagick.m"; path = "Msocl_iOS/UIImage+ResizeMagick.m"; sourceTree = SOURCE_ROOT; };
+		7F8D80BB1AEF981B00D3F052 /* VSWordDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSWordDetector.h; sourceTree = "<group>"; };
+		7F8D80BC1AEF981B00D3F052 /* VSWordDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSWordDetector.m; sourceTree = "<group>"; };
 		7FF5CBFB1ACE9E60004F4F9B /* Msocl_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Msocl_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF5CBFF1ACE9E60004F4F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF5CC001ACE9E61004F4F9B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -605,6 +611,8 @@
 				7F599E301AE66EC700DED294 /* ProfileDateUtils.m */,
 				7F2178B51AE51862003D8A33 /* DXPopover.h */,
 				7F2178B61AE51862003D8A33 /* DXPopover.m */,
+				7F8D80B81AEF702400D3F052 /* UIImage+ResizeMagick.h */,
+				7F8D80B91AEF702400D3F052 /* UIImage+ResizeMagick.m */,
 			);
 			name = Utitlities;
 			path = Controllers/Utitlities;
@@ -691,6 +699,8 @@
 		7F83344E1ADCEE900067C538 /* STTweetLabel */ = {
 			isa = PBXGroup;
 			children = (
+				7F8D80BB1AEF981B00D3F052 /* VSWordDetector.h */,
+				7F8D80BC1AEF981B00D3F052 /* VSWordDetector.m */,
 				7F83344F1ADCF0480067C538 /* STTweetLabel.h */,
 				7F8334501ADCF0480067C538 /* STTweetLabel.m */,
 				7F8334511ADCF0480067C538 /* STTweetTextStorage.h */,
@@ -1215,6 +1225,7 @@
 				7F86E5881ADBCFB00002493F /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */,
 				7F83BC211AD13BC6008DFD8B /* AppDelegate.m in Sources */,
 				7F714F481AE7D2B700C69BF4 /* ChangePasswordViewController.m in Sources */,
+				7F8D80BA1AEF702400D3F052 /* UIImage+ResizeMagick.m in Sources */,
 				7F599E2B1AE66E5B00DED294 /* PostDetailDescriptionViewController.m in Sources */,
 				7F8D80B31AEF5C8D00D3F052 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				7F83BC5E1AD14CEF008DFD8B /* AFURLRequestSerialization.m in Sources */,
@@ -1239,6 +1250,7 @@
 				7F76EF8F1AECDBEB00770101 /* FogotPasswordViewController.m in Sources */,
 				7F83BC661AD14CEF008DFD8B /* UIProgressView+AFNetworking.m in Sources */,
 				7F5DEFB41AD7C50A00F2C60A /* SDWebImageDownloader.m in Sources */,
+				7F8D80BD1AEF981B00D3F052 /* VSWordDetector.m in Sources */,
 				7F80DE871AD6AAF700EA6D1F /* UserProfile.m in Sources */,
 				7F8334531ADCF0480067C538 /* STTweetLabel.m in Sources */,
 				7F86E5871ADBCFB00002493F /* SlideNavigationContorllerAnimatorScale.m in Sources */,

@@ -24,11 +24,14 @@
 }
 
 @property (nonatomic , strong) UIScrollView *scrollView;
+@property (nonatomic , strong)  NSMutableArray *selectedtagsArray;
+
 //For Aviary
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;
 @property (nonatomic, strong) NSMutableArray      * sessions;
 @property (nonatomic, strong) PostDetails *postDetailsObject;
 @property (nonatomic,weak) id <EditPostProtocol>delegate;
+
 
 
 @end
