@@ -247,7 +247,12 @@
     mostRecentButton.selected = !mostRecentButton.selected;
     }
     else
-        [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        [self.navigationController pushViewController:login animated:NO];
+
+    }
 }
 #pragma mark - SlideNavigationController Methods -
 

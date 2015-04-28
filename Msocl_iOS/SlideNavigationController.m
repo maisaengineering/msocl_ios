@@ -537,16 +537,8 @@ static SlideNavigationController *singletonInstance;
     }
     else
     {
-        if (UIDeviceOrientationIsLandscape(orientation))
-        {
-            rect.origin.x = 0;
-            rect.origin.y = (orientation == UIDeviceOrientationLandscapeRight) ? location : location*-1;
-        }
-        else
-        {
-            rect.origin.x = (orientation == UIDeviceOrientationPortrait) ? location : location*-1;
-            rect.origin.y = 0;
-        }
+        rect.origin.x = location;
+        rect.origin.y = 0;
     }
 	
 	self.view.frame = rect;
