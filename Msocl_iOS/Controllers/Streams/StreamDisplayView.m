@@ -280,7 +280,7 @@
     [cell.contentView addSubview:time];
 
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(226, 3, 10, 10)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(226, 4, 10, 10)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
     [cell.contentView addSubview:heartCntImage];
     
