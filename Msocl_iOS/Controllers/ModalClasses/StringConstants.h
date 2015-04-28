@@ -32,6 +32,9 @@
 #define Deviceheight  [UIScreen mainScreen].bounds.size.height
 #define Devicewidth  [UIScreen mainScreen].bounds.size.width
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
+
 #define DEVICE_UUID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
 //API URLS

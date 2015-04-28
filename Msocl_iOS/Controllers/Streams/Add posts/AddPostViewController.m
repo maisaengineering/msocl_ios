@@ -135,6 +135,9 @@
 -(void)postDetailsScroll
 {
     int height = Deviceheight-64;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
+        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight)];
+    else
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, 320, height)];
     scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:scrollView];
