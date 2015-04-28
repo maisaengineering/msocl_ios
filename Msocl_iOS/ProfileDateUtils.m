@@ -342,22 +342,22 @@
             overdueMessage = [dateFormatter1 stringFromDate:date];
         }
         else
-            overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"day ago":@"days ago")];
+            overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"day":@"days")];
         
     }
     else if (hours>0)
     {
-        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(hours), (hours==1?@"hour ago":@"hours ago")];
+        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(hours), (hours==1?@"hour":@"hours")];
         
     }
     else if (minutes>0)
     {
-        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(minutes), (minutes==1?@"minute ago":@"minutes ago")];
+        overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(minutes), (minutes==1?@"minute":@"minutes")];
         
     }
     else if (overdueTimeInterval<60)
     {
-        overdueMessage = [NSString stringWithFormat:@"seconds ago"];
+        overdueMessage = [NSString stringWithFormat:@"seconds"];
     }
     return overdueMessage;
     

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface SettingsViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 -(IBAction)changePassword:(id)sender;

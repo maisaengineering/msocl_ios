@@ -17,7 +17,7 @@
 -(void) PostEdited:(PostDetails *)postDetails;
 @end
 
-@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
 {
     UIImagePickerController *imagePicker;
 
@@ -25,6 +25,8 @@
 
 @property (nonatomic , strong) UIScrollView *scrollView;
 @property (nonatomic , strong)  NSMutableArray *selectedtagsArray;
+@property (strong, nonatomic)  UICollectionView *collectionView;
+
 
 //For Aviary
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;

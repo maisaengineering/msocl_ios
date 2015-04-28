@@ -57,44 +57,37 @@
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
     
     txt_password.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter password"
+    [[NSAttributedString alloc] initWithString:@"Password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_firstName.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter first name"
+    [[NSAttributedString alloc] initWithString:@"First name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_lastname.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter last name"
+    [[NSAttributedString alloc] initWithString:@"Last name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_confirmPassword.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
+    [[NSAttributedString alloc] initWithString:@"Confirm password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
 
-    txt_confirmPassword.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
-                                    attributes:@{
-                                                 NSForegroundColorAttributeName: color,
-                                                 NSFontAttributeName : font
-                                                 }
-     ];
 
     txt_emailAddress.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter email id"
+    [[NSAttributedString alloc] initWithString:@"Email id"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font

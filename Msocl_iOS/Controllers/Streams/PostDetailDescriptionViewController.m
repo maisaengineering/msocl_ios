@@ -380,11 +380,11 @@
         NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
         
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(257, 16, 12, 12)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(267, 16, 12, 12)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
     [cell.contentView addSubview:heartCntImage];
 
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(270,16.5,20,12)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(280,16.5,10,12)];
     [upVoteCount setBackgroundColor:[UIColor clearColor]];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",[[commentDict objectForKey:@"upvote_count"] intValue] ]];
     [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
@@ -1023,11 +1023,11 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:@"Upvote"])
+    if([title isEqualToString:@"Like"])
     {
         [self CommentUpVote];
     }
-    else if(([title isEqualToString:@"Undo Upvote"]))
+    else if(([title isEqualToString:@"Undo Like"]))
     {
         [self CommentUpVote];
     }

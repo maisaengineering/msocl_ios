@@ -15,6 +15,8 @@
 #import "ProfilePhotoUtils.h"
 #import "DXPopover.h"
 #import "SDWebImageManager.h"
+#import "UIImageView+AFNetworking.h"
+#import "PhotoCollectionViewCell.h"
 @implementation AddPostViewController
 {
     UITextView *textView;
@@ -25,13 +27,13 @@
     NSMutableDictionary *imagesIdDict;
     int uploadingImages;
     NSArray *tagsArray;
-    UITableView *tagsTableView;
     UIView *inputView;
     UIButton *postButton;
     BOOL isPrivate;
     Webservices *webServices;
     DXPopover *popover;
     UIView *popView;
+    UILabel *placeholderLabel;
     UIButton *anonymousButton;
 
 }
@@ -39,6 +41,7 @@
 @synthesize postDetailsObject;
 @synthesize delegate;
 @synthesize selectedtagsArray;
+@synthesize collectionView;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,16 +73,16 @@
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [postButton addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setFrame:CGRectMake(260, 0, 34, 40)];
+    [postButton setFrame:CGRectMake(255, 0, 35, 44)];
     [postButton setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
     [postButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
     
     
 
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
+    [anonymousButton setImage:[UIImage imageNamed:@"btn-post-more.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(294.3, 0, 17, 40)];
+    [anonymousButton setFrame:CGRectMake(290.3, 0, 21, 44)];
     [anonymousButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
 
     [self.navigationController.navigationBar addSubview:postButton];
@@ -124,7 +127,7 @@
         [self setDetails];
     }
     if(selectedtagsArray.count > 0)
-    [tagsTableView reloadData];
+    [collectionView reloadData];
 
 }
 
@@ -146,10 +149,31 @@
     scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:scrollView];
 
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(10,10,300, 70)];
+    UIButton *addPhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    addPhotoBtn.frame = CGRectMake(10, 4, 28, 30);
+    [addPhotoBtn setImage:[UIImage imageNamed:@"icon-camera-add.png"] forState:UIControlStateNormal];
+    [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:addPhotoBtn];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+4, 288, 188)];
+    [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
+    [scrollView addSubview:imageView];
+
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+8,280, 180)];
     textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
     textView.delegate = self;
     [scrollView addSubview:textView];
+    
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 0, textView.frame.size.width, 20)];
+    //[placeholderLabel setText:placeholder];
+    [placeholderLabel setBackgroundColor:[UIColor clearColor]];
+    [placeholderLabel setNumberOfLines:0];
+    placeholderLabel.text = @"Write description";
+    [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
+    [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:12]];
+    [placeholderLabel setTextColor:[UIColor lightGrayColor]];
+    [textView addSubview:placeholderLabel];
+
     
     inputView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     [inputView setBackgroundColor:[UIColor colorWithRed:0.56f
@@ -165,29 +189,29 @@
     [inputView addSubview:donebtn];
     
     
-    UIButton *addPhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addPhotoBtn.frame = CGRectMake(10, textView.frame.origin.y+textView.frame.size.height+10, 28, 23);
-    [addPhotoBtn setImage:[UIImage imageNamed:@"icon-camera-add.png"] forState:UIControlStateNormal];
-    [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:addPhotoBtn];
     
-    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(15, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+10, 300, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, textView.frame.origin.y+textView.frame.size.height+20, 300, 20)];
+    [selectTagslabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:12]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
     
-    tagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 320, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height)];
-    tagsTableView.delegate = self;
-    tagsTableView.dataSource = self;
-    tagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [scrollView addSubview:tagsTableView];
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    layout.minimumInteritemSpacing = 8;
+    layout.minimumLineSpacing = 8;
 
-    
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 300, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height) collectionViewLayout:layout];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [collectionView setBackgroundColor:[UIColor clearColor]];
+    [scrollView addSubview:collectionView];
+
     
 }
 -(void)setDetails
 {
-    
+    [placeholderLabel removeFromSuperview];
+    self.title = @"EDIT POST";
     [postButton setTitle:@"Save" forState:UIControlStateNormal];
     [postButton removeTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
     [postButton addTarget:self action:@selector(editPostClicked) forControlEvents:UIControlEventTouchUpInside];
@@ -236,7 +260,7 @@
     textView.attributedText = attributedString;
 
     selectedtagsArray = [postDetailsObject.tags mutableCopy];
-    [tagsTableView reloadData];
+    [collectionView reloadData];
 
 }
 #pragma mark -
@@ -647,80 +671,106 @@
     }
 }
 
-#pragma mark- UITableView Data Source Methods
-#pragma mark-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+
+#pragma mark - UICollectionViewDataSource Methods
+#pragma mark -
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     
-    return tagsArray.count;
+        return tagsArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView1 cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *simpleTableIdentifier = @"SimpleTableItem";
-    UITableViewCell *cell = [tableView1 dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    CGSize retval;
+    retval.height= 90; retval.width = 95; return retval;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    for(UIView *viw in [[cell contentView] subviews])
-        [viw removeFromSuperview];
-    cell.textLabel.text = [[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+    static NSString *CellIdentifier = @"cellIdentifier";
+    
+    PhotoCollectionViewCell* cell=[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
+    [imageView setImage:[UIImage imageNamed:@"yoga-img.png"]];
+    [cell addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, 95, 20)];
+    label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
+    [label setText:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [label setTextColor:[[UIColor alloc] initWithRed:95/255.0 green:142/255.0 blue:256/255.0 alpha:1.0]];
+    [cell addSubview:label];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"tag-tick-active.png"] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(80, 4, 15, 15)];
+    [cell addSubview:button];
+    
     if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])
     {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [cell.textLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-
+        [button setImage:[UIImage imageNamed:@"tag-tick.png"] forState:UIControlStateNormal];
+        [label setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+        [label setTextColor:[UIColor colorWithRed:212/255.0 green:249/255.0 blue:251/255.0 alpha:1.0]];
     }
-    else
-    {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
-
-    }
-        return cell;
+    return cell;
 }
-- (void)tableView:(UITableView *)tableView1 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView1 didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView1 cellForRowAtIndexPath:indexPath];
-    if(cell.accessoryType == UITableViewCellAccessoryCheckmark)
+    if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])
     {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
         [selectedtagsArray removeObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
-        
     }
     else
     {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        [cell.textLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [selectedtagsArray addObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     }
-    [tagsTableView beginUpdates];
-    [tagsTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationNone];
-    [tagsTableView endUpdates];
+    [collectionView1 reloadData];
 }
+
 
 #pragma mark -
 #pragma mark Text View Delegate Methods
 
 - (void)textViewDidBeginEditing:(UITextView *)textView1
 {
+    [placeholderLabel removeFromSuperview];
     [textView setInputAccessoryView:inputView];
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
 {
     
     [textView setInputAccessoryView:inputView];
+    [placeholderLabel removeFromSuperview];
     return YES;
     
 }
+- (void)textViewDidEndEditing:(UITextView *)txtView
+{
+    if (![txtView hasText])
+        [txtView addSubview:placeholderLabel];
+}
+- (void)textViewDidChange:(UITextView *)textView1
+{
+    if(![textView1 hasText])
+    {
+        [textView1 addSubview:placeholderLabel];
+    }
+    else if ([[textView1 subviews] containsObject:placeholderLabel])
+    {
+        [placeholderLabel removeFromSuperview];
+        
+    }
+    
+}
+
+-(void)textChangedCustomEvent
+{
+    [placeholderLabel removeFromSuperview];
+    
+}
+
 -(void)doneClick:(id)sender
 {
     [textView resignFirstResponder];

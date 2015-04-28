@@ -267,12 +267,12 @@
     [cell.contentView addSubview:profileButton];
     
     
-    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(247, 5, 8, 8)];
+    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(253, 5, 8, 8)];
     [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
     [cell.contentView addSubview:timeIcon];
 
     //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(257, 4, 60, 10)];
+    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(262, 4, 55, 10)];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextAlignment:NSTextAlignmentLeft];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
@@ -280,11 +280,11 @@
     [cell.contentView addSubview:time];
 
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(206, 3, 10, 10)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(226, 3, 10, 10)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
     [cell.contentView addSubview:heartCntImage];
     
-    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(217, 4, 30, 10)];
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(237, 4, 10, 10)];
     [heartCount setText:postDetailsObject.time];
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
