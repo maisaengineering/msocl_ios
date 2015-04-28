@@ -196,8 +196,8 @@
     [scrollView addSubview:selectTagslabel];
     
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    layout.minimumInteritemSpacing = 8;
-    layout.minimumLineSpacing = 8;
+    layout.minimumInteritemSpacing = 7;
+    layout.minimumLineSpacing = 7;
 
     collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 300, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height) collectionViewLayout:layout];
     collectionView.delegate = self;
