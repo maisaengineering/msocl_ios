@@ -945,14 +945,34 @@
 #pragma mark Delete Methods
 -(void)deleteButtonClicked
 {
-    [appDelegate showOrhideIndicator:YES];
-    AccessToken* token = sharedModel.accessToken;
+    UIAlertView *cautionAlert = [[UIAlertView alloc]initWithTitle:@"Sure you want to delete this post?" message:@"" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
+    cautionAlert.tag = 1;
+    [cautionAlert show];
+    
 
-   NSDictionary *postData = @{@"command": @"destroy",@"access_token": token.access_token};
-    NSDictionary *userInfo = @{@"command": @"deletePost"};
-
-    NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postID];
-    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1)
+    {
+        if (buttonIndex == 0)
+        {
+            // Delete
+            [appDelegate showOrhideIndicator:YES];
+            AccessToken* token = sharedModel.accessToken;
+            
+            NSDictionary *postData = @{@"command": @"destroy",@"access_token": token.access_token};
+            NSDictionary *userInfo = @{@"command": @"deletePost"};
+            
+            NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postID];
+            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        }
+        else if (buttonIndex == 1)
+        {
+            // Cancel
+        }
+    }
+    
 
 }
 -(void) postDeleteSuccessFull:(NSDictionary *)recievedDict
