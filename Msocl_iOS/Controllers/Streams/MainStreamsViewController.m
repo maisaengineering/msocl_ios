@@ -31,6 +31,7 @@
 {
     [super viewDidLoad];
     
+    modelManager =[ModelManager sharedModel];
     [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
     
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 94.5, 320, 0.5)];
@@ -133,7 +134,7 @@
         postObject = [mostRecent.storiesArray objectAtIndex:selectedIndex];
     else
         postObject = [following.storiesArray objectAtIndex:selectedIndex];
-    if([postObject.uid isEqualToString:modelManager.userProfile.uid])
+    if([[postObject.owner objectForKey:@"uid"] isEqualToString:modelManager.userProfile.uid])
     {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];

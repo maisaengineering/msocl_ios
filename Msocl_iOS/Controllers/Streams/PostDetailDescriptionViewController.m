@@ -215,6 +215,8 @@
 }
 -(void)backClicked
 {
+    if([storiesArray count] >0)
+    {
     PostDetails *post = [storiesArray lastObject];
     postObjectFromWall.tags = post.tags;
     postObjectFromWall.upVoteCount = post.upVoteCount;
@@ -224,6 +226,7 @@
     postObjectFromWall.time = post.time;
     
     [self.delegate PostEditedFromPostDetails:postObjectFromWall];
+    }
     [self.navigationController popViewControllerAnimated:YES];
     
 }
@@ -430,7 +433,7 @@
     UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(280,16.5,10,12)];
     [upVoteCount setBackgroundColor:[UIColor clearColor]];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",[[commentDict objectForKey:@"upvote_count"] intValue] ]];
-    [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
+    [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [upVoteCount setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
     [upVoteCount setNumberOfLines:1];
     [upVoteCount setTextAlignment:NSTextAlignmentLeft];
@@ -444,10 +447,10 @@
     [cell.contentView addSubview:moreButton];
     
     
-        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(34/255.f) green:(34/255.f) blue:(34/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
+        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(34/255.f) green:(34/255.f) blue:(34/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]};
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[commentDict objectForKey:@"text"]   attributes:attributes];
-    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:(170/255.f) green:(170/255.f) blue:(170/255.f) alpha:1],NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:7]}];
+    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:(170/255.f) green:(170/255.f) blue:(170/255.f) alpha:1],NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:10]}];
     [attributedString appendAttributedString:timAttr];
 
         UILabel *comment = [UILabel new];
@@ -497,7 +500,7 @@
     [time setTextAlignment:NSTextAlignmentRight];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:8]];
+    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:12]];
 
     [cell.contentView addSubview:time];
         
@@ -574,12 +577,12 @@
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote.png"] forState:UIControlStateNormal];
     else
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(269, yPosition+1, 30, 30)];
+    [heartButton setFrame:CGRectMake(269, yPosition, 30, 30)];
     [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
     [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:heartButton];
     
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(290, yPosition+4, 20 , 16)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(294, yPosition+7, 20 , 16)];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
     [cell.contentView addSubview:upVoteCount];
@@ -587,7 +590,7 @@
     
     UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [flagButton setImage:[UIImage imageNamed:@"flag-inactive.png"] forState:UIControlStateNormal];
-    [flagButton setFrame:CGRectMake(230, yPosition+3, 30, 30)];
+    [flagButton setFrame:CGRectMake(230, yPosition, 30, 30)];
     [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
     [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:flagButton];
@@ -596,7 +599,7 @@
     if([postDetailsObject.tags count] > 0)
     {
         
-            NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[postDetailsObject.tags componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
+            NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[postDetailsObject.tags componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
             CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
                                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                     context:nil].size;
@@ -712,7 +715,7 @@
     CGFloat height = 5;
     
     //Calculating content height
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:13],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -753,13 +756,13 @@
         [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
     }
     
-    NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
     CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
                                             options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;
     
     if(postDetailsObject.tags.count > 0)
-        height += tagsSize.height+10;
+        height += (tagsSize.height> 21)?tagsSize.height:21+10;
     else
             height += 21+10;
     
@@ -768,7 +771,7 @@
 
 -(CGFloat)cellHeightForComment:(int )row
 {
-    NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:12]};
+    NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:14]};
     
 
     
@@ -779,7 +782,7 @@
     NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
     NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
 
-    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:7]}];
+    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:10]}];
     [attributedString appendAttributedString:timAttr];
 
     UILabel *comment = [UILabel new];

@@ -18,6 +18,7 @@
     NSMutableArray *managedTagsArray;
     ModelManager *sharedModel;
     Webservices *webServices;
+    NSMutableArray *selectedTags;
 
 }
 @synthesize recomondedButton;
@@ -31,6 +32,8 @@
 
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
+    
+    selectedTags = [[NSMutableArray alloc] init];
 
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -41,23 +44,12 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    manageTagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,100, 320, Deviceheight - 100)];
+    manageTagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, 320, Deviceheight)];
     manageTagsTableView.delegate = self;
     manageTagsTableView.dataSource = self;
     manageTagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     manageTagsTableView.tag = 2;
     [self.view addSubview:manageTagsTableView];
-    
-    recomondedTagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,100, 320, Deviceheight - 100)];
-    recomondedTagsTableView.delegate = self;
-    recomondedTagsTableView.dataSource = self;
-    recomondedTagsTableView.tag = 1;
-    recomondedTagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    recomondedTagsTableView.hidden = YES;
-
-    [self.view addSubview:recomondedTagsTableView];
-    
-    manageButton.userInteractionEnabled = NO;
     
     [self getAllGroups];
 }
@@ -70,35 +62,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
--(IBAction)recomondOrManageClicked:(id)sender
-{
-    if([sender tag] == 1)
-    {
-        [recomondedTagsTableView setHidden:NO];
-        [manageTagsTableView setHidden:YES];
-        recomondedButton.userInteractionEnabled = NO;
-        manageButton.userInteractionEnabled = YES;
-        recomondedButton.backgroundColor = [UIColor clearColor];
-        manageButton.backgroundColor = [UIColor colorWithRed:239/255.0 green:238/255.0 blue:239/255.0 alpha:1.0];
-        
-        [recomondedTagsTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        [recomondedTagsTableView reloadData];
-        
-    }
-    else if([sender tag] == 2)
-    {
-        [manageTagsTableView setHidden:NO];
-        [recomondedTagsTableView setHidden:YES];
-        manageButton.userInteractionEnabled = NO;
-        recomondedButton.userInteractionEnabled = YES;
-        manageButton.backgroundColor = [UIColor clearColor];
-        recomondedButton.backgroundColor = [UIColor colorWithRed:239/255.0 green:238/255.0 blue:239/255.0 alpha:1.0];
-        
-        [manageTagsTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        [manageTagsTableView reloadData];
-    }
-}
-#pragma mark - 
+#pragma mark -
 #pragma mark API calls
 -(void)getAllGroups
 {
@@ -112,13 +76,12 @@
 }
 -(void)didReceiveGroups:(NSDictionary *)responseDict
 {
-    recomondedTagsArray = [[responseDict objectForKey:@"recommended"] mutableCopy];
     managedTagsArray = [[responseDict objectForKey:@"favourites"] mutableCopy];
-    if(!manageTagsTableView.hidden)
-        [manageTagsTableView reloadData];
-    else
-            [recomondedTagsTableView reloadData];
+    [managedTagsArray addObjectsFromArray:[responseDict objectForKey:@"recommended"]];
+    selectedTags = [[responseDict objectForKey:@"favourites"] mutableCopy];
     
+    
+    [manageTagsTableView reloadData];
 }
 -(void)fetchingGroupsFailedWithError
 {
@@ -134,41 +97,16 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return 50;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(tableView.tag == 1)
-        return recomondedTagsArray.count;
-    else
     return managedTagsArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView1 cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(tableView1.tag == 1)
-    {
-        static NSString *simpleTableIdentifier = @"RecommondedCell";
-        UITableViewCell *cell = [tableView1 dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
-        if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        for(UIView *viw in [[cell contentView] subviews])
-            [viw removeFromSuperview];
-        cell.textLabel.text = [[recomondedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        [cell.textLabel setTextColor:[UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0]];
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(287, 10, 20, 20)];
-        [imageView setImage:[UIImage imageNamed:@"icon-addsub.png"]];
-        [cell.contentView addSubview:imageView];
-
-        return cell;
-    }
-    else
-    {
         static NSString *simpleTableIdentifier = @"ManagedCell";
         UITableViewCell *cell = [tableView1 dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         
@@ -178,22 +116,36 @@
         }
         for(UIView *viw in [[cell contentView] subviews])
             [viw removeFromSuperview];
-        cell.textLabel.text = [[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
-        [cell.textLabel setTextColor:[UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0]];
-
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(287, 10, 20, 20)];
-        [imageView setImage:[UIImage imageNamed:@"icon-unsubscribe.png"]];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 200, 50)];
+    label.text = [[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
+    label.textColor = [UIColor colorWithRed:200/255.0 green:199/255.0 blue:203/255.0 alpha:1.0];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
+    [cell.contentView addSubview:label];
+    
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(287, 17.5, 15, 15)];
+        [imageView setImage:[UIImage imageNamed:@"tag-tick-active.png"]];
         [cell.contentView addSubview:imageView];
+
+    UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 16, 25, 18)];
+    [iconImageView setImage:[UIImage imageNamed:@"yoga-img.png"]];
+    [cell.contentView addSubview:iconImageView];
+
+    if([selectedTags containsObject:[managedTagsArray objectAtIndex:indexPath.row]])
+    {
+        imageView.image = [UIImage imageNamed:@"tag-tick.png"];
+        label.textColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
+        
+    }
         
         return cell;
-    }
+    
 }
 - (void)tableView:(UITableView *)tableView1 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(tableView1.tag == 1)
+    if(![selectedTags containsObject:[managedTagsArray objectAtIndex:indexPath.row]])
     {
-            NSDictionary *dict = [recomondedTagsArray objectAtIndex:indexPath.row];
+            NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
             AccessToken* token = sharedModel.accessToken;
             
             NSDictionary* postData = @{@"command": @"follow",@"access_token": token.access_token};
@@ -202,9 +154,8 @@
             NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,[dict objectForKey:@"uid"]];
             [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
        
-        [recomondedTagsArray removeObject:dict];
-        [managedTagsArray addObject:dict];
-        [recomondedTagsTableView reloadData];
+        [selectedTags addObject:dict];
+        [manageTagsTableView reloadData];
 
     }
     else
@@ -218,8 +169,8 @@
         NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,[dict objectForKey:@"uid"]];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
      
-        [managedTagsArray removeObject:dict];
-        [recomondedTagsArray addObject:dict];
+
+        [selectedTags removeObject:dict];
         [manageTagsTableView reloadData];
 
     }
