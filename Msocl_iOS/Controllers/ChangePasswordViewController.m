@@ -57,7 +57,7 @@
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
     
     txt_oldPassword.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter current password"
+    [[NSAttributedString alloc] initWithString:@"Current password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
@@ -65,7 +65,7 @@
      ];
 
     txt_Password.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter new password"
+    [[NSAttributedString alloc] initWithString:@"New password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
@@ -73,7 +73,7 @@
      ];
 
     txt_confirmPassword.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter confirm password"
+    [[NSAttributedString alloc] initWithString:@"Confirm new password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font

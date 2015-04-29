@@ -253,13 +253,15 @@
     [cell.contentView addSubview:profileImage];
     yPosition += 36;
     //Profile name
+    if(!postDetailsObject.anonymous)
+    {
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, yPosition, 54, 18)];
     [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     name.textAlignment = NSTextAlignmentCenter;
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:12]];
     [name setTextColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]];
     [cell.contentView addSubview:name];
-    
+    }
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
@@ -305,8 +307,9 @@
     //Description
     UILabel *description = [[UILabel alloc] init];
     
-    
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    if(postDetailsObject.content == nil)
+        postDetailsObject.content = @"";
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:13],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -361,19 +364,14 @@
     
     if([postDetailsObject.tags count] > 0)
     {
-        NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
-        for(NSString *tag in postDetailsObject.tags)
-        {
-            [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
-        }
-        STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 65, 240 , 15)];
-        [tweetLabel setText:[tagsArray componentsJoinedByString:@" "]];
+        STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 65, 240 , 17)];
+        [tweetLabel setText:[postDetailsObject.tags componentsJoinedByString:@" "]];
         tweetLabel.textAlignment = NSTextAlignmentCenter;
         [cell.contentView addSubview:tweetLabel];
         
         
         [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
-            [self.delegate tagCicked:[string stringByReplacingOccurrencesOfString:@"#" withString:@""]];
+            [self.delegate tagCicked:string];
             
         }];
 

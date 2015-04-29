@@ -15,6 +15,7 @@
 
 @protocol EditPostProtocol<NSObject>
 -(void) PostEdited:(PostDetails *)postDetails;
+-(void)PostDeletedFromEditPostDetails;
 @end
 
 @interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource>

@@ -37,7 +37,7 @@
     long int commentIndex;
     MFMailComposeViewController *mailComposer;
     NSString *selectedTag;
-
+ UIImageView *postAnonymous;
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -102,19 +102,31 @@
         
     //Upvote
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commentBtn setFrame:CGRectMake(244, 6, 41, 28)];
+    [commentBtn setFrame:CGRectMake(244, 6, 39, 28)];
     [commentBtn setImage:[UIImage imageNamed:@"comment-post.png"] forState:UIControlStateNormal];
-    [commentBtn addTarget:self action:@selector(commentClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
     [self.commentView addSubview:commentBtn];
-    [self.view addSubview:self.commentView];
     
         //Upvote
         UIButton *anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [anonymousButton setFrame:CGRectMake(285.3, 6, 26, 28)];
+        [anonymousButton setFrame:CGRectMake(283.3, 6, 29, 28)];
         [anonymousButton setImage:[UIImage imageNamed:@"comment-ana.png"] forState:UIControlStateNormal];
         [anonymousButton addTarget:self action:@selector(anonymousCommentClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.commentView addSubview:anonymousButton];
-        [self.view addSubview:self.commentView];
+    
+    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 18, 18)];
+    
+    __weak UIImageView *weakSelf = postAnonymous;
+    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    
+    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         
+     }failure:nil];
+    [anonymousButton addSubview:postAnonymous];
+
+    
         
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 320, 0.5)];
     line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
@@ -123,22 +135,54 @@
     [self.commentView addSubview:line];
 
     
-        popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
-        UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 30)];
-        [postAsLabel setText:@"Comment as"];
-        [postAsLabel setTextAlignment:NSTextAlignmentCenter];
-        [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
-        [popView addSubview:postAsLabel];
-        
-    UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(192, 3, 32, 24)];
+        popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 64)];
+    
+    UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+    [postAsLabel1 setText:@"Comment as"];
+    [postAsLabel1 setTextAlignment:NSTextAlignmentCenter];
+    [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+    [postAsLabel1 setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [popView addSubview:postAsLabel1];
+    
+    UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 4, 24, 24)];
+    
+    __weak UIImageView *weakSelf1 = userImage;
+    __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
+    
+    [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf1.image = [weakphotoUtils1 makeRoundWithBoarder:[weakphotoUtils1 squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
+         
+     }failure:nil];
+    [popView addSubview:userImage];
+    
+    UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    postBtn.frame = CGRectMake(0, 0, 300, 32);
+    [postBtn addTarget:self action:@selector(commentClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [popView addSubview:postBtn];
+    
+    UILabel *line2 = [[UILabel alloc] initWithFrame: CGRectMake(0, 32.5, 300, 0.5)];
+    line2.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+    [line2 setTextAlignment:NSTextAlignmentLeft];
+    line2.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
+    [popView addSubview:line2];
+    
+    
+    UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 32, 300, 32)];
+    [postAsLabel setText:@"Comment as"];
+    [postAsLabel setTextAlignment:NSTextAlignmentCenter];
+    [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+    [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+    [popView addSubview:postAsLabel];
+    
+    UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(192, 34, 32, 24)];
     [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
     [popView addSubview:anonymusImage];
     
-        UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        postBtn.frame = CGRectMake(0, 0, 300, 30);
-        [postBtn addTarget:self action:@selector(commentAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
-        [popView addSubview:postBtn];
+    UIButton *postBtnAnonymous = [UIButton buttonWithType:UIButtonTypeCustom];
+    postBtnAnonymous.frame = CGRectMake(0, 32, 300, 32);
+    [postBtnAnonymous addTarget:self action:@selector(commentAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
+    [popView addSubview:postBtnAnonymous];
     
     
     
@@ -247,8 +291,6 @@
     PostDetails *post = [storiesArray lastObject];
     long int count =0;
     count = [storiesArray count] + post.comments.count;
-    if([storiesArray count] > 0 && post.editable)
-        count += 1;
     return count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -442,12 +484,14 @@
     [cell.contentView addSubview:profileImage];
     
     //Profile name
+    if(!postDetailsObject.anonymous)
+    {
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 140, 20)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
     [name setTextColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
     [cell.contentView addSubview:name];
-    
+    }
     //Time
     UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 20)];
     [time setTextAlignment:NSTextAlignmentRight];
@@ -473,7 +517,7 @@
     UILabel *description = [[UILabel alloc] init];
     
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -551,13 +595,8 @@
     
     if([postDetailsObject.tags count] > 0)
     {
-            NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
-            for(NSString *tag in postDetailsObject.tags)
-            {
-                [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
-            }
-            
-            NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
+        
+            NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[postDetailsObject.tags componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
             CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
                                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                     context:nil].size;
@@ -603,32 +642,26 @@
 -(void)commentAsAnonymous
 {
     [popover dismiss];
-    if(self.txt_comment.text.length == 0)
-    {
-        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
-        return;
-    }
-
     isAnonymous = YES;
-    [self callCommentApi];
+    postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
+}
+-(void)PostDeletedFromEditPostDetails
+{
+    [self.delegate PostDeletedFromPostDetails];
 }
 -(void)commentClicked:(id)sender
 {
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    {
-    if(self.txt_comment.text.length == 0)
-    {
-        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
-        return;
-    }
-
+    [popover dismiss];
     isAnonymous = NO;
-    [self callCommentApi];
-    }
-    else
-    {
-        [self gotoLoginScreen];
-    }
+    __weak UIImageView *weakSelf = postAnonymous;
+    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    
+    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         
+     }failure:nil];
+    isAnonymous = NO;
 }
 -(void)callCommentApi
 {
@@ -679,7 +712,7 @@
     CGFloat height = 5;
     
     //Calculating content height
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:13],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -720,7 +753,7 @@
         [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
     }
     
-    NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:13.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
     CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
                                             options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;

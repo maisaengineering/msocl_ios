@@ -93,15 +93,46 @@
     
     _attributesText = @{NSForegroundColorAttributeName: self.textColor, NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:12.0]};
     _attributesHandle = @{NSForegroundColorAttributeName: [UIColor redColor], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:12.0]};
-    _attributesHashtag = @{NSForegroundColorAttributeName: [[UIColor alloc] initWithRed:95/255.0 green:142/255.0 blue:256/255.0 alpha:1.0], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:10.0]};
+    _attributesHashtag = @{NSForegroundColorAttributeName: [[UIColor alloc] initWithRed:95/255.0 green:142/255.0 blue:256/255.0 alpha:1.0], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:13.0]};
     _attributesLink = @{NSForegroundColorAttributeName: [[UIColor alloc] initWithRed:129.0/255.0 green:171.0/255.0 blue:193.0/255.0 alpha:1.0], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:12.0]};
     
     self.validProtocols = @[@"http", @"https"];
 }
 
 #pragma mark - Printing and calculating text
+-(void)determineHotWords
+{
+    // Need a text
+    if (_cleanText == nil)
+        return;
+    
+    _textStorage = [[STTweetTextStorage alloc] init];
+    _layoutManager = [[NSLayoutManager alloc] init];
+    
+    NSMutableString *tmpText = [[NSMutableString alloc] initWithString:_cleanText];
+    
+    // Support RTL
+    if (!_leftToRight) {
+        tmpText = [[NSMutableString alloc] init];
+        [tmpText appendString:@"\u200F"];
+        [tmpText appendString:_cleanText];
+    }
+    
+    
+    _rangesOfHotWords = [[NSMutableArray alloc] init];
+    
+    NSArray *words = [_cleanText componentsSeparatedByString:@" "];
+    STTweetHotWord hotWord = STTweetHashtag;
 
-- (void)determineHotWords {
+    for(NSString *string in words)
+    {
+        [_rangesOfHotWords addObject:@{@"hotWord": @(hotWord), @"range": [NSValue valueWithRange:[_cleanText rangeOfString:string]]}];
+        
+    }
+   
+    [self updateText];
+}
+- (void)determineHotWords1 {
     // Need a text
     if (_cleanText == nil)
         return;
@@ -128,6 +159,8 @@
     [validCharactersSet addCharactersInString:@"_"];
     
     _rangesOfHotWords = [[NSMutableArray alloc] init];
+    
+    
     
     while ([tmpText rangeOfCharacterFromSet:hotCharactersSet].location < tmpText.length) {
         NSRange range = [tmpText rangeOfCharacterFromSet:hotCharactersSet];

@@ -36,6 +36,7 @@
     UIView *popView;
     UILabel *placeholderLabel;
     UIButton *anonymousButton;
+    UIImageView *postAnonymous;
 
 }
 @synthesize scrollView;
@@ -73,19 +74,28 @@
     
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [postButton addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setFrame:CGRectMake(255, 0, 35, 44)];
+    [postButton addTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
+    [postButton setFrame:CGRectMake(250, 0, 35, 44)];
     [postButton setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
-    [postButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
-    
-    
 
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [anonymousButton setImage:[UIImage imageNamed:@"btn-post-more.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(290.3, 0, 21, 44)];
-    [anonymousButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:17]];
+    [anonymousButton setFrame:CGRectMake(285.3, 0, 26, 44)];
+    
+    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 13, 18, 18)];
 
+    __weak UIImageView *weakSelf = postAnonymous;
+    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    
+    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         
+     }failure:nil];
+    [anonymousButton addSubview:postAnonymous];
+    
     [self.navigationController.navigationBar addSubview:postButton];
     [self.navigationController.navigationBar addSubview:anonymousButton];
     
@@ -117,13 +127,12 @@
     
     UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(182, 4, 24, 24)];
 
-    __weak UIImageView *weakSelf = userImage;
-    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
-    ModelManager *sharedModel = [ModelManager sharedModel];
+    __weak UIImageView *weakSelf1 = userImage;
+    __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
 
     [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
+         weakSelf1.image = [weakphotoUtils1 makeRoundWithBoarder:[weakphotoUtils1 squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
          
      }failure:nil];
     [popView addSubview:userImage];
@@ -169,6 +178,7 @@
 {
     [textView resignFirstResponder];
     [postButton removeFromSuperview];
+    [postAnonymous removeFromSuperview];
     [anonymousButton removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 
@@ -189,12 +199,12 @@
     [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:addPhotoBtn];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+4, 288, 188)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+4, 300, 188)];
     [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
     [scrollView addSubview:imageView];
 
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+8,280, 180)];
-    textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+8,292, 180)];
+    textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
     textView.delegate = self;
     [scrollView addSubview:textView];
     
@@ -244,12 +254,30 @@
 }
 -(void)setDetails
 {
+    UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [deleteButton setFrame:CGRectMake(287, 4, 30, 30)];
+    [deleteButton setImage:[UIImage imageNamed:@"icon-delete-post.png"] forState:UIControlStateNormal];
+    [deleteButton addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:deleteButton];
+
+    if(postDetailsObject.anonymous)
+    {
+        isPrivate = YES;
+        postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
+
+        
+    }
+    else
+    {
+        isPrivate = NO;
+    }
+    
     [placeholderLabel removeFromSuperview];
     self.title = @"EDIT POST";
     [postButton setTitle:@"Save" forState:UIControlStateNormal];
-    [postButton removeTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
-    [postButton addTarget:self action:@selector(editPostClicked) forControlEvents:UIControlEventTouchUpInside];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:12],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    [postButton removeTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
+    [postButton addTarget:self action:@selector(editPost) forControlEvents:UIControlEventTouchUpInside];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:13],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -297,6 +325,58 @@
     [collectionView reloadData];
 
 }
+
+-(void)deleteButtonClicked
+{
+    UIAlertView *cautionAlert = [[UIAlertView alloc]initWithTitle:@"Sure you want to delete this post?" message:@"" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
+    cautionAlert.tag = 1;
+    [cautionAlert show];
+    
+    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1)
+    {
+        if (buttonIndex == 0)
+        {
+            // Delete
+            [appdelegate showOrhideIndicator:YES];
+            AccessToken* token = [[ModelManager sharedModel] accessToken];
+            
+            NSDictionary *postData = @{@"command": @"destroy",@"access_token": token.access_token};
+            NSDictionary *userInfo = @{@"command": @"deletePost"};
+            
+            NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postDetailsObject.uid];
+            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        }
+        else if (buttonIndex == 1)
+        {
+            // Cancel
+        }
+    }
+    
+    
+}
+-(void) postDeleteSuccessFull:(NSDictionary *)recievedDict
+{
+    [postButton removeFromSuperview];
+    [anonymousButton removeFromSuperview];
+    [postAnonymous removeFromSuperview];
+
+    
+    [appdelegate showOrhideIndicator:NO];
+    [self.delegate PostDeletedFromEditPostDetails];
+    NSArray *viewControllers = [self.navigationController viewControllers];
+    [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
+    
+}
+-(void) postDeleteFailed
+{
+    [appdelegate showOrhideIndicator:NO];
+}
+
+
 #pragma mark -
 #pragma mark Image Methods
 
@@ -734,7 +814,7 @@
     [label setText:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
-    [label setTextColor:[[UIColor alloc] initWithRed:95/255.0 green:142/255.0 blue:256/255.0 alpha:1.0]];
+    [label setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
     [cell addSubview:label];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -745,8 +825,8 @@
     if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])
     {
         [button setImage:[UIImage imageNamed:@"tag-tick.png"] forState:UIControlStateNormal];
-        [label setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [label setTextColor:[UIColor colorWithRed:212/255.0 green:249/255.0 blue:251/255.0 alpha:1.0]];
+        [label setBackgroundColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+        [label setTextColor:[UIColor whiteColor]];
     }
     return cell;
 }
@@ -816,6 +896,9 @@
 {
     
     [popover dismiss];
+    postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
+ isPrivate = YES;
+    /*
     if(textView.text.length == 0)
     {
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
@@ -831,6 +914,7 @@
         [self editPost];
     else
     [self createPost];
+     */
 }
 -(void)anonymousPostClicked:(id)sender
 {
@@ -845,18 +929,16 @@
 -(void)postClicked
 {
     [popover dismiss];
-    if(textView.text.length == 0)
-    {
-        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
-        return;
-    }
-    if([selectedtagsArray count] == 0)
-    {
-        ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
-        return;
-    }
+    __weak UIImageView *weakSelf = postAnonymous;
+    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    
+    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         
+     }failure:nil];
     isPrivate = NO;
-    [self createPost];
     
 }
 -(void)createPost
@@ -918,6 +1000,7 @@
     
     [postButton removeFromSuperview];
     [anonymousButton removeFromSuperview];
+    [postAnonymous removeFromSuperview];
 
     [self.navigationController popViewControllerAnimated:YES];
 }
