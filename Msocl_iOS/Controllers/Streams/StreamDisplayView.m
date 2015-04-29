@@ -390,7 +390,7 @@
         long int x = 0;
         
         if(commenters.count < 6)
-        x = (220 - (19*commenters.count + 3*commenters.count - 1))/2;
+        x = (240 - (19*commenters.count + 3*commenters.count - 1))/2;
         for(int i = 0; i < commenters.count; i++)
             //for(id dict in array)
         {
