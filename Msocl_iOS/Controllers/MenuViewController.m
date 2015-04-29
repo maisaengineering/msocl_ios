@@ -16,6 +16,7 @@
 #import "MainStreamsViewController.h"
 #import "ProfilePhotoUtils.h"
 #import "UserProfileViewCotroller.h"
+#import "UpdateUserDetailsViewController.h"
 @implementation MenuViewController
 {
     ModelManager *sharedModel;
@@ -168,15 +169,9 @@
             
         case 3:
         {
-            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                                     bundle: nil];
-            
-            UserProfileViewCotroller *destViewController = (UserProfileViewCotroller *)[mainStoryboard instantiateViewControllerWithIdentifier:@"UserProfileViewCotroller"];
-            UserProfile *userProfile = sharedModel.userProfile;
-            destViewController.photo = userProfile.image;
-            destViewController.name = [NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname];
-            destViewController.profileId = userProfile.uid;
-            [[SlideNavigationController sharedInstance] pushViewController:destViewController animated:YES];
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
+            [[SlideNavigationController sharedInstance] pushViewController:login animated:NO];
 
         }return;
             break;
@@ -263,7 +258,6 @@
     [postDetails setObject:DEVICE_UUID forKey:@"device_token"];
     [postDetails setObject:@"iOS" forKey:@"platform"];
     
-    ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"access_token": token.access_token,
@@ -303,7 +297,6 @@
 - (void)didReceiveTokens:(NSArray *)tokens
 {
     [appdelegate showOrhideIndicator:NO];
-    ModelManager *sharedModel = [ModelManager sharedModel];
     sharedModel.accessToken = [tokens objectAtIndex:0];
     
     if([[[SlideNavigationController sharedInstance] topViewController] isKindOfClass:[MainStreamsViewController class]])

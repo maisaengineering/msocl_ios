@@ -25,5 +25,7 @@
 @property (strong, nonatomic) NSString *lname;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *post_code;
+@property (strong, nonatomic) NSString *blog;
+
 @property (strong, nonatomic) NSString *image;
 @end

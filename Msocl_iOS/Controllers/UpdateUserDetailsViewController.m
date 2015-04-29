@@ -55,6 +55,32 @@
     // Start the Aviary Editor OpenGL Load
     [AFOpenGLManager beginOpenGLLoad];
     
+    self.title = @"PROFILE";
+    UIImage *background = [UIImage imageNamed:@"icon-back.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [button setImage:background forState:UIControlStateNormal];
+    button.frame = CGRectMake(0 ,0,13,17);
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+
+    
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [rightButton addTarget:self action:@selector(MyTagsClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [rightButton setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
+    [rightButton setTitle:@"My tags" forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:13]];
+    rightButton.frame = CGRectMake(0 ,0,50,30);
+    rightButton.layer.cornerRadius = 5; // this value vary as per your desire
+    rightButton.clipsToBounds = YES;
+    
+    
+    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightBarButton;
+
+    
     UIColor *color = [UIColor lightGrayColor];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
     
@@ -93,19 +119,28 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
     
 }
 
 -(void)backClicked
 {
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
+-(void)MyTagsClicked
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManageTagsViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
 
+}
 -(void)setDetails
 {
     [txt_firstName setText:sharedModel.userProfile.fname];
     [txt_lastname setText:sharedModel.userProfile.lname];
+    [txt_emailAddress setText:sharedModel.userProfile.email];
+    [txt_blog setText:sharedModel.userProfile.blog];
 
     __weak UIImageView *weakSelf = profileImage;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -116,11 +151,6 @@
          
      }failure:nil];
     
-}
--(IBAction)backClickes:(id)sender
-{
-    [self resignKeyBoards];
-    [self.navigationController  popViewControllerAnimated:YES];
 }
 
 -(IBAction)closeClicked:(id)sender
@@ -469,12 +499,7 @@
     return [UIImage imageWithCGImage:image scale:scale orientation:orientation];
 }
 
-#pragma mark - Status Bar Style
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
 
 #pragma mark- Photo upload Methods
 #pragma mark-

@@ -384,7 +384,7 @@
     if([postDetailsObject.commenters count] > 0)
     {
         NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 83, 240, 19)];
+        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 85, 240, 19)];
         [cell.contentView addSubview:commentersView];
         
         long int x = 0;

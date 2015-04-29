@@ -14,6 +14,7 @@
 #import "ProfilePhotoUtils.h"
 #import "AppDelegate.h"
 #import "UserProfileViewCotroller.h"
+#import "UpdateUserDetailsViewController.h"
 @implementation TagViewController
 {
     StreamDisplayView *streamDisplay;
@@ -159,6 +160,19 @@
 - (void)userProifleClicked:(int)index
 {
     selectedIndex = index;
+    PostDetails *postObject;
+        postObject = [streamDisplay.storiesArray objectAtIndex:selectedIndex];
+
+    if([postObject.uid isEqualToString:modelManager.userProfile.uid])
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
+        [self.navigationController pushViewController:login animated:NO];
+        
+    }
+    else
+        [self performSegueWithIdentifier: @"UserProfile" sender: self];
+
     [self performSegueWithIdentifier: @"UserProfile" sender: self];
 }
 - (void)tagCicked:(NSString *)tag

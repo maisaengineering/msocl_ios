@@ -14,6 +14,7 @@
 #import "SlideNavigationController.h"
 #import "UserProfileViewCotroller.h"
 #import "TagViewController.h"
+#import "UpdateUserDetailsViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -127,7 +128,20 @@
 - (void)userProifleClicked:(int)index
 {
     selectedIndex = index;
-    [self performSegueWithIdentifier: @"UserProfile" sender: self];
+    PostDetails *postObject;
+    if(!mostRecent.hidden)
+        postObject = [mostRecent.storiesArray objectAtIndex:selectedIndex];
+    else
+        postObject = [following.storiesArray objectAtIndex:selectedIndex];
+    if([postObject.uid isEqualToString:modelManager.userProfile.uid])
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
+        [[SlideNavigationController sharedInstance] pushViewController:login animated:NO];
+
+    }
+    else
+        [self performSegueWithIdentifier: @"UserProfile" sender: self];
 }
 - (void)recievedData:(BOOL)isFollowing
 {
@@ -136,6 +150,7 @@
 - (void)tagCicked:(NSString *)tagName
 {
     selectedTag = tagName;
+    
     [self performSegueWithIdentifier: @"TagView" sender: self];
 }
 - (void)tableDidSelect:(int)index

@@ -15,4 +15,5 @@
 @synthesize email;
 @synthesize post_code;
 @synthesize image;
+@synthesize blog;
 @end
