@@ -28,7 +28,6 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_phno;
 @property (nonatomic, strong) IBOutlet UITextField *txt_blog;
 
--(IBAction)backClickes:(id)sender;
 -(IBAction)closeClicked:(id)sender;
 -(IBAction)signupClicked:(id)sender;
 -(IBAction)chosePhoto:(id)sender;

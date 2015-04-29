@@ -733,7 +733,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7VL-c4-ZVi">
-                                <rect key="frame" x="17" y="152" width="123" height="18"/>
+                                <rect key="frame" x="17" y="213" width="123" height="18"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -741,7 +741,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztU-e8-u5f">
-                                <rect key="frame" x="176" y="152" width="123" height="18"/>
+                                <rect key="frame" x="176" y="213" width="123" height="18"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -749,7 +749,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THy-ew-Fa3">
-                                <rect key="frame" x="17" y="197" width="240" height="18"/>
+                                <rect key="frame" x="17" y="257" width="240" height="18"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -757,7 +757,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xQ-0g-znD">
-                                <rect key="frame" x="134" y="84" width="54" height="54"/>
+                                <rect key="frame" x="114" y="91" width="93" height="93"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -767,18 +767,18 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile-register.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mm5-RI-Lrl">
-                                <rect key="frame" x="134" y="84" width="50" height="50"/>
+                                <rect key="frame" x="114" y="104" width="93" height="93"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sgJ-Zi-KxD">
-                                <rect key="frame" x="16" y="172" width="130" height="1"/>
+                                <rect key="frame" x="16" y="233" width="130" height="1"/>
                                 <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iUU-aj-cgj">
-                                <rect key="frame" x="16" y="217" width="288" height="1"/>
+                                <rect key="frame" x="16" y="278" width="288" height="1"/>
                                 <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Xb-BT-8eQ">
-                                <rect key="frame" x="18" y="242" width="240" height="18"/>
+                                <rect key="frame" x="18" y="301" width="240" height="18"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -786,15 +786,15 @@
                                 </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HKj-t6-c27">
-                                <rect key="frame" x="17" y="262" width="288" height="1"/>
+                                <rect key="frame" x="17" y="323" width="288" height="1"/>
                                 <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u1e-1a-nYS">
-                                <rect key="frame" x="174" y="172" width="130" height="1"/>
+                                <rect key="frame" x="174" y="233" width="130" height="1"/>
                                 <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGT-Fn-0Vb">
-                                <rect key="frame" x="16" y="293" width="288" height="35"/>
+                                <rect key="frame" x="16" y="358" width="288" height="35"/>
                                 <color key="backgroundColor" red="0.24610569569999999" green="0.45075974769999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="13"/>
                                 <state key="normal" title="Update">
@@ -917,11 +917,12 @@
                         <outlet property="profileImageVw" destination="5X5-sC-iHe" id="vRd-88-bhe"/>
                         <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="fCv-1J-IEX"/>
                         <segue destination="a4M-BD-S81" kind="push" identifier="UserProfile" id="dLo-Yv-fr4"/>
+                        <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="M8x-x6-6lY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y69-Xu-VKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1371" y="-866"/>
+            <point key="canvasLocation" x="1554" y="-990"/>
         </scene>
         <!--Fogot Password View Controller-->
         <scene sceneID="hVL-WL-qWV">
@@ -977,9 +978,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="fCv-1J-IEX"/>
-        <segue reference="m3S-0J-NjW"/>
+        <segue reference="Jmt-4A-19X"/>
+        <segue reference="M8x-x6-6lY"/>
         <segue reference="dLo-Yv-fr4"/>
-        <segue reference="iax-nE-auz"/>
         <segue reference="Ngw-Gf-AxF"/>
     </inferredMetricsTieBreakers>
 </document>

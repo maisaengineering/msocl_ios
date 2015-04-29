@@ -574,7 +574,7 @@
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote.png"] forState:UIControlStateNormal];
     else
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(269, yPosition+1, 20, 20)];
+    [heartButton setFrame:CGRectMake(269, yPosition+1, 30, 30)];
     [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
     [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:heartButton];
@@ -587,7 +587,7 @@
     
     UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [flagButton setImage:[UIImage imageNamed:@"flag-inactive.png"] forState:UIControlStateNormal];
-    [flagButton setFrame:CGRectMake(240, yPosition+3, 30, 20)];
+    [flagButton setFrame:CGRectMake(230, yPosition+3, 30, 30)];
     [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
     [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:flagButton];

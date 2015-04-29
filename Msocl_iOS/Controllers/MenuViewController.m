@@ -171,7 +171,7 @@
         {
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
-            [[SlideNavigationController sharedInstance] pushViewController:login animated:NO];
+            [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
 
         }return;
             break;

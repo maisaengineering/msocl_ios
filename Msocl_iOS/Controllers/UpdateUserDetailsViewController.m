@@ -100,7 +100,7 @@
      ];
     
     txt_emailAddress.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter email id"
+    [[NSAttributedString alloc] initWithString:@"Change email id"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
