@@ -38,6 +38,12 @@
 		7F2A59951AE2563E0089EDBB /* btn-google@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59921AE2563E0089EDBB /* btn-google@2x.png */; };
 		7F2A59961AE2563E0089EDBB /* btn-twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59931AE2563E0089EDBB /* btn-twitter@2x.png */; };
 		7F2A59981AE258950089EDBB /* icon-profile-register@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59971AE258950089EDBB /* icon-profile-register@2x.png */; };
+		7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */; };
+		7F4C88F91AF0B5BB008B769C /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88EF1AF0B5BB008B769C /* JTSImageInfo.m */; };
+		7F4C88FA1AF0B5BB008B769C /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F11AF0B5BB008B769C /* JTSSimpleImageDownloader.m */; };
+		7F4C88FB1AF0B5BB008B769C /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F31AF0B5BB008B769C /* JTSAnimatedGIFUtility.m */; };
+		7F4C88FC1AF0B5BB008B769C /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */; };
+		7F4C88FD1AF0B5BB008B769C /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */; };
 		7F599E261AE66E1E00DED294 /* MainStreamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E251AE66E1E00DED294 /* MainStreamsViewController.m */; };
 		7F599E281AE66E3C00DED294 /* StreamDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E271AE66E3C00DED294 /* StreamDisplayView.m */; };
 		7F599E2B1AE66E5B00DED294 /* PostDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599E291AE66E5B00DED294 /* PostDetailDescriptionViewController.m */; };
@@ -229,6 +235,18 @@
 		7F2A59921AE2563E0089EDBB /* btn-google@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-google@2x.png"; sourceTree = "<group>"; };
 		7F2A59931AE2563E0089EDBB /* btn-twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-twitter@2x.png"; sourceTree = "<group>"; };
 		7F2A59971AE258950089EDBB /* icon-profile-register@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-profile-register@2x.png"; sourceTree = "<group>"; };
+		7F4C88EC1AF0B5BB008B769C /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
+		7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
+		7F4C88EE1AF0B5BB008B769C /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
+		7F4C88EF1AF0B5BB008B769C /* JTSImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageInfo.m; sourceTree = "<group>"; };
+		7F4C88F01AF0B5BB008B769C /* JTSSimpleImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSSimpleImageDownloader.h; sourceTree = "<group>"; };
+		7F4C88F11AF0B5BB008B769C /* JTSSimpleImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSSimpleImageDownloader.m; sourceTree = "<group>"; };
+		7F4C88F21AF0B5BB008B769C /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
+		7F4C88F31AF0B5BB008B769C /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
+		7F4C88F41AF0B5BB008B769C /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
+		7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
+		7F4C88F61AF0B5BB008B769C /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
+		7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
 		7F599E251AE66E1E00DED294 /* MainStreamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainStreamsViewController.m; sourceTree = "<group>"; };
 		7F599E271AE66E3C00DED294 /* StreamDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamDisplayView.m; sourceTree = "<group>"; };
 		7F599E291AE66E5B00DED294 /* PostDetailDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailDescriptionViewController.m; sourceTree = "<group>"; };
@@ -519,6 +537,25 @@
 			path = Flurry;
 			sourceTree = "<group>";
 		};
+		7F4C88EB1AF0B56E008B769C /* ZoomImage */ = {
+			isa = PBXGroup;
+			children = (
+				7F4C88EC1AF0B5BB008B769C /* JTSImageViewController.h */,
+				7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */,
+				7F4C88EE1AF0B5BB008B769C /* JTSImageInfo.h */,
+				7F4C88EF1AF0B5BB008B769C /* JTSImageInfo.m */,
+				7F4C88F01AF0B5BB008B769C /* JTSSimpleImageDownloader.h */,
+				7F4C88F11AF0B5BB008B769C /* JTSSimpleImageDownloader.m */,
+				7F4C88F21AF0B5BB008B769C /* JTSAnimatedGIFUtility.h */,
+				7F4C88F31AF0B5BB008B769C /* JTSAnimatedGIFUtility.m */,
+				7F4C88F41AF0B5BB008B769C /* UIImage+JTSImageEffects.h */,
+				7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */,
+				7F4C88F61AF0B5BB008B769C /* UIApplication+JTSImageViewController.h */,
+				7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */,
+			);
+			name = ZoomImage;
+			sourceTree = "<group>";
+		};
 		7F5DEF8D1AD7C50A00F2C60A /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
@@ -741,6 +778,7 @@
 		7F83BC221AD13BD1008DFD8B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				7F4C88EB1AF0B56E008B769C /* ZoomImage */,
 				7F8D80AE1AEF5C6E00D3F052 /* AvoidKeyboard */,
 				7F5F18D91ADE996300C5B4EC /* SWTableViewCell */,
 				7F83344E1ADCEE900067C538 /* STTweetLabel */,
@@ -1230,8 +1268,10 @@
 				7F5DEFB01AD7C50A00F2C60A /* NSData+ImageContentType.m in Sources */,
 				7F8999131AD2649E007E2917 /* Base64.m in Sources */,
 				7F5F18E71ADE997200C5B4EC /* SWCellScrollView.m in Sources */,
+				7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */,
 				7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */,
 				7F8D80B41AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				7F4C88FD1AF0B5BB008B769C /* UIApplication+JTSImageViewController.m in Sources */,
 				7F5DEFBE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m in Sources */,
 				7F80DE5E1AD6544400EA6D1F /* PromptImages.m in Sources */,
 				7F8895581AEB6A7B000AD083 /* TagViewController.m in Sources */,
@@ -1259,6 +1299,7 @@
 				7F8D80BA1AEF702400D3F052 /* UIImage+ResizeMagick.m in Sources */,
 				7F599E2B1AE66E5B00DED294 /* PostDetailDescriptionViewController.m in Sources */,
 				7F8D80B31AEF5C8D00D3F052 /* TPKeyboardAvoidingScrollView.m in Sources */,
+				7F4C88FC1AF0B5BB008B769C /* UIImage+JTSImageEffects.m in Sources */,
 				7F83BC5E1AD14CEF008DFD8B /* AFURLRequestSerialization.m in Sources */,
 				7F5DEFAF1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m in Sources */,
 				7FF5CC011ACE9E61004F4F9B /* main.m in Sources */,
@@ -1274,7 +1315,9 @@
 				7F86E5861ADBCFB00002493F /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
 				25F51BBC1AD8F1F200369764 /* WebViewController.m in Sources */,
 				7F83BC671AD14CEF008DFD8B /* UIRefreshControl+AFNetworking.m in Sources */,
+				7F4C88FB1AF0B5BB008B769C /* JTSAnimatedGIFUtility.m in Sources */,
 				7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */,
+				7F4C88FA1AF0B5BB008B769C /* JTSSimpleImageDownloader.m in Sources */,
 				7F599E281AE66E3C00DED294 /* StreamDisplayView.m in Sources */,
 				2527723C1AE288FC008ECE78 /* PageGuidePopUps.m in Sources */,
 				7F0AB8F51AE2960E009219B2 /* SignUpViewController.m in Sources */,
@@ -1283,6 +1326,7 @@
 				7F83BC661AD14CEF008DFD8B /* UIProgressView+AFNetworking.m in Sources */,
 				7F5DEFB41AD7C50A00F2C60A /* SDWebImageDownloader.m in Sources */,
 				7F8D80BD1AEF981B00D3F052 /* VSWordDetector.m in Sources */,
+				7F4C88F91AF0B5BB008B769C /* JTSImageInfo.m in Sources */,
 				7F80DE871AD6AAF700EA6D1F /* UserProfile.m in Sources */,
 				7F8334531ADCF0480067C538 /* STTweetLabel.m in Sources */,
 				7F86E5871ADBCFB00002493F /* SlideNavigationContorllerAnimatorScale.m in Sources */,

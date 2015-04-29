@@ -13,7 +13,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ProfilePhotoUtils.h"
 #import "AppDelegate.h"
-
+#import "UserProfileViewCotroller.h"
 @implementation TagViewController
 {
     StreamDisplayView *streamDisplay;
@@ -25,7 +25,6 @@
     int selectedIndex;
     Webservices *webServices;
     AppDelegate *appdelegate;
-
 }
 @synthesize tagName;
 @synthesize followOrEditBtn;
@@ -157,13 +156,14 @@
 
 #pragma mark -
 #pragma mark Call backs from stream display
--(void)userProifleClicked:(int)index
+- (void)userProifleClicked:(int)index
 {
-    
+    selectedIndex = index;
+    [self performSegueWithIdentifier: @"UserProfile" sender: self];
 }
 - (void)tagCicked:(NSString *)tag
 {
-    
+
 }
 - (void)recievedData:(BOOL)isFollowing
 {
@@ -207,6 +207,18 @@
             AddPostViewController *destViewController = segue.destinationViewController;
             destViewController.selectedtagsArray = [NSMutableArray arrayWithObject:tagName];
         }
+    else if ([segue.identifier isEqualToString:@"UserProfile"])
+    {
+        PostDetails *postObject;
+
+        postObject = [streamDisplay.storiesArray objectAtIndex:selectedIndex];
+        
+        UserProfileViewCotroller *destViewController = segue.destinationViewController;
+        destViewController.photo = postObject.profileImage;
+        destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
+        destViewController.profileId = [postObject.owner objectForKey:@"uid"];
+    }
+
 }
 -(void) PostEditedFromPostDetails:(PostDetails *)postDetails
 {
