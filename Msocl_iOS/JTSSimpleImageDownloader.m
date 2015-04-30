@@ -9,7 +9,7 @@
 #import "JTSSimpleImageDownloader.h"
 
 #import "JTSAnimatedGIFUtility.h"
-
+#import "AFNetworking.h"
 @implementation JTSSimpleImageDownloader
 
 + (NSURLSessionDataTask *)downloadImageForURL:(NSURL *)imageURL canonicalURL:(NSURL *)canonicalURL completion:(void (^)(UIImage *))completion {
@@ -18,37 +18,29 @@
     
     if (imageURL.absoluteString.length) {
         
-        NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
         
-        if (request == nil) {
+        NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
+        AFURLConnectionOperation *operation =   [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Latest_Image"];
+        operation.outputStream = [NSOutputStream outputStreamToFileAtPath:filePath append:NO];
+        
+        [operation setCompletionBlock:^{
+            
+            UIImage *image;
+            
+            image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfFile:filePath]];
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (completion) {
-                    completion(nil);
-                }
+  completion(image);
             });
-        }
-        else {
             
-            NSURLSession *sesh = [NSURLSession sharedSession];
+            NSLog(@"downloadComplete!");
             
-            dataTask = [sesh dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    
-                    UIImage *image = [self imageFromData:data forURL:imageURL canonicalURL:canonicalURL];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        if (completion) {
-                            completion(image);
-                        }
-                    });
-                    
-                });
-                
-            }];
-            
-            [dataTask resume];
-        }
+        }];
+        [operation start];
+        
+        
     }
     
     return dataTask;

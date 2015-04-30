@@ -24,6 +24,9 @@
 #import "CustomCipher.h"
 #import "TagViewController.h"
 #import "EditCommentViewController.h"
+#import "JTSImageViewController.h"
+#import "JTSImageInfo.h"
+
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -39,6 +42,7 @@
     MFMailComposeViewController *mailComposer;
     NSString *selectedTag;
  UIImageView *postAnonymous;
+    BOOL isImageClicked;
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -155,7 +159,12 @@
                                                object:nil];		
 
     [super viewWillAppear:YES];
-    [self callShowPostApi];
+    
+    if(!isImageClicked)
+    {
+        isImageClicked = NO;
+        [self callShowPostApi];
+    }
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -403,13 +412,17 @@
     NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:(170/255.f) green:(170/255.f) blue:(170/255.f) alpha:1],NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:10]}];
     [attributedString appendAttributedString:timAttr];
 
-        UILabel *comment = [UILabel new];
-        comment.numberOfLines = 0;
-        comment.attributedText = attributedString;
-        [cell.contentView addSubview:comment];
-        
-        expectedLabelSize = [comment sizeThatFits:CGSizeMake(205, 9999)];
-        comment.frame =  CGRectMake(53, 12, 205, expectedLabelSize.height);
+    
+    NIAttributedLabel *textView = [NIAttributedLabel new];
+    textView.numberOfLines = 0;
+    textView.delegate = self;
+    textView.autoDetectLinks = YES;
+    textView.attributedText = attributedString;
+    expectedLabelSize = [textView sizeThatFits:CGSizeMake(205, 9999)];
+    textView.frame =  CGRectMake(53, 12, 205, expectedLabelSize.height);
+
+    [cell.contentView addSubview:textView];
+    
     
 }
 -(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
@@ -495,7 +508,7 @@
     yPosition += 30;
     
     //Description
-    UILabel *description = [[UILabel alloc] init];
+    UITextView *textView = [[UITextView alloc] init];
     
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
@@ -513,12 +526,16 @@
             
             UIImage  *image = [UIImage imageNamed:@"EmptyProfilePic.jpg"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(262, 114) withRadious:5.0];
+            image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"260x114#"] withRadious:5.0];
+            image.accessibilityIdentifier = [postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]];
+            textAttachment.image = image;
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"262x114#"] withRadious:5.0];
-                [description setNeedsDisplay];
+                image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"260x114#"] withRadious:5.0];
+                image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
+                textAttachment.image = image;
+                [textView setNeedsDisplay];
             }];
             
             NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:2]}];
@@ -534,18 +551,27 @@
     }while (1);
     //This regex captures all items between []
     
-    [description setAttributedText:attributedString];
-
-    UILabel *label = [UILabel alloc];
-    [label setAttributedText:attributedString];
+    textView.editable = NO;
+    textView.scrollEnabled = NO;
+    textView.attributedText = attributedString;
+    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:6/255.0 green:0/255.0 blue:218/255.0 alpha:1.0]};
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
+    [textView setDataDetectorTypes:UIDataDetectorTypeLink];
+    [textView addGestureRecognizer:tapRecognizer];
+    textView.selectable = YES;
+    [cell.contentView addSubview:textView];
     
-    CGSize contentSize = [label sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
-    description.frame = CGRectMake(44, yPosition, 262, contentSize.height);
+    CGSize contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
+                                                        options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                                        context:nil].size;
+    
+    float height = contentSize.height >21?contentSize.height:21;
+    
+    textView.frame =  CGRectMake(44, yPosition, 264, height);
 
-        yPosition += contentSize.height;
+    
+        yPosition += height;
 
-    [description setNumberOfLines:0];
-    [cell.contentView addSubview:description];
     
 
     
@@ -556,11 +582,11 @@
     {
         
             NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[postDetailsObject.tags componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
-            CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
+            CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
                                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                     context:nil].size;
             
-            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition+5, 200 , tagsSize.height)];
+            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition+5, 264 , tagsSize.height)];
             [tweetLabel setText:tagsStr.string];
             tweetLabel.textAlignment = NSTextAlignmentCenter;
             [cell.contentView addSubview:tweetLabel];
@@ -755,11 +781,15 @@
     }while (1);
     //This regex captures all items between []
     
-    UILabel *label = [UILabel alloc];
-    label.attributedText = attributedString;
-    CGSize contentSize = [label sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
+    CGSize contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
+                                               options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
+                                               context:nil].size;
+    
+    
+    float height1 = contentSize.height >21?contentSize.height:21;
 
-        height = 35 + contentSize.height;
+
+    height = 35 + height1;
 
     
     //Tags height
@@ -770,7 +800,7 @@
     }
     
     NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
-    CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX)
+    CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
                                             options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;
     
@@ -798,11 +828,15 @@
     NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:10]}];
     [attributedString appendAttributedString:timAttr];
 
-    UILabel *comment = [UILabel new];
-    comment.numberOfLines = 0;
-    comment.attributedText = attributedString;
-    CGSize expectedLabelSize = [comment sizeThatFits:CGSizeMake(205, 9999)];
-
+    
+    
+    
+    NIAttributedLabel *textView = [NIAttributedLabel new];
+    textView.numberOfLines = 0;
+    textView.attributedText = attributedString;
+    CGSize expectedLabelSize = [textView sizeThatFits:CGSizeMake(205, 9999)];
+    
+    
     CGFloat height =0;
     if(expectedLabelSize.height+12 > 44) //if there is a lot of text
     {
@@ -1266,6 +1300,59 @@
         destViewController.commentDetails = commentDict;
     }
     
+}
+
+- (void)tappedTextView:(UITapGestureRecognizer *)tapGesture {
+    if (tapGesture.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    
+    UITextView *textView = (UITextView *)tapGesture.view;
+    CGPoint tapLocation = [tapGesture locationInView:textView];
+    UITextPosition *textPosition = [textView closestPositionToPoint:tapLocation];
+    NSDictionary *attributes = [textView textStylingAtPosition:textPosition inDirection:UITextStorageDirectionForward];
+
+    NSURL *url = attributes[NSLinkAttributeName];
+    
+    if (url) {
+        
+        [[UIApplication sharedApplication] openURL:url];
+        return;
+    }
+    
+    NSTextContainer *textContainer = textView.textContainer;
+    NSLayoutManager *layoutManager = textView.layoutManager;
+    
+    CGPoint point = [tapGesture locationInView:textView];
+    point.x -= textView.textContainerInset.left;
+    point.y -= textView.textContainerInset.top;
+    
+    NSUInteger characterIndex = [layoutManager characterIndexForPoint:point inTextContainer:textContainer fractionOfDistanceBetweenInsertionPoints:nil];
+    
+    
+   NSTextAttachment * _textAttachment = [textView.attributedText attribute:NSAttachmentAttributeName atIndex:characterIndex effectiveRange:nil];
+    if (_textAttachment)
+    {
+        JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+        imageInfo.imageURL = [NSURL URLWithString:_textAttachment.image.accessibilityIdentifier];
+
+        JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                               initWithImageInfo:imageInfo
+                                               mode:JTSImageViewControllerMode_Image
+                                               backgroundStyle:JTSImageViewControllerBackgroundOption_None];
+        
+        // Present the view controller.
+        [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
+        isImageClicked = YES;
+        return;
+    }
+    _textAttachment = nil;
+
+}
+- (void)attributedLabel:(NIAttributedLabel *)attributedLabel didSelectTextCheckingResult:(NSTextCheckingResult *)result atPoint:(CGPoint)point {
+    if (result.resultType == NSTextCheckingTypeLink) {
+        [[UIApplication sharedApplication] openURL:result.URL];
+    }
 }
 
 @end

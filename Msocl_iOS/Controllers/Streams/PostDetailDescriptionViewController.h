@@ -14,14 +14,14 @@
 #import "AddPostViewController.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
-
+#import "NIAttributedLabel.h"
 @protocol PostDetailsProtocol<NSObject>
 -(void)PostEditedFromPostDetails:(PostDetails *)postDetails;
 -(void)PostDeletedFromPostDetails;
 @end
 
 
-@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate,EditPostProtocol,UIActionSheetDelegate,MFMailComposeViewControllerDelegate>
+@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate,EditPostProtocol,UIActionSheetDelegate,MFMailComposeViewControllerDelegate,NIAttributedLabelDelegate>
 
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSMutableArray *storiesArray;

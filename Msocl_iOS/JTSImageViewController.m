@@ -288,6 +288,8 @@ typedef struct {
     else if (self.mode == JTSImageViewControllerMode_AltText) {
         [self viewDidLoadForAltTextMode];
     }
+    
+    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -301,8 +303,20 @@ typedef struct {
         _flags.rotationTransformIsDirty = YES;
         [self updateLayoutsForCurrentOrientation];
     }
-}
+    
+    UIButton *btnClose = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btnClose addTarget:self action:@selector(closClick:) forControlEvents:UIControlEventTouchUpInside];
+    [btnClose setImage:[UIImage imageNamed:@"btnKidProfileClose.png"] forState:UIControlStateNormal];
+    btnClose.frame = CGRectMake(280, 10, 35, 35);
+    
+    [self.view addSubview:btnClose];
 
+}
+-(void)closClick:(id)sender
+{
+    [sender setHidden:YES];
+    [self dismiss:YES];
+}
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     _flags.viewHasAppeared = YES;
@@ -409,7 +423,7 @@ typedef struct {
             } else if (strongSelf.image == nil) {
                 _flags.imageDownloadFailed = YES;
                 if (_flags.isPresented && _flags.isAnimatingAPresentationOrDismissal == NO) {
-                    [strongSelf dismiss:YES];
+                    //[strongSelf dismiss:YES];
                 }
                 // If we're still presenting, at the end of presentation we'll auto dismiss.
             }
@@ -735,7 +749,7 @@ typedef struct {
                      [weakSelf updateScrollViewAndImageViewForCurrentMetrics];
                      
                      if (_flags.imageDownloadFailed) {
-                         [weakSelf dismiss:YES];
+                         //[weakSelf dismiss:YES];
                      } else {
                          weakSelf.view.userInteractionEnabled = YES;
                      }
@@ -842,7 +856,7 @@ typedef struct {
                  weakSelf.view.userInteractionEnabled = YES;
                  _flags.isPresented = YES;
                  if (_flags.imageDownloadFailed) {
-                     [weakSelf dismiss:YES];
+                     //[weakSelf dismiss:YES];
                  }
              }];
         });
@@ -1603,7 +1617,7 @@ typedef struct {
     
     CGPoint velocity = [scrollView.panGestureRecognizer velocityInView:scrollView.panGestureRecognizer.view];
     if (scrollView.zoomScale == 1 && (JTSImageFloatAbs(velocity.x) > 1600 || JTSImageFloatAbs(velocity.y) > 1600 ) ) {
-        [self dismiss:YES];
+        //[self dismiss:YES];
     }
 }
 
@@ -1663,7 +1677,7 @@ typedef struct {
     if (_flags.scrollViewIsAnimatingAZoom) {
         return;
     }
-    [self dismiss:YES];
+    //[self dismiss:YES];
 }
 
 - (void)imageLongPressed:(UILongPressGestureRecognizer *)sender {
@@ -1696,6 +1710,7 @@ typedef struct {
 
 - (void)dismissingPanGestureRecognizerPanned:(UIPanGestureRecognizer *)panner {
     
+    return;
     if (_flags.scrollViewIsAnimatingAZoom || _flags.isAnimatingAPresentationOrDismissal) {
         return;
     }
@@ -1730,7 +1745,7 @@ typedef struct {
             if (_flags.isDraggingImage) {
                 [self dismissImageWithFlick:velocity];
             } else {
-                [self dismiss:YES];
+                //[self dismiss:YES];
             }
         }
         else {
@@ -1740,6 +1755,7 @@ typedef struct {
 }
 
 - (void)textViewSingleTapped:(id)sender {
+    
     [self dismiss:YES];
 }
 
@@ -1788,21 +1804,7 @@ typedef struct {
 }
 
 - (void)dismissImageWithFlick:(CGPoint)velocity {
-    _flags.imageIsFlickingAwayForDismissal = YES;
-    __weak JTSImageViewController *weakSelf = self;
-    UIPushBehavior *push = [[UIPushBehavior alloc] initWithItems:@[self.imageView] mode:UIPushBehaviorModeInstantaneous];
-    push.pushDirection = CGVectorMake(velocity.x*0.1, velocity.y*0.1);
-    [push setTargetOffsetFromCenter:self.imageDragOffsetFromImageCenter forItem:self.imageView];
-    push.action = ^{
-        if ([weakSelf imageViewIsOffscreen]) {
-            [weakSelf.animator removeAllBehaviors];
-            weakSelf.attachmentBehavior = nil;
-            [weakSelf.imageView removeFromSuperview];
-            [weakSelf dismiss:YES];
-        }
-    };
-    [self.animator removeBehavior:self.attachmentBehavior];
-    [self.animator addBehavior:push];
+
 }
 
 - (CGFloat)appropriateAngularResistanceForView:(UIView *)view {

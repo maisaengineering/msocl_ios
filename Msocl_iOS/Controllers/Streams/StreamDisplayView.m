@@ -305,7 +305,8 @@
     float yPosition = 15;
     
     //Description
-    UILabel *description = [[UILabel alloc] init];
+    //Description
+    UITextView *textView = [[UITextView alloc] init];
     
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
@@ -332,7 +333,7 @@
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
                 textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
-                [description setNeedsDisplay];
+                [textView setNeedsDisplay];
                 
             }];
             
@@ -350,17 +351,17 @@
     }while (1);
     //This regex captures all items between []
     
-    [description setAttributedText:attributedString];
-    [description setTextAlignment:NSTextAlignmentLeft];
-    [description setNumberOfLines:0];
-    [cell.contentView addSubview:description];
+    textView.editable = NO;
+    textView.scrollEnabled = NO;
+    textView.attributedText = attributedString;
+    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:6/255.0 green:0/255.0 blue:218/255.0 alpha:1.0]};
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
+    [textView setDataDetectorTypes:UIDataDetectorTypeLink];
+    [textView addGestureRecognizer:tapRecognizer];
+    textView.selectable = YES;
+    [cell.contentView addSubview:textView];
     
-    CGSize size = [description sizeThatFits:CGSizeMake(240, 60)];
-    
-    if(size.height < 60)
-        description.frame = CGRectMake(57, yPosition, 240, size.height);
-    else
-        description.frame = CGRectMake(57, yPosition, 240, 60);
+        textView.frame = CGRectMake(57, yPosition, 240, 60);
     yPosition += 60;
     
     STTweetLabel *tweetLabel;
@@ -432,9 +433,9 @@
     else
     {
         tweetLabel.frame = CGRectMake(57, 95, 240 , 17);
-        CGRect frame = description.frame;
+        CGRect frame = textView.frame;
         frame.size.height = 80;
-        description.frame = frame;
+        textView.frame = frame;
 
     }
     
@@ -465,4 +466,31 @@
 {
     [self.delegate userProifleClicked:(int)[sender tag]];
 }
+
+- (void)tappedTextView:(UITapGestureRecognizer *)tapGesture {
+    if (tapGesture.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    
+    UITextView *textView = (UITextView *)tapGesture.view;
+    CGPoint tapLocation = [tapGesture locationInView:textView];
+    UITextPosition *textPosition = [textView closestPositionToPoint:tapLocation];
+    NSDictionary *attributes = [textView textStylingAtPosition:textPosition inDirection:UITextStorageDirectionForward];
+    
+    NSURL *url = attributes[NSLinkAttributeName];
+    
+    if (url) {
+        
+        [[UIApplication sharedApplication] openURL:url];
+        return;
+    }
+    else
+    {
+        NSIndexPath *indexPath = [streamTableView indexPathForCell:(UITableViewCell *)textView.superview.superview];
+
+        [self.delegate tableDidSelect:indexPath.row];
+    }
+    
+}
+
 @end
