@@ -89,7 +89,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxC-iZ-i4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937" y="-866"/>
+            <point key="canvasLocation" x="1061" y="-698"/>
         </scene>
         <!--Onboarding View Controller-->
         <scene sceneID="EaA-Uh-g5J">
@@ -120,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kul-u2-I4r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="508" y="-210"/>
+            <point key="canvasLocation" x="604" y="-622"/>
         </scene>
         <!--M SOCIAL-->
         <scene sceneID="WPi-qf-jqp">
@@ -164,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pif-PM-zA7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="434" y="543"/>
+            <point key="canvasLocation" x="604" y="83"/>
         </scene>
         <!--M SOCAIL-->
         <scene sceneID="wLp-2J-jRR">
@@ -308,7 +308,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MIJ-7w-bRB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937" y="488"/>
+            <point key="canvasLocation" x="1489" y="657"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="aZe-Rn-rkG">
@@ -326,7 +326,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VGK-iW-92g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1284" y="-156"/>
+            <point key="canvasLocation" x="1924" y="-64"/>
         </scene>
         <!--M SOCIAL-->
         <scene sceneID="JHK-IK-3Gy">
@@ -476,7 +476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypO-b5-kB1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937" y="1121"/>
+            <point key="canvasLocation" x="1924" y="657"/>
         </scene>
         <!--M SOCIAL-->
         <scene sceneID="gXa-Jy-hXv">
@@ -514,11 +514,12 @@
                     <connections>
                         <outlet property="streamTableView" destination="JA1-Iv-tGo" id="Lp1-J4-Dzc"/>
                         <segue destination="rfw-mt-SzH" kind="push" identifier="TagView" id="Jmt-4A-19X"/>
+                        <segue destination="XHp-qb-GwU" kind="push" identifier="EditComment" id="PRE-kU-Cdp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m5B-ZP-otY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="596" y="1808"/>
+            <point key="canvasLocation" x="604" y="840"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Kor-5d-Tor">
@@ -566,7 +567,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="96l-RF-OED" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="630" y="2455"/>
+            <point key="canvasLocation" x="590" y="1547"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="1vl-IF-yjt">
@@ -627,7 +628,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="clR-X9-rz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="630" y="3089"/>
+            <point key="canvasLocation" x="590" y="2229"/>
         </scene>
         <!--ADD POST-->
         <scene sceneID="Mjk-Dq-2BD">
@@ -646,7 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xat-Po-jKT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937" y="-156"/>
+            <point key="canvasLocation" x="1457" y="-20"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="Ixl-9i-Qlh">
@@ -820,7 +821,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjb-zp-2Vj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1079" y="1749"/>
+            <point key="canvasLocation" x="1489" y="1393"/>
         </scene>
         <!--Manage Tags View Controller-->
         <scene sceneID="Qip-zu-ylm">
@@ -838,7 +839,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1dB-9O-cDJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="2455"/>
+            <point key="canvasLocation" x="1018" y="1547"/>
         </scene>
         <!--TAG VIEW-->
         <scene sceneID="9Zp-3p-qEj">
@@ -897,7 +898,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y69-Xu-VKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1554" y="-990"/>
+            <point key="canvasLocation" x="1478" y="-698"/>
+        </scene>
+        <!--Edit Comment View Controller-->
+        <scene sceneID="b6S-H1-XqM">
+            <objects>
+                <viewController storyboardIdentifier="EditCommentViewController" id="XHp-qb-GwU" customClass="EditCommentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ag6-7t-cMf"/>
+                        <viewControllerLayoutGuide type="bottom" id="vrA-nb-Zu6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bZj-Dm-IzH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3Cj-xM-afn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DqW-hX-1gj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103" y="864"/>
         </scene>
         <!--Fogot Password View Controller-->
         <scene sceneID="hVL-WL-qWV">
@@ -932,7 +952,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNM-E8-P6N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="986" y="3089"/>
+            <point key="canvasLocation" x="1018" y="2209"/>
         </scene>
     </scenes>
     <resources>
@@ -953,10 +973,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fCv-1J-IEX"/>
+        <segue reference="8rG-1t-Qni"/>
         <segue reference="Jmt-4A-19X"/>
         <segue reference="M8x-x6-6lY"/>
         <segue reference="dLo-Yv-fr4"/>
-        <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="fCv-1J-IEX"/>
     </inferredMetricsTieBreakers>
 </document>

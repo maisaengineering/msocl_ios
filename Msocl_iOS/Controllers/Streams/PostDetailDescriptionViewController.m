@@ -23,6 +23,7 @@
 #import "Base64.h"
 #import "CustomCipher.h"
 #import "TagViewController.h"
+#import "EditCommentViewController.h"
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -441,7 +442,7 @@
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 120, 20)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
     [name setTextColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]];
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
+    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
     [cell.contentView addSubview:name];
     }
     
@@ -472,7 +473,7 @@
     
     //Time
     UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 20)];
-    [time setTextAlignment:NSTextAlignmentRight];
+    [time setTextAlignment:NSTextAlignmentLeft];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
     [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
@@ -674,6 +675,12 @@
 }
 -(void)callCommentApi
 {
+    if(self.txt_comment.text.length ==  0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        return;
+    }
+
     [appDelegate showOrhideIndicator:YES];
     
     PostDetails *postDetls = [storiesArray lastObject];
@@ -1032,7 +1039,13 @@
     [self.navigationController pushViewController:login animated:NO];
 
 }
-
+-(void)CommentEdited:(NSDictionary *)commentDetails
+{
+    PostDetails *postDetails = [storiesArray lastObject];
+    [postDetails.comments replaceObjectAtIndex:commentIndex withObject:commentDetails];
+    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+    [streamTableView reloadData];
+}
 #pragma mark -
 #pragma mark More Options In Comment
 -(void)moreClicked:(id)sender
@@ -1052,6 +1065,9 @@
     {
         [addImageActionSheet addButtonWithTitle:@"Like"];
     }
+    if([[commentDict objectForKey:@"editable"] boolValue])
+        [addImageActionSheet addButtonWithTitle:@"Edit"];
+        
         [addImageActionSheet addButtonWithTitle:@"Flag"];
         
     addImageActionSheet.cancelButtonIndex = [addImageActionSheet addButtonWithTitle:@"Cancel"];
@@ -1093,6 +1109,10 @@
         [emailData setValue:bodyText forKey:@"body"];
         [self sendInappropriateEmail:emailData];
 
+    }
+    else if([title isEqualToString:@"Edit"])
+    {
+        [self performSegueWithIdentifier: @"EditComment" sender: self];
     }
 }
 -(void)CommentUpVote
@@ -1231,12 +1251,19 @@
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
     if ([segue.identifier isEqualToString:@"TagView"])
     {
         
         TagViewController *destViewController = segue.destinationViewController;
         destViewController.tagName = selectedTag;
+    }
+    else if ([segue.identifier isEqualToString:@"EditComment"])
+    {
+        EditCommentViewController *destViewController = segue.destinationViewController;
+        PostDetails *postDetails = [storiesArray lastObject];
+        NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
+
+        destViewController.commentDetails = commentDict;
     }
     
 }

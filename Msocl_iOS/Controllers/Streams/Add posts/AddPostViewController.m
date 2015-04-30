@@ -953,7 +953,17 @@
 }
 -(void)createPost
 {
-    
+    if(textView.text.length == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        return;
+    }
+    if([selectedtagsArray count] == 0)
+    {
+        ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
+        return;
+    }
+
     [appdelegate showOrhideIndicator:YES];
     isPostClicked = YES;
     postButton.enabled = NO;
@@ -1025,7 +1035,7 @@
 }
 
 #pragma Edit Post
--(void)editPostClicked
+-(void)editPost
 {
     if(textView.text.length == 0)
     {
@@ -1037,12 +1047,7 @@
         ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
         return;
     }
-    isPrivate = NO;
-    [self editPost];
 
-}
--(void)editPost
-{
     [appdelegate showOrhideIndicator:YES];
     isPostClicked = YES;
     postButton.enabled = NO;
@@ -1054,7 +1059,6 @@
 }
 -(void)callEditPostApi
 {
-    
     [textView resignFirstResponder];
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     

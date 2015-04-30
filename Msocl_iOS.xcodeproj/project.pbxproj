@@ -187,6 +187,7 @@
 		7F8D80E31AEFC89B00D3F052 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80E21AEFC89B00D3F052 /* PhotoCollectionViewCell.m */; };
 		7F916D4D1AF2012C00103CAF /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D481AF2012C00103CAF /* NIAttributedLabel.m */; };
 		7F916D4E1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D4B1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m */; };
+		7F916D511AF2169400103CAF /* EditCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D501AF2169400103CAF /* EditCommentViewController.m */; };
 		7FF5CC011ACE9E61004F4F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC001ACE9E61004F4F9B /* main.m */; };
 		7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF5CC081ACE9E61004F4F9B /* Main.storyboard */; };
 		7FF5CC1B1ACE9E61004F4F9B /* Msocl_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC1A1ACE9E61004F4F9B /* Msocl_iOSTests.m */; };
@@ -485,6 +486,8 @@
 		7F916D4A1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+NimbusKitAttributedLabel.h"; sourceTree = "<group>"; };
 		7F916D4B1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+NimbusKitAttributedLabel.m"; sourceTree = "<group>"; };
 		7F916D4C1AF2012C00103CAF /* NimbusKitBasics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusKitBasics.h; sourceTree = "<group>"; };
+		7F916D4F1AF2169400103CAF /* EditCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCommentViewController.h; sourceTree = "<group>"; };
+		7F916D501AF2169400103CAF /* EditCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCommentViewController.m; sourceTree = "<group>"; };
 		7FF5CBFB1ACE9E60004F4F9B /* Msocl_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Msocl_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF5CBFF1ACE9E60004F4F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF5CC001ACE9E61004F4F9B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -750,6 +753,8 @@
 				7F599E251AE66E1E00DED294 /* MainStreamsViewController.m */,
 				7F599E2A1AE66E5B00DED294 /* PostDetailDescriptionViewController.h */,
 				7F599E291AE66E5B00DED294 /* PostDetailDescriptionViewController.m */,
+				7F916D4F1AF2169400103CAF /* EditCommentViewController.h */,
+				7F916D501AF2169400103CAF /* EditCommentViewController.m */,
 				7F80DE951AD6AB8000EA6D1F /* StreamDisplayView.h */,
 				7F599E271AE66E3C00DED294 /* StreamDisplayView.m */,
 			);
@@ -1290,6 +1295,7 @@
 				7F5DEFB51AD7C50A00F2C60A /* SDWebImageDownloaderOperation.m in Sources */,
 				7F80DE851AD6AAF700EA6D1F /* ModelManager.m in Sources */,
 				7F80DE5D1AD6544400EA6D1F /* ProfilePhotoUtils.m in Sources */,
+				7F916D511AF2169400103CAF /* EditCommentViewController.m in Sources */,
 				7F5EB3971AE92167004780A9 /* UpdateUserDetailsViewController.m in Sources */,
 				7F83BC601AD14CEF008DFD8B /* AFURLSessionManager.m in Sources */,
 				7F83BC611AD14CEF008DFD8B /* AFNetworkActivityIndicatorManager.m in Sources */,
