@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Webservices.h"
+#import "NIAttributedLabel.h"
 
 @protocol StreamDisplayViewDelegate <NSObject>
 
@@ -16,8 +17,9 @@
 - (void)recievedData:(BOOL)isFollowing;
 - (void)tagCicked:(NSString *)tagName;
 
+
 @end
-@interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol>
+@interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol,NIAttributedLabelDelegate>
 {
     
 }

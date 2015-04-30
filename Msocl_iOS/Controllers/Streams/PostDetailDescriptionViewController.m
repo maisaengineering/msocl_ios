@@ -438,20 +438,48 @@
     //Profile name
     if(!postDetailsObject.anonymous)
     {
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 140, 20)];
+    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 120, 20)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
     [name setTextColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:14]];
     [cell.contentView addSubview:name];
     }
+    
+    UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    if(postDetailsObject.upvoted)
+        [heartButton setImage:[UIImage imageNamed:@"icon-upvote.png"] forState:UIControlStateNormal];
+    else
+        [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
+    [heartButton setFrame:CGRectMake(216, 0, 30, 30)];
+    [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:heartButton];
+    
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(243, 8, 20 , 16)];
+    [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+    [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [cell.contentView addSubview:upVoteCount];
+    
+    
+    UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [flagButton setImage:[UIImage imageNamed:@"flag-inactive.png"] forState:UIControlStateNormal];
+    [flagButton setFrame:CGRectMake(186, 0, 30, 30)];
+    [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:flagButton];
+
+    
+    
     //Time
     UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 20)];
     [time setTextAlignment:NSTextAlignmentRight];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:12]];
+    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
 
     [cell.contentView addSubview:time];
+    
+    
         
     [self addDescription:cell withDetails:postDetailsObject];
     
@@ -521,28 +549,6 @@
 
     
     //Tags
-    UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    if(postDetailsObject.upvoted)
-    [heartButton setImage:[UIImage imageNamed:@"icon-upvote.png"] forState:UIControlStateNormal];
-    else
-    [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(269, yPosition, 30, 30)];
-    [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
-    [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:heartButton];
-    
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(294, yPosition+8, 20 , 16)];
-    [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
-    [upVoteCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
-    [cell.contentView addSubview:upVoteCount];
-    
-    
-    UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [flagButton setImage:[UIImage imageNamed:@"flag-inactive.png"] forState:UIControlStateNormal];
-    [flagButton setFrame:CGRectMake(230, yPosition, 30, 30)];
-    [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
-    [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:flagButton];
 
     
     if([postDetailsObject.tags count] > 0)

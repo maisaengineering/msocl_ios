@@ -195,7 +195,7 @@
 #pragma mark TableViewMethods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 111;
+    return 121;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -309,7 +309,7 @@
     
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:13],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -336,8 +336,9 @@
                 
             }];
             
-        
-            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:1]}];
+            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
+            if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
+            attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:1]}];
             [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
         }
@@ -354,17 +355,18 @@
     [description setNumberOfLines:0];
     [cell.contentView addSubview:description];
     
-    CGSize size = [description sizeThatFits:CGSizeMake(240, 50)];
+    CGSize size = [description sizeThatFits:CGSizeMake(240, 60)];
     
-    if(size.height < 50)
+    if(size.height < 60)
         description.frame = CGRectMake(57, yPosition, 240, size.height);
     else
-        description.frame = CGRectMake(57, yPosition, 240, 50);
-    yPosition += 50;
+        description.frame = CGRectMake(57, yPosition, 240, 60);
+    yPosition += 60;
     
+    STTweetLabel *tweetLabel;
     if([postDetailsObject.tags count] > 0)
     {
-        STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 65, 240 , 17)];
+        tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 75, 240 , 17)];
         [tweetLabel setText:[postDetailsObject.tags componentsJoinedByString:@" "]];
         tweetLabel.textAlignment = NSTextAlignmentCenter;
         [cell.contentView addSubview:tweetLabel];
@@ -384,7 +386,7 @@
     if([postDetailsObject.commenters count] > 0)
     {
         NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 85, 240, 19)];
+        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 95, 240, 19)];
         [cell.contentView addSubview:commentersView];
         
         long int x = 0;
@@ -427,7 +429,14 @@
             }
         }
     }
-    
+    else
+    {
+        tweetLabel.frame = CGRectMake(57, 95, 240 , 17);
+        CGRect frame = description.frame;
+        frame.size.height = 80;
+        description.frame = frame;
+
+    }
     
 }
 

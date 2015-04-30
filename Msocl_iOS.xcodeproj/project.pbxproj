@@ -185,6 +185,8 @@
 		7F8D80DB1AEFC1AD00D3F052 /* tag-tick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D80D61AEFC1AD00D3F052 /* tag-tick@2x.png */; };
 		7F8D80DD1AEFC55000D3F052 /* yoga-img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D80DC1AEFC55000D3F052 /* yoga-img@2x.png */; };
 		7F8D80E31AEFC89B00D3F052 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80E21AEFC89B00D3F052 /* PhotoCollectionViewCell.m */; };
+		7F916D4D1AF2012C00103CAF /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D481AF2012C00103CAF /* NIAttributedLabel.m */; };
+		7F916D4E1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D4B1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m */; };
 		7FF5CC011ACE9E61004F4F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC001ACE9E61004F4F9B /* main.m */; };
 		7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF5CC081ACE9E61004F4F9B /* Main.storyboard */; };
 		7FF5CC1B1ACE9E61004F4F9B /* Msocl_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC1A1ACE9E61004F4F9B /* Msocl_iOSTests.m */; };
@@ -477,6 +479,12 @@
 		7F8D80DC1AEFC55000D3F052 /* yoga-img@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yoga-img@2x.png"; sourceTree = "<group>"; };
 		7F8D80E11AEFC89B00D3F052 /* PhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoCollectionViewCell.h; path = Msocl_iOS/PhotoCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		7F8D80E21AEFC89B00D3F052 /* PhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoCollectionViewCell.m; path = Msocl_iOS/PhotoCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
+		7F916D471AF2012C00103CAF /* NIAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NIAttributedLabel.h; sourceTree = "<group>"; };
+		7F916D481AF2012C00103CAF /* NIAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NIAttributedLabel.m; sourceTree = "<group>"; };
+		7F916D491AF2012C00103CAF /* NimbusKitAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusKitAttributedLabel.h; sourceTree = "<group>"; };
+		7F916D4A1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+NimbusKitAttributedLabel.h"; sourceTree = "<group>"; };
+		7F916D4B1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+NimbusKitAttributedLabel.m"; sourceTree = "<group>"; };
+		7F916D4C1AF2012C00103CAF /* NimbusKitBasics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NimbusKitBasics.h; sourceTree = "<group>"; };
 		7FF5CBFB1ACE9E60004F4F9B /* Msocl_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Msocl_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF5CBFF1ACE9E60004F4F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF5CC001ACE9E61004F4F9B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -782,6 +790,7 @@
 		7F83BC221AD13BD1008DFD8B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				7F916D461AF2011900103CAF /* NIAttributedLabel */,
 				7F4C88EB1AF0B56E008B769C /* ZoomImage */,
 				7F8D80AE1AEF5C6E00D3F052 /* AvoidKeyboard */,
 				7F5F18D91ADE996300C5B4EC /* SWTableViewCell */,
@@ -1033,6 +1042,19 @@
 				7F8D80B21AEF5C8D00D3F052 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 			);
 			name = AvoidKeyboard;
+			sourceTree = "<group>";
+		};
+		7F916D461AF2011900103CAF /* NIAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				7F916D471AF2012C00103CAF /* NIAttributedLabel.h */,
+				7F916D481AF2012C00103CAF /* NIAttributedLabel.m */,
+				7F916D491AF2012C00103CAF /* NimbusKitAttributedLabel.h */,
+				7F916D4A1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.h */,
+				7F916D4B1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m */,
+				7F916D4C1AF2012C00103CAF /* NimbusKitBasics.h */,
+			);
+			name = NIAttributedLabel;
 			sourceTree = "<group>";
 		};
 		7FF5CBF21ACE9E60004F4F9B = {
@@ -1317,6 +1339,7 @@
 				7F5DEFB31AD7C50A00F2C60A /* SDWebImageDecoder.m in Sources */,
 				7F8D80CF1AEFB5C800D3F052 /* CustomCipher.m in Sources */,
 				7F80DE8D1AD6AB3000EA6D1F /* LoadingViewController.m in Sources */,
+				7F916D4E1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m in Sources */,
 				7F5DEFBC1AD7C50A00F2C60A /* UIImageView+HighlightedWebCache.m in Sources */,
 				7F83BC621AD14CEF008DFD8B /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				7F5DEFB81AD7C50A00F2C60A /* UIButton+WebCache.m in Sources */,
@@ -1341,6 +1364,7 @@
 				7F599E311AE66EC700DED294 /* ProfileDateUtils.m in Sources */,
 				7F5F18EB1ADE997200C5B4EC /* SWUtilityButtonView.m in Sources */,
 				7F599E371AE66EF500DED294 /* PostDetails.m in Sources */,
+				7F916D4D1AF2012C00103CAF /* NIAttributedLabel.m in Sources */,
 				7F83BC681AD14CEF008DFD8B /* UIWebView+AFNetworking.m in Sources */,
 				7F2178B71AE51862003D8A33 /* DXPopover.m in Sources */,
 				7F83BC5A1AD14CEF008DFD8B /* AFHTTPSessionManager.m in Sources */,
