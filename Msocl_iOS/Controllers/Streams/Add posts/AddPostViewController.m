@@ -59,6 +59,8 @@
     selectedtagsArray = [[NSMutableArray alloc] init];
     tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     
+    
+    
     popover = [DXPopover popover];
 
    
@@ -752,7 +754,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 
     CGSize retval;
-    retval.height= 90; retval.width = 95; return retval;
+    retval.height= 95; retval.width = 95; return retval;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -762,10 +764,17 @@
     PhotoCollectionViewCell* cell=[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
-    [imageView setImage:[UIImage imageNamed:@"yoga-img.png"]];
+    __weak UIImageView *weakSelf = imageView;
+
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"yoga-img.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
+         
+     }failure:nil];
+    
     [cell addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 70, 95, 20)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 75, 95, 20)];
     label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [label setText:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
@@ -775,7 +784,7 @@
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"tag-tick-active.png"] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(80, 4, 15, 15)];
+    [button setFrame:CGRectMake(80, 8, 15, 15)];
     [cell addSubview:button];
     
     if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])

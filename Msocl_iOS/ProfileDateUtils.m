@@ -342,7 +342,7 @@
             overdueMessage = [dateFormatter1 stringFromDate:date];
         }
         else
-            overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"d ago":@"d ago")];
+            overdueMessage = [NSString stringWithFormat:@"%ld %@", (long)(days), (days==1?@"day ago":@"day ago")];
         
     }
     else if (hours>0)

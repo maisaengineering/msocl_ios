@@ -454,7 +454,7 @@
     {
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 120, 20)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
-    [name setTextColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]];
+    [name setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
     [cell.contentView addSubview:name];
     }

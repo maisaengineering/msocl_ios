@@ -14,6 +14,5 @@
 @property (nonatomic, strong) IBOutlet UIButton *recomondedButton;
 @property (nonatomic, strong) IBOutlet UIButton *manageButton;
 
--(IBAction)recomondOrManageClicked:(id)sender;
 
 @end

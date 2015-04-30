@@ -898,7 +898,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y69-Xu-VKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1478" y="-698"/>
+            <point key="canvasLocation" x="1536" y="-654"/>
         </scene>
         <!--Edit Comment View Controller-->
         <scene sceneID="b6S-H1-XqM">
@@ -974,9 +974,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="8rG-1t-Qni"/>
-        <segue reference="Jmt-4A-19X"/>
-        <segue reference="M8x-x6-6lY"/>
+        <segue reference="Wlp-Jd-hhp"/>
         <segue reference="dLo-Yv-fr4"/>
+        <segue reference="M8x-x6-6lY"/>
         <segue reference="fCv-1J-IEX"/>
     </inferredMetricsTieBreakers>
 </document>

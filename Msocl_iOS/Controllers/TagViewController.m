@@ -47,7 +47,7 @@
     followOrEditBtn.hidden = YES;
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 229, 320, Deviceheight-229)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 219, 320, Deviceheight-219)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
     streamDisplay.tagName = tagName;
@@ -72,6 +72,8 @@
     photoUtils = [ProfilePhotoUtils alloc];
     
     nameLabel.text = tagName;
+
+    
     
    /* __weak UIImageView *weakSelf = profileImageVw;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;

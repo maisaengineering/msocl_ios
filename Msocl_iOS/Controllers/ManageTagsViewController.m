@@ -9,7 +9,8 @@
 #import "ManageTagsViewController.h"
 #import "StringConstants.h"
 #import "ModelManager.h"
-
+#import "UIImageView+AFNetworking.h"
+#import "ProfilePhotoUtils.h"
 @implementation ManageTagsViewController
 {
     UITableView *manageTagsTableView;
@@ -19,6 +20,8 @@
     ModelManager *sharedModel;
     Webservices *webServices;
     NSMutableArray *selectedTags;
+    ProfilePhotoUtils  *photoUtils;
+
 
 }
 @synthesize recomondedButton;
@@ -32,6 +35,8 @@
 
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
+    
+    photoUtils = [ProfilePhotoUtils alloc];
     
     selectedTags = [[NSMutableArray alloc] init];
 
@@ -127,7 +132,16 @@
         [imageView setImage:[UIImage imageNamed:@"tag-tick-active.png"]];
         [cell.contentView addSubview:imageView];
 
-    UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 16, 25, 18)];
+    UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 16, 20, 20)];
+    __weak UIImageView *weakSelf = iconImageView;
+    
+    [iconImageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"yoga-img.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(20, 20)];
+         
+     }failure:nil];
+    
+
     [iconImageView setImage:[UIImage imageNamed:@"yoga-img.png"]];
     [cell.contentView addSubview:iconImageView];
 

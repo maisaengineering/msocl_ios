@@ -259,14 +259,22 @@
     [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     name.textAlignment = NSTextAlignmentCenter;
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
-    [name setTextColor:[UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0]];
+    [name setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
     [cell.contentView addSubview:name];
     }
+    
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
     [profileButton setFrame:CGRectMake(0, yPosition, 54, 18)];
     [cell.contentView addSubview:profileButton];
+
+    UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [profileButton1 addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+    [profileButton1 setFrame:profileImage.frame];
+    [cell.contentView addSubview:profileButton1];
+
     
     
     UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(253, 5, 8, 8)];
