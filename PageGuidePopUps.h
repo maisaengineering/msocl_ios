@@ -19,9 +19,11 @@
 @property (strong, nonatomic) NSMutableDictionary *dicVisitedPage;
 @property (strong, nonatomic) NSMutableArray *arrVisitedPages;
 @property (nonatomic, strong) NSTimer *timer;
+@property (strong, nonatomic) NSMutableArray *grphicsArray;
 
 + (id)sharedInstance;
 - (void)getPageGuidePopUpData;
 -(void)setUpTimerWithStartIn;
 -(void)sendVisitedPageGuides;
+- (void)getAllTimedReminderImagesWithURLS:(NSMutableArray *) pageGuidesArray;
 @end

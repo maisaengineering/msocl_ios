@@ -27,6 +27,10 @@
     NSString *selectedTag;
 }
 @synthesize mostRecentButton;
+@synthesize timerHomepage;
+@synthesize subContext;
+@synthesize homeContext;
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,12 +70,9 @@
                                                  name:RELOAD_ON_LOG_OUT
                                                object:nil];
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    {
+   
         [self check];
-        
-    }
-    else
+    
         [self.navigationItem setHidesBackButton:YES];
 
 
@@ -83,8 +84,8 @@
     [super viewWillDisappear:YES];
     
     //Invalidate the timer
-    if([[pageGuidePopUpsObj  timer] isValid])
-        [[pageGuidePopUpsObj timer] invalidate];
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
 }
@@ -305,16 +306,252 @@
         NSString *context_name = [eachPage objectForKey:@"context"];
         if ([context_name isEqualToString:@"Homepage"])
         {
-            if (![[pageGuidePopUpsObj timer] isValid])
+            homeContext = [[NSMutableDictionary alloc]init];
+            homeContext = [timedReminderData objectAtIndex:index];
+            
+            NSMutableArray *graphicsArray = [eachPage objectForKey:@"graphics"];
+            
+            if (graphicsArray != (id)[NSNull null] && [graphicsArray count] > 0)
             {
-                pageGuidePopUpsObj.dicVisitedPage = eachPage;
-                [pageGuidePopUpsObj setUpTimerWithStartIn];
-                break;
-                
+                for (int j = 0; j < graphicsArray.count; j++)
+                {
+                    NSMutableDictionary *dic = [graphicsArray objectAtIndex:j];
+                    
+                    if ([[dic objectForKey:@"isViewed"] boolValue] == NO)
+                    {
+                        if (![[self timerHomepage] isValid])
+                        {
+                            subContext = [[NSMutableDictionary alloc]init];
+                            subContext = dic;
+                            [self setUpTimerWithStartInSubContext:dic];
+                            break;
+                        }
+                    }
+                    
+                }
             }
+        }
+    }
+}
+-(void)setUpTimerWithStartInSubContext:(NSMutableDictionary *)subContext1
+{
+    NSTimeInterval timeInterval = [[subContext1 valueForKey:@"start"] doubleValue];
+    
+    if (!timerHomepage) {
+        
+        timerHomepage = [NSTimer scheduledTimerWithTimeInterval: timeInterval
+                                                         target: self
+                                                       selector: @selector(displayPromptForNewKidWhenStreamDataEmpty)
+                                                       userInfo: nil
+                                                        repeats: NO];
+    }
+    else
+    {
+        
+        [timerHomepage invalidate];
+        timerHomepage = nil;
+        timerHomepage = [NSTimer scheduledTimerWithTimeInterval: timeInterval
+                                                         target: self
+                                                       selector: @selector(displayPromptForNewKidWhenStreamDataEmpty)
+                                                       userInfo: nil
+                                                        repeats: NO];
+    }
+}
+/// Display the pop up
+-(void)displayPromptForNewKidWhenStreamDataEmpty
+{
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    addPopUpView = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
+    [addPopUpView setBackgroundColor:[UIColor clearColor]];
+    
+    UIImageView *myWhiteBack = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
+    [myWhiteBack setBackgroundColor:[UIColor blackColor]];
+    [addPopUpView addSubview:myWhiteBack];
+    
+    //MARK:POP Up image
+    UIImageView *popUpContent = [[UIImageView alloc] init];
+    [popUpContent setFrame:CGRectMake(19, screenHeight, 283, 377)];
+    
+    NSString *imageURL = [subContext objectForKey:@"asset"];
+    UIImage *thumb;
+    if (imageURL.length >0)
+    {
+        photoUtils = [ProfilePhotoUtils alloc];
+        thumb = [photoUtils getImageFromCache:imageURL];
+        
+        if (thumb == nil)
+        {
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^(void)
+                           {
+                               NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+                               UIImage* image = [[UIImage alloc] initWithData:imageData];
+                               if (image) {
+                                   [photoUtils saveImageToCache:imageURL :image];
+                                   
+                               }
+                           });
+        }
+        else
+        {
+            [popUpContent setImage:thumb];
+        }
+    }
+    else
+    {
+        //[popUpContent setImage:[UIImage imageNamed:@"New_Child_Stream_Empty.png"]];
+    }
+    [popUpContent setImage:thumb];
+    popUpContent.frame = CGRectMake(50, 50,
+                                    thumb.size.width, thumb.size.height);
+    
+    [addPopUpView addSubview:popUpContent];
+    
+    // MARK:Got it button
+    UIButton *gotItButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [gotItButton setTitle:@"Got it" forState:UIControlStateNormal];
+    [gotItButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    if (Deviceheight <568)
+    {
+        gotItButton.frame = CGRectMake(180,417,100,50);
+    }
+    else
+    {
+        gotItButton.frame = CGRectMake(120,440,80,30);
+    }
+    [gotItButton setBackgroundColor:[UIColor redColor]];
+    
+    gotItButton.tag = 1;
+    [addPopUpView addSubview:gotItButton];
+    
+    if (thumb)
+    {
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:addPopUpView];
+    }
+    
+    myWhiteBack.alpha = 0.0f;
+    [UIView animateWithDuration:1.0f
+                          delay:0.f
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         myWhiteBack.alpha = 0.65f;
+                         if (Deviceheight <568)
+                         {
+                             gotItButton.frame = CGRectMake(180,417,100,50);
+                             [popUpContent setFrame:CGRectMake(50, 50,
+                                                               thumb.size.width, thumb.size.height)];
+                         }
+                         else
+                         {
+                             gotItButton.frame = CGRectMake(120,440,80,30);
+                             [popUpContent setFrame:CGRectMake(100, Deviceheight-325,
+                                                               thumb.size.width, thumb.size.height)];
+                         }
+                         
+                     }
+                     completion:nil];
+    
+}
+- (void)buttonClicked:(UIButton *)sender
+{
+    //
+    [addPopUpView removeFromSuperview];
+    
+    
+    NSMutableArray *userDefaultsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    
+    NSMutableArray *newArray = [[NSMutableArray alloc]init];
+    
+    for (int i = 0; i < [userDefaultsArray count]; i++)
+    {
+        NSMutableDictionary *userDefaultsDic = [[NSMutableDictionary alloc]init];
+        userDefaultsDic = [userDefaultsArray objectAtIndex:i];
+        
+        NSMutableDictionary *newDic = [[NSMutableDictionary alloc]init];
+        
+        if ([[userDefaultsDic objectForKey:@"context"] isEqualToString:@"Homepage"])
+        {
+            [newDic setObject:[userDefaultsDic objectForKey:@"context"] forKey:@"context"];
+            [newDic setObject:[userDefaultsDic objectForKey:@"uid"] forKey:@"uid"];
+            
+            NSMutableArray *userDefaultGraphicsArray = [userDefaultsDic objectForKey:@"graphics"];
+            NSMutableArray *newGraphicsArray = [[NSMutableArray alloc]init];
+            
+            for(int i=0;i<[userDefaultGraphicsArray count];i++)
+            {
+                NSMutableDictionary *userDefaultsSubContext = [userDefaultGraphicsArray objectAtIndex:i];
+                
+                if ([[userDefaultsSubContext objectForKey:@"uid"] isEqualToString:[subContext objectForKey:@"uid"]])
+                {
+                    NSMutableDictionary *updatedDic = [[NSMutableDictionary alloc]init];
+                    [updatedDic setObject:[NSNumber numberWithBool:YES] forKey:@"isViewed"];
+                    [updatedDic setObject:[subContext objectForKey:@"asset"] forKey:@"asset"];
+                    [updatedDic setObject:[subContext objectForKey:@"start"] forKey:@"start"];
+                    [updatedDic setObject:[subContext objectForKey:@"uid"] forKey:@"uid"];
+                    
+                    [newGraphicsArray addObject:updatedDic];
+                }
+                else
+                {
+                    [newGraphicsArray addObject:userDefaultsSubContext];
+                }
+            }
+            
+            
+            [newDic setObject:newGraphicsArray forKey:@"graphics"];
+            [newArray addObject:newDic];
+        }
+        else
+        {
+            [newArray addObject:userDefaultsDic];
+        }
+    }
+    DebugLog(@"%@",newArray);
+    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"PageGuidePopUpImages"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    ////////////////////////////////////////
+    
+    
+    NSMutableArray *userDefaultsArray1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    
+    for (int j = 0; j < [userDefaultsArray1 count]; j++)
+    {
+        NSMutableDictionary *userDefaultsDic1 = [[NSMutableDictionary alloc]init];
+        userDefaultsDic1 = [userDefaultsArray1 objectAtIndex:j];
+        
+        NSMutableDictionary *newDic1 = [[NSMutableDictionary alloc]init];
+        
+        if ([[userDefaultsDic1 objectForKey:@"context"] isEqualToString:@"Homepage"])
+        {
+            [newDic1 setObject:[userDefaultsDic1 objectForKey:@"context"] forKey:@"context"];
+            [newDic1 setObject:[userDefaultsDic1 objectForKey:@"uid"] forKey:@"uid"];
+            
+            NSMutableArray *userDefaultGraphicsArray1 = [userDefaultsDic1 objectForKey:@"graphics"];
+            
+            for(int i=0;i<[userDefaultGraphicsArray1 count];i++)
+            {
+                NSMutableDictionary *userDefaultsSubContext1 = [userDefaultGraphicsArray1 objectAtIndex:i];
+                
+                if ([[userDefaultsSubContext1 objectForKey:@"isViewed"] boolValue] == NO)
+                {
+                    if (![[self timerHomepage] isValid])
+                    {
+                        subContext = [[NSMutableDictionary alloc]init];
+                        subContext = userDefaultsSubContext1;
+                        [self setUpTimerWithStartInSubContext:userDefaultsSubContext1];
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
             
         }
     }
 }
-
 @end

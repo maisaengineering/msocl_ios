@@ -11,14 +11,18 @@
 #import "SlideNavigationController.h"
 #import "PageGuidePopUps.h"
 #import "PostDetailDescriptionViewController.h"
-
+#import "ProfilePhotoUtils.h"
 
 @interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol>
 {
     PageGuidePopUps *pageGuidePopUpsObj;
+    UIView *addPopUpView;
+    ProfilePhotoUtils *photoUtils;
 }
 @property (nonatomic, strong) IBOutlet UIButton *mostRecentButton;
-
+@property (nonatomic, strong) NSTimer *timerHomepage;
+@property (nonatomic, strong) NSMutableDictionary *subContext;
+@property (nonatomic, strong) NSMutableDictionary *homeContext;
 
 -(IBAction)addClicked:(id)sender;
 -(IBAction)RecentOrFollowignClicked:(id)sender;

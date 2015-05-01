@@ -15,6 +15,7 @@
 @synthesize timer;
 @synthesize dicVisitedPage;
 @synthesize arrVisitedPages;
+@synthesize grphicsArray;
 
 static PageGuidePopUps *pageGuidePopUpsObject = nil;
 + (id)sharedInstance
@@ -49,10 +50,10 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 {
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
-    NSString *command = @"page_guides";
+    NSString *command = @"time_reminders";
     
     NSMutableDictionary *bodyDetails  = [NSMutableDictionary dictionary];
-    [bodyDetails setValue:DEVICE_UUID      forKey:@"devise_uid"];
+    [bodyDetails setValue:DEVICE_UUID      forKey:@"device_token"];
     
     NSDictionary* postData = @{@"access_token": token.access_token,
                                @"command": command,
@@ -68,10 +69,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 {
     if (pageGuidesArray != (id)[NSNull null] && [pageGuidesArray count] > 0)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:pageGuidesArray forKey:@"PageGuidePopUpImages"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [self getAllTimedReminderImagesWithURLS:pageGuidesArray];
+        [self getAllTimedReminderImagesWithURLS:[pageGuidesArray mutableCopy]];
     }
 }
 -(void)pageGuideImagesFailed
@@ -83,23 +81,55 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 {
     photoUtils = [ProfilePhotoUtils alloc];
     
+    NSMutableArray *updatedTimedReminderArray = [[NSMutableArray alloc]init];
+    
     for(int index = 0; index < [pageGuidesArray count]; index++)
     {
-        NSString *url = [[pageGuidesArray objectAtIndex:index] objectForKey:@"asset"];
-        UIImage *thumb = [photoUtils getImageFromCache:url];
-        if (thumb == nil)
+        // Context
+        NSMutableDictionary *mainContext = [[NSMutableDictionary alloc] init];
+        
+        //Main context name
+        [mainContext setObject:[[pageGuidesArray objectAtIndex:index] objectForKey:@"context"] forKey:@"context"];
+        
+        //Main context uid
+        [mainContext setObject:[[pageGuidesArray objectAtIndex:index] objectForKey:@"uid"] forKey:@"uid"];
+        
+        grphicsArray = [[NSMutableArray alloc]init];
+        NSMutableArray *newGraphicsArray = [[NSMutableArray alloc]init];
+        grphicsArray = [[pageGuidesArray objectAtIndex:index] valueForKey:@"graphics"];
+        for(int i=0;i<[grphicsArray count];i++)
         {
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-            dispatch_async(queue, ^(void)
-                           {
-                               NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-                               UIImage* image = [[UIImage alloc] initWithData:imageData];
-                               if (image) {
-                                   [photoUtils saveImageToCacheWithOutCompression:url :image];
-                               }
-                           });
+            NSMutableDictionary *objectDict=[[NSMutableDictionary alloc] initWithDictionary:[grphicsArray objectAtIndex:i]];
+            
+            // add a bool
+            [objectDict setObject:[NSNumber numberWithBool:NO] forKey:@"isViewed"];
+            
+            NSString *url = [objectDict objectForKey:@"asset"];
+            
+            UIImage *thumb = [photoUtils getImageFromCache:url];
+            if (thumb == nil)
+            {
+                dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+                dispatch_async(queue, ^(void)
+                               {
+                                   NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+                                   UIImage* image = [[UIImage alloc] initWithData:imageData];
+                                   if (image) {
+                                       [photoUtils saveImageToCacheWithOutCompression:url :image];
+                                   }
+                               });
+            }
+            [newGraphicsArray addObject:objectDict];
         }
+        
+        //Main context graphics
+        [mainContext setObject:newGraphicsArray forKey:@"graphics"];
+        [updatedTimedReminderArray addObject:mainContext];
+        
+        
     }
+    [[NSUserDefaults standardUserDefaults] setObject:updatedTimedReminderArray forKey:@"PageGuidePopUpImages"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(void)setUpTimerWithStartIn
@@ -241,26 +271,76 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     //TODO:FIRST DOUBLE CHECK WITH THE UPENDHAR REGARDING THE COMMAND AND BODY
     //TODO: THEN UNCOMMENT BELOW TO SEND THE VISITED PAGES TO THE SERVER WHEN USER MINIMIZE THE APP.
     
-    NSMutableArray *pageGuidesArray = [[NSMutableArray alloc]init];
-    [[NSUserDefaults standardUserDefaults] setObject:pageGuidesArray forKey:@"PageGuidePopUpImages"];
+    
+    
+    NSMutableArray *userDefaulstArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    
+    NSMutableArray *visited_reminders = [[NSMutableArray alloc]init];
+    
+    for (int i = 0; i<[userDefaulstArray count]; i++)
+    {
+        NSMutableDictionary *userDefaultsMainContextDic = [userDefaulstArray objectAtIndexedSubscript:i];
+        NSMutableArray *graphicArray = [userDefaultsMainContextDic objectForKey:@"graphics"];
+        NSMutableArray *arr = [[graphicArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isViewed = 1"]] mutableCopy];
+        
+        if ([arr count]>0)
+        {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            
+            NSMutableArray *graphic_uids = [[NSMutableArray alloc]init];
+            
+            for (int i = 0; i<[arr count]; i++)
+            {
+                NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
+                dic1 = [arr objectAtIndex:i];
+                [graphic_uids addObject:[dic1 objectForKey:@"uid"]];
+            }
+            
+            // graphic_uids
+            [dic setObject:graphic_uids forKey:@"graphic_uids"];
+            
+            // reminder_uid
+            [dic setObject:[userDefaultsMainContextDic objectForKey:@"uid"] forKey:@"reminder_uid"];
+            
+            [visited_reminders addObject:dic];
+        }
+        else
+        {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+            
+            NSMutableArray *graphic_uids = [[NSMutableArray alloc]init];
+            // graphic_uids
+            [dic setObject:graphic_uids forKey:@"graphic_uids"];
+            
+            // reminder_uid
+            [dic setObject:[userDefaultsMainContextDic objectForKey:@"uid"] forKey:@"reminder_uid"];
+            
+            [visited_reminders addObject:dic];
+        }
+    }
+    
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
-    NSString *command = @"visited_page_guides";
+    NSString *command = @"time_reminder_visits";
     
     NSMutableDictionary *bodyDetails  = [NSMutableDictionary dictionary];
-    [bodyDetails setValue:DEVICE_UUID      forKey:@"devise_uid"];
-    [bodyDetails setValue:arrVisitedPages      forKey:@"guide_uids"];
+    [bodyDetails setValue:DEVICE_UUID      forKey:@"device_token"];
+    [bodyDetails setValue:visited_reminders      forKey:@"visited_reminders"];
     
     NSDictionary* postData = @{@"access_token": token.access_token,
                                @"command": command,
                                @"body": bodyDetails};
+    
+    DebugLog(@"%@",postData);
     NSDictionary *userInfo = @{@"command": command};
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     
+    NSMutableArray *pageGuidesArray = [[NSMutableArray alloc]init];
+    [[NSUserDefaults standardUserDefaults] setObject:pageGuidesArray forKey:@"PageGuidePopUpImages"];
 }
 -(void)didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray
 {

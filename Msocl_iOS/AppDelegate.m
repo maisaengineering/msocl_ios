@@ -142,10 +142,8 @@
     if([[[PageGuidePopUps sharedInstance] timer]isValid])
         [[[PageGuidePopUps sharedInstance] timer] invalidate];
     
-    if ([[[PageGuidePopUps sharedInstance] arrVisitedPages] count]>0)
-    {
-        [[PageGuidePopUps sharedInstance] sendVisitedPageGuides];
-    }
+    [[PageGuidePopUps sharedInstance] sendVisitedPageGuides];
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

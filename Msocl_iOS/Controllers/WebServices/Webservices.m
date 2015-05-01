@@ -115,7 +115,8 @@
     {
         [self connectionSuccessComment:responseDict];
     }
-    else if([command isEqualToString:@"page_guides"])
+    
+    else if([command isEqualToString:@"time_reminders"])
     {
         [self connectionSuccessPageGuidePopUpImages:responseDict];
     }
@@ -220,7 +221,7 @@
     {
         [self.delegate commentFailed];
     }
-    else if([command isEqualToString:@"page_guides"])
+    else if([command isEqualToString:@"time_reminders"])
     {
         [self.delegate pageGuideImagesFailed];
     }
