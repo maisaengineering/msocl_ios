@@ -77,15 +77,15 @@
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [postButton addTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setFrame:CGRectMake(250, 0, 35, 44)];
+    [postButton setFrame:CGRectMake(244, 0, 38, 44)];
     [postButton setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
 
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [anonymousButton setImage:[UIImage imageNamed:@"btn-post-more.png"] forState:UIControlStateNormal];
+    [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(285.3, 0, 26, 44)];
+    [anonymousButton setFrame:CGRectMake(282.3, 0, 30, 44)];
     
-    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 13, 18, 18)];
+    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 11, 22, 22)];
 
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -93,7 +93,7 @@
     
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(22, 22)] withRadious:0];
          
      }failure:nil];
     [anonymousButton addSubview:postAnonymous];
@@ -147,18 +147,13 @@
     scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:scrollView];
 
-    UIButton *addPhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addPhotoBtn.frame = CGRectMake(10, 4, 28, 30);
-    [addPhotoBtn setImage:[UIImage imageNamed:@"icon-camera-add.png"] forState:UIControlStateNormal];
-    [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
-    [scrollView addSubview:addPhotoBtn];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+4, 300, 188)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 300, 188)];
     [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
     [scrollView addSubview:imageView];
 
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,addPhotoBtn.frame.origin.y+addPhotoBtn.frame.size.height+8,292, 180)];
-    textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 150)];
+    textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
     textView.delegate = self;
     [scrollView addSubview:textView];
     
@@ -168,7 +163,7 @@
     [placeholderLabel setNumberOfLines:0];
     placeholderLabel.text = @"Write description";
     [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
-    [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:12]];
+    [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]];
     [placeholderLabel setTextColor:[UIColor lightGrayColor]];
     [textView addSubview:placeholderLabel];
 
@@ -179,6 +174,13 @@
                                                    blue:0.63f
                                                   alpha:1.0f]];
     
+    UIButton *addPhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    addPhotoBtn.frame = CGRectMake(15, 150+22, 28, 30);
+    [addPhotoBtn setImage:[UIImage imageNamed:@"icon-camera-add.png"] forState:UIControlStateNormal];
+    [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
+    [scrollView addSubview:addPhotoBtn];
+
+    
     UIButton *donebtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [donebtn setFrame:CGRectMake(250, 0, 70, 40)];
     [donebtn setTitle:@"Done" forState:UIControlStateNormal];
@@ -188,7 +190,7 @@
     
     
     
-    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, textView.frame.origin.y+textView.frame.size.height+20, 300, 20)];
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 300, 20)];
     [selectTagslabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:12]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
@@ -768,7 +770,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
     __weak UIImageView *weakSelf = imageView;
 
-    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"yoga-img.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"tag-placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
@@ -892,37 +894,37 @@
     frame.origin.y += 20;
     btn.frame = frame;
     
-    popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+    popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
     
     if(!isPrivate)
     {
-        UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+        UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
         [postAsLabel setText:@"Post as"];
         [postAsLabel setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+        [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
         [popView addSubview:postAsLabel];
         
-        UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(182, 4, 32, 24)];
+        UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 5, 30, 30)];
         [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
         [popView addSubview:anonymusImage];
         
         UIButton *postBtnAnonymous = [UIButton buttonWithType:UIButtonTypeCustom];
-        postBtnAnonymous.frame = CGRectMake(0, 0, 300, 32);
+        postBtnAnonymous.frame = CGRectMake(0, 0, 300, 40);
         [postBtnAnonymous addTarget:self action:@selector(postAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
         [popView addSubview:postBtnAnonymous];
 
     }
     else
     {
-        UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+        UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
         [postAsLabel1 setText:@"Post as"];
         [postAsLabel1 setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [postAsLabel1 setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
         [popView addSubview:postAsLabel1];
         
-        UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(182, 4, 24, 24)];
+        UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 7, 32, 24)];
         
         __weak UIImageView *weakSelf1 = userImage;
         __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
@@ -936,7 +938,7 @@
         [popView addSubview:userImage];
         
         UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        postBtn.frame = CGRectMake(0, 0, 300, 32);
+        postBtn.frame = CGRectMake(0, 0, 300, 40);
         [postBtn addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
         [popView addSubview:postBtn];
 

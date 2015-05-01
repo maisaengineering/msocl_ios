@@ -59,8 +59,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row == 0)
-        return 75;
-    else return 35;
+        return 90;
+    else return 44;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -98,7 +98,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12];
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
 
     switch (indexPath.row)
     {

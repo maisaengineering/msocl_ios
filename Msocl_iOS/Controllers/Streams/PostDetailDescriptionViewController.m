@@ -71,7 +71,7 @@
     */
     
     storiesArray = [[NSMutableArray alloc] init];
-    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-40);
+    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-50);
     streamTableView.tableFooterView = [[UIView alloc] init];
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
@@ -85,16 +85,16 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;    
     
-    self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 40)];
+    self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 50)];
         self.commentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.commentView];
-    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 40)];
+    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 50)];
     self.txt_comment.delegate = self;
         [self.txt_comment setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
 
     [self.commentView addSubview:self.txt_comment];
         
-        placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, self.txt_comment.frame.size.width - 15.0, 40)];
+        placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, self.txt_comment.frame.size.width - 15.0, 50)];
         //[placeholderLabel setText:placeholder];
         [placeholderLabel setBackgroundColor:[UIColor clearColor]];
         [placeholderLabel setNumberOfLines:0];
@@ -107,26 +107,26 @@
         
     //Upvote
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commentBtn setFrame:CGRectMake(244, 6, 39, 28)];
+    [commentBtn setFrame:CGRectMake(207, 6, 55, 40)];
     [commentBtn setImage:[UIImage imageNamed:@"comment-post.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
     [self.commentView addSubview:commentBtn];
     
         //Upvote
         UIButton *anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [anonymousButton setFrame:CGRectMake(283.3, 6, 29, 28)];
+        [anonymousButton setFrame:CGRectMake(262.3, 6, 48, 40)];
         [anonymousButton setImage:[UIImage imageNamed:@"comment-ana.png"] forState:UIControlStateNormal];
         [anonymousButton addTarget:self action:@selector(anonymousCommentClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.commentView addSubview:anonymousButton];
     
-    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 18, 18)];
+    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(11.5, 7.5, 25, 25)];
     
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
     
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(25, 25)] withRadious:0];
          
      }failure:nil];
     [anonymousButton addSubview:postAnonymous];
@@ -621,18 +621,18 @@
     frame.origin.y = self.commentView.frame.origin.y+2;
     btn.frame = frame;
         
-        popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+        popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
 
         if(isAnonymous)
         {
-            UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+            UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
             [postAsLabel1 setText:@"Comment as"];
             [postAsLabel1 setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel1 setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+            [postAsLabel1 setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
             [popView addSubview:postAsLabel1];
             
-            UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 4, 24, 24)];
+            UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 5, 30, 30)];
             
             __weak UIImageView *weakSelf1 = userImage;
             __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
@@ -645,26 +645,26 @@
             [popView addSubview:userImage];
             
             UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            postBtn.frame = CGRectMake(0, 0, 300, 32);
+            postBtn.frame = CGRectMake(0, 0, 300, 40);
             [postBtn addTarget:self action:@selector(commentClicked:) forControlEvents:UIControlEventTouchUpInside];
             [popView addSubview:postBtn];
 
         }
         else
         {
-            UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+            UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
             [postAsLabel setText:@"Comment as"];
             [postAsLabel setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+            [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
             [popView addSubview:postAsLabel];
             
-            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(192, 4, 32, 24)];
+            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 7, 32, 24)];
             [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
             [popView addSubview:anonymusImage];
             
             UIButton *postBtnAnonymous = [UIButton buttonWithType:UIButtonTypeCustom];
-            postBtnAnonymous.frame = CGRectMake(0, 0, 300, 32);
+            postBtnAnonymous.frame = CGRectMake(0, 0, 300, 40);
             [postBtnAnonymous addTarget:self action:@selector(commentAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
             [popView addSubview:postBtnAnonymous];
 

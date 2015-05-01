@@ -667,17 +667,17 @@
                                 <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" red="0.10980392156862745" green="0.10980392156862745" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="leftTopCell" rowHeight="75" id="nEx-C2-VBe">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="leftTopCell" rowHeight="90" id="nEx-C2-VBe">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nEx-C2-VBe" id="baF-c7-khm">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-profile-register.png" translatesAutoresizingMaskIntoConstraints="NO" id="jwH-ns-Jfc">
-                                                    <rect key="frame" x="54" y="8" width="35" height="35"/>
+                                                    <rect key="frame" x="75" y="6" width="50" height="50"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="meI-dK-BNo">
-                                                    <rect key="frame" x="5" y="47" width="132" height="21"/>
+                                                    <rect key="frame" x="0.0" y="60" width="200" height="21"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -856,9 +856,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="yoga-img.png" translatesAutoresizingMaskIntoConstraints="NO" id="5X5-sC-iHe">
                                 <rect key="frame" x="0.0" y="64" width="320" height="155"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R4W-xm-CXV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tag-cover-strip.png" translatesAutoresizingMaskIntoConstraints="NO" id="R4W-xm-CXV">
                                 <rect key="frame" x="0.0" y="167" width="320" height="52"/>
-                                <color key="backgroundColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sadashiv" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyk-Xj-8yD">
                                 <rect key="frame" x="0.0" y="167" width="320" height="30"/>
@@ -965,6 +964,7 @@
         <image name="icon-profile-register.png" width="50" height="50"/>
         <image name="profile-register.png" width="51" height="50"/>
         <image name="setting-strip.png" width="293" height="34"/>
+        <image name="tag-cover-strip.png" width="320" height="52"/>
         <image name="yoga-img.png" width="95" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
