@@ -23,6 +23,7 @@
 @synthesize comments;
 @synthesize upvoted;
 @synthesize flagged;
+@synthesize commentCount;
 
 -(id)initWithDictionary:(NSDictionary *)response{
     
@@ -75,6 +76,9 @@
             }
             else if ([key isEqualToString:@"flagged"]) {
                 self.flagged = [[response objectForKey:key] boolValue];
+            }
+            else if ([key isEqualToString:@"comment_count"]) {
+                self.commentCount = [[response objectForKey:key] intValue];
             }
         }
     }

@@ -90,7 +90,7 @@
     [self.view addSubview:self.commentView];
     self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 40)];
     self.txt_comment.delegate = self;
-        [self.txt_comment setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+        [self.txt_comment setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
 
     [self.commentView addSubview:self.txt_comment];
         
@@ -454,7 +454,7 @@
     {
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 120, 20)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
-    [name setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [name setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
     [cell.contentView addSubview:name];
     }
@@ -554,7 +554,7 @@
     textView.editable = NO;
     textView.scrollEnabled = NO;
     textView.attributedText = attributedString;
-    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:6/255.0 green:0/255.0 blue:218/255.0 alpha:1.0]};
+    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]};
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
     [textView addGestureRecognizer:tapRecognizer];
@@ -580,8 +580,13 @@
     
     if([postDetailsObject.tags count] > 0)
     {
+        NSMutableArray *tagarray = [[NSMutableArray alloc] init];
+
+        for(NSString *tag in postDetailsObject.tags)
+            [tagarray addObject:[NSString stringWithFormat:@"#%@",tag]];
+
         
-            NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[postDetailsObject.tags componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
+            NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagarray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
             CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
                                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                     context:nil].size;

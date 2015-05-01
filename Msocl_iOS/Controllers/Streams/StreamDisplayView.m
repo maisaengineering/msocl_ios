@@ -16,6 +16,9 @@
 #import "PostDetails.h"
 #import "SDWebImageManager.h"
 #import "STTweetLabel.h"
+#import "UIImage+ResizeMagick.h"
+
+
 @implementation StreamDisplayView
 {
     ProfilePhotoUtils *photoUtils;
@@ -259,7 +262,7 @@
     [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     name.textAlignment = NSTextAlignmentCenter;
     [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
-    [name setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [name setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
     [cell.contentView addSubview:name];
     }
     
@@ -305,8 +308,6 @@
     
     [self addDescription:cell withDetails:postDetailsObject];
     
-    
-    
 }
 -(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
@@ -340,7 +341,7 @@
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
-                textAttachment.image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
+                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"26x16#"] withRadious:3.0];
                 [textView setNeedsDisplay];
                 
             }];
@@ -362,11 +363,12 @@
     textView.editable = NO;
     textView.scrollEnabled = NO;
     textView.attributedText = attributedString;
-    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:6/255.0 green:0/255.0 blue:218/255.0 alpha:1.0]};
+    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]};
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
     [textView addGestureRecognizer:tapRecognizer];
     textView.selectable = YES;
+    [textView setTextAlignment:NSTextAlignmentCenter];
     [cell.contentView addSubview:textView];
     
         textView.frame = CGRectMake(57, yPosition, 240, 60);
@@ -376,7 +378,10 @@
     if([postDetailsObject.tags count] > 0)
     {
         tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 75, 240 , 17)];
-        [tweetLabel setText:[postDetailsObject.tags componentsJoinedByString:@" "]];
+        NSMutableArray *tagarray = [[NSMutableArray alloc] init];
+        for(NSString *tag in postDetailsObject.tags)
+            [tagarray addObject:[NSString stringWithFormat:@"#%@",tag]];
+        [tweetLabel setText:[tagarray componentsJoinedByString:@" "]];
         tweetLabel.textAlignment = NSTextAlignmentCenter;
         [cell.contentView addSubview:tweetLabel];
         
@@ -392,8 +397,6 @@
     
 
     
-    if([postDetailsObject.commenters count] > 0)
-    {
         NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
         UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 95, 240, 19)];
         [cell.contentView addSubview:commentersView];
@@ -401,11 +404,15 @@
         long int x = 0;
         
         if(commenters.count < 6)
-        x = (240 - (19*commenters.count + 3*commenters.count - 1))/2;
+        x = (240 - (19*(commenters.count+1) + 3*(commenters.count) ))/2;
         for(int i = 0; i < commenters.count; i++)
             //for(id dict in array)
         {
-            
+            if(i >= 6 || i == commenters.count)
+            {
+                break;
+            }
+
             NSString *url = [commenters objectAtIndex:i];
             UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 19, 19)];
             [commentersView addSubview:imagVw];
@@ -422,30 +429,20 @@
 
             x+= 19 + 3;
             
-            if(i >= 6)
-            {
-                UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 19, 19)];
-                [imagVw setImage:[UIImage imageNamed:@"comment_Count.png"]];
-                [commentersView addSubview:imagVw];
-                
-                UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, 19 , 19)];
-                [tag setText:[NSString stringWithFormat:@"+20"]];
-                [tag setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
-                [tag setBackgroundColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
-                [imagVw addSubview:tag];
-
-                break;
-            }
         }
-    }
-    else
+    UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 19, 19)];
+    [imagVw setImage:[UIImage imageNamed:@"comment_Count.png"]];
+    [commentersView addSubview:imagVw];
+    
+    if(postDetailsObject.commentCount > 0)
     {
-        tweetLabel.frame = CGRectMake(57, 95, 240 , 17);
-        CGRect frame = textView.frame;
-        frame.size.height = 80;
-        textView.frame = frame;
-
+        UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(2, 4, 15 , 10)];
+        [tag setText:[NSString stringWithFormat:@"%i",postDetailsObject.commentCount]];
+        [tag setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
+        [tag setTextAlignment:NSTextAlignmentCenter];
+        [imagVw addSubview:tag];
     }
+
     
 }
 
@@ -496,7 +493,7 @@
     {
         NSIndexPath *indexPath = [streamTableView indexPathForCell:(UITableViewCell *)textView.superview.superview];
 
-        [self.delegate tableDidSelect:indexPath.row];
+        [self.delegate tableDidSelect:(int)indexPath.row];
     }
     
 }

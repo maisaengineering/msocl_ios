@@ -21,6 +21,7 @@
 @property (nonatomic,strong) NSMutableArray *tags;
 @property (nonatomic,strong) NSMutableArray *comments;
 @property (nonatomic,assign) int upVoteCount;
+@property (nonatomic,assign) int commentCount;
 
 @property (nonatomic, assign) BOOL anonymous;
 @property (nonatomic, assign) BOOL editable;

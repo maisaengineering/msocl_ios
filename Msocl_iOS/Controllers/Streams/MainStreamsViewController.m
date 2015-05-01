@@ -41,15 +41,17 @@
     [self.view addSubview:line];
 
     
-    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 95, 320, Deviceheight-95)];
+    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 65, 320, Deviceheight-65)];
     mostRecent.delegate = self;
     [self.view addSubview:mostRecent];
 
-    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 95, 320, Deviceheight-95)];
+    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 65, 320, Deviceheight-65)];
     following.delegate = self;
     following.isFollowing = YES;
     [self.view addSubview:following];
     following.hidden = YES;
+    
+    [self.view bringSubviewToFront:mostRecentButton];
     
     pageGuidePopUpsObj = [[PageGuidePopUps alloc] init];
 

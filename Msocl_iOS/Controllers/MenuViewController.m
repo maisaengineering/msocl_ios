@@ -140,6 +140,12 @@
     switch (indexPath.row)
     {
         case 0:
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
+            [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
+        }
+
             break;
             
         case 2:
