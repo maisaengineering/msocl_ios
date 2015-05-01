@@ -550,10 +550,12 @@
         
     }while (1);
     //This regex captures all items between []
-    
+    textView.attributedText = attributedString;
+
+    CGSize contentSize = [textView sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
+
     textView.editable = NO;
     textView.scrollEnabled = NO;
-    textView.attributedText = attributedString;
     textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]};
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
@@ -561,9 +563,6 @@
     textView.selectable = YES;
     [cell.contentView addSubview:textView];
     
-    CGSize contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
-                                                        options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                                        context:nil].size;
     
     float height = contentSize.height >21?contentSize.height:21;
     
@@ -785,10 +784,11 @@
         
     }while (1);
     //This regex captures all items between []
+    UITextView *textView = [UITextView new];
+    textView.attributedText = attributedString;
+
     
-    CGSize contentSize = [attributedString boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
-                                               options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
-                                               context:nil].size;
+    CGSize contentSize = [textView sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
     
     
     float height1 = contentSize.height >21?contentSize.height:21;
@@ -805,6 +805,9 @@
     }
     
     NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    
+
+    
     CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
                                             options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;
@@ -820,8 +823,6 @@
 -(CGFloat)cellHeightForComment:(int )row
 {
     NSDictionary *attributes = @{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:14]};
-    
-
     
     PostDetails *postDetails = [storiesArray lastObject];
     NSArray *commentsArray = postDetails.comments;
