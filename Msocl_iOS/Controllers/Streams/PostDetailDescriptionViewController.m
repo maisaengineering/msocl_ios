@@ -524,9 +524,9 @@
             NSTextCheckingResult *match =  [myArray firstObject];
             NSRange matchRange = [match rangeAtIndex:1];
             
-            UIImage  *image = [UIImage imageNamed:@"EmptyProfilePic.jpg"];
+            UIImage  *image = [UIImage imageNamed:@"placeHolder_show.png"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"260x114#"] withRadious:5.0];
+            image = [photoUtils makeRoundedCornersWithBorder:image withRadious:5.0];
             image.accessibilityIdentifier = [postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]];
             textAttachment.image = image;
             
@@ -582,7 +582,7 @@
         NSMutableArray *tagarray = [[NSMutableArray alloc] init];
 
         for(NSString *tag in postDetailsObject.tags)
-            [tagarray addObject:[NSString stringWithFormat:@"#%@",tag]];
+            [tagarray addObject:[NSString stringWithFormat:@"%@",tag]];
 
         
             NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagarray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
@@ -597,7 +597,7 @@
             
             [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
                 
-                [self tagCicked:string];
+               [self tagCicked:[string stringByReplacingOccurrencesOfString:@"#" withString:@""]];
             }];
             
             yPosition += tagsSize.height+10;
@@ -769,9 +769,9 @@
         if(myArray.count > 0)
         {
             NSTextCheckingResult *match =  [myArray firstObject];
-            UIImage  *image = [UIImage imageNamed:@"EmptyProfilePic.jpg"];
+            UIImage  *image = [UIImage imageNamed:@"placeHolder_show.png"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            textAttachment.image = [photoUtils getSubImageFrom:image WithRect:CGRectMake(0, 0, 262, 114)];
+            textAttachment.image = image;
             
             NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:2]}];
             [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
@@ -801,7 +801,7 @@
     NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
     for(NSString *tag in postDetailsObject.tags)
     {
-        [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
+        [tagsArray addObject:[NSString stringWithFormat:@"%@",tag]];
     }
     
     NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];

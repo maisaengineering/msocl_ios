@@ -55,6 +55,9 @@
     [self.view addSubview:following];
     following.hidden = YES;
     
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 30)];
+    [imageView setImage:[UIImage imageNamed:@"semi-transparent.png"]];
+    [self.view addSubview:imageView];
     [self.view bringSubviewToFront:mostRecentButton];
     
     pageGuidePopUpsObj = [[PageGuidePopUps alloc] init];
@@ -63,6 +66,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
+
     [self.navigationController setNavigationBarHidden:NO];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -73,7 +78,6 @@
    
         [self check];
     
-        [self.navigationItem setHidesBackButton:YES];
 
 
     [self refreshWall];

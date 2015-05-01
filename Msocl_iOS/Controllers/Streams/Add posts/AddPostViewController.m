@@ -245,7 +245,9 @@
             NSRange matchRange = [match rangeAtIndex:1];
             NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
             
-            UIImage  *image = [photoUtils imageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
+            
+            
+            UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[UIImage imageNamed:@"placeHolder_wall.png"] withRadious:3.0];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             
             NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
@@ -770,7 +772,9 @@
      {
          weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
-     }failure:nil];
+     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){
+         
+     }];
     
     [cell addSubview:imageView];
     

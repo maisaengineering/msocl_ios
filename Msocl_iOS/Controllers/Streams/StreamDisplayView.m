@@ -261,7 +261,7 @@
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, yPosition, 54, 18)];
     [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     name.textAlignment = NSTextAlignmentCenter;
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
+    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
     [name setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
     [cell.contentView addSubview:name];
     }
@@ -333,7 +333,7 @@
             NSRange matchRange = [match rangeAtIndex:1];
             NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
             
-            UIImage  *image = [photoUtils imageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
+            UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[UIImage imageNamed:@"placeHolder_wall.png"] withRadious:3.0];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
 
             textAttachment.image = image;
@@ -368,10 +368,20 @@
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
     [textView addGestureRecognizer:tapRecognizer];
     textView.selectable = YES;
-    [textView setTextAlignment:NSTextAlignmentCenter];
+    
     [cell.contentView addSubview:textView];
     
         textView.frame = CGRectMake(57, yPosition, 240, 60);
+    
+    CGSize size = [textView sizeThatFits:CGSizeMake(240, MAXFLOAT)];
+    int numLines = size.height / [[UIFont fontWithName:@"HelveticaNeue-Light" size:14] lineHeight];
+
+    
+    if(numLines > 1)
+        [textView setTextAlignment:NSTextAlignmentLeft];
+    else
+        [textView setTextAlignment:NSTextAlignmentCenter];
+
     yPosition += 60;
     
     STTweetLabel *tweetLabel;
@@ -380,14 +390,14 @@
         tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 75, 240 , 17)];
         NSMutableArray *tagarray = [[NSMutableArray alloc] init];
         for(NSString *tag in postDetailsObject.tags)
-            [tagarray addObject:[NSString stringWithFormat:@"#%@",tag]];
+            [tagarray addObject:[NSString stringWithFormat:@"%@",tag]];
         [tweetLabel setText:[tagarray componentsJoinedByString:@" "]];
         tweetLabel.textAlignment = NSTextAlignmentCenter;
         [cell.contentView addSubview:tweetLabel];
         
         
         [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
-            [self.delegate tagCicked:string];
+            [self.delegate tagCicked:[string stringByReplacingOccurrencesOfString:@"#" withString:@""]];
             
         }];
 
@@ -420,7 +430,7 @@
             __weak UIImageView *weakSelf = imagVw;
             
             
-            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"EmptyProfilePic.jpg"] scaledToSize:CGSizeMake(19,19)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"icon-profile-register.pngg"] scaledToSize:CGSizeMake(19,19)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
              {
                  weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(19, 19)] withRadious:0];
                  
@@ -463,7 +473,7 @@
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
     
-    if(indexPath.row == storiesArray.count - 1)
+    if(indexPath.row == storiesArray.count - 2)
         [self callStreamsApi:@"next"];
 }
 

@@ -11,6 +11,7 @@
 #import "ModelManager.h"
 #import "UIImageView+AFNetworking.h"
 #import "ProfilePhotoUtils.h"
+#import "PhotoCollectionViewCell.h"
 @implementation ManageTagsViewController
 {
     UITableView *manageTagsTableView;
@@ -24,8 +25,8 @@
 
 
 }
-@synthesize recomondedButton;
-@synthesize manageButton;
+@synthesize collectionView;
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -49,12 +50,19 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    manageTagsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, 320, Deviceheight)];
-    manageTagsTableView.delegate = self;
-    manageTagsTableView.dataSource = self;
-    manageTagsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    manageTagsTableView.tag = 2;
-    [self.view addSubview:manageTagsTableView];
+    
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    layout.minimumInteritemSpacing = 7;
+    layout.minimumLineSpacing = 7;
+    
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,10, 300, Deviceheight-10) collectionViewLayout:layout];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
+    [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
+    [collectionView setBackgroundColor:[UIColor clearColor]];
+    [self.view addSubview:collectionView];
+    
+
     
     [self getAllGroups];
 }
@@ -86,94 +94,86 @@
     selectedTags = [[responseDict objectForKey:@"favourites"] mutableCopy];
     
     
-    [manageTagsTableView reloadData];
+    [collectionView reloadData];
 }
 -(void)fetchingGroupsFailedWithError
 {
     
 }
 
-
-#pragma mark- UITableView Data Source Methods
-#pragma mark-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+#pragma mark - UICollectionViewDataSource Methods
+#pragma mark -
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    
     return managedTagsArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView1 cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-        static NSString *simpleTableIdentifier = @"ManagedCell";
-        UITableViewCell *cell = [tableView1 dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-        
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        for(UIView *viw in [[cell contentView] subviews])
-            [viw removeFromSuperview];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, 200, 50)];
-    label.text = [[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"];
-    label.textColor = [UIColor colorWithRed:200/255.0 green:199/255.0 blue:203/255.0 alpha:1.0];
-    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
-    [cell.contentView addSubview:label];
-    
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(287, 17.5, 15, 15)];
-        [imageView setImage:[UIImage imageNamed:@"tag-tick-active.png"]];
-        [cell.contentView addSubview:imageView];
+    CGSize retval;
+    retval.height= 95; retval.width = 95; return retval;
+}
 
-    UIImageView *iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 16, 20, 20)];
-    __weak UIImageView *weakSelf = iconImageView;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    [iconImageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"yoga-img.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    static NSString *CellIdentifier = @"cellIdentifier";
+    
+    PhotoCollectionViewCell* cell=[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
+    __weak UIImageView *weakSelf = imageView;
+    
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"yoga-img.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(20, 20)];
+         weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
-     }failure:nil];
+     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){
+         
+     }];
     
-
-    [iconImageView setImage:[UIImage imageNamed:@"yoga-img.png"]];
-    [cell.contentView addSubview:iconImageView];
-
+    [cell addSubview:imageView];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 75, 95, 20)];
+    label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
+    [label setText:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [label setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [cell addSubview:label];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"tag-tick-active.png"] forState:UIControlStateNormal];
+    [button setFrame:CGRectMake(80, 8, 15, 15)];
+    [cell addSubview:button];
+    
     if([selectedTags containsObject:[managedTagsArray objectAtIndex:indexPath.row]])
     {
-        imageView.image = [UIImage imageNamed:@"tag-tick.png"];
-        label.textColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
-        
+        [button setImage:[UIImage imageNamed:@"tag-tick.png"] forState:UIControlStateNormal];
+        [label setBackgroundColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+        [label setTextColor:[UIColor whiteColor]];
     }
-        
-        return cell;
-    
+    return cell;
 }
-- (void)tableView:(UITableView *)tableView1 didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)collectionView:(UICollectionView *)collectionView1 didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if(![selectedTags containsObject:[managedTagsArray objectAtIndex:indexPath.row]])
     {
-            NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
-            AccessToken* token = sharedModel.accessToken;
-            
-            NSDictionary* postData = @{@"command": @"follow",@"access_token": token.access_token};
-            NSDictionary *userInfo = @{@"command": @"followGroup"};
-            
-            NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,[dict objectForKey:@"uid"]];
-            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-       
+        
+        NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
+        AccessToken* token = sharedModel.accessToken;
+        
+        NSDictionary* postData = @{@"command": @"follow",@"access_token": token.access_token};
+        NSDictionary *userInfo = @{@"command": @"followGroup"};
+        
+        NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,[dict objectForKey:@"uid"]];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        
         [selectedTags addObject:dict];
-        [manageTagsTableView reloadData];
 
     }
     else
     {
+        
         NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
         AccessToken* token = sharedModel.accessToken;
         
@@ -182,31 +182,13 @@
         
         NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,[dict objectForKey:@"uid"]];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-     
-
+        
         [selectedTags removeObject:dict];
-        [manageTagsTableView reloadData];
 
+        
     }
+    [collectionView1 reloadData];
 }
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Remove seperator inset
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsZero];
-    }
-    
-    // Prevent the cell from inheriting the Table View's margin settings
-    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
-        [cell setPreservesSuperviewLayoutMargins:NO];
-    }
-    
-    // Explictly set your cell's layout margins
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsZero];
-    }
-}
-
 #pragma mark -
 #pragma mark Follow/Unfollow API call backs
 -(void) followingGroupSuccessFull:(NSDictionary *)recievedDict

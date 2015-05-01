@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Webservices.h"
 
-@interface ManageTagsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,webServiceProtocol>
+@interface ManageTagsViewController : UIViewController<UICollectionViewDelegate, UICollectionViewDataSource,webServiceProtocol>
 
-@property (nonatomic, strong) IBOutlet UIButton *recomondedButton;
-@property (nonatomic, strong) IBOutlet UIButton *manageButton;
-
+@property (strong, nonatomic)  UICollectionView *collectionView;
 
 @end
