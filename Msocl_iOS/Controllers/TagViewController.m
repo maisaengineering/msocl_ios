@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "UserProfileViewCotroller.h"
 #import "UpdateUserDetailsViewController.h"
+#import "UIImage+ResizeMagick.h"
 @implementation TagViewController
 {
     StreamDisplayView *streamDisplay;
@@ -50,7 +51,7 @@
     streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 219, 320, Deviceheight-219)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
-    streamDisplay.tagName = tagName;
+    streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view addSubview:streamDisplay];
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
@@ -73,18 +74,19 @@
     
     nameLabel.text = tagName;
 
+  NSArray *tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
+    NSArray *array = [tagsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",tagName]];
+
+    NSDictionary *dict = [array lastObject];
+   __weak UIImageView *weakSelf = profileImageVw;
     
-    
-   /* __weak UIImageView *weakSelf = profileImageVw;
-    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
-    
-    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photo]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"picture"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
+         weakSelf.image = [image resizedImageByMagick:@"260x114#"];
          
      }failure:nil];
     
-    */
+    
 }
 -(IBAction)addClicked:(id)sender
 {

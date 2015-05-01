@@ -38,8 +38,8 @@
 #define DEVICE_UUID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
 //API URLS
-#define kBASE_URL               @"https://msocl.herokuapp.com"
-#define BASE_URL                @"https://msocl.herokuapp.com/api/"
+#define kBASE_URL               @"https://7b1c3712.ngrok.com/"
+#define BASE_URL                @"https://7b1c3712.ngrok.com//api/"
 
 // OAUTH URL
 #define OAUTH_URL                @"https://msocl.herokuapp.com/users/auth/"

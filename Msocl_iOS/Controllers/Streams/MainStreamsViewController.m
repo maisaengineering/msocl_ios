@@ -66,7 +66,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
 
     [self.navigationController setNavigationBarHidden:NO];
 
@@ -78,6 +77,10 @@
    
         [self check];
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
+    else
+    [self.navigationItem setHidesBackButton:YES];
 
 
     [self refreshWall];

@@ -397,7 +397,7 @@
         
         
         [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
-            [self.delegate tagCicked:[string stringByReplacingOccurrencesOfString:@"#" withString:@""]];
+            [self.delegate tagCicked:string];
             
         }];
 
