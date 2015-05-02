@@ -390,13 +390,10 @@
     addPopUpView = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
     [addPopUpView setBackgroundColor:[UIColor clearColor]];
     
-    UIImageView *myWhiteBack = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
-    [myWhiteBack setBackgroundColor:[UIColor blackColor]];
-    [addPopUpView addSubview:myWhiteBack];
     
     //MARK:POP Up image
     UIImageView *popUpContent = [[UIImageView alloc] init];
-    [popUpContent setFrame:CGRectMake(19, screenHeight, 283, 377)];
+    [popUpContent setFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
     
     NSString *imageURL = [subContext objectForKey:@"asset"];
     UIImage *thumb;
@@ -428,25 +425,13 @@
         //[popUpContent setImage:[UIImage imageNamed:@"New_Child_Stream_Empty.png"]];
     }
     [popUpContent setImage:thumb];
-    popUpContent.frame = CGRectMake(50, 50,
-                                    thumb.size.width, thumb.size.height);
     
     [addPopUpView addSubview:popUpContent];
     
     // MARK:Got it button
     UIButton *gotItButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [gotItButton setTitle:@"Got it" forState:UIControlStateNormal];
     [gotItButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    if (Deviceheight <568)
-    {
-        gotItButton.frame = CGRectMake(180,417,100,50);
-    }
-    else
-    {
-        gotItButton.frame = CGRectMake(120,440,80,30);
-    }
-    [gotItButton setBackgroundColor:[UIColor redColor]];
-    
+    gotItButton.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
     gotItButton.tag = 1;
     [addPopUpView addSubview:gotItButton];
     
@@ -454,28 +439,6 @@
     {
         [[[[UIApplication sharedApplication] delegate] window] addSubview:addPopUpView];
     }
-    
-    myWhiteBack.alpha = 0.0f;
-    [UIView animateWithDuration:1.0f
-                          delay:0.f
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         myWhiteBack.alpha = 0.65f;
-                         if (Deviceheight <568)
-                         {
-                             gotItButton.frame = CGRectMake(180,417,100,50);
-                             [popUpContent setFrame:CGRectMake(50, 50,
-                                                               thumb.size.width, thumb.size.height)];
-                         }
-                         else
-                         {
-                             gotItButton.frame = CGRectMake(120,440,80,30);
-                             [popUpContent setFrame:CGRectMake(100, Deviceheight-325,
-                                                               thumb.size.width, thumb.size.height)];
-                         }
-                         
-                     }
-                     completion:nil];
     
 }
 - (void)buttonClicked:(UIButton *)sender
