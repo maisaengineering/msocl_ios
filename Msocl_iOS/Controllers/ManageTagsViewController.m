@@ -55,7 +55,11 @@
     layout.minimumInteritemSpacing = 7;
     layout.minimumLineSpacing = 7;
     
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,10, 300, Deviceheight-10) collectionViewLayout:layout];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
+        collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,10, 300, Deviceheight-10) collectionViewLayout:layout];
+    else
+        collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,74, 300, Deviceheight-74) collectionViewLayout:layout];
+
     collectionView.delegate = self;
     collectionView.dataSource = self;
     [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];

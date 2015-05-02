@@ -320,7 +320,7 @@ static SlideNavigationController *singletonInstance;
 
 - (BOOL)isMenuOpen
 {
-	return (self.horizontalLocation == 0) ? NO : YES;
+	return (self.leftMenu.view.frame.origin.x == -200) ? NO : YES;
 }
 
 - (void)setEnableShadow:(BOOL)enable
@@ -400,7 +400,7 @@ static SlideNavigationController *singletonInstance;
 	self.leftMenu.view.transform = transform;
 	self.rightMenu.view.transform = transform;
 	
-	self.leftMenu.view.frame = [self initialRectForMenu];
+	self.leftMenu.view.frame = CGRectMake(-200, 0, 200, self.view.frame.size.height);
 	self.rightMenu.view.frame = [self initialRectForMenu];
 }
 
@@ -488,7 +488,7 @@ static SlideNavigationController *singletonInstance;
 						 CGRect rect = self.view.frame;
 						 CGFloat width = self.horizontalSize;
 						 rect.origin.x = (menu == MenuLeft) ? (width - self.slideOffset) : ((width - self.slideOffset )* -1);
-						 [self moveHorizontallyToLocation:200];
+						 [self moveHorizontallyToLocation:0];
 					 }
 					 completion:^(BOOL finished) {
 						 if (completion)
@@ -508,9 +508,9 @@ static SlideNavigationController *singletonInstance;
 						  delay:0
 						options:self.menuRevealAnimationOption
 					 animations:^{
-						 CGRect rect = self.view.frame;
-						 rect.origin.x = 0;
-						 [self moveHorizontallyToLocation:rect.origin.x];
+						 CGRect rect = self.leftMenu.view.frame;
+						 rect.origin.x = -200;
+						 [self.leftMenu.view setFrame:rect];
 					 }
 					 completion:^(BOOL finished) {
 						 if (completion)
@@ -522,13 +522,13 @@ static SlideNavigationController *singletonInstance;
 
 - (void)moveHorizontallyToLocation:(CGFloat)location
 {
-	CGRect rect = self.view.frame;
+	CGRect rect = self.leftMenu.view.frame;
 	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
 	Menu menu = (self.horizontalLocation >= 0 && location >= 0) ? MenuLeft : MenuRight;
     
-    if ((location > 0 && self.horizontalLocation <= 0) || (location < 0 && self.horizontalLocation >= 0)) {
-        [self postNotificationWithName:SlideNavigationControllerDidReveal forMenu:(location > 0) ? MenuLeft : MenuRight];
-    }
+//    if ((location > 0 && self.horizontalLocation <= 0) || (location < 0 && self.horizontalLocation >= 0)) {
+//        [self postNotificationWithName:SlideNavigationControllerDidReveal forMenu:(location > 0) ? MenuLeft : MenuRight];
+//    }
 	
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
     {
@@ -540,9 +540,10 @@ static SlideNavigationController *singletonInstance;
         rect.origin.x = location;
         rect.origin.y = 0;
     }
-	
-	self.view.frame = rect;
-	[self updateMenuAnimation:menu];
+    rect.origin.x= location;
+	self.leftMenu.view.frame = rect;
+    [self.leftMenu.view.superview bringSubviewToFront:self.leftMenu.view];
+	//[self updateMenuAnimation:menu];
 }
 
 - (void)updateMenuAnimation:(Menu)menu
