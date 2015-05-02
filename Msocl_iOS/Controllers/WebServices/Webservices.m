@@ -99,6 +99,10 @@
     {
         [self connectionSuccessGetStreams:responseDict];
     }
+    else if([command isEqualToString:@"GetFav"])
+    {
+        [self connectionSuccessGetFav:responseDict];
+    }
     else if([command isEqualToString:@"ShowPost"])
     {
         [self connectionSuccessGetShowPost:responseDict];
@@ -269,6 +273,10 @@
     {
         [self.delegate resetPasswordFailed];
     }
+    else if([command isEqualToString:@"GetFav"])
+    {
+        [self.delegate FavPostFailed];
+    }
 }
 #pragma mark -
 #pragma mark Connection Success Handlers
@@ -437,6 +445,34 @@
     else
     {
         [self.delegate fetchingGroupsFailedWithError];
+        
+    }
+    
+}
+-(void)connectionSuccessGetFav:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        NSArray *arrayPostDetails = [[respDict objectForKey:@"body"] objectForKey:@"posts"];
+        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+        
+        for(NSDictionary *postDict in arrayPostDetails)
+        {
+            PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];
+            [arrayOfpostDetailsObjects addObject:postObject];
+        }
+        [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"posts"];
+        [self.delegate didReceiveFavPost:dictCopty];
+        
+        
+    }
+    
+    else
+    {
+        [self.delegate FavPostFailed];
         
     }
     

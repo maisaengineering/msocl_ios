@@ -15,6 +15,7 @@
 #import "UserProfileViewCotroller.h"
 #import "TagViewController.h"
 #import "UpdateUserDetailsViewController.h"
+#import "StringConstants.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -25,17 +26,23 @@
     PostDetails *selectedPost;
     int selectedIndex;
     NSString *selectedTag;
+    Webservices *webServices;
+    AppDelegate *appDelegate;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
 @synthesize subContext;
 @synthesize homeContext;
+@synthesize timer;
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
     modelManager =[ModelManager sharedModel];
+    appDelegate = [[UIApplication sharedApplication] delegate];
+    webServices = [[Webservices alloc] init];
+    webServices.delegate = self;
     [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
     
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 94.5, 320, 0.5)];
@@ -75,7 +82,7 @@
                                                object:nil];
     
    
-        [self check];
+    [self check];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
@@ -84,6 +91,9 @@
 
 
     [self refreshWall];
+    [self setUpTimer];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStreamsDataInBackgroundForPUSHNotificationAlerts) name:@"AppFromPassiveState" object:nil];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -94,7 +104,13 @@
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
     
+    if([[self timer] isValid])
+        [[self timer] invalidate];
+
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AppFromPassiveState" object:nil];
+
 }
 -(void)reloadOnLogOut
 {
@@ -561,4 +577,187 @@
         }
     }
 }
+
+#pragma mark -
+#pragma mark Timer Methods For Post
+-(void)setUpTimer
+{
+    if (!timer) {
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval: 5
+                                                 target: self
+                                               selector: @selector(updateStreamData)
+                                               userInfo: nil
+                                                repeats: YES];
+    }
+    else
+    {
+        
+        [timer invalidate];
+        timer = nil;
+        timer = [NSTimer scheduledTimerWithTimeInterval: 5
+                                                 target: self
+                                               selector: @selector(updateStreamData)
+                                               userInfo: nil
+                                                repeats: YES];
+    }
+    [timer fire];
+}
+- (void)updateStreamData
+{
+    [self getStreamsDataInBackgroundForPUSHNotificationAlerts];
+}
+-(void)getStreamsDataInBackgroundForPUSHNotificationAlerts
+{
+    [self callStreamsApi];
+}
+-(void)callStreamsApi
+{
+
+        AccessToken* token = modelManager.accessToken;
+        
+        NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
+        NSString *command = @"all";
+        [body setValue:[NSNumber numberWithInt:0] forKeyPath:@"post_count"];
+        [body setValue:@"new" forKeyPath:@"step"];
+
+        if(!mostRecent.hidden)
+        [body setValue:mostRecent.timeStamp forKeyPath:@"last_modified"];
+        else
+        {
+            [body setValue:following.timeStamp forKeyPath:@"last_modified"];
+            [body setValue:@"favourites" forKeyPath:@"by"];
+            command = @"filter";
+        }
+    
+        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
+    NSDictionary *userInfo;
+    if(!mostRecent.hidden)
+     userInfo = @{@"command": @"GetStreams"};
+    else
+     userInfo = @{@"command": @"GetFav"};
+        
+        NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        
+}
+-(void) didReceiveStreams:(NSDictionary *)responseObject
+{
+        NSDictionary *dict = responseObject;
+        NSMutableArray *storiesArray1 = [[dict objectForKey:@"posts"] mutableCopy];
+
+    if(!mostRecent.hidden)
+    {
+        if (appDelegate.isAppFromBackground == YES)
+        {
+            appDelegate.isAppFromBackground = NO;
+            if(storiesArray1!= nil && storiesArray1.count > 0)
+            {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+                NSDate *oldTimeStamp = [dateFormatter dateFromString:mostRecent.timeStamp];
+                NSDate *newTimeStamp = [dateFormatter dateFromString:[dict objectForKey:@"last_modified"]];
+                if ( ([dict objectForKey:@"etag"] != nil && [[dict objectForKey:@"etag"] length] >0 && ![mostRecent.etag isEqualToString:[dict objectForKey:@"etag"]]) || [newTimeStamp compare:oldTimeStamp] == NSOrderedDescending)
+                {
+                    [mostRecent resetData];
+                    mostRecent.etag = [dict objectForKey:@"etag"];
+                    mostRecent.timeStamp = [dict objectForKey:@"last_modified"];
+                    mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                    [mostRecent.streamTableView setContentOffset:CGPointZero animated:YES];
+                    [mostRecent.streamTableView reloadData];
+                }
+                
+            }
+        }
+        else if (mostRecent.streamTableView.contentOffset.y == 0)
+        {
+            if(storiesArray1!= nil && storiesArray1.count > 0)
+            {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+                NSDate *oldTimeStamp = [dateFormatter dateFromString:mostRecent.timeStamp];
+                NSDate *newTimeStamp = [dateFormatter dateFromString:[dict objectForKey:@"last_modified"]];
+                if ( ([dict objectForKey:@"etag"] != nil && [[dict objectForKey:@"etag"] length] >0 && ![mostRecent.etag isEqualToString:[dict objectForKey:@"etag"]]) || [newTimeStamp compare:oldTimeStamp] == NSOrderedDescending)
+                {
+                
+                        [mostRecent resetData];
+                        mostRecent.timeStamp = [dict objectForKey:@"last_modified"];
+                        mostRecent.etag = [dict objectForKey:@"etag"];
+                        mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                        [mostRecent.streamTableView reloadData];
+                }
+                else
+                {
+                    
+                        mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                        [mostRecent.streamTableView reloadData];
+                }
+            }
+        }
+    }
+}
+-(void) streamsFailed
+{
+    
+}
+-(void) didReceiveFavPost:(NSDictionary *)responseObject
+{
+    NSDictionary *dict = responseObject;
+    NSMutableArray *storiesArray1 = [[dict objectForKey:@"posts"] mutableCopy];
+    
+    if(!following.hidden)
+    {
+        if (appDelegate.isAppFromBackground == YES)
+        {
+            appDelegate.isAppFromBackground = NO;
+            if(storiesArray1!= nil && storiesArray1.count > 0)
+            {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+                NSDate *oldTimeStamp = [dateFormatter dateFromString:following.timeStamp];
+                NSDate *newTimeStamp = [dateFormatter dateFromString:[dict objectForKey:@"last_modified"]];
+                if ( ([dict objectForKey:@"etag"] != nil && [[dict objectForKey:@"etag"] length] >0 && ![following.etag isEqualToString:[dict objectForKey:@"etag"]]) || [newTimeStamp compare:oldTimeStamp] == NSOrderedDescending)
+                {
+                    [following resetData];
+                    following.etag = [dict objectForKey:@"etag"];
+                    following.timeStamp = [dict objectForKey:@"last_modified"];
+                    following.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                    [following.streamTableView setContentOffset:CGPointZero animated:YES];
+                    [following.streamTableView reloadData];
+                }
+                
+            }
+        }
+        else if (following.streamTableView.contentOffset.y == 0)
+        {
+            if(storiesArray1!= nil && storiesArray1.count > 0)
+            {
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+                NSDate *oldTimeStamp = [dateFormatter dateFromString:following.timeStamp];
+                NSDate *newTimeStamp = [dateFormatter dateFromString:[dict objectForKey:@"last_modified"]];
+                if ( ([dict objectForKey:@"etag"] != nil && [[dict objectForKey:@"etag"] length] >0 && ![following.etag isEqualToString:[dict objectForKey:@"etag"]]) || [newTimeStamp compare:oldTimeStamp] == NSOrderedDescending)
+                {
+                    
+                    [following resetData];
+                    following.timeStamp = [dict objectForKey:@"last_modified"];
+                    following.etag = [dict objectForKey:@"etag"];
+                    following.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                    [following.streamTableView reloadData];
+                }
+                else
+                {
+                    
+                    following.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                    [following.streamTableView reloadData];
+                }
+            }
+        }
+    }
+}
+-(void) FavPostFailed
+{
+    
+}
+
 @end

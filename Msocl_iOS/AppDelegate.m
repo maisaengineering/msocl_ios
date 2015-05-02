@@ -24,7 +24,7 @@
 
 @implementation AppDelegate
 @synthesize indicator;
-
+@synthesize isAppFromBackground;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
@@ -65,7 +65,7 @@
         NSLog(@"Revealed %@", menu);
     }];
     
-    
+     isAppFromBackground = NO;
 
     return YES;
 }
@@ -143,11 +143,48 @@
         [[[PageGuidePopUps sharedInstance] timer] invalidate];
     
     [[PageGuidePopUps sharedInstance] sendVisitedPageGuides];
+    
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    if (state == UIApplicationStateInactive)
+    {
+        DebugLog(@"Sent to background by locking screen");
+    }
+    else if (state == UIApplicationStateBackground)
+    {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"kDisplayStatusLocked"])
+        {
+            DebugLog(@"Sent to background by home button/switching to other app");
+        }
+        else
+        {
+            DebugLog(@"Sent to background by locking screen");
+            
+            // Save the Lock button pressed status in UserDefaults
+            
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"kUserClickedLockButton"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+
 
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"kDisplayStatusLocked"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    // checking the Lock button pressed status with UserDefaults
+    
+    BOOL isLockBtnPressed = [[NSUserDefaults standardUserDefaults] boolForKey:@"kUserClickedLockButton"];
+    if (isLockBtnPressed )
+    {
+        isAppFromBackground = YES;
+        
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"kUserClickedLockButton"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -161,6 +198,9 @@
     {
         [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
     }
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"AppFromPassiveState" object:nil];
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

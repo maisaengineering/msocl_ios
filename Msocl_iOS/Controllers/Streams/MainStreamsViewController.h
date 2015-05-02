@@ -12,8 +12,9 @@
 #import "PageGuidePopUps.h"
 #import "PostDetailDescriptionViewController.h"
 #import "ProfilePhotoUtils.h"
+#import "Webservices.h"
 
-@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol>
+@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol,webServiceProtocol>
 {
     PageGuidePopUps *pageGuidePopUpsObj;
     UIView *addPopUpView;
@@ -23,7 +24,9 @@
 @property (nonatomic, strong) NSTimer *timerHomepage;
 @property (nonatomic, strong) NSMutableDictionary *subContext;
 @property (nonatomic, strong) NSMutableDictionary *homeContext;
+@property (nonatomic, strong) NSTimer *timer;
 
+-(void)setUpTimer;
 -(IBAction)addClicked:(id)sender;
 -(IBAction)RecentOrFollowignClicked:(id)sender;
 @end

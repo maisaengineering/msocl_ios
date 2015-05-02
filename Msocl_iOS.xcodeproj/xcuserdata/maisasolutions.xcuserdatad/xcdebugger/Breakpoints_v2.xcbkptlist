@@ -275,13 +275,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/SlideNavigationController.m"
-            timestampString = "452242045.110942"
+            filePath = "Msocl_iOS/Controllers/Streams/MainStreamsViewController.m"
+            timestampString = "452248515.460324"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "592"
-            endingLineNumber = "592"
-            landmarkName = "-prepareMenuForReveal:"
+            startingLineNumber = "700"
+            endingLineNumber = "700"
+            landmarkName = "-streamsFailed"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -30,6 +30,8 @@
 -(void) postCreationFailed;
 -(void) didReceiveStreams:(NSDictionary *)recievedDict;
 -(void) streamsFailed;
+-(void) didReceiveFavPost:(NSDictionary *)recievedDict;
+-(void) FavPostFailed;
 -(void) didReceiveTokens:(NSArray *)tokens;
 -(void) fetchingTokensFailedWithError;
 -(void) didReceiveShowPost:(NSDictionary *)recievedDict;
@@ -62,6 +64,7 @@
 -(void) flagCommentFailed;
 -(void) resetPasswordSuccessFull:(NSDictionary *)recievedDict;
 -(void) resetPasswordFailed;
+
 
 @end
 
