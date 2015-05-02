@@ -91,14 +91,16 @@
                  
              }failure:nil];
         [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
-        
+        [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];
+        [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
+
         return cell;
 
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+    cell.textLabel.font = [UIFont fontWithName:@"Ubuntu-Medium" size:16];
 
     switch (indexPath.row)
     {

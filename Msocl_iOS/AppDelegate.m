@@ -39,7 +39,7 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor blackColor], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"HelveticaNeue-Light" size:18], NSFontAttributeName, nil]];
+                                                           [UIFont fontWithName:@"Ubuntu-Light" size:18], NSFontAttributeName, nil]];
 
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"

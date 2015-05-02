@@ -1278,7 +1278,7 @@ CGSize NISizeOfAttributedStringConstrainedToSize(NSAttributedString* attributedS
         CGPoint lineOrigin = lineOrigins[lineIndex];
         lineOrigin.y -= rect.origin.y; // adjust for verticalTextAlignment
         lineOrigin.y -= y;
-        if(self.font == [UIFont fontWithName:@"HelveticaNeue-Light" size:14])
+        if(self.font == [UIFont fontWithName:@"Ubuntu-Light" size:14])
         {
             if(lineIndex > 0)
             {

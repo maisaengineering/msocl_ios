@@ -23,9 +23,17 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.8</string>
+	<string>1.9</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ubuntu-R.ttf</string>
+		<string>Ubuntu-L.ttf</string>
+		<string>Ubuntu-M.ttf</string>
+		<string>Typo Grotesk Demo.otf</string>
+		<string>Typo Grotesk Thin Demo.otf</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

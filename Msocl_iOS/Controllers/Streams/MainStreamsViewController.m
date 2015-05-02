@@ -46,7 +46,7 @@
     [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
     
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 94.5, 320, 0.5)];
-    line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+    line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
     line.backgroundColor = [UIColor colorWithRed:(225/255.f) green:(225/255.f) blue:(225/255.f) alpha:1];
     [self.view addSubview:line];

@@ -55,7 +55,7 @@
     [rightButton setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
     [rightButton setTitle:@"Reset" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [rightButton.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
+    [rightButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:15]];
     rightButton.frame = CGRectMake(0 ,0,50,30);
     rightButton.layer.cornerRadius = 5; // this value vary as per your desire
     rightButton.clipsToBounds = YES;

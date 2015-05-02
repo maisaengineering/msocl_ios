@@ -86,7 +86,7 @@
     [self.view addSubview:imageView];
     
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,78,292, 100)];
-    textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13];
+    textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:13];
     textView.delegate = self;
     [self.view addSubview:textView];
 
@@ -133,7 +133,7 @@
             [postAsLabel1 setText:@"Comment as"];
             [postAsLabel1 setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel1 setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+            [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
             [popView addSubview:postAsLabel1];
             
             UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 4, 24, 24)];
@@ -160,7 +160,7 @@
             [postAsLabel setText:@"Comment as"];
             [postAsLabel setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+            [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
             [popView addSubview:postAsLabel];
             
             UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(192, 4, 32, 24)];

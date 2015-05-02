@@ -38,7 +38,7 @@
     [lblLoading setBackgroundColor:[UIColor clearColor]];
     [lblLoading setTextAlignment:NSTextAlignmentCenter];
     [lblLoading setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-    [lblLoading setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:20]];
+    [lblLoading setFont:[UIFont fontWithName:@"Ubuntu-Light" size:20]];
     [self.view addSubview:lblLoading];
 }
 - (void)viewWillAppear:(BOOL)animated

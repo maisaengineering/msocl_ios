@@ -153,7 +153,7 @@
     [scrollView addSubview:imageView];
 
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 150)];
-    textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14];
+    textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:14];
     textView.delegate = self;
     [scrollView addSubview:textView];
     
@@ -184,14 +184,14 @@
     UIButton *donebtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [donebtn setFrame:CGRectMake(250, 0, 70, 40)];
     [donebtn setTitle:@"Done" forState:UIControlStateNormal];
-    [donebtn.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Medium" size:15]];
+    [donebtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:15]];
     [donebtn addTarget:self action:@selector(doneClick:) forControlEvents:UIControlEventTouchUpInside];
     [inputView addSubview:donebtn];
     
     
     
     UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 300, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"HelveticaNeue-Roman" size:12]];
+    [selectTagslabel setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:14]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
     
@@ -233,7 +233,7 @@
     [postButton setTitle:@"Save" forState:UIControlStateNormal];
     [postButton removeTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
     [postButton addTarget:self action:@selector(editPost) forControlEvents:UIControlEventTouchUpInside];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -784,7 +784,7 @@
     label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [label setText:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:12]];
+    [label setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
     [label setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
     [cell addSubview:label];
     
@@ -902,7 +902,7 @@
         [postAsLabel setText:@"Post as"];
         [postAsLabel setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
+        [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
         [popView addSubview:postAsLabel];
         
         UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 5, 30, 30)];
@@ -921,7 +921,7 @@
         [postAsLabel1 setText:@"Post as"];
         [postAsLabel1 setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel1 setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14]];
+        [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
         [popView addSubview:postAsLabel1];
         
         UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 7, 32, 24)];

@@ -54,7 +54,9 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     
     NSMutableDictionary *bodyDetails  = [NSMutableDictionary dictionary];
     [bodyDetails setValue:DEVICE_UUID      forKey:@"device_token"];
-    
+    [bodyDetails setValue:@""      forKey:@"mobile_pattern"];
+    [bodyDetails setValue:@""      forKey:@"version"];
+
     NSDictionary* postData = @{@"access_token": token.access_token,
                                @"command": command,
                                @"body": bodyDetails};

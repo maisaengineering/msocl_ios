@@ -40,7 +40,7 @@
 
     
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 228.5, 320, 0.5)];
-    line.font =[UIFont fontWithName:@"HelveticaNeue-Light" size:10];
+    line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
     line.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
     [self.view addSubview:line];
@@ -181,6 +181,10 @@
 }
 - (void)tagCicked:(NSString *)tag
 {
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    TagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"TagViewController"];
+    tagView.tagName = tag;
+    [self.navigationController pushViewController:tagView animated:YES];
 
 }
 - (void)recievedData:(BOOL)isFollowing

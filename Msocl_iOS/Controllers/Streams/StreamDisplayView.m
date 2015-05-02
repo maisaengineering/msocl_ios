@@ -261,8 +261,8 @@
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, yPosition, 54, 18)];
     [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
     name.textAlignment = NSTextAlignmentCenter;
-    [name setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
-    [name setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
+    [name setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
+    [name setTextColor:[UIColor blackColor]];
     [cell.contentView addSubview:name];
     }
     
@@ -302,7 +302,7 @@
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [heartCount setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
-    [heartCount setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
+    [heartCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
     [cell.contentView addSubview:heartCount];
 
     
@@ -317,9 +317,11 @@
     //Description
     UITextView *textView = [[UITextView alloc] init];
     
+    NSLog(@"%@",[UIFont familyNames]);
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:15],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -348,7 +350,7 @@
             
             NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
             if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-            attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Light" size:1]}];
+            attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
             [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
         }
@@ -374,7 +376,7 @@
         textView.frame = CGRectMake(57, yPosition, 240, 60);
     
     CGSize size = [textView sizeThatFits:CGSizeMake(240, MAXFLOAT)];
-    int numLines = size.height / [[UIFont fontWithName:@"HelveticaNeue-Light" size:14] lineHeight];
+    int numLines = size.height / [[UIFont fontWithName:@"Ubuntu-Light" size:14] lineHeight];
 
     
     if(numLines > 1)
@@ -448,7 +450,7 @@
     {
         UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(2, 4, 15 , 10)];
         [tag setText:[NSString stringWithFormat:@"%i",postDetailsObject.commentCount]];
-        [tag setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:10]];
+        [tag setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
         [tag setTextAlignment:NSTextAlignmentCenter];
         [imagVw addSubview:tag];
     }
