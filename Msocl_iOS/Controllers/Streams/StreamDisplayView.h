@@ -16,7 +16,7 @@
 - (void)userProifleClicked:(int)index;
 - (void)recievedData:(BOOL)isFollowing;
 - (void)tagCicked:(NSString *)tagName;
-
+- (void)tableScrolled:(float)y;
 
 @end
 @interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol,NIAttributedLabelDelegate>

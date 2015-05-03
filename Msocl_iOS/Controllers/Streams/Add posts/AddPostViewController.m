@@ -163,7 +163,7 @@
     [placeholderLabel setNumberOfLines:0];
     placeholderLabel.text = @"Write description";
     [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
-    [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]];
+    [placeholderLabel setFont:[UIFont fontWithName:@"Ubuntu-LightItalic" size:14]];
     [placeholderLabel setTextColor:[UIColor lightGrayColor]];
     [textView addSubview:placeholderLabel];
 

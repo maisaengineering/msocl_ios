@@ -96,6 +96,10 @@
     {
         [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
     }
+    else
+    {
+        [[PageGuidePopUps sharedInstance] getAllTimedReminderImagesWithURLS:pageGuidePopUpData];
+    }
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];

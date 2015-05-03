@@ -30,7 +30,7 @@
     webServices.delegate = self;
     
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
+    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:12.0];
     
     txt_password.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Enter password"
@@ -116,6 +116,7 @@
 }
 -(void)loginSccessfull:(NSDictionary *)responseDict
 {
+    
     [appdelegate showOrhideIndicator:NO];
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];

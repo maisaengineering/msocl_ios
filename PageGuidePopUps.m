@@ -9,6 +9,7 @@
 #import "PageGuidePopUps.h"
 #import "ModelManager.h"
 #import "StringConstants.h"
+#import <sys/utsname.h>
 
 @implementation PageGuidePopUps
 
@@ -52,10 +53,12 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     AccessToken* token = sharedModel.accessToken;
     NSString *command = @"time_reminders";
     
+    NSString *deviceModel = [self deviceName];
+    
     NSMutableDictionary *bodyDetails  = [NSMutableDictionary dictionary];
     [bodyDetails setValue:DEVICE_UUID      forKey:@"device_token"];
-    [bodyDetails setValue:@""      forKey:@"mobile_pattern"];
-    [bodyDetails setValue:@""      forKey:@"version"];
+    [bodyDetails setValue:[[deviceModel componentsSeparatedByString:@" "] firstObject]      forKey:@"mobile_pattern"];
+    [bodyDetails setValue:[[deviceModel componentsSeparatedByString:@" "] lastObject]      forKey:@"version"];
 
     NSDictionary* postData = @{@"access_token": token.access_token,
                                @"command": command,
@@ -352,4 +355,59 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 {
     
 }
+
+- (NSString*) deviceName
+{
+    struct utsname systemInfo;
+    
+    uname(&systemInfo);
+    
+    NSString* code = [NSString stringWithCString:systemInfo.machine
+                                        encoding:NSUTF8StringEncoding];
+    
+    static NSDictionary* deviceNamesByCode = nil;
+    
+    if (!deviceNamesByCode) {
+        
+        deviceNamesByCode = @{@"i386"      :@"iPhone 4",
+                              @"x86_64"    :@"iPhone 4",
+                              @"iPod1,1"   :@"iPhone 4",      // (Original)
+                              @"iPod2,1"   :@"iPhone 4",      // (Second Generation)
+                              @"iPod3,1"   :@"iPhone 4",      // (Third Generation)
+                              @"iPod4,1"   :@"iPhone 4",      // (Fourth Generation)
+                              @"iPhone1,1" :@"iPhone 4",          // (Original)
+                              @"iPhone1,2" :@"iPhone 4",          // (3G)
+                              @"iPhone2,1" :@"iPhone 4",          // (3GS)
+                              @"iPad1,1"   :@"iPhone 4",            // (Original)
+                              @"iPad2,1"   :@"iPhone 4",          //
+                              @"iPad3,1"   :@"iPhone 4",            // (3rd Generation)
+                              @"iPhone3,1" :@"iPhone 4",        // (GSM)
+                              @"iPhone3,3" :@"iPhone 4",        // (CDMA/Verizon/Sprint)
+                              @"iPhone4,1" :@"iPhone 4",       //
+                              @"iPhone5,1" :@"iPhone 5",        // (model A1428, AT&T/Canada)
+                              @"iPhone5,2" :@"iPhone 5",        // (model A1429, everything else)
+                              @"iPad3,4"   :@"iPhone 4",            // (4th Generation)
+                              @"iPad2,5"   :@"iPhone 4",       // (Original)
+                              @"iPhone5,3" :@"iPhone 5",       // (model A1456, A1532 | GSM)
+                              @"iPhone5,4" :@"iPhone 5",       // (model A1507, A1516, A1526 (China), A1529 | Global)
+                              @"iPhone6,1" :@"iPhone 5",       // (model A1433, A1533 | GSM)
+                              @"iPhone6,2" :@"iPhone 5",       // (model A1457, A1518, A1528 (China), A1530 | Global)
+                              @"iPhone7,1" :@"iPhone 6plus",   //
+                              @"iPhone7,2" :@"iPhone 6",        //
+                              @"iPad4,1"   :@"iPhone 4",        // 5th Generation iPad (iPad Air) - Wifi
+                              @"iPad4,2"   :@"iPhone 4",        // 5th Generation iPad (iPad Air) - Cellular
+                              @"iPad4,4"   :@"iPhone 4",       // (2nd Generation iPad Mini - Wifi)
+                              @"iPad4,5"   :@"iPhone 4"        // (2nd Generation iPad Mini - Cellular)
+                              };
+    }
+    
+    NSString* deviceName = [deviceNamesByCode objectForKey:code];
+    
+    if (!deviceName) {
+            deviceName = @"iPhone 4";
+    }
+    
+    return deviceName;
+}
+
 @end

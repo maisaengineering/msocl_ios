@@ -161,18 +161,6 @@
                     <view key="view" contentMode="scaleToFill" id="YSH-8p-2nG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AI-C3-WBq">
-                                <rect key="frame" x="0.0" y="65" width="320" height="30"/>
-                                <state key="normal" image="icon-favorite-disable.png">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="RecentOrFollowignClicked:" destination="pTI-2x-fJr" eventType="touchUpInside" id="hFd-iM-WqM"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="M SOCIAL" id="60h-W4-ai0">
@@ -183,7 +171,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="mostRecentButton" destination="9AI-C3-WBq" id="CW0-mS-34J"/>
                         <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="qU5-jb-Cet"/>
                         <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="TSv-V5-Dr2"/>
                         <segue destination="a4M-BD-S81" kind="push" identifier="UserProfile" id="hMW-K8-sV6"/>
@@ -1000,10 +987,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dLo-Yv-fr4"/>
-        <segue reference="Jmt-4A-19X"/>
-        <segue reference="M8x-x6-6lY"/>
-        <segue reference="fCv-1J-IEX"/>
         <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="hMW-K8-sV6"/>
+        <segue reference="qU5-jb-Cet"/>
+        <segue reference="Wlp-Jd-hhp"/>
+        <segue reference="TSv-V5-Dr2"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -69,10 +69,9 @@
     if([url hasPrefix:kidsLinkPrefix])
     {
         // socl://fb_success/uid=c2e872f7-58ac-4f19-bd95-5137f5d8a355.
-        
         NSString *uid = [url substringFromIndex:22];
         [self callExternalSignInAPIWithUserUId:uid];
-        }
+    }
     return YES;
 }
 

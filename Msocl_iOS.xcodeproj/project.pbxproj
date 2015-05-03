@@ -161,6 +161,7 @@
 		7F86E5951ADBF0A50002493F /* icon-post-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86E5941ADBF0A50002493F /* icon-post-@2x.png */; };
 		7F86E5971ADC06C50002493F /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86E5961ADC06C50002493F /* time@2x.png */; };
 		7F8895581AEB6A7B000AD083 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8895571AEB6A7B000AD083 /* TagViewController.m */; };
+		7F88A78E1AF610B200C87B45 /* Ubuntu-LI.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F88A78D1AF610B200C87B45 /* Ubuntu-LI.ttf */; };
 		7F8998F31AD25DA5007E2917 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8998F21AD25DA5007E2917 /* UIKit.framework */; };
 		7F8998F51AD25DAC007E2917 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8998F41AD25DAC007E2917 /* Foundation.framework */; };
 		7F8998F71AD25DC5007E2917 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8998F61AD25DC5007E2917 /* QuartzCore.framework */; };
@@ -458,6 +459,7 @@
 		7F86E5961ADC06C50002493F /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
 		7F8895561AEB6A7B000AD083 /* TagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
 		7F8895571AEB6A7B000AD083 /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
+		7F88A78D1AF610B200C87B45 /* Ubuntu-LI.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-LI.ttf"; sourceTree = "<group>"; };
 		7F8998F21AD25DA5007E2917 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7F8998F41AD25DAC007E2917 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7F8998F61AD25DC5007E2917 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -728,6 +730,7 @@
 		7F7E96ED1AF4EA0500995667 /* font */ = {
 			isa = PBXGroup;
 			children = (
+				7F88A78D1AF610B200C87B45 /* Ubuntu-LI.ttf */,
 				7F7E96EE1AF4F95800995667 /* Typo Grotesk Demo.otf */,
 				7F7E96F01AF4FF4F00995667 /* Typo Grotesk Thin Demo.otf */,
 				7F7E96F21AF508C900995667 /* Ubuntu-L.ttf */,
@@ -1243,6 +1246,7 @@
 				7F8999221AD2B1F6007E2917 /* tour_1@2x.png in Resources */,
 				7F8D80DB1AEFC1AD00D3F052 /* tag-tick@2x.png in Resources */,
 				7F5941C31AF3AA53001F79BD /* tag-cover-strip@2x.png in Resources */,
+				7F88A78E1AF610B200C87B45 /* Ubuntu-LI.ttf in Resources */,
 				7F8D80D11AEFC19200D3F052 /* textfield@2x.png in Resources */,
 				7F714F371AE79A2B00C69BF4 /* icon-more@2x.png in Resources */,
 				7F5941C51AF3AD55001F79BD /* tag-placeholder@2x.png in Resources */,

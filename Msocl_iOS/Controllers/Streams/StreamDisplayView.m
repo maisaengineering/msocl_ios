@@ -317,7 +317,6 @@
     //Description
     UITextView *textView = [[UITextView alloc] init];
     
-    NSLog(@"%@",[UIFont familyNames]);
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
     
@@ -509,5 +508,8 @@
     }
     
 }
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+    {
+        [self.delegate tableScrolled:scrollView.contentOffset.y];
+    }
 @end

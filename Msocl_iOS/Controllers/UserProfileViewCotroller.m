@@ -237,7 +237,10 @@
         [streamDisplay.streamTableView reloadData];
     
 }
-
+- (void)tableScrolled:(float)y
+{
+    
+}
 
 @end
 

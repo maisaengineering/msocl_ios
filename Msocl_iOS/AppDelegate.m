@@ -194,9 +194,17 @@
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"] && token.access_token.length>0)
+    if(token.access_token.length>0)
     {
-        [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
+        NSMutableArray *pageGuidePopUpData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+        if ([pageGuidePopUpData count] == 0)
+        {
+            [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
+        }
+        else
+        {
+            [[PageGuidePopUps sharedInstance] getAllTimedReminderImagesWithURLS:pageGuidePopUpData];
+        }
     }
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"AppFromPassiveState" object:nil];

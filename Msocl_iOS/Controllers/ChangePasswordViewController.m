@@ -54,7 +54,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButton;
 
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
+    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:12.0];
     
     txt_oldPassword.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Current password"

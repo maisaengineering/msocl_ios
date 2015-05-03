@@ -28,6 +28,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Ubuntu-LI.ttf</string>
 		<string>Ubuntu-R.ttf</string>
 		<string>Ubuntu-L.ttf</string>
 		<string>Ubuntu-M.ttf</string>

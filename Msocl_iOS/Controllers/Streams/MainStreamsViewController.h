@@ -14,13 +14,13 @@
 #import "ProfilePhotoUtils.h"
 #import "Webservices.h"
 
-@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol,webServiceProtocol>
+@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol,webServiceProtocol,UISearchBarDelegate>
 {
     PageGuidePopUps *pageGuidePopUpsObj;
     UIView *addPopUpView;
     ProfilePhotoUtils *photoUtils;
 }
-@property (nonatomic, strong) IBOutlet UIButton *mostRecentButton;
+@property (nonatomic, strong) UIButton *mostRecentButton;
 @property (nonatomic, strong) NSTimer *timerHomepage;
 @property (nonatomic, strong) NSMutableDictionary *subContext;
 @property (nonatomic, strong) NSMutableDictionary *homeContext;
@@ -28,5 +28,5 @@
 
 -(void)setUpTimer;
 -(IBAction)addClicked:(id)sender;
--(IBAction)RecentOrFollowignClicked:(id)sender;
+-(void)RecentOrFollowignClicked:(id)sender;
 @end

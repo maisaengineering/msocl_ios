@@ -28,6 +28,8 @@
     NSString *selectedTag;
     Webservices *webServices;
     AppDelegate *appDelegate;
+    UISearchBar *searchBar;
+    UIImageView *imageView;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -43,12 +45,12 @@
     appDelegate = [[UIApplication sharedApplication] delegate];
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
-    [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
+    
     
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 94.5, 320, 0.5)];
     line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
-    line.backgroundColor = [UIColor colorWithRed:(225/255.f) green:(225/255.f) blue:(225/255.f) alpha:1];
+    line.backgroundColor = [UIColor clearColor];
     [self.view addSubview:line];
 
     
@@ -62,13 +64,37 @@
     [self.view addSubview:following];
     following.hidden = YES;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 30)];
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 30)];
     [imageView setImage:[UIImage imageNamed:@"semi-transparent.png"]];
     [self.view addSubview:imageView];
     [self.view bringSubviewToFront:mostRecentButton];
     
-    pageGuidePopUpsObj = [[PageGuidePopUps alloc] init];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
+    searchBar.delegate = self;
+    
+    //style the color behind the textbox
+    searchBar.barTintColor = [UIColor colorWithRed:(255/255.f) green:(255/255.f) blue:(255/255.f) alpha:0];
+    [searchBar setBackgroundImage:[[UIImage alloc]init]];
+    //Style the actual text box
+    UITextField *txfSearchField = [searchBar valueForKey:@"_searchField"];
+    [txfSearchField setBackgroundColor:[UIColor whiteColor]];
+    [txfSearchField setBorderStyle:UITextBorderStyleNone];
+    txfSearchField.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
 
+    
+    UIImageView *lineImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 31.5, 300, 0.5)];
+    [lineImage setBackgroundColor:[UIColor lightGrayColor]];
+    [searchBar addSubview:lineImage];
+    
+    mostRecentButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [mostRecentButton addTarget:self action:@selector(RecentOrFollowignClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite-disable.png"] forState:UIControlStateNormal];
+    [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
+    mostRecentButton.frame= CGRectMake(0, 65, 320, 30) ;
+    [self.view addSubview:mostRecentButton];
+
+    
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -82,10 +108,14 @@
                                                object:nil];
     
    
+    
     [self check];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+    
     [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
+    }
     else
     [self.navigationItem setHidesBackButton:YES];
 
@@ -93,6 +123,7 @@
     [self refreshWall];
     [self setUpTimer];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStreamsDataInBackgroundForPUSHNotificationAlerts) name:@"AppFromPassiveState" object:nil];
+
 
 }
 
@@ -281,7 +312,7 @@
         [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
         [mostRecent resetData];
         [mostRecent callStreamsApi:@"next"];
-        
+
     }
     else
     {
@@ -294,6 +325,8 @@
 
     }
     mostRecentButton.selected = !mostRecentButton.selected;
+        
+
     }
     else
     {
@@ -458,7 +491,7 @@
         
         NSMutableDictionary *newDic = [[NSMutableDictionary alloc]init];
         
-        if ([[userDefaultsDic objectForKey:@"context"] isEqualToString:@"Homepage"])
+        if ([[userDefaultsDic objectForKey:@"context"] isEqualToString:@"Wall"])
         {
             [newDic setObject:[userDefaultsDic objectForKey:@"context"] forKey:@"context"];
             [newDic setObject:[userDefaultsDic objectForKey:@"uid"] forKey:@"uid"];
@@ -604,6 +637,7 @@
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
         
 }
+
 -(void) didReceiveStreams:(NSDictionary *)responseObject
 {
         NSDictionary *dict = responseObject;
@@ -722,5 +756,27 @@
 {
     
 }
+- (void)tableScrolled:(float)y
+{
+    NSLog(@"y = %f",y);
+    if(y <= 0)
+    {
+        [self.view addSubview:searchBar];
+        searchBar.frame = CGRectMake(0, 65, 320, 32);
+        mostRecentButton.frame = CGRectMake(0, 97, 320, 30);
+        mostRecent.frame = CGRectMake(0, 97, 320, Deviceheight-97);
+        following.frame = CGRectMake(0, 97, 320, Deviceheight-97);
+        imageView.frame = CGRectMake(0, 97, 320, 30);
+    }
+    else
+    {
+        
+        mostRecent.frame = CGRectMake(0, 65, 320, Deviceheight-65);
+        following.frame = CGRectMake(0, 65, 320, Deviceheight-65);
+        imageView.frame = CGRectMake(0, 65, 320, 30);
+        mostRecentButton.frame = CGRectMake(0, 65, 320, 30);
 
+        [searchBar removeFromSuperview];
+    }
+}
 @end

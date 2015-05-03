@@ -30,7 +30,7 @@
     self.title = @"Forgot password";
     
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
+    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:12.0];
     
     emialField.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Enter email"
