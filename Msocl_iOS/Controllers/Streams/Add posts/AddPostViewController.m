@@ -37,6 +37,7 @@
     UILabel *placeholderLabel;
     UIButton *anonymousButton;
     UIImageView *postAnonymous;
+    UIView *addPopUpView;
 
 }
 @synthesize scrollView;
@@ -44,6 +45,10 @@
 @synthesize delegate;
 @synthesize selectedtagsArray;
 @synthesize collectionView;
+@synthesize timerHomepage;
+@synthesize subContext;
+@synthesize homeContext;
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -127,7 +132,19 @@
     [collectionView reloadData];
 
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self check];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear: YES];
+    
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
 
+}
 -(void)backClicked
 {
     [textView resignFirstResponder];
@@ -298,6 +315,10 @@
     {
         if (buttonIndex == 0)
         {
+            //Invalidate the timer
+            if([[self  timerHomepage] isValid])
+                [[self  timerHomepage] invalidate];
+
             // Delete
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = [[ModelManager sharedModel] accessToken];
@@ -889,6 +910,11 @@
 }
 -(void)anonymousPostClicked:(id)sender
 {
+    //Invalidate the timer
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
+
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = [(UIButton *)sender frame];
     frame.origin.y += 20;
@@ -978,7 +1004,11 @@
         ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
         return;
     }
+    //Invalidate the timer
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
 
+    
     [appdelegate showOrhideIndicator:YES];
     isPostClicked = YES;
     postButton.enabled = NO;
@@ -1063,6 +1093,11 @@
         return;
     }
 
+    //Invalidate the timer
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
+
+    
     [appdelegate showOrhideIndicator:YES];
     isPostClicked = YES;
     postButton.enabled = NO;
@@ -1157,4 +1192,169 @@
     return stringToReturn;
     
 }
+
+#pragma mark -
+#pragma mark Timed Reminders
+-(void)check
+{
+    NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"AddPost"]];
+    if(array.count > 0)
+    {
+        homeContext = [[array firstObject] mutableCopy];
+        NSDictionary *dictionary = [array firstObject];
+        NSArray *graphicsArray = [dictionary objectForKey:@"graphics"];
+        if(graphicsArray.count > 0)
+        {
+            
+            subContext = [graphicsArray firstObject];
+            [self setUpTimerWithStartInSubContext:subContext];
+            
+            
+        }
+    }
+    
+    
+}
+-(void)setUpTimerWithStartInSubContext:(NSMutableDictionary *)subContext1
+{
+    NSTimeInterval timeInterval = [[subContext1 valueForKey:@"start"] doubleValue];
+    
+    if (!timerHomepage) {
+        
+        timerHomepage = [NSTimer scheduledTimerWithTimeInterval: timeInterval
+                                                         target: self
+                                                       selector: @selector(displayPromptForNewKidWhenStreamDataEmpty)
+                                                       userInfo: nil
+                                                        repeats: NO];
+    }
+    else
+    {
+        
+        [timerHomepage invalidate];
+        timerHomepage = nil;
+        timerHomepage = [NSTimer scheduledTimerWithTimeInterval: timeInterval
+                                                         target: self
+                                                       selector: @selector(displayPromptForNewKidWhenStreamDataEmpty)
+                                                       userInfo: nil
+                                                        repeats: NO];
+    }
+}
+/// Display the pop up
+-(void)displayPromptForNewKidWhenStreamDataEmpty
+{
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    addPopUpView = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
+    [addPopUpView setBackgroundColor:[UIColor clearColor]];
+    
+    
+    //MARK:POP Up image
+    UIImageView *popUpContent = [[UIImageView alloc] init];
+    [popUpContent setFrame:CGRectMake(0, 0, screenRect.size.width, screenRect.size.height)];
+    
+    NSString *imageURL = [subContext objectForKey:@"asset"];
+    UIImage *thumb;
+    if (imageURL.length >0)
+    {
+        photoUtils = [ProfilePhotoUtils alloc];
+        thumb = [photoUtils getImageFromCache:imageURL];
+        
+        if (thumb == nil)
+        {
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^(void)
+                           {
+                               NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+                               UIImage* image = [[UIImage alloc] initWithData:imageData];
+                               if (image) {
+                                   [photoUtils saveImageToCache:imageURL :image];
+                                   
+                               }
+                           });
+        }
+        else
+        {
+            [popUpContent setImage:thumb];
+        }
+    }
+    else
+    {
+        //[popUpContent setImage:[UIImage imageNamed:@"New_Child_Stream_Empty.png"]];
+    }
+    [popUpContent setImage:thumb];
+    
+    [addPopUpView addSubview:popUpContent];
+    
+    // MARK:Got it button
+    UIButton *gotItButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [gotItButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    gotItButton.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
+    gotItButton.tag = 1;
+    [addPopUpView addSubview:gotItButton];
+    
+    if (thumb)
+    {
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:addPopUpView];
+    }
+    
+}
+- (void)buttonClicked:(UIButton *)sender
+{
+    //
+    [addPopUpView removeFromSuperview];
+    
+    NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
+    long int index = [userDefaultsArray indexOfObject:homeContext];
+    NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
+    [graphicsArrray removeObject:subContext];
+    [homeContext setObject:graphicsArrray forKey:@"graphics"];
+    [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:userDefaultsArray forKey:@"PageGuidePopUpImages"];
+    
+    
+    ////////////Saving already viewed uids in userdefaults
+    NSMutableArray *visitedRemainders =  [[userDefaults objectForKey:@"time_reminder_visits"] mutableCopy];
+    if(visitedRemainders.count >0 )
+    {
+        NSArray *contextArray  = [visitedRemainders filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"reminder_uid = %@",[homeContext objectForKey:@"uid"]]];
+        if(contextArray.count >0)
+        {
+            NSMutableDictionary *contextDict = [[contextArray firstObject] mutableCopy];
+            long int index = [visitedRemainders indexOfObject:contextDict];
+            NSMutableArray *graphicsArray = [[contextDict objectForKey:@"graphic_uids"] mutableCopy];
+            [graphicsArray addObject:[subContext objectForKey:@"uid"]];
+            [contextDict setObject:graphicsArray forKey:@"graphic_uids"];
+            [visitedRemainders replaceObjectAtIndex:index withObject:contextDict];
+            [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+            
+        }
+        else
+        {
+            [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+            [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+            
+        }
+        
+        
+    }
+    else
+    {
+        NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+        [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
+        
+    }
+    
+    [userDefaults synchronize];
+    
+    
+    [self check];
+    
+    
+}
+
 @end

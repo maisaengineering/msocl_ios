@@ -106,8 +106,17 @@
                                              selector:@selector(reloadOnLogOut)
                                                  name:RELOAD_ON_LOG_OUT
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(menuDidOpen)
+                                                 name:@"SlideNavigationControllerDidOpen"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(menuDidClose)
+                                                 name:@"SlideNavigationControllerDidClose"
+                                               object:nil];
     
-   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStreamsDataInBackgroundForPUSHNotificationAlerts) name:@"AppFromPassiveState" object:nil];
+
     
     [self check];
     
@@ -122,7 +131,6 @@
 
     [self refreshWall];
     [self setUpTimer];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStreamsDataInBackgroundForPUSHNotificationAlerts) name:@"AppFromPassiveState" object:nil];
 
 
 }
@@ -141,6 +149,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AppFromPassiveState" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidClose" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidOpen" object:nil];
 
 }
 -(void)reloadOnLogOut
@@ -150,6 +160,17 @@
 
     [mostRecent resetData];
     [mostRecent callStreamsApi:@""];
+}
+-(void)menuDidOpen
+{
+    //Invalidate the timer
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
+
+}
+-(void)menuDidClose
+{
+    [self check];
 }
 -(void)refreshWall
 {
@@ -351,43 +372,28 @@
     return NO;
 }
 
-
+#pragma mark -
+#pragma mark Timed Reminders
 -(void)check
 {
-    NSMutableArray *timedReminderData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-    
-    for(int index = 0; index < [timedReminderData count]; index++)
+    NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"Wall"]];
+    if(array.count > 0)
     {
-        NSMutableDictionary *eachPage = [timedReminderData objectAtIndex:index];
-        NSString *context_name = [eachPage objectForKey:@"context"];
-        if ([context_name isEqualToString:@"Homepage"])
+        homeContext = [[array firstObject] mutableCopy];
+        NSDictionary *dictionary = [array firstObject];
+        NSArray *graphicsArray = [dictionary objectForKey:@"graphics"];
+        if(graphicsArray.count > 0)
         {
-            homeContext = [[NSMutableDictionary alloc]init];
-            homeContext = [timedReminderData objectAtIndex:index];
             
-            NSMutableArray *graphicsArray = [eachPage objectForKey:@"graphics"];
-            
-            if (graphicsArray != (id)[NSNull null] && [graphicsArray count] > 0)
-            {
-                for (int j = 0; j < graphicsArray.count; j++)
-                {
-                    NSMutableDictionary *dic = [graphicsArray objectAtIndex:j];
-                    
-                    if ([[dic objectForKey:@"isViewed"] boolValue] == NO)
-                    {
-                        if (![[self timerHomepage] isValid])
-                        {
-                            subContext = [[NSMutableDictionary alloc]init];
-                            subContext = dic;
-                            [self setUpTimerWithStartInSubContext:dic];
-                            break;
-                        }
-                    }
-                    
-                }
-            }
+                subContext = [graphicsArray firstObject];
+                [self setUpTimerWithStartInSubContext:subContext];
+
+
         }
     }
+    
+    
 }
 -(void)setUpTimerWithStartInSubContext:(NSMutableDictionary *)subContext1
 {
@@ -479,99 +485,55 @@
     //
     [addPopUpView removeFromSuperview];
     
+    NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
+    long int index = [userDefaultsArray indexOfObject:homeContext];
+   NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
+    [graphicsArrray removeObject:subContext];
+    [homeContext setObject:graphicsArrray forKey:@"graphics"];
+    [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
     
-    NSMutableArray *userDefaultsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:userDefaultsArray forKey:@"PageGuidePopUpImages"];
     
-    NSMutableArray *newArray = [[NSMutableArray alloc]init];
     
-    for (int i = 0; i < [userDefaultsArray count]; i++)
+    ////////////Saving already viewed uids in userdefaults
+    NSMutableArray *visitedRemainders =  [[userDefaults objectForKey:@"time_reminder_visits"] mutableCopy];
+    if(visitedRemainders.count >0 )
     {
-        NSMutableDictionary *userDefaultsDic = [[NSMutableDictionary alloc]init];
-        userDefaultsDic = [userDefaultsArray objectAtIndex:i];
-        
-        NSMutableDictionary *newDic = [[NSMutableDictionary alloc]init];
-        
-        if ([[userDefaultsDic objectForKey:@"context"] isEqualToString:@"Wall"])
+        NSArray *contextArray  = [visitedRemainders filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"reminder_uid = %@",[homeContext objectForKey:@"uid"]]];
+        if(contextArray.count >0)
         {
-            [newDic setObject:[userDefaultsDic objectForKey:@"context"] forKey:@"context"];
-            [newDic setObject:[userDefaultsDic objectForKey:@"uid"] forKey:@"uid"];
+            NSMutableDictionary *contextDict = [[contextArray firstObject] mutableCopy];
+            long int index = [visitedRemainders indexOfObject:contextDict];
+            NSMutableArray *graphicsArray = [[contextDict objectForKey:@"graphic_uids"] mutableCopy];
+            [graphicsArray addObject:[subContext objectForKey:@"uid"]];
+            [contextDict setObject:graphicsArray forKey:@"graphic_uids"];
+            [visitedRemainders replaceObjectAtIndex:index withObject:contextDict];
+            [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
             
-            NSMutableArray *userDefaultGraphicsArray = [userDefaultsDic objectForKey:@"graphics"];
-            NSMutableArray *newGraphicsArray = [[NSMutableArray alloc]init];
-            
-            for(int i=0;i<[userDefaultGraphicsArray count];i++)
-            {
-                NSMutableDictionary *userDefaultsSubContext = [userDefaultGraphicsArray objectAtIndex:i];
-                
-                if ([[userDefaultsSubContext objectForKey:@"uid"] isEqualToString:[subContext objectForKey:@"uid"]])
-                {
-                    NSMutableDictionary *updatedDic = [[NSMutableDictionary alloc]init];
-                    [updatedDic setObject:[NSNumber numberWithBool:YES] forKey:@"isViewed"];
-                    [updatedDic setObject:[subContext objectForKey:@"asset"] forKey:@"asset"];
-                    [updatedDic setObject:[subContext objectForKey:@"start"] forKey:@"start"];
-                    [updatedDic setObject:[subContext objectForKey:@"uid"] forKey:@"uid"];
-                    
-                    [newGraphicsArray addObject:updatedDic];
-                }
-                else
-                {
-                    [newGraphicsArray addObject:userDefaultsSubContext];
-                }
-            }
-            
-            
-            [newDic setObject:newGraphicsArray forKey:@"graphics"];
-            [newArray addObject:newDic];
         }
         else
         {
-            [newArray addObject:userDefaultsDic];
+            [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+            [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+
         }
+        
+
     }
-    DebugLog(@"%@",newArray);
-    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:@"PageGuidePopUpImages"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    ////////////////////////////////////////
-    
-    
-    NSMutableArray *userDefaultsArray1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-    
-    for (int j = 0; j < [userDefaultsArray1 count]; j++)
+    else
     {
-        NSMutableDictionary *userDefaultsDic1 = [[NSMutableDictionary alloc]init];
-        userDefaultsDic1 = [userDefaultsArray1 objectAtIndex:j];
-        
-        NSMutableDictionary *newDic1 = [[NSMutableDictionary alloc]init];
-        
-        if ([[userDefaultsDic1 objectForKey:@"context"] isEqualToString:@"Homepage"])
-        {
-            [newDic1 setObject:[userDefaultsDic1 objectForKey:@"context"] forKey:@"context"];
-            [newDic1 setObject:[userDefaultsDic1 objectForKey:@"uid"] forKey:@"uid"];
-            
-            NSMutableArray *userDefaultGraphicsArray1 = [userDefaultsDic1 objectForKey:@"graphics"];
-            
-            for(int i=0;i<[userDefaultGraphicsArray1 count];i++)
-            {
-                NSMutableDictionary *userDefaultsSubContext1 = [userDefaultGraphicsArray1 objectAtIndex:i];
-                
-                if ([[userDefaultsSubContext1 objectForKey:@"isViewed"] boolValue] == NO)
-                {
-                    if (![[self timerHomepage] isValid])
-                    {
-                        subContext = [[NSMutableDictionary alloc]init];
-                        subContext = userDefaultsSubContext1;
-                        [self setUpTimerWithStartInSubContext:userDefaultsSubContext1];
-                        break;
-                    }
-                }
-            }
-        }
-        else
-        {
-            
-        }
+        NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+        [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
+
     }
+    
+    [userDefaults synchronize];
+
+    
+    [self check];
+    
+    
 }
 
 #pragma mark -

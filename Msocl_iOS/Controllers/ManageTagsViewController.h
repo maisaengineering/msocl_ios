@@ -11,6 +11,11 @@
 
 @interface ManageTagsViewController : UIViewController<UICollectionViewDelegate, UICollectionViewDataSource,webServiceProtocol>
 
+@property (nonatomic, strong) NSTimer *timerHomepage;
+@property (nonatomic, strong) NSMutableDictionary *subContext;
+@property (nonatomic, strong) NSMutableDictionary *homeContext;
+
+
 @property (strong, nonatomic)  UICollectionView *collectionView;
 
 @end

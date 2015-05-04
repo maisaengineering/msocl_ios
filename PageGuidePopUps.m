@@ -56,7 +56,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     NSString *deviceModel = [self deviceName];
     
     NSMutableDictionary *bodyDetails  = [NSMutableDictionary dictionary];
-    [bodyDetails setValue:DEVICE_UUID      forKey:@"device_token"];
+    [bodyDetails setValue:DEVICE_UUID      forKey:@"device_uid"];
     [bodyDetails setValue:[[deviceModel componentsSeparatedByString:@" "] firstObject]      forKey:@"mobile_pattern"];
     [bodyDetails setValue:[[deviceModel componentsSeparatedByString:@" "] lastObject]      forKey:@"version"];
 
@@ -86,28 +86,17 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 {
     photoUtils = [ProfilePhotoUtils alloc];
     
-    NSMutableArray *updatedTimedReminderArray = [[NSMutableArray alloc]init];
     
     for(int index = 0; index < [pageGuidesArray count]; index++)
     {
-        // Context
-        NSMutableDictionary *mainContext = [[NSMutableDictionary alloc] init];
-        
-        //Main context name
-        [mainContext setObject:[[pageGuidesArray objectAtIndex:index] objectForKey:@"context"] forKey:@"context"];
-        
-        //Main context uid
-        [mainContext setObject:[[pageGuidesArray objectAtIndex:index] objectForKey:@"uid"] forKey:@"uid"];
-        
+
         grphicsArray = [[NSMutableArray alloc]init];
-        NSMutableArray *newGraphicsArray = [[NSMutableArray alloc]init];
         grphicsArray = [[pageGuidesArray objectAtIndex:index] valueForKey:@"graphics"];
         for(int i=0;i<[grphicsArray count];i++)
         {
             NSMutableDictionary *objectDict=[[NSMutableDictionary alloc] initWithDictionary:[grphicsArray objectAtIndex:i]];
             
             // add a bool
-            [objectDict setObject:[NSNumber numberWithBool:NO] forKey:@"isViewed"];
             
             NSString *url = [objectDict objectForKey:@"asset"];
             
@@ -124,16 +113,11 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
                                    }
                                });
             }
-            [newGraphicsArray addObject:objectDict];
         }
-        
-        //Main context graphics
-        [mainContext setObject:newGraphicsArray forKey:@"graphics"];
-        [updatedTimedReminderArray addObject:mainContext];
         
         
     }
-    [[NSUserDefaults standardUserDefaults] setObject:updatedTimedReminderArray forKey:@"PageGuidePopUpImages"];
+    [[NSUserDefaults standardUserDefaults] setObject:pageGuidesArray forKey:@"PageGuidePopUpImages"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -276,62 +260,19 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     //TODO:FIRST DOUBLE CHECK WITH THE UPENDHAR REGARDING THE COMMAND AND BODY
     //TODO: THEN UNCOMMENT BELOW TO SEND THE VISITED PAGES TO THE SERVER WHEN USER MINIMIZE THE APP.
     
+    NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
+   
+    DebugLog(@"visited_reminders %@",visited_reminders);
     
-    
-    NSMutableArray *userDefaulstArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-    
-    NSMutableArray *visited_reminders = [[NSMutableArray alloc]init];
-    
-    for (int i = 0; i<[userDefaulstArray count]; i++)
+    if(visited_reminders.count >0)
     {
-        NSMutableDictionary *userDefaultsMainContextDic = [userDefaulstArray objectAtIndexedSubscript:i];
-        NSMutableArray *graphicArray = [userDefaultsMainContextDic objectForKey:@"graphics"];
-        NSMutableArray *arr = [[graphicArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"isViewed = 1"]] mutableCopy];
-        
-        if ([arr count]>0)
-        {
-            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-            
-            NSMutableArray *graphic_uids = [[NSMutableArray alloc]init];
-            
-            for (int i = 0; i<[arr count]; i++)
-            {
-                NSMutableDictionary *dic1 = [[NSMutableDictionary alloc]init];
-                dic1 = [arr objectAtIndex:i];
-                [graphic_uids addObject:[dic1 objectForKey:@"uid"]];
-            }
-            
-            // graphic_uids
-            [dic setObject:graphic_uids forKey:@"graphic_uids"];
-            
-            // reminder_uid
-            [dic setObject:[userDefaultsMainContextDic objectForKey:@"uid"] forKey:@"reminder_uid"];
-            
-            [visited_reminders addObject:dic];
-        }
-        else
-        {
-            NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-            
-            NSMutableArray *graphic_uids = [[NSMutableArray alloc]init];
-            // graphic_uids
-            [dic setObject:graphic_uids forKey:@"graphic_uids"];
-            
-            // reminder_uid
-            [dic setObject:[userDefaultsMainContextDic objectForKey:@"uid"] forKey:@"reminder_uid"];
-            
-            [visited_reminders addObject:dic];
-        }
-    }
-    
-    
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
     NSString *command = @"time_reminder_visits";
     
     NSMutableDictionary *bodyDetails  = [NSMutableDictionary dictionary];
-    [bodyDetails setValue:DEVICE_UUID      forKey:@"device_token"];
+    [bodyDetails setValue:DEVICE_UUID      forKey:@"device_uid"];
     [bodyDetails setValue:visited_reminders      forKey:@"visited_reminders"];
     
     NSDictionary* postData = @{@"access_token": token.access_token,
@@ -339,21 +280,20 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
                                @"body": bodyDetails};
     
     DebugLog(@"%@",postData);
-    NSDictionary *userInfo = @{@"command": command};
+    NSDictionary *userInfo = @{@"command": @"visited_page_guides"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
     
-    NSMutableArray *pageGuidesArray = [[NSMutableArray alloc]init];
-    [[NSUserDefaults standardUserDefaults] setObject:pageGuidesArray forKey:@"PageGuidePopUpImages"];
 }
 -(void)didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray
 {
-    
+    DebugLog(@"recievded dict %@",recievedArray);
 }
 -(void)visitedPageGuidesFailed
 {
-    
+    DebugLog(@"recievded dict failed");
 }
 
 - (NSString*) deviceName
@@ -369,42 +309,42 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     
     if (!deviceNamesByCode) {
         
-        deviceNamesByCode = @{@"i386"      :@"iPhone 4",
-                              @"x86_64"    :@"iPhone 4",
-                              @"iPod1,1"   :@"iPhone 4",      // (Original)
-                              @"iPod2,1"   :@"iPhone 4",      // (Second Generation)
-                              @"iPod3,1"   :@"iPhone 4",      // (Third Generation)
-                              @"iPod4,1"   :@"iPhone 4",      // (Fourth Generation)
-                              @"iPhone1,1" :@"iPhone 4",          // (Original)
-                              @"iPhone1,2" :@"iPhone 4",          // (3G)
-                              @"iPhone2,1" :@"iPhone 4",          // (3GS)
-                              @"iPad1,1"   :@"iPhone 4",            // (Original)
-                              @"iPad2,1"   :@"iPhone 4",          //
-                              @"iPad3,1"   :@"iPhone 4",            // (3rd Generation)
-                              @"iPhone3,1" :@"iPhone 4",        // (GSM)
-                              @"iPhone3,3" :@"iPhone 4",        // (CDMA/Verizon/Sprint)
-                              @"iPhone4,1" :@"iPhone 4",       //
-                              @"iPhone5,1" :@"iPhone 5",        // (model A1428, AT&T/Canada)
-                              @"iPhone5,2" :@"iPhone 5",        // (model A1429, everything else)
-                              @"iPad3,4"   :@"iPhone 4",            // (4th Generation)
-                              @"iPad2,5"   :@"iPhone 4",       // (Original)
-                              @"iPhone5,3" :@"iPhone 5",       // (model A1456, A1532 | GSM)
-                              @"iPhone5,4" :@"iPhone 5",       // (model A1507, A1516, A1526 (China), A1529 | Global)
-                              @"iPhone6,1" :@"iPhone 5",       // (model A1433, A1533 | GSM)
-                              @"iPhone6,2" :@"iPhone 5",       // (model A1457, A1518, A1528 (China), A1530 | Global)
-                              @"iPhone7,1" :@"iPhone 6plus",   //
-                              @"iPhone7,2" :@"iPhone 6",        //
-                              @"iPad4,1"   :@"iPhone 4",        // 5th Generation iPad (iPad Air) - Wifi
-                              @"iPad4,2"   :@"iPhone 4",        // 5th Generation iPad (iPad Air) - Cellular
-                              @"iPad4,4"   :@"iPhone 4",       // (2nd Generation iPad Mini - Wifi)
-                              @"iPad4,5"   :@"iPhone 4"        // (2nd Generation iPad Mini - Cellular)
+        deviceNamesByCode = @{@"i386"      :@"iphone 4",
+                              @"x86_64"    :@"iphone 5",
+                              @"iPod1,1"   :@"iphone 4",      // (Original)
+                              @"iPod2,1"   :@"iphone 4",      // (Second Generation)
+                              @"iPod3,1"   :@"iphone 4",      // (Third Generation)
+                              @"iPod4,1"   :@"iphone 4",      // (Fourth Generation)
+                              @"iPhone1,1" :@"iphone 4",          // (Original)
+                              @"iPhone1,2" :@"iphone 4",          // (3G)
+                              @"iPhone2,1" :@"iphone 4",          // (3GS)
+                              @"iPad1,1"   :@"iphone 4",            // (Original)
+                              @"iPad2,1"   :@"iphone 4",          //
+                              @"iPad3,1"   :@"iphone 4",            // (3rd Generation)
+                              @"iPhone3,1" :@"iphone 4",        // (GSM)
+                              @"iPhone3,3" :@"iphone 4",        // (CDMA/Verizon/Sprint)
+                              @"iPhone4,1" :@"iphone 4",       //
+                              @"iPhone5,1" :@"iphone 5",        // (model A1428, AT&T/Canada)
+                              @"iPhone5,2" :@"iphone 5",        // (model A1429, everything else)
+                              @"iPad3,4"   :@"iphone 4",            // (4th Generation)
+                              @"iPad2,5"   :@"iphone 4",       // (Original)
+                              @"iPhone5,3" :@"iphone 5",       // (model A1456, A1532 | GSM)
+                              @"iPhone5,4" :@"iphone 5",       // (model A1507, A1516, A1526 (China), A1529 | Global)
+                              @"iPhone6,1" :@"iphone 5",       // (model A1433, A1533 | GSM)
+                              @"iPhone6,2" :@"iphone 5",       // (model A1457, A1518, A1528 (China), A1530 | Global)
+                              @"iPhone7,1" :@"iphone 6plus",   //
+                              @"iPhone7,2" :@"iphone 6",        //
+                              @"iPad4,1"   :@"iphone 4",        // 5th Generation iPad (iPad Air) - Wifi
+                              @"iPad4,2"   :@"iphone 4",        // 5th Generation iPad (iPad Air) - Cellular
+                              @"iPad4,4"   :@"iphone 4",       // (2nd Generation iPad Mini - Wifi)
+                              @"iPad4,5"   :@"iphone 4"        // (2nd Generation iPad Mini - Cellular)
                               };
     }
     
     NSString* deviceName = [deviceNamesByCode objectForKey:code];
     
     if (!deviceName) {
-            deviceName = @"iPhone 4";
+            deviceName = @"iphone 4";
     }
     
     return deviceName;

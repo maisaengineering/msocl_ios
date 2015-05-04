@@ -84,7 +84,7 @@
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:user_uid forKey:@"uid"];
-    [postDetails setObject:DEVICE_UUID forKey:@"device_token"];
+    [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
     [postDetails setObject:@"iOS" forKey:@"platform"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];

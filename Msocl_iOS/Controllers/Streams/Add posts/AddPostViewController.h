@@ -27,6 +27,10 @@
 @property (nonatomic , strong) UIScrollView *scrollView;
 @property (nonatomic , strong)  NSMutableArray *selectedtagsArray;
 @property (strong, nonatomic)  UICollectionView *collectionView;
+@property (nonatomic, strong) NSTimer *timerHomepage;
+@property (nonatomic, strong) NSMutableDictionary *subContext;
+@property (nonatomic, strong) NSMutableDictionary *homeContext;
+
 
 
 //For Aviary

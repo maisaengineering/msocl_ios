@@ -28,6 +28,11 @@
 @property (nonatomic, strong) IBOutlet UITableView *streamTableView;
 @property (nonatomic, strong) UIView *commentView;
 @property (nonatomic, strong) UITextView *txt_comment;
+@property (nonatomic, strong) NSTimer *timerHomepage;
+@property (nonatomic, strong) NSMutableDictionary *subContext;
+@property (nonatomic, strong) NSMutableDictionary *homeContext;
+
+
 @property (nonatomic,weak) id <PostDetailsProtocol>delegate;
 
 @property (nonatomic, strong) PostDetails *postObjectFromWall;
