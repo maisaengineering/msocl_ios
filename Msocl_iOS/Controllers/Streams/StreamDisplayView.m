@@ -46,6 +46,8 @@
 @synthesize isTag;
 @synthesize tagName;
 @synthesize tagId;
+@synthesize isSearching;
+@synthesize searchString;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -112,37 +114,61 @@
         bProcessing = YES;
         
         AccessToken* token = sharedModel.accessToken;
-        
-        NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
-        [body setValue:self.timeStamp forKeyPath:@"last_modified"];
-        [body setValue:self.postCount forKeyPath:@"post_count"];
-        [body setValue:self.etag forKey:@"etag"];
-        [body setValue:step forKeyPath:@"step"];
-        NSString *command = @"all";
-        if(isFollowing)
+        if(isSearching)
         {
-            [body setValue:@"favourites" forKeyPath:@"by"];
-            command = @"filter";
-        }
-        else if(isUserProfilePosts)
-        {
-            [body setValue:userProfileId forKeyPath:@"key"];
-            command = @"filter";
+            NSString *command = @"search";
+            NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
+            [body setValue:self.timeStamp forKeyPath:@"last_modified"];
+            [body setValue:self.postCount forKeyPath:@"post_count"];
+            [body setValue:self.etag forKey:@"etag"];
+            [body setValue:step forKeyPath:@"step"];
+
+            [body setValue:searchString forKeyPath:@"text"];
+            if(isFollowing)
+                [body setValue:[NSNumber numberWithBool:YES] forKeyPath:@"favourites"];
+            
+            NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
+            NSDictionary *userInfo = @{@"command": @"GetStreams"};
+            
+            NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
         }
-        else if(isTag)
+        else
         {
-            [body setValue:tagName forKeyPath:@"key"];
-            [body setValue:@"tag" forKeyPath:@"by"];
-            command = @"filter";
+            NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
+            [body setValue:self.timeStamp forKeyPath:@"last_modified"];
+            [body setValue:self.postCount forKeyPath:@"post_count"];
+            [body setValue:self.etag forKey:@"etag"];
+            [body setValue:step forKeyPath:@"step"];
+            NSString *command = @"all";
+            if(isFollowing)
+            {
+                [body setValue:@"favourites" forKeyPath:@"by"];
+                command = @"filter";
+            }
+            else if(isUserProfilePosts)
+            {
+                [body setValue:userProfileId forKeyPath:@"key"];
+                command = @"filter";
+                
+            }
+            else if(isTag)
+            {
+                [body setValue:tagName forKeyPath:@"key"];
+                [body setValue:@"tag" forKeyPath:@"by"];
+                command = @"filter";
+                
+            }
+            
+            
+            NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
+            NSDictionary *userInfo = @{@"command": @"GetStreams"};
+            
+            NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
         }
-        
-        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
-        NSDictionary *userInfo = @{@"command": @"GetStreams"};
-        
-        NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
-        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
         
     }
 }
@@ -178,7 +204,7 @@
         [streamTableView reloadData];
         
     }
-    
+    [self.delegate tagImage:[recievedDict objectForKey:@"tag_picture"]];
     [refreshControl endRefreshing];
     
     self.timeStamp = [recievedDict objectForKey:@"last_modified"];

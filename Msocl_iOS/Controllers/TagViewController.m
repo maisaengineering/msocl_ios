@@ -236,7 +236,7 @@
         postObject = [streamDisplay.storiesArray objectAtIndex:selectedIndex];
         
         UserProfileViewCotroller *destViewController = segue.destinationViewController;
-        destViewController.photo = postObject.profileImage;
+        destViewController.photo = [postObject.owner objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
     }
@@ -257,5 +257,16 @@
     
 }
 
+-(void)tagImage:(NSString *)url
+{
+    __weak UIImageView *weakSelf = profileImageVw;
+    
+    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [image resizedImageByMagick:@"260x114#"];
+         
+     }failure:nil];
+
+}
 
 @end

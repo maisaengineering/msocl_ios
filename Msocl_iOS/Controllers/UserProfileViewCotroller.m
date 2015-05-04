@@ -241,6 +241,10 @@
 {
     
 }
+-(void)tagImage:(NSString *)url
+{
+    
+}
 
 @end
 

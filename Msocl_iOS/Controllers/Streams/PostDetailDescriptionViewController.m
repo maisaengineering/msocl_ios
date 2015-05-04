@@ -398,7 +398,11 @@
         
     
     UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(267, 16, 12, 12)];
+    if(![[commentDict objectForKey:@"upvoted"] boolValue])
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
+    else
+        [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote.png"]];
+
     [cell.contentView addSubview:heartCntImage];
 
     UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(280,16.5,10,12)];
@@ -444,14 +448,14 @@
 
     
     //Profile Image
-    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(19, yPosition, 20, 20)];
+    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(8, yPosition, 30, 30)];
     if(!postDetailsObject.anonymous)
     {
         __weak UIImageView *weakSelf = profileImage;
         
         [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(20, 20)] withRadious:0];
+             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(30, 30)] withRadious:0];
              
          }failure:nil];
     }
@@ -1442,6 +1446,8 @@
 -(void)displayPromptForNewKidWhenStreamDataEmpty
 {
     
+    [self.txt_comment resignFirstResponder];
+
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;

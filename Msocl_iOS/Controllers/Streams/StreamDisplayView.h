@@ -17,6 +17,7 @@
 - (void)recievedData:(BOOL)isFollowing;
 - (void)tagCicked:(NSString *)tagName;
 - (void)tableScrolled:(float)y;
+-(void)tagImage:(NSString *)url;
 
 @end
 @interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol,NIAttributedLabelDelegate>
@@ -31,7 +32,8 @@
 @property (nonatomic, assign) BOOL isFollowing;
 @property (nonatomic, assign) BOOL isUserProfilePosts;
 @property (nonatomic, assign) BOOL isTag;
-
+@property (nonatomic, assign) BOOL isSearching;
+@property (nonatomic, strong) NSString *searchString;
 @property (nonatomic, strong) NSString *userProfileId;
 @property (nonatomic, strong) NSString *tagName;
 

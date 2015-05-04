@@ -30,6 +30,7 @@
     AppDelegate *appDelegate;
     UISearchBar *searchBar;
     UIImageView *imageView;
+
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -75,6 +76,8 @@
     //style the color behind the textbox
     searchBar.barTintColor = [UIColor colorWithRed:(255/255.f) green:(255/255.f) blue:(255/255.f) alpha:0];
     [searchBar setBackgroundImage:[[UIImage alloc]init]];
+    searchBar.showsCancelButton = YES;
+
     //Style the actual text box
     UITextField *txfSearchField = [searchBar valueForKey:@"_searchField"];
     [txfSearchField setBackgroundColor:[UIColor whiteColor]];
@@ -271,7 +274,7 @@
             postObject = [following.storiesArray objectAtIndex:selectedIndex];
 
         UserProfileViewCotroller *destViewController = segue.destinationViewController;
-        destViewController.photo = postObject.profileImage;
+        destViewController.photo = [postObject.owner objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
     }
@@ -422,7 +425,8 @@
 /// Display the pop up
 -(void)displayPromptForNewKidWhenStreamDataEmpty
 {
-    
+ 
+    [searchBar resignFirstResponder];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
@@ -718,6 +722,11 @@
 {
     
 }
+-(void)tagImage:(NSString *)url
+{
+    
+}
+
 - (void)tableScrolled:(float)y
 {
     NSLog(@"y = %f",y);
@@ -730,9 +739,9 @@
         following.frame = CGRectMake(0, 97, 320, Deviceheight-97);
         imageView.frame = CGRectMake(0, 97, 320, 30);
     }
-    else
+    else if(!mostRecent.isSearching)
     {
-        
+    
         mostRecent.frame = CGRectMake(0, 65, 320, Deviceheight-65);
         following.frame = CGRectMake(0, 65, 320, Deviceheight-65);
         imageView.frame = CGRectMake(0, 65, 320, 30);
@@ -741,4 +750,62 @@
         [searchBar removeFromSuperview];
     }
 }
+
+-(void) searchBarCancelButtonClicked:(UISearchBar *)searchBar1
+{
+
+    [self setUpTimer];
+    
+    mostRecent.frame = CGRectMake(0, 65, 320, Deviceheight-65);
+    following.frame = CGRectMake(0, 65, 320, Deviceheight-65);
+    imageView.frame = CGRectMake(0, 65, 320, 30);
+    mostRecentButton.frame = CGRectMake(0, 65, 320, 30);
+    [searchBar removeFromSuperview];
+    searchBar.text = @"";
+    mostRecent.isSearching = NO;
+    following.isSearching = NO;
+    if(!mostRecent.hidden)
+    {
+        [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [mostRecent resetData];
+        [mostRecent callStreamsApi:@"next"];
+    }
+    else
+    {
+        [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [following resetData];
+        [following callStreamsApi:@"next"];
+        
+    }
+
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar1
+{
+    if([[self timer] isValid])
+        [[self timer] invalidate];
+
+    
+    mostRecent.isSearching = YES;
+    following.isSearching = YES;
+    mostRecent.searchString = searchBar1.text;
+    following.searchString = searchBar1.text;
+    [searchBar resignFirstResponder];
+    
+    if(!mostRecent.hidden)
+        {
+            
+            [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [mostRecent resetData];
+            [mostRecent callStreamsApi:@"next"];
+        }
+        else
+        {
+            [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [following resetData];
+            [following callStreamsApi:@"next"];
+            
+        }
+}
+
 @end

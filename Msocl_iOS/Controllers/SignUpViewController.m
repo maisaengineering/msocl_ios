@@ -143,6 +143,7 @@
     [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
     if(imageId.length > 0)
     [postDetails setObject:imageId forKey:@"key"];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] != nil)
     [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
     [postDetails setObject:@"iOS" forKey:@"platform"];
     

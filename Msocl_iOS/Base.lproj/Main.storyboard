@@ -554,7 +554,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eg2-uU-idd">
                                         <rect key="frame" x="14" y="29" width="293" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Change Password" backgroundImage="setting-strip.png">
                                             <color key="titleColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -565,7 +565,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pL-q3-FUF">
                                         <rect key="frame" x="14" y="78" width="293" height="34"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="13"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Manage Tags" backgroundImage="setting-strip.png">
                                             <color key="titleColor" red="0.0" green="0.47843137254901957" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -582,7 +582,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="96l-RF-OED" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590" y="1547"/>
+            <point key="canvasLocation" x="646" y="1539"/>
         </scene>
         <!--Change Password View Controller-->
         <scene sceneID="1vl-IF-yjt">
@@ -987,10 +987,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="hMW-K8-sV6"/>
-        <segue reference="qU5-jb-Cet"/>
         <segue reference="Wlp-Jd-hhp"/>
-        <segue reference="TSv-V5-Dr2"/>
+        <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="M8x-x6-6lY"/>
+        <segue reference="fCv-1J-IEX"/>
+        <segue reference="dLo-Yv-fr4"/>
     </inferredMetricsTieBreakers>
 </document>
