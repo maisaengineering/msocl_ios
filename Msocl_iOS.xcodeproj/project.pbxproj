@@ -1475,8 +1475,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1496,7 +1496,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "d375ae77-050a-4467-922c-8882ee8f7464";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1518,8 +1518,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1532,7 +1532,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "d375ae77-050a-4467-922c-8882ee8f7464";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1543,7 +1543,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1562,7 +1562,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d375ae77-050a-4467-922c-8882ee8f7464";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 			};
 			name = Debug;
 		};
@@ -1571,7 +1571,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1590,7 +1590,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d375ae77-050a-4467-922c-8882ee8f7464";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 			};
 			name = Release;
 		};
@@ -1598,6 +1598,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1609,7 +1610,7 @@
 				INFOPLIST_FILE = Msocl_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d375ae77-050a-4467-922c-8882ee8f7464";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Msocl_iOS.app/Msocl_iOS";
 			};
 			name = Debug;
@@ -1618,6 +1619,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1625,7 +1627,7 @@
 				INFOPLIST_FILE = Msocl_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d375ae77-050a-4467-922c-8882ee8f7464";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Msocl_iOS.app/Msocl_iOS";
 			};
 			name = Release;

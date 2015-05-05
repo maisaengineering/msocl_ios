@@ -401,7 +401,7 @@
         textView.frame = CGRectMake(57, yPosition, 240, 60);
     
     CGSize size = [textView sizeThatFits:CGSizeMake(240, MAXFLOAT)];
-    int numLines = size.height / [[UIFont fontWithName:@"Ubuntu-Light" size:14] lineHeight];
+    int numLines = size.height / [[UIFont fontWithName:@"Ubuntu-Light" size:15] lineHeight];
 
     
     if(numLines > 1)

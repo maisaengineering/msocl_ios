@@ -25,6 +25,7 @@
 @implementation AppDelegate
 @synthesize indicator;
 @synthesize isAppFromBackground;
+@synthesize isAppFromPushNotifi;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
@@ -67,6 +68,7 @@
     
      isAppFromBackground = NO;
 
+
     return YES;
 }
 
@@ -94,22 +96,18 @@
 //However, if the notification is received while the app is active, it is up to the app to handle it. To do so, we can implement this method
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    //[PFPush handlePush:userInfo];
-    [self addMessageFromRemoteNotification:userInfo updateUI:YES];
-
+    
+        [self addMessageFromRemoteNotification:userInfo updateUI:YES];
 }
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
 {
-    NSString *postID = [userInfo valueForKey:@"page_id"];
-    
+    NSString *postID = [userInfo valueForKey:@"post_uid"];
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
-    
     PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
                                                                                                                       instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
-    
     postDetailDescriptionViewController.postID = postID;
     SlideNavigationController *slide = [SlideNavigationController sharedInstance];
     [slide pushViewController:postDetailDescriptionViewController animated:YES];

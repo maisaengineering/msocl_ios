@@ -17,7 +17,7 @@
 /////Property & Method To show/hide acitivityindicator
 @property (nonatomic,retain) MBProgressHUD *indicator;
 @property (nonatomic) BOOL isAppFromBackground;
-
+@property (nonatomic) BOOL isAppFromPushNotifi;
 
 - (void)showOrhideIndicator:(BOOL)show;
 - (void)showOrhideIndicator:(BOOL)show withMessage:(NSString *)message;
