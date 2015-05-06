@@ -89,6 +89,7 @@
              
          }failure:nil];
     
+    [self callUserProfile];
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -129,7 +130,44 @@
     isShowPostCalled = NO;
 }
 #pragma mark -
+#pragma mark Profile Details
+-(void)callUserProfile
+{
+    AccessToken* token = modelManager.accessToken;
+    NSString *command;
+        command = @"public_profile";
+    NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
+    NSDictionary *userInfo = @{@"command": @"ProfileDetails"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users/%@",BASE_URL,profileId];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+
+}
+-(void)profileDetailsSuccessFull:(NSDictionary *)recievedDict
+{
+    recievedDict = [recievedDict objectForKey:@"body"];
+    nameLabel.text = [recievedDict objectForKey:@"full_name"];
+    
+    __weak UIImageView *weakSelf = profileImageVw;
+    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    
+    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
+         
+     }failure:nil];
+    
+
+}
+-(void) profileDetailsFailed
+{
+
+}
+
+
+#pragma mark -
 #pragma mark Follow or Unfollow Methods
+
+
 -(IBAction)followOrEditClicked:(id)sender
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])

@@ -168,6 +168,10 @@
     {
         [self connectionSuccessResetPassword:responseDict];
     }
+    else if([command isEqualToString:@"ProfileDetails"])
+    {
+        [self connectionSuccessProfile:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -276,6 +280,10 @@
     else if([command isEqualToString:@"GetFav"])
     {
         [self.delegate FavPostFailed];
+    }
+    else if([command isEqualToString:@"ProfileDetails"])
+    {
+        [self.delegate profileDetailsFailed];
     }
 }
 #pragma mark -
@@ -760,5 +768,19 @@
         
     }
 }
-
+-(void)connectionSuccessProfile:(NSDictionary *)respDict
+{
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate profileDetailsSuccessFull:respDict];
+    }
+    
+    else
+    {
+        [self.delegate profileDetailsFailed];
+        
+    }
+}
 @end

@@ -64,7 +64,8 @@
 -(void) flagCommentFailed;
 -(void) resetPasswordSuccessFull:(NSDictionary *)recievedDict;
 -(void) resetPasswordFailed;
-
+-(void) profileDetailsSuccessFull:(NSDictionary *)recievedDict;
+-(void) profileDetailsFailed;
 
 @end
 

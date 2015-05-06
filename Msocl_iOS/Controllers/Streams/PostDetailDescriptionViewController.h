@@ -31,6 +31,7 @@
 @property (nonatomic, strong) NSTimer *timerHomepage;
 @property (nonatomic, strong) NSMutableDictionary *subContext;
 @property (nonatomic, strong) NSMutableDictionary *homeContext;
+@property (nonatomic, strong) NSString *comment_uid;
 
 
 @property (nonatomic,weak) id <PostDetailsProtocol>delegate;

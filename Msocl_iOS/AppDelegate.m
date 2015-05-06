@@ -17,7 +17,7 @@
 #import "PageGuidePopUps.h"
 #import "ModelManager.h"
 #import "PostDetailDescriptionViewController.h"
-
+#import "UserProfileViewCotroller.h"
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
 @end
@@ -96,22 +96,43 @@
 //However, if the notification is received while the app is active, it is up to the app to handle it. To do so, we can implement this method
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    
+    if ( application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground  )
+    {
         [self addMessageFromRemoteNotification:userInfo updateUI:YES];
+    }
+    
 }
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
 {
     NSString *postID = [userInfo valueForKey:@"post_uid"];
-    [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+    NSString *userUid = [userInfo valueForKey:@"follower_uid"];
+    
+    if(postID !=nil && postID.length > 0)
+    {
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];
     PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
                                                                                                                       instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
     postDetailDescriptionViewController.postID = postID;
+        postDetailDescriptionViewController.comment_uid = [userInfo valueForKey:@"comment_uid"];
     SlideNavigationController *slide = [SlideNavigationController sharedInstance];
     [slide pushViewController:postDetailDescriptionViewController animated:YES];
-    self.window.rootViewController = slide;
+    }
+    else if(userUid != nil && userUid.length > 0)
+    {
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+        
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        UserProfileViewCotroller *postDetailDescriptionViewController = (UserProfileViewCotroller*)[mainStoryboard
+                                                                                                                          instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
+        postDetailDescriptionViewController.profileId = userUid;
+        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+        [slide pushViewController:postDetailDescriptionViewController animated:YES];
+
+    }
 }
 //Handles the fail callback when registering Parse for remote notifications
 - (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error

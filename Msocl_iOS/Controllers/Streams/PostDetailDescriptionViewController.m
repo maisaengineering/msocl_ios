@@ -53,6 +53,7 @@
 @synthesize timerHomepage;
 @synthesize subContext;
 @synthesize homeContext;
+@synthesize comment_uid;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -241,6 +242,14 @@
     [storiesArray removeAllObjects];
     [storiesArray addObjectsFromArray:postArray];
     [self.streamTableView reloadData];
+    
+    if(self.comment_uid.length > 0)
+    {
+        NSArray *commentArray = [postObject.comments filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uid = %@",self.comment_uid]];
+        [self.streamTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[postObject.comments indexOfObject:[commentArray lastObject]] inSection:0]
+                         atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        
+    }
 }
 -(void) showPostFailed
 {
