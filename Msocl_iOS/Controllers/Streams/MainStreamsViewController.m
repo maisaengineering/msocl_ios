@@ -42,6 +42,9 @@
 {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
+
+    
     modelManager =[ModelManager sharedModel];
     appDelegate = [[UIApplication sharedApplication] delegate];
     webServices = [[Webservices alloc] init];
@@ -74,20 +77,17 @@
     searchBar.delegate = self;
     
     //style the color behind the textbox
-    searchBar.barTintColor = [UIColor colorWithRed:(255/255.f) green:(255/255.f) blue:(255/255.f) alpha:0];
-    [searchBar setBackgroundImage:[[UIImage alloc]init]];
+    searchBar.backgroundColor = [UIColor clearColor];
+    [searchBar setBackgroundImage:[UIImage imageNamed:@"search-textfield.png"]];
     searchBar.showsCancelButton = YES;
 
     //Style the actual text box
     UITextField *txfSearchField = [searchBar valueForKey:@"_searchField"];
-    [txfSearchField setBackgroundColor:[UIColor whiteColor]];
+    [txfSearchField setBackgroundColor:[UIColor clearColor]];
     [txfSearchField setBorderStyle:UITextBorderStyleNone];
     txfSearchField.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
 
     
-    UIImageView *lineImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 31.5, 300, 0.5)];
-    [lineImage setBackgroundColor:[UIColor lightGrayColor]];
-    [searchBar addSubview:lineImage];
     
     mostRecentButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [mostRecentButton addTarget:self action:@selector(RecentOrFollowignClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -96,6 +96,16 @@
     mostRecentButton.frame= CGRectMake(0, 65, 320, 30) ;
     [self.view addSubview:mostRecentButton];
 
+    for (UIView *searchbuttons in searchBar.subviews)
+    {
+        if ([searchbuttons isKindOfClass:[UIButton class]])
+        {
+            UIButton *cancelButton = (UIButton*)searchbuttons;
+            cancelButton.enabled = YES;
+            cancelButton.backgroundColor = [UIColor clearColor];
+            break;
+        }
+    }
     
     
 }
@@ -177,6 +187,15 @@
 }
 -(void)refreshWall
 {
+    if(searchBar.text.length == 0)
+    {
+    mostRecent.frame = CGRectMake(0, 65, 320, Deviceheight-65);
+    following.frame = CGRectMake(0, 65, 320, Deviceheight-65);
+    imageView.frame = CGRectMake(0, 65, 320, 30);
+    mostRecentButton.frame = CGRectMake(0, 65, 320, 30);
+    [searchBar removeFromSuperview];
+    }
+    
     if(!isShowPostCalled)
     {
     if(!mostRecent.hidden)
@@ -733,7 +752,7 @@
     if(y <= 0)
     {
         [self.view addSubview:searchBar];
-        searchBar.frame = CGRectMake(0, 65, 320, 32);
+        searchBar.frame = CGRectMake(10, 65, 300, 32);
         mostRecentButton.frame = CGRectMake(0, 97, 320, 30);
         mostRecent.frame = CGRectMake(0, 97, 320, Deviceheight-97);
         following.frame = CGRectMake(0, 97, 320, Deviceheight-97);
