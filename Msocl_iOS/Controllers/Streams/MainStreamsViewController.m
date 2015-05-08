@@ -42,7 +42,6 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
 
     
     modelManager =[ModelManager sharedModel];
@@ -54,12 +53,13 @@
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 94.5, 320, 0.5)];
     line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
-    line.backgroundColor = [UIColor clearColor];
+    line.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
     [self.view addSubview:line];
-
+    self.view.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
     
     mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 65, 320, Deviceheight-65)];
     mostRecent.delegate = self;
+    mostRecent.isMostRecent = YES;
     [self.view addSubview:mostRecent];
 
     following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 65, 320, Deviceheight-65)];
@@ -75,17 +75,23 @@
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
     searchBar.delegate = self;
-    
+    [searchBar setImage:[UIImage imageNamed:@"icon-search.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+    searchBar.backgroundImage = [self imageFromColor:[UIColor colorWithRed:174/255.0 green:89/255.0 blue:155/255.0 alpha:1.0]];
     //style the color behind the textbox
-    searchBar.backgroundColor = [UIColor clearColor];
-    [searchBar setBackgroundImage:[UIImage imageNamed:@"search-textfield.png"]];
     searchBar.showsCancelButton = YES;
-
     //Style the actual text box
     UITextField *txfSearchField = [searchBar valueForKey:@"_searchField"];
     [txfSearchField setBackgroundColor:[UIColor clearColor]];
     [txfSearchField setBorderStyle:UITextBorderStyleNone];
+    txfSearchField.textColor = [UIColor whiteColor];
     txfSearchField.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
+    txfSearchField.placeholder = @"Search here";
+    txfSearchField.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Search here"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                 }
+     ];
 
     
     
@@ -98,7 +104,7 @@
 
     for (UIView *searchbuttons in searchBar.subviews)
     {
-        if ([searchbuttons isKindOfClass:[UIButton class]])
+        if ([searchbuttons isKindOfClass:[UIBarButtonItem class]])
         {
             UIButton *cancelButton = (UIButton*)searchbuttons;
             cancelButton.enabled = YES;
@@ -752,7 +758,7 @@
     if(y <= 0)
     {
         [self.view addSubview:searchBar];
-        searchBar.frame = CGRectMake(10, 65, 300, 32);
+        searchBar.frame = CGRectMake(0, 65, 320, 32);
         mostRecentButton.frame = CGRectMake(0, 97, 320, 30);
         mostRecent.frame = CGRectMake(0, 97, 320, Deviceheight-97);
         following.frame = CGRectMake(0, 97, 320, Deviceheight-97);
@@ -827,4 +833,15 @@
         }
 }
 
+
+- (UIImage *)imageFromColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0, 0, 1, 1);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 @end

@@ -74,22 +74,26 @@
     [self setBackgroundColor:[UIColor clearColor]];
     sharedModel   = [ModelManager sharedModel];
     
+  
+    
     storiesArray = [[NSMutableArray alloc] init];
     streamTableView = [[UITableView alloc] initWithFrame:self.bounds];
     streamTableView.delegate = self;
     streamTableView.dataSource = self;
     streamTableView.tableFooterView = nil;
     streamTableView.tableHeaderView = nil;
-    streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
-    [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    streamTableView.backgroundView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bg-blur.png"]];
+    streamTableView.backgroundColor = [UIColor clearColor];
+    [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self addSubview:streamTableView];
     
     refreshControl = [[UIRefreshControl alloc] init];
     // refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"Pull to Refresh"];
-    refreshControl.backgroundColor= [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
+    refreshControl.backgroundColor= [UIColor clearColor];
     
     [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
     [streamTableView addSubview:refreshControl];
+    
 }
 -(void)handleRefresh:(id)sender
 {
@@ -224,7 +228,10 @@
 #pragma mark TableViewMethods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 121;
+    if((isMostRecent || isFollowing) && indexPath.row == 0)
+        return 171;
+    else
+    return 141;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -248,7 +255,8 @@
         [viw removeFromSuperview];
     }
     
-    [self buildCell:cell withDetails:postDetailsObject];
+    cell.backgroundColor = [UIColor clearColor];
+    [self buildCell:cell withDetails:postDetailsObject :indexPath];
     
     
     return cell;
@@ -258,20 +266,25 @@
 {
     [self.delegate tableDidSelect:(int)indexPath.row];
 }
--(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
+-(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject :(NSIndexPath *)indexPath
 {
-    float yPosition = 26;
+    float yPosition = 5;
     
+    
+    UIImageView *backGroundImg  = [[UIImageView alloc] initWithFrame:CGRectMake(10, 17, 300, 124)];
+    [backGroundImg setImage:[UIImage imageNamed:@"post-bg-wall.png"]];
+    [cell.contentView addSubview:backGroundImg];
+
     
     //Profile Image
-    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 36, 36)];
+    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 40, 40)];
     if(!postDetailsObject.anonymous)
     {
         __weak UIImageView *weakSelf = profileImage;
 
     [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(36, 36)] withRadious:0];
+         weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(40, 40)] withRadious:0];
          
      }failure:nil];
     }
@@ -280,14 +293,23 @@
 
     
     [cell.contentView addSubview:profileImage];
-    yPosition += 36;
+    yPosition = 22;
+    
+    if((isMostRecent || isFollowing) && indexPath.row == 0)
+    {
+        profileImage.frame = CGRectMake(10, 35, 40, 40);
+        backGroundImg.frame = CGRectMake(10, 47, 300, 124);
+         yPosition = 50;
+    }
+
+    
     //Profile name
     if(!postDetailsObject.anonymous)
     {
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(0, yPosition, 54, 18)];
-    [name setText:[postDetailsObject.owner objectForKey:@"fname"]];
-    name.textAlignment = NSTextAlignmentCenter;
-    [name setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
+    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(55, yPosition, 150, 18)];
+    [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
+    name.textAlignment = NSTextAlignmentLeft;
+    [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:14]];
     [name setTextColor:[UIColor blackColor]];
     [cell.contentView addSubview:name];
     }
@@ -295,7 +317,7 @@
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
-    [profileButton setFrame:CGRectMake(0, yPosition, 54, 18)];
+    [profileButton setFrame:CGRectMake(52, yPosition, 150, 18)];
     [cell.contentView addSubview:profileButton];
 
     UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -306,24 +328,24 @@
 
     
     
-    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(253, 5, 8, 8)];
+    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(247, yPosition+5, 10, 10)];
     [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
     [cell.contentView addSubview:timeIcon];
 
     //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(262, 4, 55, 10)];
+    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(259, yPosition+5, 55, 12)];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextAlignment:NSTextAlignmentLeft];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
+    [time setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
     [cell.contentView addSubview:time];
 
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(226, 4, 10, 10)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(209, yPosition, 20, 20)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
     [cell.contentView addSubview:heartCntImage];
     
-    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(237, 4, 10, 10)];
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(229, yPosition+7, 10, 10)];
     [heartCount setText:postDetailsObject.time];
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
@@ -332,12 +354,12 @@
     [cell.contentView addSubview:heartCount];
 
     
-    [self addDescription:cell withDetails:postDetailsObject];
+    [self addDescription:cell withDetails:postDetailsObject :indexPath];
     
 }
--(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
+-(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject :(NSIndexPath *)indexPath
 {
-    float yPosition = 15;
+    float yPosition = 45;
     
     //Description
     //Description
@@ -398,9 +420,10 @@
     
     [cell.contentView addSubview:textView];
     
-        textView.frame = CGRectMake(57, yPosition, 240, 60);
+
+        textView.frame = CGRectMake(16, yPosition, 282, 45);
     
-    CGSize size = [textView sizeThatFits:CGSizeMake(240, MAXFLOAT)];
+    CGSize size = [textView sizeThatFits:CGSizeMake(282, MAXFLOAT)];
     int numLines = size.height / [[UIFont fontWithName:@"Ubuntu-Light" size:15] lineHeight];
 
     
@@ -409,12 +432,12 @@
     else
         [textView setTextAlignment:NSTextAlignmentCenter];
 
-    yPosition += 60;
+    yPosition += 45;
     
     STTweetLabel *tweetLabel;
     if([postDetailsObject.tags count] > 0)
     {
-        tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(57, 75, 240 , 17)];
+        tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(15, 95, 290 , 15)];
         NSMutableArray *tagarray = [[NSMutableArray alloc] init];
         for(NSString *tag in postDetailsObject.tags)
             [tagarray addObject:[NSString stringWithFormat:@"%@",tag]];
@@ -435,13 +458,14 @@
 
     
         NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(57, 95, 240, 19)];
+    
+        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(15, 113, 290, 19)];
         [cell.contentView addSubview:commentersView];
         
         long int x = 0;
         
         if(commenters.count < 6)
-        x = (240 - (19*(commenters.count+1) + 3*(commenters.count) ))/2;
+        x = (290 - (19*(commenters.count+1) + 3*(commenters.count) ))/2;
         for(int i = 0; i < commenters.count; i++)
             //for(id dict in array)
         {
@@ -467,20 +491,25 @@
             x+= 19 + 3;
             
         }
-    UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 19, 19)];
+    UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 3, 19, 19)];
     [imagVw setImage:[UIImage imageNamed:@"comment_Count.png"]];
     [commentersView addSubview:imagVw];
     
     if(postDetailsObject.commentCount > 0)
     {
-        UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(2, 4, 15 , 10)];
+        UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(2, 3, 15 , 10)];
         [tag setText:[NSString stringWithFormat:@"%i",postDetailsObject.commentCount]];
         [tag setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
         [tag setTextAlignment:NSTextAlignmentCenter];
         [imagVw addSubview:tag];
     }
 
-    
+    if((isMostRecent || isFollowing) && indexPath.row == 0)
+    {
+        textView.frame = CGRectMake(16, 75, 282, 45);
+        tweetLabel.frame = CGRectMake(15, 90+35, 290 , 16);
+        commentersView.frame = CGRectMake(15, 108+35, 290, 19);
+    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

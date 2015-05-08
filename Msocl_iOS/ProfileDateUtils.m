@@ -447,7 +447,7 @@
         {
             [dateFormatter1 setTimeZone:[NSTimeZone timeZoneWithName:actualtimeZone]];
             NSDate *date2 = [dateFormatter1 dateFromString:dateStr];
-            [dateFormatter1 setDateFormat:@"MMMM dd, yyyy"];
+            [dateFormatter1 setDateFormat:@"MMMM dd, yy"];
             return [dateFormatter1 stringFromDate:date2];
             //actualtimeZone
         }
