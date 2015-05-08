@@ -328,12 +328,12 @@
 
     
     
-    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(247, yPosition+5, 10, 10)];
+    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(242, yPosition+5, 10, 10)];
     [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
     [cell.contentView addSubview:timeIcon];
 
     //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(259, yPosition+5, 55, 12)];
+    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(254, yPosition+5, 55, 12)];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextAlignment:NSTextAlignmentLeft];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
@@ -388,13 +388,24 @@
             textAttachment.image = image;
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
+           /* if(postDetailsObject.thumb_images != nil && postDetailsObject.thumb_images.count > 0)
+            {
+                [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.thumb_images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                    
+                    textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"26x16#"] withRadious:3.0];
+                    [textView setNeedsDisplay];
+                    
+                }];
+            }
+            else
+            {*/
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
                 textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"26x16#"] withRadious:3.0];
                 [textView setNeedsDisplay];
                 
             }];
-            
+            //}
             NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
             if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
             attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];

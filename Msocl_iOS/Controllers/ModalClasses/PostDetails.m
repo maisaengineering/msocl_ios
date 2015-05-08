@@ -24,7 +24,7 @@
 @synthesize upvoted;
 @synthesize flagged;
 @synthesize commentCount;
-
+@synthesize thumb_images;
 -(id)initWithDictionary:(NSDictionary *)response{
     
     if (self=[super init]) {
@@ -43,6 +43,9 @@
             }
             else if ([key isEqualToString:@"images"]) {
                 self.images = [response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"thumb_images"]) {
+                self.thumb_images = [response objectForKey:key];
             }
             else if ([key isEqualToString:@"tags"]) {
                 self.tags = [response objectForKey:key];
