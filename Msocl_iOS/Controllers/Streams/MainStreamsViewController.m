@@ -234,6 +234,7 @@
 #pragma mark Call backs from stream display
 - (void)userProifleClicked:(int)index
 {
+    isShowPostCalled = YES;
     selectedIndex = index;
     PostDetails *postObject;
     if(!mostRecent.hidden)
