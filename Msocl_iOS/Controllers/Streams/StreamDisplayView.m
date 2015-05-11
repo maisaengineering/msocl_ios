@@ -321,9 +321,11 @@
     [cell.contentView addSubview:profileButton];
 
     UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
-    [profileButton1 addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+    //    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+    profileButton1.tag = indexPath.row;
     [profileButton1 setFrame:profileImage.frame];
+    [profileButton1 addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
     [cell.contentView addSubview:profileButton1];
 
     
