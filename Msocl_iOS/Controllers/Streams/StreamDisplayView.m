@@ -546,7 +546,12 @@
 
 -(void)profileButtonClicked:(id)sender
 {
-    [self.delegate userProifleClicked:(int)[sender tag]];
+    // Resrict the anonymous users
+    PostDetails *postObject = [storiesArray objectAtIndex:(int)[sender tag]];
+    if (!postObject.anonymous)
+    {
+        [self.delegate userProifleClicked:(int)[sender tag]];
+    }
 }
 
 - (void)tappedTextView:(UITapGestureRecognizer *)tapGesture {
