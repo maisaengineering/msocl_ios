@@ -764,7 +764,11 @@
     NSLog(@"y = %f",y);
     if(y <= 0)
     {
+        
         [self.view addSubview:searchBar];
+        UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
+        cancelButton.enabled = YES;
+
         searchBar.frame = CGRectMake(0, 65, 320, 32);
         mostRecentButton.frame = CGRectMake(0, 97, 320, 30);
         mostRecent.frame = CGRectMake(0, 97, 320, Deviceheight-97);

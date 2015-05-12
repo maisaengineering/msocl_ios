@@ -733,6 +733,12 @@
 }
 -(void)callCommentApi
 {
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        [self gotoLoginScreen];
+        return;
+        
+    }
     if(self.txt_comment.text.length ==  0)
     {
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
