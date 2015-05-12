@@ -177,8 +177,14 @@
     self.navigationItem.leftBarButtonItem.enabled = NO;
     self.navigationItem.leftBarButtonItem.title = @"";
 
+    mostRecentButton.selected = NO;
+    
+    [mostRecent setHidden:NO];
+    [following setHidden:YES];
+    
+    [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     [mostRecent resetData];
-    [mostRecent callStreamsApi:@""];
+    [mostRecent callStreamsApi:@"next"];
 }
 -(void)menuDidOpen
 {
