@@ -306,8 +306,13 @@
     //Profile name
     if(!postDetailsObject.anonymous)
     {
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(55, yPosition, 150, 18)];
-    [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
+        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(55, yPosition, 150, 18)];
+        if(([postDetailsObject.owner objectForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner objectForKey:@"fname"] length] > 0) &&
+           ([postDetailsObject.owner objectForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner objectForKey:@"lname"] length] > 0)
+           )
+            [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
+        else
+            [name setText:@""];
     name.textAlignment = NSTextAlignmentLeft;
     [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:14]];
     [name setTextColor:[UIColor blackColor]];
