@@ -430,11 +430,12 @@
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
     [textView addGestureRecognizer:tapRecognizer];
     textView.selectable = YES;
+    textView.backgroundColor = [UIColor clearColor];
     
     [cell.contentView addSubview:textView];
     
 
-        textView.frame = CGRectMake(16, yPosition, 282, 45);
+        textView.frame = CGRectMake(16, yPosition, 282, 50);
     
     CGSize size = [textView sizeThatFits:CGSizeMake(282, MAXFLOAT)];
     int numLines = size.height / [[UIFont fontWithName:@"Ubuntu-Light" size:15] lineHeight];
@@ -519,7 +520,7 @@
 
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
-        textView.frame = CGRectMake(16, 75, 282, 45);
+        textView.frame = CGRectMake(16, 75, 282, 50);
         tweetLabel.frame = CGRectMake(15, 90+35, 290 , 16);
         commentersView.frame = CGRectMake(15, 108+35, 290, 19);
     }
