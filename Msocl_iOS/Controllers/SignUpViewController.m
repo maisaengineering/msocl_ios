@@ -130,8 +130,25 @@
         isSignupClicked = YES;
         [appdelegate showOrhideIndicator:YES];
         if(!isUploadingImage)
-            [self doSignup];
+        {
+            if([self validateEmailWithString:txt_emailAddress.text])
+            {
+                [self doSignup];
+            }
+            else
+            {
+                [appdelegate showOrhideIndicator:NO];
+                ShowAlert(PROJECT_NAME,@"Please provide a valid email address", @"OK");
+                return;
+            }
+        }
     }
+}
+- (BOOL)validateEmailWithString:(NSString*)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
 }
 -(void)doSignup
 {

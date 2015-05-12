@@ -76,29 +76,45 @@
 -(void)resetClick:(id)sender
 {
     [emialField resignFirstResponder];
-   if(emialField.text.length > 0)
-   {
+    if(emialField.text.length > 0)
+    {
         [appdelegate showOrhideIndicator:YES];
         
-        NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-        [postDetails setObject:emialField.text forKey:@"email"];
-       
-        ModelManager *sharedModel = [ModelManager sharedModel];
-        AccessToken* token = sharedModel.accessToken;
-        
-        NSDictionary* postData = @{@"access_token": token.access_token,
-                                   @"command": @"forgot_password",
-                                   @"body": postDetails};
-        NSDictionary *userInfo = @{@"command": @"resetPassword"};
-        NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
-        
-        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-   }
+        if([self validateEmailWithString:emialField.text])
+        {
+            //[self doLogin];
+            NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+            [postDetails setObject:emialField.text forKey:@"email"];
+            
+            ModelManager *sharedModel = [ModelManager sharedModel];
+            AccessToken* token = sharedModel.accessToken;
+            
+            NSDictionary* postData = @{@"access_token": token.access_token,
+                                       @"command": @"forgot_password",
+                                       @"body": postDetails};
+            NSDictionary *userInfo = @{@"command": @"resetPassword"};
+            NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+            
+            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        }
+        else
+        {
+            [appdelegate showOrhideIndicator:NO];
+            ShowAlert(PROJECT_NAME,@"Please provide a valid email address", @"OK");
+            return;
+        }
+    }
     else
     {
         ShowAlert(PROJECT_NAME,@"Please enter email", @"OK");
         return;
     }
+}
+- (BOOL)validateEmailWithString:(NSString*)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
 }
 -(void) resetPasswordSuccessFull:(NSDictionary *)recievedDict
 {

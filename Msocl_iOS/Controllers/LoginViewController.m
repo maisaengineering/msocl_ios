@@ -104,9 +104,21 @@
         
     }
     else
-    {
-        [self doLogin];
-    }
+        if([self validateEmailWithString:txt_username.text])
+        {
+            [self doLogin];
+        }
+        else
+        {
+            ShowAlert(PROJECT_NAME,@"Please provide a valid email address", @"OK");
+            return;
+        }
+}
+- (BOOL)validateEmailWithString:(NSString*)email
+{
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:email];
 }
 -(void)doLogin
 {
