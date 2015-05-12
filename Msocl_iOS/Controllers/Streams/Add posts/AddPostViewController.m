@@ -303,7 +303,7 @@
 
 -(void)deleteButtonClicked
 {
-    UIAlertView *cautionAlert = [[UIAlertView alloc]initWithTitle:@"Sure you want to delete this post?" message:@"" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
+    UIAlertView *cautionAlert = [[UIAlertView alloc]initWithTitle:@"Are you sure you want to delete this post?" message:@"" delegate:self cancelButtonTitle:@"Delete" otherButtonTitles:@"Cancel", nil];
     cautionAlert.tag = 1;
     [cautionAlert show];
     

@@ -122,7 +122,7 @@
     }
     else if(![txt_confirmPassword.text isEqualToString:txt_password.text])
     {
-        ShowAlert(PROJECT_NAME,@"Password and Confirm Password are not matching", @"OK");
+        ShowAlert(PROJECT_NAME,@"Password and Confirm password do not match", @"OK");
         return;
     }
     else

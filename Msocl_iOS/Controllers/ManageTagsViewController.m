@@ -193,6 +193,11 @@
     }
     else
     {
+        if(selectedTags.count == 1)
+        {
+            ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
+            return;
+        }
         
         NSMutableArray *groups =  [[[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"] mutableCopy];
         

@@ -166,7 +166,7 @@
 -(void)loginFailed
 {
     [appdelegate showOrhideIndicator:NO];
-    ShowAlert(@"Error", @"Login Failed", @"OK");
+    ShowAlert(@"Error", @"Email id and Password does not match", @"OK");
 }
 
 #pragma mark -
