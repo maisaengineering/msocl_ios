@@ -440,7 +440,7 @@
     [cell.contentView addSubview:textView];
     
 
-        textView.frame = CGRectMake(16, yPosition, 282, 50);
+        textView.frame = CGRectMake(16, yPosition, 282, 55);
     
     CGSize size = [textView sizeThatFits:CGSizeMake(282, MAXFLOAT)];
     int numLines = size.height / [[UIFont fontWithName:@"Ubuntu-Light" size:15] lineHeight];
@@ -456,7 +456,7 @@
     STTweetLabel *tweetLabel;
     if([postDetailsObject.tags count] > 0)
     {
-        tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(15, 95, 290 , 15)];
+        tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(15, 95, 290 , 18)];
         NSMutableArray *tagarray = [[NSMutableArray alloc] init];
         for(NSString *tag in postDetailsObject.tags)
             [tagarray addObject:[NSString stringWithFormat:@"%@",tag]];
@@ -525,8 +525,8 @@
 
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
-        textView.frame = CGRectMake(16, 75, 282, 50);
-        tweetLabel.frame = CGRectMake(15, 90+35, 290 , 16);
+        textView.frame = CGRectMake(16, 75, 282, 55);
+        tweetLabel.frame = CGRectMake(15, 90+35, 290 , 18);
         commentersView.frame = CGRectMake(15, 108+35, 290, 19);
     }
 }
