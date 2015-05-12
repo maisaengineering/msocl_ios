@@ -195,7 +195,7 @@
     {
         if(selectedTags.count == 1)
         {
-            ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
+            ShowAlert(PROJECT_NAME, @"Atleast one tag should be selected", @"OK");
             return;
         }
         
