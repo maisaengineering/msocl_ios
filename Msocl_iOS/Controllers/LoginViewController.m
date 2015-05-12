@@ -25,6 +25,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
     appdelegate = [[UIApplication sharedApplication] delegate];
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
@@ -48,6 +49,20 @@
      ];
  
     [self preferredStatusBarStyle];
+    
+    // To dismiss the keyboard when user taps on anywhere in the page.
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureUpdated:)];
+    singleTap.delegate = self;
+    singleTap.cancelsTouchesInView = NO;
+    singleTap.numberOfTapsRequired = 1;
+    singleTap.numberOfTouchesRequired = 1;
+    [self.view addGestureRecognizer:singleTap];
+    
+}
+- (void)tapGestureUpdated:(UIGestureRecognizer *)recognizer
+{
+    [txt_username resignFirstResponder];
+    [txt_password resignFirstResponder];
 }
 - (BOOL)prefersStatusBarHidden {
     return YES;
