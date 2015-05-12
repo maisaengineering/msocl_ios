@@ -172,7 +172,14 @@
     if(![selectedTags containsObject:[managedTagsArray objectAtIndex:indexPath.row]])
     {
         
+        NSMutableArray *groups =  [[[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"] mutableCopy];
         NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
+        if(![groups containsObject:dict])
+        {
+            [groups addObject:dict];
+            [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
+        }
+        
         AccessToken* token = sharedModel.accessToken;
         
         NSDictionary* postData = @{@"command": @"follow",@"access_token": token.access_token};
@@ -182,12 +189,16 @@
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
         
         [selectedTags addObject:dict];
-
+        
     }
     else
     {
         
+        NSMutableArray *groups =  [[[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"] mutableCopy];
+        
         NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
+        [groups removeObject:dict];
+        [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
         AccessToken* token = sharedModel.accessToken;
         
         NSDictionary* postData = @{@"command": @"unfollow",@"access_token": token.access_token};
@@ -197,7 +208,7 @@
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
         
         [selectedTags removeObject:dict];
-
+        
         
     }
     [collectionView1 reloadData];
