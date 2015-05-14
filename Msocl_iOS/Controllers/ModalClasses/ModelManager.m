@@ -54,7 +54,7 @@
                 else if ([key isEqualToString:@"photo"]) {
                     userProfile.image = [detailsDict objectForKey:key];
                 }
-                else if ([key isEqualToString:@"blog"]) {
+                else if ([key isEqualToString:@"summary"]) {
                     userProfile.blog = [detailsDict objectForKey:key];
                 }
                 else if ([key isEqualToString:@"email"]) {

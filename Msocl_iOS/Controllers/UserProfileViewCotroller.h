@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImageVw;
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *aboutLabel;
 @property (nonatomic, strong) IBOutlet UIButton *followOrEditBtn;
 
 

@@ -34,6 +34,7 @@
 @synthesize followOrEditBtn;
 @synthesize nameLabel;
 @synthesize profileImageVw;
+@synthesize aboutLabel;
 
 -(void)viewDidLoad
 {
@@ -155,6 +156,9 @@
          weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
          
      }failure:nil];
+    
+    if([recievedDict objectForKey:@"summary"] != nil)
+    aboutLabel.text = [recievedDict objectForKey:@"summary"];
     
 
 }

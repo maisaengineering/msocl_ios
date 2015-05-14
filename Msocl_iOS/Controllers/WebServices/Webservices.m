@@ -501,6 +501,12 @@
             [arrayOfpostDetailsObjects addObject:postObject];
         }
         [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"posts"];
+        
+        NSString *anonymousUrl = [[respDict objectForKey:@"body"] objectForKey:@"anonymous_image"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:anonymousUrl forKey:@"anonymous_image"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         [self.delegate didReceiveStreams:dictCopty];
         
         

@@ -229,9 +229,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if((isMostRecent || isFollowing) && indexPath.row == 0)
-        return 171;
+        return 191;
     else
-    return 141;
+    return 161;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -289,8 +289,17 @@
      }failure:nil];
     }
     else
-        [profileImage setImage:[UIImage imageNamed:@"icon-profile-register.png"]];
-
+    {
+        
+            __weak UIImageView *weakSelf = profileImage;
+            
+            [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+             {
+                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(40, 40)] withRadious:0];
+                 
+             }failure:nil];
+        
+    }
     
     [cell.contentView addSubview:profileImage];
     yPosition = 22;
@@ -344,7 +353,7 @@
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
     [time setTextAlignment:NSTextAlignmentLeft];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [time setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
+    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
     [cell.contentView addSubview:time];
 
     
@@ -375,7 +384,7 @@
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:15],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:13],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -389,7 +398,7 @@
             NSRange matchRange = [match rangeAtIndex:1];
             NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
             
-            UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[UIImage imageNamed:@"placeHolder_wall.png"] withRadious:3.0];
+            UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"placeHolder_wall.png"] scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
 
             textAttachment.image = image;
@@ -408,7 +417,7 @@
             {*/
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
-                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"26x16#"] withRadious:3.0];
+                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
                 [textView setNeedsDisplay];
                 
             }];
@@ -435,22 +444,14 @@
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
     [textView addGestureRecognizer:tapRecognizer];
     textView.selectable = YES;
+
     textView.backgroundColor = [UIColor clearColor];
     
     [cell.contentView addSubview:textView];
     
 
-        textView.frame = CGRectMake(16, yPosition, 282, 55);
+        textView.frame = CGRectMake(52, yPosition-10, 243, 65);
     
-    CGSize size = [textView sizeThatFits:CGSizeMake(282, MAXFLOAT)];
-    int numLines = size.height / [[UIFont fontWithName:@"Ubuntu-Light" size:15] lineHeight];
-
-    
-    if(numLines > 1)
-        [textView setTextAlignment:NSTextAlignmentLeft];
-    else
-        [textView setTextAlignment:NSTextAlignmentCenter];
-
     yPosition += 45;
     
     STTweetLabel *tweetLabel;
@@ -525,7 +526,7 @@
 
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
-        textView.frame = CGRectMake(16, 75, 282, 55);
+        textView.frame = CGRectMake(52, 65, 243, 63);
         tweetLabel.frame = CGRectMake(15, 90+35, 290 , 18);
         commentersView.frame = CGRectMake(15, 108+35, 290, 19);
     }

@@ -87,7 +87,7 @@
 
 
     txt_emailAddress.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Email id"
+    [[NSAttributedString alloc] initWithString:@"Email"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font

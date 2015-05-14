@@ -69,10 +69,10 @@
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [rightButton addTarget:self action:@selector(MyTagsClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
     [rightButton setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-    [rightButton setTitle:@"My tags" forState:UIControlStateNormal];
+    [rightButton setTitle:@"Manage tags" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];
-    rightButton.frame = CGRectMake(0 ,0,50,30);
+    rightButton.frame = CGRectMake(0 ,0,80,30);
     rightButton.layer.cornerRadius = 5; // this value vary as per your desire
     rightButton.clipsToBounds = YES;
     
@@ -100,14 +100,14 @@
      ];
     
     txt_emailAddress.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Change email id"
+    [[NSAttributedString alloc] initWithString:@"Change email"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_blog.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter blog url"
+    [[NSAttributedString alloc] initWithString:@"About Me"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
@@ -187,7 +187,7 @@
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
-    [postDetails setObject:txt_blog.text forKey:@"blog"];
+    [postDetails setObject:txt_blog.text forKey:@"summary"];
     if(imageId.length > 0)
     [postDetails setObject:imageId forKey:@"key"];
     

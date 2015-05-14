@@ -75,21 +75,19 @@
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
     searchBar.delegate = self;
+    //searchBar.backgroundImage = [self imageFromColor:[UIColor whiteColor]];
     [searchBar setImage:[UIImage imageNamed:@"icon-search.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-    searchBar.backgroundImage = [self imageFromColor:[UIColor colorWithRed:174/255.0 green:89/255.0 blue:155/255.0 alpha:1.0]];
     //style the color behind the textbox
-    searchBar.showsCancelButton = YES;
-    //Style the actual text box
     UITextField *txfSearchField = [searchBar valueForKey:@"_searchField"];
     [txfSearchField setBackgroundColor:[UIColor clearColor]];
     [txfSearchField setBorderStyle:UITextBorderStyleNone];
-    txfSearchField.textColor = [UIColor whiteColor];
+    txfSearchField.textColor = [UIColor blackColor];
     txfSearchField.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
-    txfSearchField.placeholder = @"Search here";
     txfSearchField.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Search here"
+    [[NSAttributedString alloc] initWithString:@"Search..."
                                     attributes:@{
-                                                 NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                 NSForegroundColorAttributeName: [UIColor blackColor],
+                                                 NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]
                                                  }
      ];
 

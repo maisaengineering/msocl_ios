@@ -41,7 +41,7 @@
                                                  }
      ];
     txt_username.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter email id"
+    [[NSAttributedString alloc] initWithString:@"Enter email"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font

@@ -398,6 +398,35 @@
              }];
         }
     }
+    else
+    {
+        __weak UIImageView *weakSelf = imagVw;
+        
+        //add initials
+        //NSString *nickname = [dict valueForKey:@"commented_by"];
+        
+        NSString *url = [[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"];
+        if(url != (id)[NSNull null] && url.length > 0)
+        {
+            // Fetch image, cache it, and add it to the tag.
+            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+             {
+                 [photoUtils saveImageToCache:url :image];
+                 
+                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
+                 
+             }
+                                   failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
+             {
+                 DebugLog(@"fail");
+             }];
+        }
+
+        
+
+    }
+    
+
         [cell.contentView addSubview:imagVw];
         
         // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
@@ -469,8 +498,17 @@
          }failure:nil];
     }
     else
-        [profileImage setImage:[UIImage imageNamed:@"icon-profile-register.png"]];
+    {
+        __weak UIImageView *weakSelf = profileImage;
+        
+        [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(30, 30)] withRadious:0];
+             
+         }failure:nil];
 
+        
+    }
     
     [cell.contentView addSubview:profileImage];
     
