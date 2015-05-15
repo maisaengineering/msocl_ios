@@ -103,7 +103,7 @@
         //[placeholderLabel setText:placeholder];
         [placeholderLabel setBackgroundColor:[UIColor clearColor]];
         [placeholderLabel setNumberOfLines:0];
-        placeholderLabel.text = @"Write a comment";
+        placeholderLabel.text = @"Add a comment";
         [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
         [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]];
         [placeholderLabel setTextColor:[UIColor lightGrayColor]];
@@ -590,7 +590,7 @@
             UIImage  *image = [UIImage imageNamed:@"placeHolder_show.png"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             image = [photoUtils makeRoundedCornersWithBorder:image withRadious:5.0];
-            image.accessibilityIdentifier = [postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]];
+            image.accessibilityIdentifier = [postDetailsObject.large_images objectForKey:[attributedString.string substringWithRange:matchRange]];
             textAttachment.image = image;
             
             SDWebImageManager *manager = [SDWebImageManager sharedManager];

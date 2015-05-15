@@ -111,7 +111,7 @@
             
         case 2:
             cell.textLabel.text = @"Create Post";
-            cell.imageView.image = [UIImage imageNamed:@"menu-createpost.png"];
+            cell.imageView.image = [UIImage imageNamed:@"icon-createpost.png"];
             break;
             
 

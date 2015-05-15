@@ -179,7 +179,6 @@
 -(void) didReceiveStreams:(NSDictionary *)recievedDict
 {
     bProcessing = NO;
-    self.tagId = [recievedDict objectForKey:@"tag_id"];
     
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
     
@@ -208,7 +207,11 @@
         [streamTableView reloadData];
         
     }
-    [self.delegate tagImage:[recievedDict objectForKey:@"tag_picture"]];
+    
+
+    
+    self.tagId = [[recievedDict objectForKey:@"tag"] objectForKey:@"uid"];
+    [self.delegate tagImage:[[recievedDict objectForKey:@"tag"] objectForKey:@"image"]];
     [refreshControl endRefreshing];
     
     self.timeStamp = [recievedDict objectForKey:@"last_modified"];
@@ -229,9 +232,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if((isMostRecent || isFollowing) && indexPath.row == 0)
-        return 191;
+        return 171;
     else
-    return 161;
+    return 141;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

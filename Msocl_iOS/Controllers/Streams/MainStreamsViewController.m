@@ -762,16 +762,32 @@
     NSLog(@"y = %f",y);
     if(y <= 0)
     {
+        if([searchBar superview] == nil)
+        {
+        searchBar.frame = CGRectMake(0, 0, 320, 32);
+
+        [UIView animateWithDuration:0.3f
+                         animations:^{
+                             searchBar.frame = CGRectMake(0, 65, 320, 32);
+                             [self.view addSubview:searchBar];
+
+                         }
+                         completion:^(BOOL finished) {
+                             //do smth after animation finishes
+                         }
+         ];
         
-        [self.view addSubview:searchBar];
+
+        
+       // [self.view addSubview:searchBar];
         UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
         cancelButton.enabled = YES;
 
-        searchBar.frame = CGRectMake(0, 65, 320, 32);
         mostRecentButton.frame = CGRectMake(0, 97, 320, 30);
         mostRecent.frame = CGRectMake(0, 97, 320, Deviceheight-97);
         following.frame = CGRectMake(0, 97, 320, Deviceheight-97);
         imageView.frame = CGRectMake(0, 97, 320, 30);
+        }
     }
     else if(!mostRecent.isSearching)
     {

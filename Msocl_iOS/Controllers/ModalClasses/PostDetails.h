@@ -16,7 +16,7 @@
 @property (nonatomic,strong) NSString *content;
 @property (nonatomic, strong) NSString * profileImage;
 @property (nonatomic,strong) NSMutableDictionary *images;
-@property (nonatomic,strong) NSMutableDictionary *thumb_images;
+@property (nonatomic,strong) NSMutableDictionary *large_images;
 @property (nonatomic,strong) NSMutableDictionary *owner;
 @property (nonatomic,strong) NSMutableArray *commenters;
 @property (nonatomic,strong) NSMutableArray *tags;
