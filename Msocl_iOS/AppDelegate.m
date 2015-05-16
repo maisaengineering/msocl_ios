@@ -40,10 +40,12 @@
     
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor whiteColor], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"Ubuntu-Light" size:18], NSFontAttributeName, nil]];
+                                                           [UIFont fontWithName:@"Ubuntu" size:18], NSFontAttributeName, nil]];
 
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:174/255.0 green:89/255.0 blue:155/255.0 alpha:1.0]];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                              bundle: nil];

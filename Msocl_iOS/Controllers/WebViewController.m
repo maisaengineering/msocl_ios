@@ -65,12 +65,17 @@
     NSString *url = [[request URL] absoluteString];
     
     static NSString *kidsLinkPrefix = @"socl://fb_success";
+    static NSString *FbFailure = @"socl://fb_failure";
     
     if([url hasPrefix:kidsLinkPrefix])
     {
         // socl://fb_success/uid=c2e872f7-58ac-4f19-bd95-5137f5d8a355.
         NSString *uid = [url substringFromIndex:22];
         [self callExternalSignInAPIWithUserUId:uid];
+    }
+    else if([url hasPrefix:FbFailure])
+    {
+        [self.navigationController popViewControllerAnimated:YES];
     }
     return YES;
 }

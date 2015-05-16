@@ -23,14 +23,14 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>19</string>
+	<string>20</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ubuntu-LI.ttf</string>
-		<string>Ubuntu-R.ttf</string>
 		<string>Ubuntu-L.ttf</string>
+		<string>Ubuntu-R.ttf</string>
 		<string>Ubuntu-M.ttf</string>
 		<string>Typo Grotesk Demo.otf</string>
 		<string>Typo Grotesk Thin Demo.otf</string>

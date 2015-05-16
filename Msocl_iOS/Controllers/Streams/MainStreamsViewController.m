@@ -55,7 +55,7 @@
     [line setTextAlignment:NSTextAlignmentLeft];
     line.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
     [self.view addSubview:line];
-    self.view.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     
     mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 65, 320, Deviceheight-65)];
     mostRecent.delegate = self;
@@ -75,19 +75,19 @@
     
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 32)];
     searchBar.delegate = self;
-    //searchBar.backgroundImage = [self imageFromColor:[UIColor whiteColor]];
+    searchBar.backgroundImage = [self imageFromColor:[UIColor clearColor]];
     [searchBar setImage:[UIImage imageNamed:@"icon-search.png"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     //style the color behind the textbox
     UITextField *txfSearchField = [searchBar valueForKey:@"_searchField"];
     [txfSearchField setBackgroundColor:[UIColor clearColor]];
     [txfSearchField setBorderStyle:UITextBorderStyleNone];
-    txfSearchField.textColor = [UIColor blackColor];
+    txfSearchField.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     txfSearchField.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
     txfSearchField.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Search..."
                                     attributes:@{
-                                                 NSForegroundColorAttributeName: [UIColor blackColor],
-                                                 NSFontAttributeName:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]
+                                                 NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0],
+                                                 NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:16]
                                                  }
      ];
 
@@ -574,7 +574,7 @@
 #pragma mark Timer Methods For Post
 -(void)setUpTimer
 {
-    if (!timer) {
+ /*   if (!timer) {
         
         timer = [NSTimer scheduledTimerWithTimeInterval: 5
                                                  target: self
@@ -594,6 +594,7 @@
                                                 repeats: YES];
     }
     [timer fire];
+  */
 }
 - (void)updateStreamData
 {
