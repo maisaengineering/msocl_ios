@@ -38,6 +38,7 @@
     UIButton *anonymousButton;
     UIImageView *postAnonymous;
     UIView *addPopUpView;
+    UIImageView *dropDown;
 
 }
 @synthesize scrollView;
@@ -82,15 +83,15 @@
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [postButton addTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setFrame:CGRectMake(244, 0, 38, 44)];
+    [postButton setFrame:CGRectMake(244, 5, 43, 30.5)];
     [postButton setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
 
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(282.3, 0, 30, 44)];
+    [anonymousButton setFrame:CGRectMake(287, 5, 30, 30)];
     
-    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 11, 22, 22)];
+    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 2.5, 22, 22)];
 
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -103,8 +104,14 @@
      }failure:nil];
     [anonymousButton addSubview:postAnonymous];
     
+    dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(302, 24, 10, 9)];
+    [dropDown setImage:[UIImage imageNamed:@"btn-post-dropdown.png"]];
+
+    
     [self.navigationController.navigationBar addSubview:postButton];
     [self.navigationController.navigationBar addSubview:anonymousButton];
+    [self.navigationController.navigationBar addSubview:dropDown];
+
     
     imagesIdDict = [[NSMutableDictionary alloc] init];
     
@@ -151,6 +158,7 @@
     [postButton removeFromSuperview];
     [postAnonymous removeFromSuperview];
     [anonymousButton removeFromSuperview];
+    [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 
 }
@@ -169,7 +177,7 @@
     [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
     [scrollView addSubview:imageView];
 
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 150)];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 140)];
     textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:14];
     textView.delegate = self;
     [scrollView addSubview:textView];
@@ -192,7 +200,7 @@
                                                   alpha:1.0f]];
     
     UIButton *addPhotoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addPhotoBtn.frame = CGRectMake(15, 150+22, 28, 30);
+    addPhotoBtn.frame = CGRectMake(15, 150+10, 38, 38);
     [addPhotoBtn setImage:[UIImage imageNamed:@"icon-camera-add.png"] forState:UIControlStateNormal];
     [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:addPhotoBtn];
@@ -207,8 +215,9 @@
     
     
     
-    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 300, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:14]];
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 200, 20)];
+    [selectTagslabel setFont:[UIFont fontWithName:@"Ubuntu" size:15]];
+    [selectTagslabel setTextColor:[UIColor colorWithRed:77/255.0 green:77/255.0 blue:77/255.0 alpha:1.0]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
     
@@ -228,7 +237,7 @@
 -(void)setDetails
 {
     UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [deleteButton setFrame:CGRectMake(287, 4, 30, 30)];
+    [deleteButton setFrame:CGRectMake(287, 220, 23, 26)];
     [deleteButton setImage:[UIImage imageNamed:@"icon-delete-post.png"] forState:UIControlStateNormal];
     [deleteButton addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:deleteButton];
@@ -342,7 +351,7 @@
     [postButton removeFromSuperview];
     [anonymousButton removeFromSuperview];
     [postAnonymous removeFromSuperview];
-
+    [dropDown removeFromSuperview];
     
     [appdelegate showOrhideIndicator:NO];
     [self.delegate PostDeletedFromEditPostDetails];
@@ -806,19 +815,19 @@
     [label setText:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
-    [label setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [label setTextColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
     [cell addSubview:label];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"tag-tick-active.png"] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(80, 8, 15, 15)];
+    [button setFrame:CGRectMake(78, 3, 14, 14)];
     [cell addSubview:button];
     
     if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])
     {
         [button setImage:[UIImage imageNamed:@"tag-tick.png"] forState:UIControlStateNormal];
-        [label setBackgroundColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
-        [label setTextColor:[UIColor whiteColor]];
+        [label setBackgroundColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
+        [label setTextColor:[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0]];
     }
     return cell;
 }
@@ -1066,7 +1075,7 @@
     [postButton removeFromSuperview];
     [anonymousButton removeFromSuperview];
     [postAnonymous removeFromSuperview];
-
+    [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)postCreationFailed
@@ -1150,6 +1159,7 @@
     
     [postButton removeFromSuperview];
     [anonymousButton removeFromSuperview];
+    [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate PostEdited:postDetails];
 

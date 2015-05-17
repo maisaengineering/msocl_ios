@@ -429,7 +429,7 @@
     [heartCount setText:postDetailsObject.time];
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
-    [heartCount setTextColor:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]];
+    [heartCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
     [heartCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
     [cell.contentView addSubview:heartCount];
     
@@ -507,21 +507,37 @@
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
     [textView addGestureRecognizer:tapRecognizer];
     textView.selectable = YES;
-
     textView.backgroundColor = [UIColor clearColor];
-    
     [cell.contentView addSubview:textView];
     
 
     CGSize contentSize = [textView sizeThatFits:CGSizeMake(230, CGFLOAT_MAX)];
 
-    if(contentSize .height > 80)
+    
+    if((isMostRecent || isFollowing) && indexPath.row == 0)
+
     {
-        textView.frame = CGRectMake(60, yPosition, 230, 80);
+        if(contentSize .height > 80)
+        {
+            textView.frame = CGRectMake(60, yPosition+30, 230, 80);
+            
+        }
+        else
+            textView.frame = CGRectMake(60, yPosition+30, 230, contentSize.height);
 
     }
     else
-    textView.frame = CGRectMake(60, yPosition, 230, contentSize.height);
+    {
+        if(contentSize .height > 80)
+        {
+            textView.frame = CGRectMake(60, yPosition, 230, 80);
+            
+        }
+        else
+            textView.frame = CGRectMake(60, yPosition, 230, contentSize.height);
+
+    }
+    
 
     yPosition += textView.frame.size.height;
     
@@ -531,7 +547,7 @@
     [cell.contentView addSubview:lineImage];
     
     
-    STTweetLabel *tweetLabel;
+   /* STTweetLabel *tweetLabel;
     if([postDetailsObject.tags count] > 0)
     {
         tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(15, yPosition, 290 , 30)];
@@ -551,6 +567,44 @@
         
         yPosition += 30;
     }
+    */
+    
+        UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(15, yPosition, 290, 30)];
+        [cell.contentView addSubview:tagsView];
+        NSArray *tagsArray = postDetailsObject.tags;
+        int xPosition =0;
+        for(int i=0; i <tagsArray.count ;i++)
+        {
+            NSString *tagNameStr = tagsArray[i];
+            CGSize size = [tagNameStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+            
+            if(size.width + xPosition >= 290)
+               break;
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            btn.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
+            btn.layer.borderColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0].CGColor;
+            btn.layer.borderWidth = 1.0f;
+            btn.layer.cornerRadius = 5;
+            btn.layer.masksToBounds = YES;
+            [btn setTitle:tagNameStr forState:UIControlStateNormal];
+            [btn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
+            [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
+            [tagsView addSubview:btn];
+            btn.frame = CGRectMake(xPosition, 6, size.width, 20);
+            
+            xPosition += btn.frame.size.width + 3;
+        }
+        if(xPosition < 290)
+        {
+             CGRect frame = tagsView.frame;
+            frame.size.width = xPosition-3;
+            frame.origin.x = (320 - frame.size.width)/2.0;
+            tagsView.frame = frame;
+            
+        }
+        yPosition += 30;
     
 
     
@@ -597,7 +651,7 @@
         UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 22 , 22)];
         [tag setText:[NSString stringWithFormat:@"%i",postDetailsObject.commentCount]];
         [tag setTextColor:[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]];
-        [tag setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+        [tag setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
         [tag setTextAlignment:NSTextAlignmentCenter];
         [imagVw addSubview:tag];
     }
@@ -608,13 +662,10 @@
         frame.origin.y += 30;
         lineImage.frame = frame;
         
-         frame =  textView.frame;
-        frame.origin.y += 30;
-        textView.frame = frame;
         
-         frame =  tweetLabel.frame;
+         frame =  tagsView.frame;
         frame.origin.y += 30;
-        tweetLabel.frame = frame;
+        tagsView.frame = frame;
         
          frame =  commentersView.frame;
         frame.origin.y += 30;
@@ -653,7 +704,12 @@
         [self.delegate userProifleClicked:(int)[sender tag]];
     }
 }
+-(void)tagClicked:(id)sender
+{
+    UIButton *btn = sender;
+    [self.delegate tagCicked:[btn titleForState:UIControlStateNormal]];
 
+}
 - (void)tappedTextView:(UITapGestureRecognizer *)tapGesture {
     if (tapGesture.state != UIGestureRecognizerStateEnded) {
         return;

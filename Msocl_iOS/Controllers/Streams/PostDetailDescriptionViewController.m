@@ -76,7 +76,7 @@
     */
     
     storiesArray = [[NSMutableArray alloc] init];
-    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-50);
+    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-54);
     streamTableView.tableFooterView = [[UIView alloc] init];
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
@@ -90,16 +90,16 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;    
     
-    self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 50)];
+    self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 54)];
         self.commentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.commentView];
-    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 50)];
+    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 54)];
     self.txt_comment.delegate = self;
         [self.txt_comment setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
 
     [self.commentView addSubview:self.txt_comment];
         
-        placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, self.txt_comment.frame.size.width - 15.0, 50)];
+        placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 0, self.txt_comment.frame.size.width - 15.0, 54)];
         //[placeholderLabel setText:placeholder];
         [placeholderLabel setBackgroundColor:[UIColor clearColor]];
         [placeholderLabel setNumberOfLines:0];
@@ -112,14 +112,14 @@
         
     //Upvote
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commentBtn setFrame:CGRectMake(207, 6, 55, 40)];
+    [commentBtn setFrame:CGRectMake(224, 6.5, 48, 41)];
     [commentBtn setImage:[UIImage imageNamed:@"comment-post.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
     [self.commentView addSubview:commentBtn];
     
         //Upvote
         UIButton *anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [anonymousButton setFrame:CGRectMake(262.3, 6, 48, 40)];
+        [anonymousButton setFrame:CGRectMake(272.3, 6.5, 43, 41)];
         [anonymousButton setImage:[UIImage imageNamed:@"comment-ana.png"] forState:UIControlStateNormal];
         [anonymousButton addTarget:self action:@selector(anonymousCommentClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.commentView addSubview:anonymousButton];
@@ -136,7 +136,9 @@
      }failure:nil];
     [anonymousButton addSubview:postAnonymous];
 
-    
+    UIImageView *dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(300, 34, 9, 8)];
+    [dropDown setImage:[UIImage imageNamed:@"option-dropdown.png"]];
+    [self.commentView addSubview:dropDown];
         
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 0, 320, 0.5)];
     line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
@@ -436,10 +438,7 @@
         
     
     UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(267, 16, 12, 12)];
-    if(![[commentDict objectForKey:@"upvoted"] boolValue])
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
-    else
-        [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote.png"]];
 
     [cell.contentView addSubview:heartCntImage];
 
@@ -481,19 +480,19 @@
 }
 -(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
-    float yPosition = 5;
+    float yPosition = 6;
     
 
     
     //Profile Image
-    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(8, yPosition, 30, 30)];
+    UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(8, yPosition, 28, 28)];
     if(!postDetailsObject.anonymous)
     {
         __weak UIImageView *weakSelf = profileImage;
         
         [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(30, 30)] withRadious:0];
+             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
              
          }failure:nil];
     }
@@ -503,7 +502,7 @@
         
         [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(30, 30)] withRadious:0];
+             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
              
          }failure:nil];
 
@@ -515,49 +514,43 @@
     //Profile name
     if(!postDetailsObject.anonymous)
     {
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(46, yPosition, 120, 20)];
+    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 160, 28)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
-    [name setTextColor:[UIColor blackColor]];
-    [name setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
+    [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+    [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
     [cell.contentView addSubview:name];
     }
     
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    if(postDetailsObject.upvoted)
-        [heartButton setImage:[UIImage imageNamed:@"icon-upvote.png"] forState:UIControlStateNormal];
-    else
-        [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(216, 0, 30, 30)];
+    [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
+    [heartButton setFrame:CGRectMake(209, 11, 18, 18)];
     [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
-    [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:heartButton];
     
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(243, 8, 20 , 16)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(227, 13, 20 , 18)];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+     [upVoteCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
     [upVoteCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
     [cell.contentView addSubview:upVoteCount];
     
     
-    UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [flagButton setImage:[UIImage imageNamed:@"flag-inactive.png"] forState:UIControlStateNormal];
-    [flagButton setFrame:CGRectMake(186, 0, 30, 30)];
-    [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
-    [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.contentView addSubview:flagButton];
 
     
+    
+    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(240, 15, 13, 13)];
+    [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
+    [cell.contentView addSubview:timeIcon];
     
     //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(260, yPosition, 50, 20)];
-    [time setTextAlignment:NSTextAlignmentLeft];
+    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(255, 16, 55, 12)];
     [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
+    [time setTextAlignment:NSTextAlignmentLeft];
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
     [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
-
     [cell.contentView addSubview:time];
+
     
     
-        
     [self addDescription:cell withDetails:postDetailsObject];
     
     
@@ -565,16 +558,17 @@
 }
 -(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
 {
-    float yPosition = 5;
+    float yPosition = 40;
     
     //Start of Description Text
-    yPosition += 30;
+    
+    
     
     //Description
     UITextView *textView = [[UITextView alloc] init];
     
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:15],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -587,15 +581,14 @@
             NSTextCheckingResult *match =  [myArray firstObject];
             NSRange matchRange = [match rangeAtIndex:1];
             
-            UIImage  *image = [UIImage imageNamed:@"placeHolder_show.png"];
+            UIImage  *image = [[UIImage imageNamed:@"placeHolder_show.png"] resizedImageByMagick:@"300x150#"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             image = [photoUtils makeRoundedCornersWithBorder:image withRadious:5.0];
             image.accessibilityIdentifier = [postDetailsObject.large_images objectForKey:[attributedString.string substringWithRange:matchRange]];
             textAttachment.image = image;
-            
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"260x114#"] withRadious:5.0];
+                image = [image resizedImageByMagick:@"300x150#"];
                 image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
                 textAttachment.image = image;
                 [textView setNeedsDisplay];
@@ -615,11 +608,11 @@
     //This regex captures all items between []
     textView.attributedText = attributedString;
 
-    CGSize contentSize = [textView sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
+    CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
 
     textView.editable = NO;
     textView.scrollEnabled = NO;
-    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]};
+    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]};
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
     [textView setDataDetectorTypes:UIDataDetectorTypeLink];
     [textView addGestureRecognizer:tapRecognizer];
@@ -629,7 +622,7 @@
     
     float height = contentSize.height >21?contentSize.height:21;
     
-    textView.frame =  CGRectMake(44, yPosition, 264, height);
+    textView.frame =  CGRectMake(10, yPosition, 300, height);
 
     
         yPosition += height;
@@ -639,21 +632,48 @@
     
     //Tags
 
-    
-    if([postDetailsObject.tags count] > 0)
+    UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(15, yPosition+5, 220, 30)];
+    [cell.contentView addSubview:tagsView];
+    NSArray *tagsArray = postDetailsObject.tags;
+    int xPosition =0;
+    for(int i=0; i <tagsArray.count ;i++)
     {
-        NSMutableArray *tagarray = [[NSMutableArray alloc] init];
+        NSString *tagNameStr = tagsArray[i];
+        CGSize size = [tagNameStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+        
+        if(size.width + xPosition >= 220)
+            break;
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
+        btn.layer.borderColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0].CGColor;
+        btn.layer.borderWidth = 1.0f;
+        btn.layer.cornerRadius = 5;
+        btn.layer.masksToBounds = YES;
+        [btn setTitle:tagNameStr forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
+        [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [tagsView addSubview:btn];
+        btn.frame = CGRectMake(xPosition, 6, size.width, 20);
+        
+        xPosition += btn.frame.size.width + 3;
+    }
 
+    
+    
+/*
+        NSMutableArray *tagarray = [[NSMutableArray alloc] init];
         for(NSString *tag in postDetailsObject.tags)
             [tagarray addObject:[NSString stringWithFormat:@"%@",tag]];
 
         
             NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagarray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:15.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
-            CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
+            CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(220, CGFLOAT_MAX)
                                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                     context:nil].size;
             
-            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(44, yPosition+5, 264 , tagsSize.height)];
+            STTweetLabel *tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(10, yPosition, 220 , tagsSize.height)];
             [tweetLabel setText:tagsStr.string];
             tweetLabel.textAlignment = NSTextAlignmentCenter;
             [cell.contentView addSubview:tweetLabel];
@@ -663,13 +683,38 @@
                [self tagCicked:[string stringByReplacingOccurrencesOfString:@"#" withString:@""]];
             }];
             
-            yPosition += tagsSize.height+10;
-        
-    }
-    else
-        yPosition += 21+10;
-    
+           //yPosition += tagsSize.height+10;
+    */
 
+    UIImageView *lineImage  =[[UIImageView alloc] initWithFrame:CGRectMake(0, 39, 320, 1)];
+    lineImage.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
+    [cell.contentView addSubview:lineImage];
+
+    
+    UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [flagButton setImage:[UIImage imageNamed:@"icon-flag.png"] forState:UIControlStateNormal];
+    [flagButton setFrame:CGRectMake(240, yPosition+6, 29, 28)];
+    [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:flagButton];
+    
+    UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    if(postDetailsObject.upvoted)
+        [heartButton setImage:[UIImage imageNamed:@"icon-like-postview-active.png"] forState:UIControlStateNormal];
+    else
+        [heartButton setImage:[UIImage imageNamed:@"icon-like-postview.png"] forState:UIControlStateNormal];
+    [heartButton setFrame:CGRectMake(278, yPosition+6, 28, 28)];
+    [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:heartButton];
+
+    yPosition += 40;
+
+}
+-(void)tagClicked:(id)sender
+{
+    UIButton *btn = sender;
+    [self tagCicked:[btn titleForState:UIControlStateNormal]];
     
 }
 
@@ -833,7 +878,7 @@
     CGFloat height = 5;
     
     //Calculating content height
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:15],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -844,7 +889,7 @@
         if(myArray.count > 0)
         {
             NSTextCheckingResult *match =  [myArray firstObject];
-            UIImage  *image = [UIImage imageNamed:@"placeHolder_show.png"];
+            UIImage  *image = [[UIImage imageNamed:@"placeHolder_show.png"] resizedImageByMagick:@"300x150#"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             textAttachment.image = image;
             
@@ -863,13 +908,13 @@
     textView.attributedText = attributedString;
 
     
-    CGSize contentSize = [textView sizeThatFits:CGSizeMake(264, CGFLOAT_MAX)];
+    CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
     
     
     float height1 = contentSize.height >21?contentSize.height:21;
 
 
-    height = 35 + height1;
+    height = 40 + height1;
 
     
     //Tags height
@@ -879,18 +924,18 @@
         [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
     }
     
-    NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:15.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
+    NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
     
 
     
-    CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(264, CGFLOAT_MAX)
+    CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(300, CGFLOAT_MAX)
                                             options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
                                             context:nil].size;
     
     if(postDetailsObject.tags.count > 0)
-        height += (tagsSize.height> 21)?tagsSize.height:21+10;
+        height += (tagsSize.height> 40)?tagsSize.height:40;
     else
-            height += 21+10;
+            height += 40;
     
     return height;
 }
@@ -906,7 +951,7 @@
     NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
     NSString *formattedTime = [profileDateUtils dailyLanguage:milestoneDate];
 
-    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Italic" size:10]}];
+    NSAttributedString *timAttr = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n%@",formattedTime] attributes:@{NSFontAttributeName : [UIFont fontWithName:@"Ubuntu-Light" size:12]}];
     [attributedString appendAttributedString:timAttr];
 
     
@@ -915,7 +960,7 @@
     NIAttributedLabel *textView = [NIAttributedLabel new];
     textView.numberOfLines = 0;
     textView.attributedText = attributedString;
-    CGSize expectedLabelSize = [textView sizeThatFits:CGSizeMake(205, 9999)];
+    CGSize expectedLabelSize = [textView sizeThatFits:CGSizeMake(220, 9999)];
     
     
     CGFloat height =0;
@@ -928,6 +973,24 @@
         height+=44;
     }
     return height;
+}
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+    
 }
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {

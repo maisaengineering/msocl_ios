@@ -93,7 +93,7 @@
     
     _attributesText = @{NSForegroundColorAttributeName: self.textColor, NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:12.0]};
     _attributesHandle = @{NSForegroundColorAttributeName: [UIColor redColor], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:12.0]};
-    _attributesHashtag = @{NSForegroundColorAttributeName: [[UIColor alloc] initWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0], NSFontAttributeName: [UIFont fontWithName:@"Ubuntu-Light" size:14.0]};
+    _attributesHashtag = @{NSForegroundColorAttributeName: [[UIColor alloc] initWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0], NSFontAttributeName: [UIFont fontWithName:@"Ubuntu-Light" size:10.0]};
     _attributesLink = @{NSForegroundColorAttributeName: [[UIColor alloc] initWithRed:129.0/255.0 green:171.0/255.0 blue:193.0/255.0 alpha:1.0], NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:12.0]};
     
     self.validProtocols = @[@"http", @"https"];
