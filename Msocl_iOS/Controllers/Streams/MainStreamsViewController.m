@@ -57,18 +57,18 @@
     [self.view addSubview:line];
     self.view.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     
-    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 65, 320, Deviceheight-65)];
+    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight)];
     mostRecent.delegate = self;
     mostRecent.isMostRecent = YES;
     [self.view addSubview:mostRecent];
 
-    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 65, 320, Deviceheight-65)];
+    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight)];
     following.delegate = self;
     following.isFollowing = YES;
     [self.view addSubview:following];
     following.hidden = YES;
     
-    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, 320, 30)];
+    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 30)];
     [imageView setImage:[UIImage imageNamed:@"semi-transparent.png"]];
     [self.view addSubview:imageView];
     [self.view bringSubviewToFront:mostRecentButton];
@@ -97,7 +97,7 @@
     [mostRecentButton addTarget:self action:@selector(RecentOrFollowignClicked:) forControlEvents:UIControlEventTouchUpInside];
     [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite-disable.png"] forState:UIControlStateNormal];
     [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
-    mostRecentButton.frame= CGRectMake(0, 65, 320, 30) ;
+    mostRecentButton.frame= CGRectMake(0, 0, 320, 30) ;
     [self.view addSubview:mostRecentButton];
 
     for (UIView *searchbuttons in searchBar.subviews)
@@ -183,6 +183,8 @@
     [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     [mostRecent resetData];
     [mostRecent callStreamsApi:@"next"];
+    
+    modelManager.userProfile = nil;
 }
 -(void)menuDidOpen
 {
@@ -199,10 +201,10 @@
 {
     if(searchBar.text.length == 0)
     {
-    mostRecent.frame = CGRectMake(0, 65, 320, Deviceheight-65);
-    following.frame = CGRectMake(0, 65, 320, Deviceheight-65);
-    imageView.frame = CGRectMake(0, 65, 320, 30);
-    mostRecentButton.frame = CGRectMake(0, 65, 320, 30);
+    mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight);
+    following.frame = CGRectMake(0, 0, 320, Deviceheight);
+    imageView.frame = CGRectMake(0, 0, 320, 30);
+    mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
     [searchBar removeFromSuperview];
     }
     
@@ -765,11 +767,11 @@
     {
         if([searchBar superview] == nil)
         {
-        searchBar.frame = CGRectMake(0, 0, 320, 32);
+        searchBar.frame = CGRectMake(0, -30, 320, 32);
 
         [UIView animateWithDuration:0.3f
                          animations:^{
-                             searchBar.frame = CGRectMake(0, 65, 320, 32);
+                             searchBar.frame = CGRectMake(0, 0, 320, 32);
                              [self.view addSubview:searchBar];
 
                          }
@@ -784,19 +786,19 @@
         UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
         cancelButton.enabled = YES;
 
-        mostRecentButton.frame = CGRectMake(0, 97, 320, 30);
-        mostRecent.frame = CGRectMake(0, 97, 320, Deviceheight-97);
-        following.frame = CGRectMake(0, 97, 320, Deviceheight-97);
-        imageView.frame = CGRectMake(0, 97, 320, 30);
+        mostRecentButton.frame = CGRectMake(0, 32, 320, 30);
+        mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-32);
+        following.frame = CGRectMake(0, 32, 320, Deviceheight-32);
+        imageView.frame = CGRectMake(0, 32, 320, 30);
         }
     }
     else if(!mostRecent.isSearching)
     {
     
-        mostRecent.frame = CGRectMake(0, 65, 320, Deviceheight-65);
-        following.frame = CGRectMake(0, 65, 320, Deviceheight-65);
-        imageView.frame = CGRectMake(0, 65, 320, 30);
-        mostRecentButton.frame = CGRectMake(0, 65, 320, 30);
+        mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight);
+        following.frame = CGRectMake(0, 0, 320, Deviceheight);
+        imageView.frame = CGRectMake(0, 0, 320, 30);
+        mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
 
         [searchBar removeFromSuperview];
     }

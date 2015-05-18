@@ -43,14 +43,15 @@
     [followOrEditBtn setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
 
     
-    UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 228.5, 320, 0.5)];
-    line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
-    [line setTextAlignment:NSTextAlignmentLeft];
-    line.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
-    [self.view addSubview:line];
+    aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 180, 320, 30)];
+    aboutLabel.font =[UIFont fontWithName:@"Ubuntu-Light" size:12];
+    [aboutLabel setTextAlignment:NSTextAlignmentCenter];
+    aboutLabel.textColor = [UIColor colorWithRed:(68/255.f) green:(68/255.f) blue:(68/255.f) alpha:1];
+    aboutLabel.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:aboutLabel];
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 229, 320, Deviceheight-229)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 180, 320, Deviceheight-180)];
     streamDisplay.delegate = self;
     streamDisplay.isUserProfilePosts = YES;
     streamDisplay.userProfileId = profileId;
@@ -158,8 +159,18 @@
      }failure:nil];
     
     if([recievedDict objectForKey:@"summary"] != nil)
-    aboutLabel.text = [recievedDict objectForKey:@"summary"];
+    {
+        CGSize size = [[recievedDict objectForKey:@"summary"] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:12]}];
+        if(size.height < 21)
+            size.height = 21;
+        CGRect frame =  aboutLabel.frame;
+        frame.size.height = size.height;
+        aboutLabel.text = [recievedDict objectForKey:@"summary"];
+        aboutLabel.frame = frame;
+        
+      streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y);
     
+    }
 
 }
 -(void) profileDetailsFailed

@@ -15,7 +15,9 @@
 
 @property (nonatomic, strong) NSString *tagName;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImageVw;
-@property (nonatomic, strong) IBOutlet UILabel *nameLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *smallProfileImageVw;
+
+@property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *followOrEditBtn;
 
 -(IBAction)followOrEditClicked:(id)sender;

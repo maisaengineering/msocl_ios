@@ -43,6 +43,7 @@
                                                            [UIFont fontWithName:@"Ubuntu" size:18], NSFontAttributeName, nil]];
 
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
+
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];

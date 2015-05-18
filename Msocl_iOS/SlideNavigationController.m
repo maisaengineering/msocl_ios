@@ -127,6 +127,9 @@ static SlideNavigationController *singletonInstance;
 	self.avoidSwitchingToSameClassViewController = YES;
 	self.enableShadow = YES;
 	self.enableSwipeGesture = YES;
+    
+    self.navigationBar.translucent = NO;
+
 	self.delegate = self;
 }
 

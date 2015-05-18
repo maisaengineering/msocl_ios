@@ -32,6 +32,7 @@
 @synthesize followOrEditBtn;
 @synthesize nameLabel;
 @synthesize profileImageVw;
+@synthesize smallProfileImageVw;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,16 +40,11 @@
     [followOrEditBtn setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
 
     
-    UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 228.5, 320, 0.5)];
-    line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
-    [line setTextAlignment:NSTextAlignmentLeft];
-    line.backgroundColor = [UIColor colorWithRed:(204/255.f) green:(204/255.f) blue:(204/255.f) alpha:1];
-    [self.view addSubview:line];
     
     followOrEditBtn.hidden = YES;
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 219, 320, Deviceheight-219)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 195, 320, Deviceheight-195)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
     streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -72,20 +68,58 @@
     modelManager = [ModelManager sharedModel];
     photoUtils = [ProfilePhotoUtils alloc];
     
+    
+    nameLabel = [[UILabel alloc] init];
+    [nameLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.view addSubview:nameLabel];
     nameLabel.text = tagName;
+    nameLabel.textColor = [UIColor whiteColor];
+    nameLabel.font = [UIFont fontWithName:@"Ubuntu" size:17];
+    
+    CGSize size = [tagName sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:24]}];
+    
+    CGRect frame ;
+    frame.origin.x = (320-size.width)/2;
+    frame.size.width = size.width;
+    frame.origin.y = 144;
+    frame.size.height = 26;
+    nameLabel.frame = frame;
+    nameLabel.layer.borderColor = [UIColor whiteColor].CGColor;
+    nameLabel.layer.borderWidth = 1.5f;
+    nameLabel.layer.cornerRadius = 5;
+    nameLabel.layer.masksToBounds = YES;
+    nameLabel.backgroundColor = [UIColor clearColor];
+
+    
+    smallProfileImageVw.layer.borderColor = [UIColor whiteColor].CGColor;
+    smallProfileImageVw.layer.borderWidth = 3.0f;
+
+    
 
   NSArray *tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     NSArray *array = [tagsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",tagName]];
 
     NSDictionary *dict = [array lastObject];
    __weak UIImageView *weakSelf = profileImageVw;
+    __weak TagViewController *weakSelf2 = self;
+    profileImageVw.tintColor = [UIColor redColor];
+
     
-    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [image resizedImageByMagick:@"260x114#"];
+         weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
          
      }failure:nil];
+
+    profileImageVw.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
+    __weak UIImageView *weakSelf1 = smallProfileImageVw;
     
+    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf1.image = [image resizedImageByMagick:@"110x80#"];
+         
+     }failure:nil];
+
     
 }
 -(IBAction)addClicked:(id)sender
@@ -122,6 +156,24 @@
     }
     isShowPostCalled = NO;
 }
+- (UIImage*) grayishImage: (UIImage*) inputImage {
+    
+    // Create a graphic context.
+    UIGraphicsBeginImageContextWithOptions(inputImage.size, YES, 1.0);
+    CGRect imageRect = CGRectMake(0, 0, inputImage.size.width, inputImage.size.height);
+    
+    // Draw the image with the luminosity blend mode.
+    // On top of a white background, this will give a black and white image.
+    [inputImage drawInRect:imageRect blendMode:kCGBlendModeLuminosity alpha:1.0];
+    
+    // Get the resulting image.
+    UIImage *filteredImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return filteredImage;
+    
+}
+
 #pragma mark -
 #pragma mark Follow or Unfollow Methods
 -(IBAction)followOrEditClicked:(id)sender
@@ -259,13 +311,22 @@
 
 -(void)tagImage:(NSString *)url
 {
+    __weak TagViewController *weakSelf2 = self;
     __weak UIImageView *weakSelf = profileImageVw;
     
-    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [image resizedImageByMagick:@"260x114#"];
+         weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
+     }failure:nil];
+    
+    __weak UIImageView *weakSelf1 = smallProfileImageVw;
+    
+    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf1.image = [image resizedImageByMagick:@"110x80#"];
          
      }failure:nil];
+    
 
 }
 

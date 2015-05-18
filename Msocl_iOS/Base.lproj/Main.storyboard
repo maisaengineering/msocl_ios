@@ -29,8 +29,6 @@
             <string>Ubuntu</string>
             <string>Ubuntu</string>
             <string>Ubuntu</string>
-            <string>Ubuntu</string>
-            <string>Ubuntu</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -86,22 +84,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile-register.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Xo-L3-LQf">
-                                <rect key="frame" x="108" y="74" width="93" height="93"/>
+                                <rect key="frame" x="114" y="30" width="93" height="93"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05K-Xq-L3v">
-                                <rect key="frame" x="0.0" y="167" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="126" width="320" height="30"/>
                                 <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                <color key="textColor" red="0.10196078431372549" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOo-6F-8XH">
-                                <rect key="frame" x="-6" y="129" width="320" height="30"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                <color key="textColor" red="0.1019607843" green="0.1019607843" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLN-UP-Hog">
-                                <rect key="frame" x="0.0" y="196" width="320" height="23"/>
+                                <rect key="frame" x="0.0" y="155" width="320" height="23"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <state key="normal" image="icon-favorite-disable.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -111,11 +103,10 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.77254901960784317" green="0.12941176470588234" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="PROFILE" id="6tI-RL-ekl"/>
                     <connections>
-                        <outlet property="aboutLabel" destination="DOo-6F-8XH" id="yA3-gt-V2H"/>
                         <outlet property="followOrEditBtn" destination="RLN-UP-Hog" id="y7m-g1-Hai"/>
                         <outlet property="nameLabel" destination="05K-Xq-L3v" id="IQ8-AC-IlK"/>
                         <outlet property="profileImageVw" destination="3Xo-L3-LQf" id="CDv-aa-qb3"/>
@@ -880,21 +871,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="yoga-img.png" translatesAutoresizingMaskIntoConstraints="NO" id="5X5-sC-iHe">
-                                <rect key="frame" x="0.0" y="64" width="320" height="155"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5X5-sC-iHe">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="tag-cover-strip.png" translatesAutoresizingMaskIntoConstraints="NO" id="R4W-xm-CXV">
-                                <rect key="frame" x="0.0" y="167" width="320" height="52"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sadashiv" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyk-Xj-8yD">
-                                <rect key="frame" x="0.0" y="167" width="320" height="30"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CCC-yp-Lgw">
-                                <rect key="frame" x="0.0" y="196" width="320" height="23"/>
+                                <rect key="frame" x="0.0" y="170" width="320" height="23"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <state key="normal" image="icon-favorite-disable.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -903,6 +884,9 @@
                                     <action selector="followOrEditClicked:" destination="rfw-mt-SzH" eventType="touchUpInside" id="SSr-Es-Szi"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-gy-Eq5">
+                                <rect key="frame" x="105" y="58" width="110" height="80"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -915,8 +899,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="followOrEditBtn" destination="CCC-yp-Lgw" id="pNh-SZ-YJ8"/>
-                        <outlet property="nameLabel" destination="cyk-Xj-8yD" id="pgy-iW-VHv"/>
                         <outlet property="profileImageVw" destination="5X5-sC-iHe" id="vRd-88-bhe"/>
+                        <outlet property="smallProfileImageVw" destination="cq4-gy-Eq5" id="n4t-7W-vMK"/>
                         <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="fCv-1J-IEX"/>
                         <segue destination="a4M-BD-S81" kind="push" identifier="UserProfile" id="dLo-Yv-fr4"/>
                         <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="M8x-x6-6lY"/>
@@ -985,14 +969,12 @@
         <image name="btn-facebook.png" width="96" height="32"/>
         <image name="btn-google.png" width="93" height="32"/>
         <image name="btn-twitter.png" width="89" height="32"/>
-        <image name="icon-back.png" width="13" height="17"/>
+        <image name="icon-back.png" width="16" height="23"/>
         <image name="icon-close.png" width="26" height="26"/>
         <image name="icon-favorite-disable.png" width="17" height="17"/>
         <image name="icon-profile-register.png" width="50" height="50"/>
         <image name="profile-register.png" width="51" height="50"/>
         <image name="setting-strip.png" width="293" height="34"/>
-        <image name="tag-cover-strip.png" width="320" height="52"/>
-        <image name="yoga-img.png" width="95" height="64"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1000,10 +982,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ngw-Gf-AxF"/>
         <segue reference="fCv-1J-IEX"/>
         <segue reference="m3S-0J-NjW"/>
         <segue reference="dLo-Yv-fr4"/>
-        <segue reference="M8x-x6-6lY"/>
+        <segue reference="iax-nE-auz"/>
+        <segue reference="Ngw-Gf-AxF"/>
     </inferredMetricsTieBreakers>
 </document>
