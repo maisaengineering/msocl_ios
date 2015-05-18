@@ -42,6 +42,7 @@
 {
     [super viewDidLoad];
     
+    [UIApplication sharedApplication].statusBarHidden = NO;
 
     
     modelManager =[ModelManager sharedModel];
@@ -193,6 +194,11 @@
         [[self  timerHomepage] invalidate];
 
 }
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
 -(void)menuDidClose
 {
     [self check];

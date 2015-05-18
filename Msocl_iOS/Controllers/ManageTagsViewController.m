@@ -59,10 +59,7 @@
     layout.minimumInteritemSpacing = 7;
     layout.minimumLineSpacing = 7;
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
         collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,10, 300, Deviceheight-10) collectionViewLayout:layout];
-    else
-        collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10,74, 300, Deviceheight-74) collectionViewLayout:layout];
 
     collectionView.delegate = self;
     collectionView.dataSource = self;
@@ -151,19 +148,19 @@
     [label setText:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
-    [label setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [label setTextColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
     [cell addSubview:label];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"tag-tick-active.png"] forState:UIControlStateNormal];
-    [button setFrame:CGRectMake(80, 8, 15, 15)];
+    [button setFrame:CGRectMake(78, 3, 14, 14)];
     [cell addSubview:button];
     
     if([selectedTags containsObject:[managedTagsArray objectAtIndex:indexPath.row]])
     {
         [button setImage:[UIImage imageNamed:@"tag-tick.png"] forState:UIControlStateNormal];
-        [label setBackgroundColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
-        [label setTextColor:[UIColor whiteColor]];
+        [label setBackgroundColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
+        [label setTextColor:[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0]];
     }
     return cell;
 }
@@ -174,7 +171,9 @@
         
         NSMutableArray *groups =  [[[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"] mutableCopy];
         NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
-        if(![groups containsObject:dict])
+        NSArray *array = [groups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uid = %@",[dict objectForKey:@"uid"]]];
+
+        if(array.count == 0)
         {
             [groups addObject:dict];
             [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
