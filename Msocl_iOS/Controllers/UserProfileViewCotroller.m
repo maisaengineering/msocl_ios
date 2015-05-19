@@ -283,6 +283,7 @@
 -(void) PostEditedFromPostDetails:(PostDetails *)postDetails
 {
         [streamDisplay.storiesArray replaceObjectAtIndex:selectedIndex withObject:postDetails];
+        [streamDisplay.streamTableView reloadData];
 }
 -(void)PostDeletedFromPostDetails
 {

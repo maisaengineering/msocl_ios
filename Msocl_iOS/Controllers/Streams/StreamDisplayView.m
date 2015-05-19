@@ -466,6 +466,14 @@
 
             textAttachment.image = image;
             
+            NSString *url = [postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]];
+            
+            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
+                attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
+            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+            [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
+
+            
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
            /* if(postDetailsObject.thumb_images != nil && postDetailsObject.thumb_images.count > 0)
             {
@@ -478,18 +486,30 @@
             }
             else
             {*/
-            [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
-                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
-                [textView setNeedsDisplay];
+                if(cacheType == SDImageCacheTypeNone)
+                {
+                    NSArray* rowsToReload = [NSArray arrayWithObjects:indexPath, nil];
+                    [streamTableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationNone];
+                }
+                else
+                {
+                    textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
+                    image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
+                    NSRange range = [attributedString.string rangeOfString:attrStringWithImage.string];
+                    NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
+                        attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
+                    [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+                    
+                    [attributedString replaceCharactersInRange:range withAttributedString:attrStringWithImage];
+                    
+                    textView.attributedText = attributedString;
+                }
+                
                 
             }];
             //}
-            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
-            if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-            attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
-            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-            [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
         }
         else
         {

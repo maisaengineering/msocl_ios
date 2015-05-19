@@ -44,6 +44,7 @@
  UIImageView *postAnonymous;
     BOOL isImageClicked;
     UIView *addPopUpView;
+    UIView *inputView;
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -147,6 +148,18 @@
     [self.commentView addSubview:line];
     
     
+    inputView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    [inputView setBackgroundColor:[UIColor colorWithRed:0.56f
+                                                  green:0.59f
+                                                   blue:0.63f
+                                                  alpha:1.0f]];
+    UIButton *donebtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [donebtn setFrame:CGRectMake(250, 0, 70, 40)];
+    [donebtn setTitle:@"Done" forState:UIControlStateNormal];
+    [donebtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:15]];
+    [donebtn addTarget:self action:@selector(doneClick:) forControlEvents:UIControlEventTouchUpInside];
+    [inputView addSubview:donebtn];
+    
         popover = [DXPopover popover];
     
 }
@@ -198,7 +211,7 @@
     postObjectFromWall.content = post.content;
     postObjectFromWall.anonymous = post.anonymous;
     postObjectFromWall.time = post.time;
-    
+    postObjectFromWall.images = post.images;
     [self.delegate PostEditedFromPostDetails:postObjectFromWall];
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -300,7 +313,7 @@
         [viw removeFromSuperview];
     }
     
-    [self buildCell:cell withDetails:postDetailsObject];
+        [self buildCell:cell withDetails:postDetailsObject :indexPath];
     
     
     return cell;
@@ -478,7 +491,7 @@
     
     
 }
--(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
+-(void)buildCell:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject :(NSIndexPath *)indexPath
 {
     float yPosition = 6;
     
@@ -551,12 +564,12 @@
 
     
     
-    [self addDescription:cell withDetails:postDetailsObject];
+    [self addDescription:cell withDetails:postDetailsObject :indexPath];
     
     
     
 }
--(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject
+-(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject :(NSIndexPath *)indexPath
 {
     float yPosition = 40;
     
@@ -581,23 +594,33 @@
             NSTextCheckingResult *match =  [myArray firstObject];
             NSRange matchRange = [match rangeAtIndex:1];
             
+            NSString *url = [postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]];
             UIImage  *image = [[UIImage imageNamed:@"placeHolder_show.png"] resizedImageByMagick:@"300x150#"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            image = [photoUtils makeRoundedCornersWithBorder:image withRadious:5.0];
             image.accessibilityIdentifier = [postDetailsObject.large_images objectForKey:[attributedString.string substringWithRange:matchRange]];
             textAttachment.image = image;
-            SDWebImageManager *manager = [SDWebImageManager sharedManager];
-            [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                image = [image resizedImageByMagick:@"300x150#"];
-                image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
-                textAttachment.image = image;
-                [textView setNeedsDisplay];
-            }];
-            
             NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:2]}];
             [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
             
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
+
+            
+            SDWebImageManager *manager = [SDWebImageManager sharedManager];
+            [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                
+                    image = [image resizedImageByMagick:@"300x150#"];
+                    image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
+                    NSRange range = [attributedString.string rangeOfString:attrStringWithImage.string];
+                    textAttachment.image = image;
+                    NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:2]}];
+                    [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+
+                    [attributedString replaceCharactersInRange:range withAttributedString:attrStringWithImage];
+                    
+                    textView.attributedText = attributedString;
+                [textView setNeedsDisplay];
+            }];
+            
         }
         else
         {
@@ -1070,11 +1093,13 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView1
 {
     [placeholderLabel removeFromSuperview];
+    [textView1 setInputAccessoryView:inputView];
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
+        [textView1 setInputAccessoryView:inputView];
         [placeholderLabel removeFromSuperview];
         return YES;
 

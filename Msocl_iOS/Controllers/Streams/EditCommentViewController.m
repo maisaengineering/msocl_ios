@@ -27,6 +27,8 @@
     ModelManager *sharedModel;
     UIButton *anonymousButton;
     BOOL isAnonymous;
+    UIImageView *dropDown;
+
 }
 @synthesize commentDetails;
 -(void)viewDidLoad
@@ -57,15 +59,19 @@
     
     commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
-    [commentBtn setFrame:CGRectMake(244, 0, 39, 44)];
-    [commentBtn setImage:[UIImage imageNamed:@"comment-post.png"] forState:UIControlStateNormal];
+    [commentBtn setFrame:CGRectMake(244, 5, 43, 30.5)];
+    [commentBtn setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
     
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [anonymousButton setImage:[UIImage imageNamed:@"comment-ana.png"] forState:UIControlStateNormal];
+    [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousCommentClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(283.3, 0, 29, 44)];
+    [anonymousButton setFrame:CGRectMake(287, 5, 30, 30)];
     
-    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 13, 18, 18)];
+    postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 2.5, 22, 22)];
+    
+    dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(302, 24, 10, 9)];
+    [dropDown setImage:[UIImage imageNamed:@"btn-post-dropdown.png"]];
+
     
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -80,12 +86,13 @@
     
     [self.navigationController.navigationBar addSubview:commentBtn];
     [self.navigationController.navigationBar addSubview:anonymousButton];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 74, 300, 108)];
+    [self.navigationController.navigationBar addSubview:dropDown];
+
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 300, 108)];
     [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
     [self.view addSubview:imageView];
     
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,78,292, 100)];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,24,292, 100)];
     textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:13];
     textView.delegate = self;
     [self.view addSubview:textView];
@@ -110,6 +117,7 @@
     [commentBtn removeFromSuperview];
     [postAnonymous removeFromSuperview];
     [anonymousButton removeFromSuperview];
+    [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
     
 }
@@ -223,6 +231,7 @@
     [commentBtn removeFromSuperview];
     [postAnonymous removeFromSuperview];
     [anonymousButton removeFromSuperview];
+    [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
 
 }

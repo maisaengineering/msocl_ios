@@ -329,9 +329,13 @@
     if(!mostRecent.hidden)
     {
         [mostRecent.storiesArray replaceObjectAtIndex:selectedIndex withObject:postDetails];
+        [mostRecent.streamTableView reloadData];
     }
     else
+    {
         [following.storiesArray replaceObjectAtIndex:selectedIndex withObject:postDetails];
+        [following.streamTableView reloadData];
+    }
 }
 -(void)PostDeletedFromPostDetails
 {
