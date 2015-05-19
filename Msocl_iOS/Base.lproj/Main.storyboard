@@ -492,6 +492,24 @@
             </objects>
             <point key="canvasLocation" x="1924" y="657"/>
         </scene>
+        <!--About View Controller-->
+        <scene sceneID="vux-Bg-gwm">
+            <objects>
+                <viewController storyboardIdentifier="AboutViewController" id="eZ0-27-WEq" customClass="AboutViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AgV-vZ-BzU"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wfd-hb-UUJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PXS-9I-GGR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iNF-Ef-Q5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2282" y="657"/>
+        </scene>
         <!--M SOCIAL-->
         <scene sceneID="gXa-Jy-hXv">
             <objects>

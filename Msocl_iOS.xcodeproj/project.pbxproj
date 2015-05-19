@@ -99,6 +99,7 @@
 		7F76EF8C1AECC2FE00770101 /* setting-strip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76EF8B1AECC2FE00770101 /* setting-strip@2x.png */; };
 		7F76EF8F1AECDBEB00770101 /* FogotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F76EF8E1AECDBEB00770101 /* FogotPasswordViewController.m */; };
 		7F7726E21B0B587800474190 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7726E11B0B587800474190 /* search@2x.png */; };
+		7F7726E51B0B755500474190 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F7726E41B0B755500474190 /* AboutViewController.m */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -358,6 +359,8 @@
 		7F76EF8D1AECDBEB00770101 /* FogotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FogotPasswordViewController.h; sourceTree = "<group>"; };
 		7F76EF8E1AECDBEB00770101 /* FogotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FogotPasswordViewController.m; sourceTree = "<group>"; };
 		7F7726E11B0B587800474190 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
+		7F7726E31B0B755500474190 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		7F7726E41B0B755500474190 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -969,6 +972,8 @@
 				7F714F471AE7D2B700C69BF4 /* ChangePasswordViewController.m */,
 				7F5941B91AF3891E001F79BD /* ManageTagsViewController.h */,
 				7F5941BA1AF3891E001F79BD /* ManageTagsViewController.m */,
+				7F7726E31B0B755500474190 /* AboutViewController.h */,
+				7F7726E41B0B755500474190 /* AboutViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1371,6 +1376,7 @@
 				7F80DE781AD6AAB500EA6D1F /* APIConnector.m in Sources */,
 				7F5DEFB91AD7C50A00F2C60A /* UIImage+GIF.m in Sources */,
 				7F80DE8E1AD6AB3000EA6D1F /* OnboardingViewController.m in Sources */,
+				7F7726E51B0B755500474190 /* AboutViewController.m in Sources */,
 				7F5DEFB51AD7C50A00F2C60A /* SDWebImageDownloaderOperation.m in Sources */,
 				7F80DE851AD6AAF700EA6D1F /* ModelManager.m in Sources */,
 				7F80DE5D1AD6544400EA6D1F /* ProfilePhotoUtils.m in Sources */,

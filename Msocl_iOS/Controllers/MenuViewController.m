@@ -54,7 +54,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 6;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -120,8 +120,13 @@
             cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
             break;
 
-
         case 4:
+            cell.textLabel.text = @"About";
+            cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
+            break;
+
+
+        case 5:
             cell.textLabel.text = @"Logout";
             cell.imageView.image = [UIImage imageNamed:@"menu-logout.png"];
             break;
@@ -157,9 +162,6 @@
         }
             break;
             
-        case 4:
-            [self logOut];
-            break;
             
         case 3:
         {
@@ -172,6 +174,24 @@
         }            break;
             
             break;
+            
+        case 4:
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            
+            UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"AboutViewController"];
+            
+            [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
+        }
+            break;
+
+            
+        case 5:
+            [self logOut];
+            break;
+
+            
             default:
             break;
     }
