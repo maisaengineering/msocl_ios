@@ -52,14 +52,15 @@
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [rightButton addTarget:self action:@selector(resetClick:) forControlEvents:UIControlEventTouchUpInside]; //adding action
-    [rightButton setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
     [rightButton setTitle:@"Reset" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:15]];
     rightButton.frame = CGRectMake(0 ,0,50,30);
-    rightButton.layer.cornerRadius = 5; // this value vary as per your desire
     rightButton.clipsToBounds = YES;
-    
+    rightButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    rightButton.layer.borderWidth = 1.5;
+    rightButton.layer.cornerRadius = 5; // this value vary as per your desire
+
     
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;

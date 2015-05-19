@@ -81,7 +81,6 @@
     streamTableView.tableFooterView = [[UIView alloc] init];
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
-    
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -162,6 +161,9 @@
     
         popover = [DXPopover popover];
     
+    
+
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -217,6 +219,11 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+-(void)doneClick:(id)sender
+{
+    [self.txt_comment resignFirstResponder];
+}
+
 -(void)editClicked
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
