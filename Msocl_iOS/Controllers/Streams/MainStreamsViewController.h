@@ -14,7 +14,7 @@
 #import "ProfilePhotoUtils.h"
 #import "Webservices.h"
 
-@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol,webServiceProtocol,UISearchBarDelegate>
+@interface MainStreamsViewController : UIViewController<StreamDisplayViewDelegate,SlideNavigationControllerDelegate,PostDetailsProtocol,webServiceProtocol,UISearchBarDelegate,UITextFieldDelegate>
 {
     PageGuidePopUps *pageGuidePopUpsObj;
     UIView *addPopUpView;

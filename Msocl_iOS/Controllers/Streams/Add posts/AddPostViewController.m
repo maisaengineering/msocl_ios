@@ -143,6 +143,8 @@
 {
     [super viewWillAppear:YES];
     [self check];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

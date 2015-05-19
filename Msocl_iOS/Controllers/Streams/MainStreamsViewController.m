@@ -30,7 +30,7 @@
     AppDelegate *appDelegate;
     UISearchBar *searchBar;
     UIImageView *imageView;
-
+    UIButton *searchButton;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -85,15 +85,12 @@
     txfSearchField.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
     txfSearchField.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
     txfSearchField.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Search..."
+    [[NSAttributedString alloc] initWithString:@"search..."
                                     attributes:@{
                                                  NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0],
-                                                 NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:16]
+                                                 NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-LightItalic" size:16]
                                                  }
      ];
-
-    
-    
     mostRecentButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [mostRecentButton addTarget:self action:@selector(RecentOrFollowignClicked:) forControlEvents:UIControlEventTouchUpInside];
     [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite-disable.png"] forState:UIControlStateNormal];
@@ -101,17 +98,11 @@
     mostRecentButton.frame= CGRectMake(0, 0, 320, 30) ;
     [self.view addSubview:mostRecentButton];
 
-    for (UIView *searchbuttons in searchBar.subviews)
-    {
-        if ([searchbuttons isKindOfClass:[UIBarButtonItem class]])
-        {
-            UIButton *cancelButton = (UIButton*)searchbuttons;
-            cancelButton.enabled = YES;
-            cancelButton.backgroundColor = [UIColor clearColor];
-            break;
-        }
-    }
     
+    searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
+    [searchButton setFrame:CGRectMake(250, 11, 25, 25)];
+    [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -149,6 +140,7 @@
 
     [self refreshWall];
     [self setUpTimer];
+    [self.navigationController.navigationBar addSubview:searchButton];
 
 
 }
@@ -169,6 +161,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AppFromPassiveState" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidClose" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidOpen" object:nil];
+
+    searchBar.text = @"";
+    mostRecent.isSearching = NO;
+    following.isSearching = NO;
+    [searchButton removeFromSuperview];
 
 }
 -(void)reloadOnLogOut
@@ -769,49 +766,47 @@
 {
     
 }
+-(void)searchButtonClicked
+{
+    if([searchBar superview] == nil)
+    {
+        [mostRecent.streamTableView setContentOffset:mostRecent.streamTableView.contentOffset animated:NO];
+        [following.streamTableView setContentOffset:following.streamTableView.contentOffset animated:NO];
+    searchBar.frame = CGRectMake(0, -30, 320, 32);
+    
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         searchBar.frame = CGRectMake(0, 0, 320, 32);
+                         [self.view addSubview:searchBar];
+                         
+                     }
+                     completion:^(BOOL finished) {
+                         //do smth after animation finishes
+                     }
+     ];
+    
+    
+    
+    // [self.view addSubview:searchBar];
+    UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
+    cancelButton.enabled = YES;
+    
+    mostRecentButton.frame = CGRectMake(0, 32, 320, 30);
+    mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-97);
+    following.frame = CGRectMake(0, 32, 320, Deviceheight-97);
+    imageView.frame = CGRectMake(0, 32, 320, 30);
+    }
+}
+
 
 - (void)tableScrolled:(float)y
 {
-    NSLog(@"y = %f",y);
-    if(y <= 0)
-    {
-        if([searchBar superview] == nil)
-        {
-        searchBar.frame = CGRectMake(0, -30, 320, 32);
-
-        [UIView animateWithDuration:0.3f
-                         animations:^{
-                             searchBar.frame = CGRectMake(0, 0, 320, 32);
-                             [self.view addSubview:searchBar];
-
-                         }
-                         completion:^(BOOL finished) {
-                             //do smth after animation finishes
-                         }
-         ];
-        
-
-        
-       // [self.view addSubview:searchBar];
-        UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
-        cancelButton.enabled = YES;
-
-        mostRecentButton.frame = CGRectMake(0, 32, 320, 30);
-        mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-97);
-        following.frame = CGRectMake(0, 32, 320, Deviceheight-97);
-        imageView.frame = CGRectMake(0, 32, 320, 30);
-        }
-    }
-    else if(!mostRecent.isSearching)
-    {
-    
         mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
         following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
         imageView.frame = CGRectMake(0, 0, 320, 30);
         mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
-
+        
         [searchBar removeFromSuperview];
-    }
 }
 
 -(void) searchBarCancelButtonClicked:(UISearchBar *)searchBar1
@@ -901,7 +896,10 @@
         }
 }
 
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
 
+    return YES;
+}
 - (UIImage *)imageFromColor:(UIColor *)color {
     CGRect rect = CGRectMake(0, 0, 1, 1);
     UIGraphicsBeginImageContext(rect.size);

@@ -98,6 +98,7 @@
 		7F76EF8A1AECBE2400770101 /* icon-unsubscribe@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76EF841AECBE2400770101 /* icon-unsubscribe@2x.png */; };
 		7F76EF8C1AECC2FE00770101 /* setting-strip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76EF8B1AECC2FE00770101 /* setting-strip@2x.png */; };
 		7F76EF8F1AECDBEB00770101 /* FogotPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F76EF8E1AECDBEB00770101 /* FogotPasswordViewController.m */; };
+		7F7726E21B0B587800474190 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F7726E11B0B587800474190 /* search@2x.png */; };
 		7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */; };
 		7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F7E55B91AD3D992007070EF /* AviarySDK.framework */; };
 		7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */; };
@@ -356,6 +357,7 @@
 		7F76EF8B1AECC2FE00770101 /* setting-strip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip@2x.png"; sourceTree = "<group>"; };
 		7F76EF8D1AECDBEB00770101 /* FogotPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FogotPasswordViewController.h; sourceTree = "<group>"; };
 		7F76EF8E1AECDBEB00770101 /* FogotPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FogotPasswordViewController.m; sourceTree = "<group>"; };
+		7F7726E11B0B587800474190 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		7F7C29701AD55F4E004D4052 /* EmptyProfilePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = EmptyProfilePic.jpg; sourceTree = "<group>"; };
 		7F7E55B91AD3D992007070EF /* AviarySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AviarySDK.framework; sourceTree = "<group>"; };
 		7F7E55BA1AD3D992007070EF /* AviarySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AviarySDKResources.bundle; sourceTree = "<group>"; };
@@ -1014,6 +1016,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F7726E11B0B587800474190 /* search@2x.png */,
 				7F826FB61B08B5DD009455E9 /* icon-camera-add@2x.png */,
 				7F826FB41B08B5A6009455E9 /* icon-delete-post@2x.png */,
 				7F826FB21B08AF2F009455E9 /* icon-edit@2x.png */,
@@ -1309,6 +1312,7 @@
 				7F76EF8C1AECC2FE00770101 /* setting-strip@2x.png in Resources */,
 				7F7C29711AD55F4E004D4052 /* EmptyProfilePic.jpg in Resources */,
 				7F826FAF1B08AB51009455E9 /* btn-post@2x.png in Resources */,
+				7F7726E21B0B587800474190 /* search@2x.png in Resources */,
 				7F5941BF1AF3892D001F79BD /* placeHolder_wall@2x.png in Resources */,
 				7F861AC31AFCE84200BF26AC /* menu-button@2x.png in Resources */,
 				7F82DD141B05FA1A001564A0 /* icon-createpost@2x.png in Resources */,
@@ -1503,8 +1507,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1524,7 +1528,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1546,8 +1550,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1560,7 +1564,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1571,7 +1575,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1590,7 +1594,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 			};
 			name = Debug;
 		};
@@ -1599,7 +1603,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1618,7 +1622,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 			};
 			name = Release;
 		};
@@ -1626,7 +1630,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1638,7 +1642,7 @@
 				INFOPLIST_FILE = Msocl_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Msocl_iOS.app/Msocl_iOS";
 			};
 			name = Debug;
@@ -1647,7 +1651,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1655,7 +1659,7 @@
 				INFOPLIST_FILE = Msocl_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Msocl_iOS.app/Msocl_iOS";
 			};
 			name = Release;

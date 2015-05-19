@@ -32,6 +32,7 @@
     
     BOOL bProcessing;
     BOOL isDragging;
+    float lastContentOffset;
     
 }
 @synthesize storiesArray;
@@ -219,6 +220,9 @@
 
     [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
 
+    [streamTableView reloadData];
+
+    
 }
 -(void) streamsFailed
 {
@@ -711,7 +715,7 @@
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
     
-    if(indexPath.row == storiesArray.count - 2)
+    if((indexPath.row == storiesArray.count - 2) && storiesArray.count > 5)
         [self callStreamsApi:@"next"];
 }
 
@@ -757,6 +761,15 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
     {
-        [self.delegate tableScrolled:scrollView.contentOffset.y];
+        if (lastContentOffset > scrollView.contentOffset.y)
+            {
+            }
+            else if (lastContentOffset < scrollView.contentOffset.y)
+            {
+                [self.delegate tableScrolled:scrollView.contentOffset.y];
+            }
+            lastContentOffset = scrollView.contentOffset.y;
+
+        
     }
 @end
