@@ -76,7 +76,7 @@
     */
     
     storiesArray = [[NSMutableArray alloc] init];
-    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-54);
+    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-118);
     streamTableView.tableFooterView = [[UIView alloc] init];
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];

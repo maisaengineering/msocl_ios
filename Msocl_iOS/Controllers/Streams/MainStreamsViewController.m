@@ -58,12 +58,12 @@
     [self.view addSubview:line];
     self.view.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     
-    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight)];
+    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
     mostRecent.delegate = self;
     mostRecent.isMostRecent = YES;
     [self.view addSubview:mostRecent];
 
-    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight)];
+    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
     following.delegate = self;
     following.isFollowing = YES;
     [self.view addSubview:following];
@@ -207,8 +207,8 @@
 {
     if(searchBar.text.length == 0)
     {
-    mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight);
-    following.frame = CGRectMake(0, 0, 320, Deviceheight);
+    mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+    following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
     imageView.frame = CGRectMake(0, 0, 320, 30);
     mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
     [searchBar removeFromSuperview];
@@ -793,16 +793,16 @@
         cancelButton.enabled = YES;
 
         mostRecentButton.frame = CGRectMake(0, 32, 320, 30);
-        mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-32);
-        following.frame = CGRectMake(0, 32, 320, Deviceheight-32);
+        mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-97);
+        following.frame = CGRectMake(0, 32, 320, Deviceheight-97);
         imageView.frame = CGRectMake(0, 32, 320, 30);
         }
     }
     else if(!mostRecent.isSearching)
     {
     
-        mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight);
-        following.frame = CGRectMake(0, 0, 320, Deviceheight);
+        mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+        following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
         imageView.frame = CGRectMake(0, 0, 320, 30);
         mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
 
@@ -815,10 +815,10 @@
 
     [self setUpTimer];
     
-    mostRecent.frame = CGRectMake(0, 65, 320, Deviceheight-65);
-    following.frame = CGRectMake(0, 65, 320, Deviceheight-65);
-    imageView.frame = CGRectMake(0, 65, 320, 30);
-    mostRecentButton.frame = CGRectMake(0, 65, 320, 30);
+    mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+    following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+    imageView.frame = CGRectMake(0, 0, 320, 30);
+    mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
     [searchBar removeFromSuperview];
     searchBar.text = @"";
     mostRecent.isSearching = NO;
@@ -837,6 +837,36 @@
         
     }
 
+}
+- (void)searchBar:(UISearchBar *)searchBar1 textDidChange:(NSString *)searchText
+{
+    if([searchText length] == 0)
+    {
+        [self setUpTimer];
+        
+        mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+        following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+        imageView.frame = CGRectMake(0, 0, 320, 30);
+        mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
+        [searchBar removeFromSuperview];
+        searchBar.text = @"";
+        mostRecent.isSearching = NO;
+        following.isSearching = NO;
+        if(!mostRecent.hidden)
+        {
+            [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [mostRecent resetData];
+            [mostRecent callStreamsApi:@"next"];
+        }
+        else
+        {
+            [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [following resetData];
+            [following callStreamsApi:@"next"];
+            
+        }
+
+    }
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar1
