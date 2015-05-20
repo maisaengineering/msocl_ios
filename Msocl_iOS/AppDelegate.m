@@ -73,6 +73,17 @@
     
      isAppFromBackground = NO;
     
+    if (launchOptions != nil)
+    {
+        NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        if (dictionary != nil)
+        {
+            [self addMessageFromRemoteNotification:dictionary updateUI:YES];
+        }
+    }
+
+    
+    
     return YES;
 }
 

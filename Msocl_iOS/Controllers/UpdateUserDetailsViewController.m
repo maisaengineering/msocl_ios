@@ -68,7 +68,6 @@
     
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [rightButton addTarget:self action:@selector(MyTagsClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
-    [rightButton setBackgroundColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
     [rightButton setTitle:@"Manage tags" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];

@@ -41,6 +41,8 @@
 #define kBASE_URL               @"https://msocl.herokuapp.com/"
 #define BASE_URL                @"https://msocl.herokuapp.com/api/"
 
+#define APP_BASE_URL @"http://www.samepinch.co/"
+
 // OAUTH URL
 #define OAUTH_URL                @"https://msocl.herokuapp.com/users/auth/"
 #define OAUTH_URL2                @"http://msocl.herokuapp.com/users/auth/"

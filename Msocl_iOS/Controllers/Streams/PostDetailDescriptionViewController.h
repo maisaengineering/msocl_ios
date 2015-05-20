@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSMutableArray *storiesArray;
-@property (nonatomic, strong) IBOutlet UITableView *streamTableView;
+@property (nonatomic, strong) UITableView *streamTableView;
 @property (nonatomic, strong) UIView *commentView;
 @property (nonatomic, strong) UITextView *txt_comment;
 @property (nonatomic, strong) NSTimer *timerHomepage;

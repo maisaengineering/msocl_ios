@@ -16,6 +16,7 @@
 
 }
 @synthesize scrollView;
+@synthesize changePasswordBtn;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -29,6 +30,9 @@
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"externalSignIn"])
+        [changePasswordBtn setHidden:YES];
 
 }
 -(void)backClicked
@@ -54,5 +58,6 @@
 
     
 }
+
 @end
 

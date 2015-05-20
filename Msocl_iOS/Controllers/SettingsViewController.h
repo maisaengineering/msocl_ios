@@ -11,6 +11,7 @@
 @interface SettingsViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet UIButton *changePasswordBtn;
 -(IBAction)changePassword:(id)sender;
 -(IBAction)manageTags:(id)sender;
 @end

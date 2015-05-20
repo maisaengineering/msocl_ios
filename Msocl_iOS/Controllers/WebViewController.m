@@ -29,6 +29,15 @@
 
     
     
+    UIImage *background = [UIImage imageNamed:@"icon-back.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [button setImage:background forState:UIControlStateNormal];
+    button.frame = CGRectMake(0 ,0,13,17);
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.leftBarButtonItem = barButton;
+    
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320 , Deviceheight)];
     NSURL *url;
     if (tagValue == 1)
@@ -57,6 +66,11 @@
 {
     [self.navigationController setNavigationBarHidden:NO];
 }
+-(void)backClicked
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark -
 #pragma mark - UIWebViewDelegate methods
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -104,6 +118,7 @@
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    
 }
 #pragma mark -
 #pragma mark - webServiceProtocol method
@@ -119,12 +134,15 @@
     NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];
     [tokenDict setObject:[recievedDict objectForKey:@"access_token"] forKey:@"access_token"];
     [[NSUserDefaults standardUserDefaults] setObject:tokenDict forKey:@"tokens"];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"externalSignIn"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [[[ModelManager sharedModel] accessToken] setAccess_token:[recievedDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:recievedDict];
     [[PromptImages sharedInstance] getAllGroups];
+    
+    
     
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];

@@ -290,6 +290,7 @@
 -(void) signOutSccessfull:(NSDictionary *)recievedDict
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogedIn"];
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"externalSignIn"];
     [self callAccessTokenApi];
 }
 -(void) signOutFailed

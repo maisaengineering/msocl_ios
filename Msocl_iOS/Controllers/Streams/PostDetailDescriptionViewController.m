@@ -76,11 +76,17 @@
     [self.view addSubview:follow];
     */
     
-    storiesArray = [[NSMutableArray alloc] init];
-    streamTableView.frame = CGRectMake(0, 0, 320, Deviceheight-118);
+    streamTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight-118)];
+    streamTableView.delegate = self;
+    streamTableView.dataSource = self;
     streamTableView.tableFooterView = [[UIView alloc] init];
     streamTableView.tableHeaderView = nil;
     streamTableView.backgroundColor = [UIColor colorWithRed:(229/255.f) green:(225/255.f) blue:(221/255.f) alpha:1];
+    [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.view addSubview:streamTableView];
+
+    
+    storiesArray = [[NSMutableArray alloc] init];
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -346,11 +352,14 @@
     else
     {
         static NSString *simpleTableIdentifier = @"CommentCell";
-        CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier forIndexPath:indexPath];
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         if (cell == nil)
         {
-            cell = (CommentCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
+        
         
         //removes any subviews from the cell
         for(UIView *viw in [[cell contentView] subviews])
@@ -358,24 +367,6 @@
             [viw removeFromSuperview];
         }
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-
-        
-        // Add utility buttons
-        NSMutableArray *rightUtilityButtons = [NSMutableArray new];
-        
-        [rightUtilityButtons sw_addUtilityButtonWithColor:
-         [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                    icon:[UIImage imageNamed:@"icon-heart-scroll.png"]];
-        [rightUtilityButtons sw_addUtilityButtonWithColor:
-         [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                    icon:[UIImage imageNamed:@"icon-edit-scroll.png"]];
-        [rightUtilityButtons sw_addUtilityButtonWithColor:
-         [UIColor colorWithRed:1.0f green:1.0f blue:0.35f alpha:0.7]
-                                                    icon:[UIImage imageNamed:@"icon-heart-count.png"]];
-        
-        
-        cell.leftUtilityButtons = rightUtilityButtons;
-        cell.delegate = self;
 
         
         PostDetails *postDetailsObject = [storiesArray lastObject];
