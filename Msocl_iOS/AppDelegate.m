@@ -75,15 +75,17 @@
     
     if (launchOptions != nil)
     {
+        DebugLog(@"in  has notifications %s",__func__);
+
         NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (dictionary != nil)
         {
-            [self addMessageFromRemoteNotification:dictionary updateUI:YES];
+            [self performSelector:@selector(addMessageFromRemoteNotification:) withObject:dictionary afterDelay:0.5];
         }
     }
 
     
-    
+    DebugLog(@"in %s",__func__);
     return YES;
 }
 
@@ -113,17 +115,21 @@
 {
     if ( application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground  )
     {
-        [self addMessageFromRemoteNotification:userInfo updateUI:YES];
+        [self addMessageFromRemoteNotification:userInfo];
     }
     
 }
-- (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
+- (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo
 {
+    DebugLog(@"in  has notifications %s",__func__);
+
     NSString *postID = [userInfo valueForKey:@"post_uid"];
     NSString *userUid = [userInfo valueForKey:@"follower_uid"];
     
     if(postID !=nil && postID.length > 0)
     {
+        DebugLog(@"in  has post id %s",__func__);
+
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
@@ -137,6 +143,8 @@
     }
     else if(userUid != nil && userUid.length > 0)
     {
+        DebugLog(@"in  has user id %s",__func__);
+
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
         
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
