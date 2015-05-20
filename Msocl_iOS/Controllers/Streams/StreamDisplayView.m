@@ -532,6 +532,7 @@
     [textView addGestureRecognizer:tapRecognizer];
     textView.selectable = YES;
     textView.backgroundColor = [UIColor clearColor];
+    textView.tag = indexPath.row;
     [cell.contentView addSubview:textView];
     
 
@@ -753,9 +754,8 @@
     }
     else
     {
-        NSIndexPath *indexPath = [streamTableView indexPathForCell:(UITableViewCell *)textView.superview.superview];
 
-        [self.delegate tableDidSelect:(int)indexPath.row];
+        [self.delegate tableDidSelect:textView.tag];
     }
     
 }

@@ -15,5 +15,6 @@
     AppDelegate *appdelegate;
     Webservices *webServices;
 }
+@property (nonatomic, strong) NSURL *loadUrl;
 @property (nonatomic) int tagValue;
 @end

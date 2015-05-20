@@ -195,7 +195,16 @@
         isImageClicked = NO;
         [self callShowPostApi];
     }
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
@@ -535,7 +544,7 @@
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
     [heartButton setFrame:CGRectMake(209, 11, 18, 18)];
-    [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [heartButton setTag:[indexPath row]];
     [cell.contentView addSubview:heartButton];
     
     UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(227, 13, 20 , 18)];
@@ -715,7 +724,7 @@
     UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [flagButton setImage:[UIImage imageNamed:@"icon-flag.png"] forState:UIControlStateNormal];
     [flagButton setFrame:CGRectMake(240, yPosition+6, 29, 28)];
-    [flagButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [flagButton setTag:[indexPath row]];
     [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:flagButton];
     
@@ -725,7 +734,7 @@
     else
         [heartButton setImage:[UIImage imageNamed:@"icon-like-postview.png"] forState:UIControlStateNormal];
     [heartButton setFrame:CGRectMake(278, yPosition+6, 28, 28)];
-    [heartButton setTag:[[streamTableView indexPathForCell:cell] row]];
+    [heartButton setTag:[indexPath row]];
     [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:heartButton];
 
@@ -750,7 +759,7 @@
 
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = [(UIButton *)sender frame];
-    frame.origin.y = self.commentView.frame.origin.y+2;
+    frame.origin.y = self.commentView.frame.origin.y+4;
     btn.frame = frame;
         
         popView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
@@ -803,7 +812,7 @@
         }
         
         
-    [popover showAtView:btn withContentView:popView];
+    [popover showAtView:btn withContentView:popView inView:self.view];
     }
     else
     {
@@ -1420,7 +1429,7 @@
         [mailComposer setSubject:subject];
         [mailComposer setMessageBody:body isHTML:NO];
         mailComposer.navigationBar.barStyle = UIBarStyleBlackOpaque;
-        [mailComposer setToRecipients:[NSArray arrayWithObjects: @"contact@maisasolutions.com",nil]];
+        [mailComposer setToRecipients:[NSArray arrayWithObjects: @"friends@samepinch.co",nil]];
         
         //        [self presentModalViewController:mailComposer animated:TRUE];
         [self presentViewController:mailComposer animated:TRUE completion:NULL];

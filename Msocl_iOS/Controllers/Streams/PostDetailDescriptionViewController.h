@@ -34,6 +34,7 @@
 @property (nonatomic, strong) NSString *comment_uid;
 
 
+
 @property (nonatomic,weak) id <PostDetailsProtocol>delegate;
 
 @property (nonatomic, strong) PostDetails *postObjectFromWall;

@@ -18,6 +18,7 @@
 
 @implementation WebViewController
 @synthesize tagValue;
+@synthesize loadUrl;
 
 - (void)viewDidLoad
 {
@@ -40,6 +41,9 @@
     
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320 , Deviceheight)];
     NSURL *url;
+
+    if(loadUrl == nil)
+    {
     if (tagValue == 1)
     {
         // FACEBOOK
@@ -55,7 +59,9 @@
         // GMAIL
         url = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@google_oauth2",OAUTH_URL2]];
     }
-    
+    }
+    else
+        url = loadUrl;
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc]initWithURL:url];
     
     [webView loadRequest:urlRequest];

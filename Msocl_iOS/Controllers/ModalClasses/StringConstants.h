@@ -9,8 +9,7 @@
 #ifndef Msocl_iOS_StringConstants_h
 #define Msocl_iOS_StringConstants_h
 
-//APP VERSION
-#define APP_VERSION             @"1.0"
+#define APP_VERSION     @"1.0"
 
 // Dev Credentials
 #define CLIENT_ID               @"3e0786a2f258e6f9b08250dbd7f35010480988e0d3d1ef373b79e07884be79f9"
