@@ -120,11 +120,17 @@
         ShowAlert(PROJECT_NAME,@"All fields are required", @"OK");
         return;
     }
+    else if(txt_password.text.length < 6)
+    {
+        ShowAlert(PROJECT_NAME,@"Password should be at least 6 characters", @"OK");
+        return;
+    }
     else if(![txt_confirmPassword.text isEqualToString:txt_password.text])
     {
         ShowAlert(PROJECT_NAME,@"Password and Confirm password do not match", @"OK");
         return;
     }
+    
     else
     {
         isSignupClicked = YES;

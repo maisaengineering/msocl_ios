@@ -151,6 +151,14 @@
 
             break;
             
+        case 1:
+        {
+            if([[[SlideNavigationController sharedInstance] topViewController] isKindOfClass:[MainStreamsViewController class]])
+            {
+                [(MainStreamsViewController *)[[SlideNavigationController sharedInstance] topViewController] resetFavoritesFromWall];
+            }
+        }
+            break;
         case 2:
         {
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"

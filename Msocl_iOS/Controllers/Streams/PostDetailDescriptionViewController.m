@@ -381,7 +381,7 @@
         PostDetails *postDetailsObject = [storiesArray lastObject];
         NSDictionary *commentDict = [postDetailsObject.comments objectAtIndex:indexPath.row - 1];
         
-        [self buildCommentCell:commentDict :cell];
+        [self buildCommentCell:commentDict :cell :indexPath];
         return cell;
     }
     
@@ -390,7 +390,7 @@
 {
     
 }
--(void)buildCommentCell:(NSDictionary *)commentDict :(UITableViewCell *)cell
+-(void)buildCommentCell:(NSDictionary *)commentDict :(UITableViewCell *)cell :(NSIndexPath *)indexPath
 {
     CGSize expectedLabelSize;
     
@@ -475,7 +475,7 @@
     [moreButton setImage:[UIImage imageNamed:@"icon-more.png"] forState:UIControlStateNormal];
     [moreButton addTarget:self action:@selector(moreClicked:) forControlEvents:UIControlEventTouchUpInside];
     moreButton.frame = CGRectMake(290, 2, 20, 40);
-    [moreButton setTag:[[streamTableView indexPathForRowAtPoint:cell.center] row]];
+    [moreButton setTag:[indexPath row]];
     [cell.contentView addSubview:moreButton];
     
     

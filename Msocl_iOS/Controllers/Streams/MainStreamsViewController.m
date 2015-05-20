@@ -399,6 +399,18 @@
 
     }
 }
+-(void)resetFavoritesFromWall
+{
+    [mostRecent setHidden:NO];
+    [following setHidden:YES];
+    
+    [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [mostRecent resetData];
+    [mostRecent callStreamsApi:@"next"];
+
+    mostRecentButton.selected = NO;
+
+}
 #pragma mark - SlideNavigationController Methods -
 
 - (BOOL)slideNavigationControllerShouldDisplayLeftMenu

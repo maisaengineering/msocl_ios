@@ -26,6 +26,8 @@
 @property (nonatomic, strong) NSMutableDictionary *homeContext;
 @property (nonatomic, strong) NSTimer *timer;
 
+
+-(void)resetFavoritesFromWall;
 -(void)setUpTimer;
 -(IBAction)addClicked:(id)sender;
 -(void)RecentOrFollowignClicked:(id)sender;
