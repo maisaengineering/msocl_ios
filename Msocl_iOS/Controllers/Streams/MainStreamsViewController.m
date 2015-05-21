@@ -272,6 +272,8 @@
 }
 - (void)tableDidSelect:(int)index
 {
+    [self setTimedRemindersActionTaken:@"addComment"];
+
     if(!mostRecent.hidden)
     {
         isShowPostCalled = YES;
@@ -352,9 +354,14 @@
 -(IBAction)addClicked:(id)sender
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        [self setTimedRemindersActionTaken:@"addPost"];
         [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
+        
+    }
     else
     {
+
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         [self.navigationController pushViewController:login animated:NO];
@@ -365,7 +372,7 @@
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-    
+    [self setTimedRemindersActionTaken:@"favourites"];
     if(mostRecentButton.selected)
     {
         
@@ -431,7 +438,7 @@
 -(void)check
 {
     NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"Wall"]];
+    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"addPost"]];
     if(array.count > 0)
     {
         homeContext = [[array firstObject] mutableCopy];
@@ -443,10 +450,55 @@
                 subContext = [graphicsArray firstObject];
                 [self setUpTimerWithStartInSubContext:subContext];
 
-
+            return;
         }
     }
     
+    array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"search"]];
+    if(array.count > 0)
+    {
+        homeContext = [[array firstObject] mutableCopy];
+        NSDictionary *dictionary = [array firstObject];
+        NSArray *graphicsArray = [dictionary objectForKey:@"graphics"];
+        if(graphicsArray.count > 0)
+        {
+            
+            subContext = [graphicsArray firstObject];
+            [self setUpTimerWithStartInSubContext:subContext];
+            
+            return;
+        }
+    }
+    array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"favourites"]];
+    if(array.count > 0)
+    {
+        homeContext = [[array firstObject] mutableCopy];
+        NSDictionary *dictionary = [array firstObject];
+        NSArray *graphicsArray = [dictionary objectForKey:@"graphics"];
+        if(graphicsArray.count > 0)
+        {
+            
+            subContext = [graphicsArray firstObject];
+            [self setUpTimerWithStartInSubContext:subContext];
+            
+            return;
+        }
+    }
+    array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"addComment"]];
+    if(array.count > 0)
+    {
+        homeContext = [[array firstObject] mutableCopy];
+        NSDictionary *dictionary = [array firstObject];
+        NSArray *graphicsArray = [dictionary objectForKey:@"graphics"];
+        if(graphicsArray.count > 0)
+        {
+            
+            subContext = [graphicsArray firstObject];
+            [self setUpTimerWithStartInSubContext:subContext];
+            
+            return;
+        }
+    }
     
 }
 -(void)setUpTimerWithStartInSubContext:(NSMutableDictionary *)subContext1
@@ -503,9 +555,10 @@
                            {
                                NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
                                UIImage* image = [[UIImage alloc] initWithData:imageData];
+
                                if (image) {
                                    [photoUtils saveImageToCache:imageURL :image];
-                                   
+                                   [popUpContent setImage:thumb];
                                }
                            });
         }
@@ -635,6 +688,26 @@
         [body setValue:[NSNumber numberWithInt:0] forKeyPath:@"post_count"];
         [body setValue:@"new" forKeyPath:@"step"];
 
+    if(mostRecent.isSearching)
+    {
+        command = @"search";
+        if(!mostRecent.hidden)
+        {
+            [body setValue:mostRecent.searchString forKeyPath:@"text"];
+            [body setValue:mostRecent.timeStamp forKeyPath:@"last_modified"];
+        }
+        else
+        {
+            [body setValue:following.timeStamp forKeyPath:@"last_modified"];
+            [body setValue:following.searchString forKeyPath:@"text"];
+
+            [body setValue:[NSNumber numberWithBool:YES] forKeyPath:@"favourites"];
+        }
+
+    }
+
+    else
+    {
         if(!mostRecent.hidden)
         [body setValue:mostRecent.timeStamp forKeyPath:@"last_modified"];
         else
@@ -643,7 +716,7 @@
             [body setValue:@"favourites" forKeyPath:@"by"];
             command = @"filter";
         }
-    
+    }
         NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
     NSDictionary *userInfo;
     if(!mostRecent.hidden)
@@ -780,6 +853,9 @@
 }
 -(void)searchButtonClicked
 {
+    
+    [self setTimedRemindersActionTaken:@"search"];
+    
     if([searchBar superview] == nil)
     {
         [mostRecent.streamTableView setContentOffset:mostRecent.streamTableView.contentOffset animated:NO];
@@ -821,6 +897,74 @@
         [searchBar removeFromSuperview];
 }
 
+-(void)setTimedRemindersActionTaken:(NSString *)context
+{
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
+    
+    {
+        NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+        NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",context]];
+        homeContext = [[array firstObject] mutableCopy];
+        if([[homeContext objectForKey:@"graphics"] count] >0 )
+        {
+            subContext = [[homeContext objectForKey:@"graphics"] firstObject];
+            
+            NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
+            long int index = [userDefaultsArray indexOfObject:homeContext];
+            NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
+            [graphicsArrray removeObject:subContext];
+            [homeContext setObject:graphicsArrray forKey:@"graphics"];
+            [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:userDefaultsArray forKey:@"PageGuidePopUpImages"];
+            
+            
+            ////////////Saving already viewed uids in userdefaults
+            NSMutableArray *visitedRemainders =  [[userDefaults objectForKey:@"time_reminder_visits"] mutableCopy];
+            if(visitedRemainders.count >0 )
+            {
+                NSArray *contextArray  = [visitedRemainders filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"reminder_uid = %@",[homeContext objectForKey:@"uid"]]];
+                if(contextArray.count >0)
+                {
+                    NSMutableDictionary *contextDict = [[contextArray firstObject] mutableCopy];
+                    long int index = [visitedRemainders indexOfObject:contextDict];
+                    NSMutableArray *graphicsArray = [[contextDict objectForKey:@"graphic_uids"] mutableCopy];
+                    if(![graphicsArray containsObject:[subContext objectForKey:@"uid"]])
+                    {
+                        [graphicsArray addObject:[subContext objectForKey:@"uid"]];
+                        [contextDict setObject:graphicsArray forKey:@"graphic_uids"];
+                        [visitedRemainders replaceObjectAtIndex:index withObject:contextDict];
+                        [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                    }
+                    
+                }
+                else
+                {
+                    [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+                    [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                    
+                }
+                
+                
+            }
+            else
+            {
+                NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+                [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
+                
+            }
+            
+            [userDefaults synchronize];
+            
+            
+            [self check];
+            
+        }
+    }
+
+}
 -(void) searchBarCancelButtonClicked:(UISearchBar *)searchBar1
 {
 

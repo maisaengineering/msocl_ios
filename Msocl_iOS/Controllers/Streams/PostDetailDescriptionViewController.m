@@ -188,7 +188,7 @@
 
     [super viewWillAppear:YES];
     
-    [self check];
+    //[self check];
     
     if(!isImageClicked)
     {
@@ -1281,12 +1281,15 @@
     else
     {
         [addImageActionSheet addButtonWithTitle:@"Like"];
+        
+        if([[commentDict objectForKey:@"editable"] boolValue])
+            [addImageActionSheet addButtonWithTitle:@"Edit"];
+        
+
     }
-    if([[commentDict objectForKey:@"editable"] boolValue])
-        [addImageActionSheet addButtonWithTitle:@"Edit"];
-        
+        if(![[commentDict objectForKey:@"editable"] boolValue])
         [addImageActionSheet addButtonWithTitle:@"Flag"];
-        
+
     addImageActionSheet.cancelButtonIndex = [addImageActionSheet addButtonWithTitle:@"Cancel"];
 
     addImageActionSheet.tag = 1;
@@ -1704,7 +1707,7 @@
     [userDefaults synchronize];
     
     
-    [self check];
+    //[self check];
     
     
 }

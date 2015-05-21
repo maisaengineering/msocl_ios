@@ -161,7 +161,7 @@
                                                              NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString* path = [documentsDirectory stringByAppendingPathComponent: [NSString stringWithString:url] ];
-        NSData* data = UIImageJPEGRepresentation(image, 1.0);
+        NSData* data = UIImagePNGRepresentation(image);
         [data writeToFile:path atomically:YES];
         [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:path]];
     }

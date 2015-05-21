@@ -492,25 +492,16 @@
             {*/
             [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
-                if(cacheType == SDImageCacheTypeNone)
-                {
-                    NSArray* rowsToReload = [NSArray arrayWithObjects:indexPath, nil];
-                    [streamTableView reloadRowsAtIndexPaths:rowsToReload withRowAnimation:UITableViewRowAnimationNone];
-                }
-                else
-                {
-                    textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
-                    image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
-                    NSRange range = [attributedString.string rangeOfString:attrStringWithImage.string];
-                    NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
-                        attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
-                    [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-                    
-                    [attributedString replaceCharactersInRange:range withAttributedString:attrStringWithImage];
-                    
-                    textView.attributedText = attributedString;
-                }
+                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
+                image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
+                NSRange range = [attributedString.string rangeOfString:attrStringWithImage.string];
+                NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
+                attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
+                [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
                 
+                [attributedString replaceCharactersInRange:range withAttributedString:attrStringWithImage];
+                
+                textView.attributedText = attributedString;
                 
             }];
             //}
@@ -755,7 +746,7 @@
     else
     {
 
-        [self.delegate tableDidSelect:textView.tag];
+        [self.delegate tableDidSelect:(int)textView.tag];
     }
     
 }

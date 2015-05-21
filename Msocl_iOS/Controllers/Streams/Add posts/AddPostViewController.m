@@ -835,6 +835,71 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView1 didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
+
+    {
+        NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+        NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"addTag"]];
+        homeContext = [[array firstObject] mutableCopy];
+        if([[homeContext objectForKey:@"graphics"] count] >0 )
+        {
+            subContext = [[homeContext objectForKey:@"graphics"] firstObject];
+            
+            NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
+            long int index = [userDefaultsArray indexOfObject:homeContext];
+            NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
+            [graphicsArrray removeObject:subContext];
+            [homeContext setObject:graphicsArrray forKey:@"graphics"];
+            [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:userDefaultsArray forKey:@"PageGuidePopUpImages"];
+            
+            
+            ////////////Saving already viewed uids in userdefaults
+            NSMutableArray *visitedRemainders =  [[userDefaults objectForKey:@"time_reminder_visits"] mutableCopy];
+            if(visitedRemainders.count >0 )
+            {
+                NSArray *contextArray  = [visitedRemainders filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"reminder_uid = %@",[homeContext objectForKey:@"uid"]]];
+                if(contextArray.count >0)
+                {
+                    NSMutableDictionary *contextDict = [[contextArray firstObject] mutableCopy];
+                    long int index = [visitedRemainders indexOfObject:contextDict];
+                    NSMutableArray *graphicsArray = [[contextDict objectForKey:@"graphic_uids"] mutableCopy];
+                    if(![graphicsArray containsObject:[subContext objectForKey:@"uid"]])
+                    {
+                        [graphicsArray addObject:[subContext objectForKey:@"uid"]];
+                        [contextDict setObject:graphicsArray forKey:@"graphic_uids"];
+                        [visitedRemainders replaceObjectAtIndex:index withObject:contextDict];
+                        [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                    }
+                    
+                }
+                else
+                {
+                    [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+                    [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                    
+                }
+                
+                
+            }
+            else
+            {
+                NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+                [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
+                
+            }
+            
+            [userDefaults synchronize];
+            
+            
+            [self check];
+            
+        }
+    }
+    
     if([selectedtagsArray containsObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]])
     {
         [selectedtagsArray removeObject:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
@@ -925,6 +990,67 @@
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
 
+    {
+        NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
+        NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"anonymousPost"]];
+        homeContext = [[array firstObject] mutableCopy];
+        if([[homeContext objectForKey:@"graphics"] count] >0 )
+        {
+        subContext = [[homeContext objectForKey:@"graphics"] firstObject];
+        
+        NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
+        long int index = [userDefaultsArray indexOfObject:homeContext];
+        NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
+        [graphicsArrray removeObject:subContext];
+        [homeContext setObject:graphicsArrray forKey:@"graphics"];
+        [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:userDefaultsArray forKey:@"PageGuidePopUpImages"];
+        
+        
+        ////////////Saving already viewed uids in userdefaults
+        NSMutableArray *visitedRemainders =  [[userDefaults objectForKey:@"time_reminder_visits"] mutableCopy];
+        if(visitedRemainders.count >0 )
+        {
+            NSArray *contextArray  = [visitedRemainders filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"reminder_uid = %@",[homeContext objectForKey:@"uid"]]];
+            if(contextArray.count >0)
+            {
+                NSMutableDictionary *contextDict = [[contextArray firstObject] mutableCopy];
+                long int index = [visitedRemainders indexOfObject:contextDict];
+                NSMutableArray *graphicsArray = [[contextDict objectForKey:@"graphic_uids"] mutableCopy];
+                if(![graphicsArray containsObject:[subContext objectForKey:@"uid"]])
+                {
+                [graphicsArray addObject:[subContext objectForKey:@"uid"]];
+                [contextDict setObject:graphicsArray forKey:@"graphic_uids"];
+                [visitedRemainders replaceObjectAtIndex:index withObject:contextDict];
+                [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                }
+                
+            }
+            else
+            {
+                [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+                [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                
+            }
+            
+            
+        }
+        else
+        {
+            NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+            [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
+            
+        }
+        
+        [userDefaults synchronize];
+        
+        
+        [self check];
+        
+        }
+    }
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = [(UIButton *)sender frame];
@@ -1210,7 +1336,7 @@
 -(void)check
 {
     NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"AddPost"]];
+    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"addTag"]];
     if(array.count > 0)
     {
         homeContext = [[array firstObject] mutableCopy];
@@ -1222,7 +1348,22 @@
             subContext = [graphicsArray firstObject];
             [self setUpTimerWithStartInSubContext:subContext];
             
+            return;
+        }
+    }
+    array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"anonymousPost"]];
+    if(array.count > 0)
+    {
+        homeContext = [[array firstObject] mutableCopy];
+        NSDictionary *dictionary = [array firstObject];
+        NSArray *graphicsArray = [dictionary objectForKey:@"graphics"];
+        if(graphicsArray.count > 0)
+        {
             
+            subContext = [graphicsArray firstObject];
+            [self setUpTimerWithStartInSubContext:subContext];
+            
+            return;
         }
     }
     
