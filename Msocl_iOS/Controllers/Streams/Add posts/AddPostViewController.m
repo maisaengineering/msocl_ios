@@ -184,7 +184,7 @@
     textView.delegate = self;
     [scrollView addSubview:textView];
     
-    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 0, textView.frame.size.width, 20)];
+    placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 5, textView.frame.size.width, 20)];
     //[placeholderLabel setText:placeholder];
     [placeholderLabel setBackgroundColor:[UIColor clearColor]];
     [placeholderLabel setNumberOfLines:0];
@@ -596,6 +596,7 @@
     }
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
 
+    [placeholderLabel removeFromSuperview];
     textView.attributedText = attributedString;
     
     uploadingImages ++;

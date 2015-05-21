@@ -200,8 +200,6 @@
     }
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    ShowAlert(PROJECT_NAME,messageStr, @"OK");
-
     if(result != MFMailComposeResultCancelled )
     {
         ShowAlert(PROJECT_NAME,messageStr, @"OK");
