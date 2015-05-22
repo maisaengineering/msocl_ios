@@ -615,17 +615,37 @@
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 
-                    image = [image resizedImageByMagick:@"300x150#"];
-                    image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
-                    NSRange range = [attributedString.string rangeOfString:attrStringWithImage.string];
-                    textAttachment.image = image;
-                    NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:2]}];
-                    [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+                __block UIImage *image1 = image;
 
-                    [attributedString replaceCharactersInRange:range withAttributedString:attrStringWithImage];
-                    
-                    textView.attributedText = attributedString;
-                [textView setNeedsDisplay];
+                [attributedString enumerateAttributesInRange:NSMakeRange(0, attributedString.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:
+                 ^(NSDictionary *attributes, NSRange attrRange, BOOL *stop)
+                 {
+                     
+                     NSMutableDictionary *mutableAttributes = [NSMutableDictionary dictionaryWithDictionary:attributes];
+                     
+                     NSTextAttachment *textAttachment1 = [mutableAttributes objectForKey:@"NSAttachment"];
+                     if(textAttachment != nil)
+                     {
+                         NSString *identifier = textAttachment1.image.accessibilityIdentifier;
+                        if (identifier!= nil && [[imageURL absoluteString] rangeOfString:identifier].location != NSNotFound)
+                         {
+                             image1 = [image1 resizedImageByMagick:@"300x150#"];
+                             image1.accessibilityIdentifier = textAttachment1.image.accessibilityIdentifier;
+                             textAttachment.image = image1;
+                             NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:2]}];
+                             [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
+                             
+                             [attributedString replaceCharactersInRange:attrRange withAttributedString:attrStringWithImage];
+                             
+                             textView.attributedText = attributedString;
+                             [textView setNeedsDisplay];
+
+                         }
+                     }
+                     
+                 }];
+                
+                
             }];
             
         }

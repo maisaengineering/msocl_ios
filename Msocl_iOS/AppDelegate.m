@@ -236,11 +236,7 @@
     
     if(token.access_token.length>0)
     {
-        NSMutableArray *externalSignInOptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"externalSignInOptions"];
-        if([externalSignInOptions count] == 0)
-        {
             [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
-        }
 
         
         NSMutableArray *pageGuidePopUpData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];

@@ -90,11 +90,7 @@
     ModelManager *sharedModel = [ModelManager sharedModel];
     sharedModel.accessToken = [tokens objectAtIndex:0];
     
-    NSMutableArray *externalSignInOptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"externalSignInOptions"];
-    if([externalSignInOptions count] == 0)
-    {
         [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
-    }
 
     
     // Get the PageGuidePopUpImages
