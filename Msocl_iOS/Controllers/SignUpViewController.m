@@ -13,6 +13,7 @@
 #import "ProfilePhotoUtils.h"
 #import "Base64.h"
 #import "PromptImages.h"
+#import "WebViewController.h"
 @implementation SignUpViewController
 {
     AppDelegate *appdelegate;
@@ -33,6 +34,7 @@
 @synthesize profileImage;
 @synthesize txt_postal_code;
 @synthesize txt_phno;
+@synthesize checkBox;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -109,6 +111,28 @@
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
 }
+-(IBAction)tc_Clicked:(id)sender
+{
+    UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
+    webViewController.loadUrl = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@t&c/",APP_BASE_URL]];
+    [self.navigationController pushViewController: webViewController animated:YES];
+
+}
+-(IBAction)checkBox_Clicked:(id)sender
+{
+    UIButton *button = sender;
+    button.selected = !button.selected;
+}
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:YES];
+
+}
 
 #pragma mark -
 #pragma mark Signup Methods
@@ -130,7 +154,12 @@
         ShowAlert(PROJECT_NAME,@"Password and Confirm password do not match", @"OK");
         return;
     }
-    
+    else if(!checkBox.selected)
+    {
+        ShowAlert(PROJECT_NAME,@"Please read and agree to our terms & conditions", @"OK");
+        return;
+
+    }
     else
     {
         isSignupClicked = YES;

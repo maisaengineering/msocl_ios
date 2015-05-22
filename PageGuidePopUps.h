@@ -26,4 +26,6 @@
 -(void)setUpTimerWithStartIn;
 -(void)sendVisitedPageGuides;
 - (void)getAllTimedReminderImagesWithURLS:(NSMutableArray *) pageGuidesArray;
+
+-(void)getOptionsForExternalSignIn;
 @end

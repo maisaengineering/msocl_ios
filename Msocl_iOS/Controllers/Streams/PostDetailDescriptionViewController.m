@@ -265,7 +265,7 @@
 {
     NSArray *postArray = [recievedDict objectForKey:@"posts"];
     PostDetails *postObject = [postArray lastObject];
-    if(postObject.editable)
+    if([postObject.can containsObject:@"edit"])
     {
         UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -1282,12 +1282,12 @@
     {
         [addImageActionSheet addButtonWithTitle:@"Like"];
         
-        if([[commentDict objectForKey:@"editable"] boolValue])
+        if([[commentDict objectForKey:@"can"] containsObject:@"edit"])
             [addImageActionSheet addButtonWithTitle:@"Edit"];
         
 
     }
-        if(![[commentDict objectForKey:@"editable"] boolValue])
+        if([[commentDict objectForKey:@"can"] containsObject:@"flag"])
         [addImageActionSheet addButtonWithTitle:@"Flag"];
 
     addImageActionSheet.cancelButtonIndex = [addImageActionSheet addButtonWithTitle:@"Cancel"];

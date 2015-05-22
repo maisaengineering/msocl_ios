@@ -21,6 +21,9 @@
 }
 @synthesize txt_username;
 @synthesize txt_password;
+@synthesize facebookButton;
+@synthesize googleButton;
+@synthesize twitterButton;
 
 -(void)viewDidLoad
 {
@@ -58,6 +61,51 @@
     singleTap.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:singleTap];
     
+    NSMutableArray *externalSignInOptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"externalSignInOptions"];
+    if([externalSignInOptions count] > 0)
+    {
+        float x = 16+(288-(3 - [externalSignInOptions count])*92 - (3 - [externalSignInOptions count]-1)*6)/2 ;
+        
+    if([externalSignInOptions containsObject:@"facebook"])
+    {
+        [facebookButton setHidden:YES];
+    }
+    else
+        {
+            [facebookButton setHidden:NO];
+            CGRect frame = facebookButton.frame;
+            frame.origin.x = x;
+            facebookButton.frame = frame;
+            x+=98;
+        }
+        
+        if([externalSignInOptions containsObject:@"twitter"])
+        {
+            [twitterButton setHidden:YES];
+        }
+        else
+        {
+            [twitterButton setHidden:NO];
+            CGRect frame = twitterButton.frame;
+            frame.origin.x = x;
+            twitterButton.frame = frame;
+            x+=98;
+        }
+
+        
+    if([externalSignInOptions containsObject:@"google"])
+    {
+        [googleButton setHidden:YES];
+    }
+        else
+        {
+            [googleButton setHidden:NO];
+            CGRect frame = googleButton.frame;
+            frame.origin.x = x;
+            googleButton.frame = frame;
+            x+=98;
+        }
+    }
 }
 - (void)tapGestureUpdated:(UIGestureRecognizer *)recognizer
 {
@@ -70,7 +118,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES];
-
 }
 
 -(IBAction)closeClicked:(id)sender

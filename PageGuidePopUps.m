@@ -350,4 +350,27 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     return deviceName;
 }
 
+#pragma mark -
+#pragma mark Call to Disable External Sign in
+-(void)getOptionsForExternalSignIn
+{
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    NSString *command = @"appConfig";
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": command};
+    NSDictionary *userInfo = @{@"command": command};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+-(void)externalSigninOptionsSuccessFull:(NSDictionary *)recievedDict
+{
+    if([[recievedDict objectForKey:@"disableLogins"] count] > 0)
+    [[NSUserDefaults standardUserDefaults] setObject:[recievedDict objectForKey:@"disableLogins"] forKey:@"externalSignInOptions"];
+
+}
+-(void)externalSigninOptionsFailed
+{
+    
+}
 @end

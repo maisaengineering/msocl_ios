@@ -25,6 +25,7 @@
 @synthesize flagged;
 @synthesize commentCount;
 @synthesize large_images;
+@synthesize can;
 -(id)initWithDictionary:(NSDictionary *)response{
     
     if (self=[super init]) {
@@ -68,8 +69,8 @@
             else if ([key isEqualToString:@"upvote_count"]) {
                 self.upVoteCount = [[response objectForKey:key] intValue];
             }
-            else if ([key isEqualToString:@"editable"]) {
-                self.editable = [[response objectForKey:key] boolValue];
+            else if ([key isEqualToString:@"can"]) {
+                self.can = [[response objectForKey:key] mutableCopy];
             }
             else if ([key isEqualToString:@"createdAt"]) {
                 self.time = [response objectForKey:key];

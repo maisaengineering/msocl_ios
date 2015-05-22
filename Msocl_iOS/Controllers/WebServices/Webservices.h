@@ -66,6 +66,8 @@
 -(void) resetPasswordFailed;
 -(void) profileDetailsSuccessFull:(NSDictionary *)recievedDict;
 -(void) profileDetailsFailed;
+-(void) externalSigninOptionsSuccessFull:(NSDictionary *)recievedDict;
+-(void) externalSigninOptionsFailed;
 
 @end
 

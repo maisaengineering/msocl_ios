@@ -26,7 +26,7 @@
 @property (nonatomic,assign) int commentCount;
 
 @property (nonatomic, assign) BOOL anonymous;
-@property (nonatomic, assign) BOOL editable;
+@property (nonatomic, strong) NSMutableArray *can;
 @property (nonatomic, assign) BOOL upvoted;
 @property (nonatomic, assign) BOOL flagged;
 

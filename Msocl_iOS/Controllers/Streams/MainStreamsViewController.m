@@ -353,9 +353,10 @@
 }
 -(IBAction)addClicked:(id)sender
 {
+    [self setTimedRemindersActionTaken:@"addPost"];
+
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-        [self setTimedRemindersActionTaken:@"addPost"];
         [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
         
     }
@@ -370,9 +371,10 @@
 
 -(IBAction)RecentOrFollowignClicked:(id)sender
 {
+    [self setTimedRemindersActionTaken:@"favourites"];
+
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-    [self setTimedRemindersActionTaken:@"favourites"];
     if(mostRecentButton.selected)
     {
         

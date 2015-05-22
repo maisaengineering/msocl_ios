@@ -172,6 +172,10 @@
     {
         [self connectionSuccessProfile:responseDict];
     }
+    else if([command isEqualToString:@"appConfig"])
+    {
+        [self connectionSuccessExternalSignInOptions:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -284,6 +288,10 @@
     else if([command isEqualToString:@"ProfileDetails"])
     {
         [self.delegate profileDetailsFailed];
+    }
+    else if([command isEqualToString:@"appConfig"])
+    {
+        [self.delegate externalSigninOptionsFailed];
     }
 }
 #pragma mark -
@@ -590,6 +598,23 @@
     else
     {
         [self.delegate signOutFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessExternalSignInOptions:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate externalSigninOptionsSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate externalSigninOptionsFailed];
         
     }
     

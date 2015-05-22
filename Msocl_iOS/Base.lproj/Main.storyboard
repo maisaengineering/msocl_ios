@@ -7,9 +7,10 @@
     <customFonts key="customFonts">
         <mutableArray key="Ubuntu-LI.ttf">
             <string>Ubuntu-LightItalic</string>
+            <string>Ubuntu-LightItalic</string>
+            <string>Ubuntu-LightItalic</string>
         </mutableArray>
         <mutableArray key="Ubuntu-R.ttf">
-            <string>Ubuntu</string>
             <string>Ubuntu</string>
             <string>Ubuntu</string>
             <string>Ubuntu</string>
@@ -223,7 +224,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDL-7B-QES">
-                                <rect key="frame" x="213" y="374" width="91" height="33"/>
+                                <rect key="frame" x="213" y="374" width="92" height="33"/>
                                 <state key="normal" image="btn-google.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -328,6 +329,9 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="facebookButton" destination="biR-Wm-q8u" id="IDT-Hj-R1t"/>
+                        <outlet property="googleButton" destination="XDL-7B-QES" id="uSi-4y-Lx9"/>
+                        <outlet property="twitterButton" destination="hyO-kJ-vbK" id="H4x-sF-3ZJ"/>
                         <outlet property="txt_password" destination="8DF-tk-oX9" id="5gQ-xm-VSy"/>
                         <outlet property="txt_username" destination="x6Y-dA-Emj" id="DWt-xz-sOp"/>
                     </connections>
@@ -455,7 +459,7 @@
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2S-Hk-x0r">
-                                        <rect key="frame" x="16" y="382" width="288" height="35"/>
+                                        <rect key="frame" x="16" y="426" width="288" height="35"/>
                                         <color key="backgroundColor" red="0.77254901960784317" green="0.12941176470588234" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="REGISTER">
@@ -464,6 +468,26 @@
                                         </state>
                                         <connections>
                                             <action selector="signupClicked:" destination="1A5-jJ-XHf" eventType="touchUpInside" id="zD0-hB-Gb9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INB-iI-Rf6">
+                                        <rect key="frame" x="44" y="373" width="133" height="30"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu-LightItalic" family="Ubuntu" pointSize="15"/>
+                                        <state key="normal" title="Terms &amp; conditions">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tc_Clicked:" destination="1A5-jJ-XHf" eventType="touchUpInside" id="gyp-Rh-0e1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf3-pQ-hzY">
+                                        <rect key="frame" x="17" y="373" width="30" height="30"/>
+                                        <state key="normal" image="checkbox_empty.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="checkbox_full.png"/>
+                                        <connections>
+                                            <action selector="checkBox_Clicked:" destination="1A5-jJ-XHf" eventType="touchUpInside" id="ZLB-hs-TjW"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -492,6 +516,7 @@
                     <navigationItem key="navigationItem" title="M SOCIAL" id="aia-LJ-syC"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="checkBox" destination="cf3-pQ-hzY" id="zCS-fs-S68"/>
                         <outlet property="profileImage" destination="9vN-ph-kEP" id="eYS-DM-vS1"/>
                         <outlet property="txt_confirmPassword" destination="e1S-22-vQn" id="KPK-z3-iCl"/>
                         <outlet property="txt_emailAddress" destination="LeC-V7-lpj" id="JU4-Rb-Yrr"/>
@@ -623,8 +648,8 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="v1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyO-Es-QAU">
                                 <rect key="frame" x="117" y="320" width="87" height="21"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                <color key="textColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-LightItalic" family="Ubuntu" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1097,6 +1122,8 @@
         <image name="btn-facebook.png" width="96" height="32"/>
         <image name="btn-google.png" width="93" height="32"/>
         <image name="btn-twitter.png" width="89" height="32"/>
+        <image name="checkbox_empty.png" width="16" height="16"/>
+        <image name="checkbox_full.png" width="16" height="16"/>
         <image name="icon-back.png" width="16" height="23"/>
         <image name="icon-close.png" width="26" height="26"/>
         <image name="icon-favorite-disable.png" width="17" height="17"/>

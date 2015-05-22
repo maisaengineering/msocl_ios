@@ -31,6 +31,10 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_postal_code;
 @property (nonatomic, strong) IBOutlet UITextField *txt_phno;
 
+@property (nonatomic, strong) IBOutlet UIButton *checkBox;
+
+-(IBAction)tc_Clicked:(id)sender;
+-(IBAction)checkBox_Clicked:(id)sender;
 -(IBAction)backClickes:(id)sender;
 -(IBAction)closeClicked:(id)sender;
 -(IBAction)signupClicked:(id)sender;

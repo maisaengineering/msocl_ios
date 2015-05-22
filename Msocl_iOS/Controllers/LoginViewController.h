@@ -12,6 +12,9 @@
 
 @property (nonatomic, strong) IBOutlet UITextField *txt_username;
 @property (nonatomic, strong) IBOutlet UITextField *txt_password;
+@property (nonatomic, strong) IBOutlet UIButton *facebookButton;
+@property (nonatomic, strong) IBOutlet UIButton *twitterButton;
+@property (nonatomic, strong) IBOutlet UIButton *googleButton;
 
 -(IBAction)loginClicked:(id)sender;
 -(IBAction)forgotPasswordClicked:(id)sender;
