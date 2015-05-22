@@ -650,9 +650,9 @@
 #pragma mark Timer Methods For Post
 -(void)setUpTimer
 {
- /*   if (!timer) {
+    if (!timer) {
         
-        timer = [NSTimer scheduledTimerWithTimeInterval: 5
+        timer = [NSTimer scheduledTimerWithTimeInterval: 30
                                                  target: self
                                                selector: @selector(updateStreamData)
                                                userInfo: nil
@@ -663,14 +663,14 @@
         
         [timer invalidate];
         timer = nil;
-        timer = [NSTimer scheduledTimerWithTimeInterval: 5
+        timer = [NSTimer scheduledTimerWithTimeInterval: 30
                                                  target: self
                                                selector: @selector(updateStreamData)
                                                userInfo: nil
                                                 repeats: YES];
     }
     [timer fire];
-  */
+  
 }
 - (void)updateStreamData
 {
