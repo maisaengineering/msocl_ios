@@ -740,14 +740,15 @@
     lineImage.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     [cell.contentView addSubview:lineImage];
 
-    
+    if([postDetailsObject.can containsObject:@"flag"])
+    {
     UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [flagButton setImage:[UIImage imageNamed:@"icon-flag.png"] forState:UIControlStateNormal];
     [flagButton setFrame:CGRectMake(240, yPosition+6, 29, 28)];
     [flagButton setTag:[indexPath row]];
     [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:flagButton];
-    
+    }
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     if(postDetailsObject.upvoted)
         [heartButton setImage:[UIImage imageNamed:@"icon-like-postview-active.png"] forState:UIControlStateNormal];

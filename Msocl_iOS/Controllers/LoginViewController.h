@@ -15,6 +15,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *facebookButton;
 @property (nonatomic, strong) IBOutlet UIButton *twitterButton;
 @property (nonatomic, strong) IBOutlet UIButton *googleButton;
+@property (nonatomic, strong) IBOutlet UILabel *loginWith;
 
 -(IBAction)loginClicked:(id)sender;
 -(IBAction)forgotPasswordClicked:(id)sender;

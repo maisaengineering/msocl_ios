@@ -330,6 +330,7 @@
                     <connections>
                         <outlet property="facebookButton" destination="biR-Wm-q8u" id="IDT-Hj-R1t"/>
                         <outlet property="googleButton" destination="XDL-7B-QES" id="uSi-4y-Lx9"/>
+                        <outlet property="loginWith" destination="Oxa-6e-NMw" id="NW9-Nw-RSH"/>
                         <outlet property="twitterButton" destination="hyO-kJ-vbK" id="H4x-sF-3ZJ"/>
                         <outlet property="txt_password" destination="8DF-tk-oX9" id="5gQ-xm-VSy"/>
                         <outlet property="txt_username" destination="x6Y-dA-Emj" id="DWt-xz-sOp"/>

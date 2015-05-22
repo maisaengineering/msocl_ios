@@ -24,6 +24,7 @@
 @synthesize facebookButton;
 @synthesize googleButton;
 @synthesize twitterButton;
+@synthesize loginWith;
 
 -(void)viewDidLoad
 {
@@ -62,6 +63,10 @@
     [self.view addGestureRecognizer:singleTap];
     
     NSMutableArray *externalSignInOptions = [[NSUserDefaults standardUserDefaults] objectForKey:@"externalSignInOptions"];
+    if([externalSignInOptions count] == 3)
+        loginWith.hidden = YES;
+    else
+        loginWith.hidden = NO;
     if([externalSignInOptions count] > 0)
     {
         float x = 16+(288-(3 - [externalSignInOptions count])*92 - (3 - [externalSignInOptions count]-1)*6)/2 ;
