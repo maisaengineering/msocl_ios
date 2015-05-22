@@ -39,7 +39,7 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320 , Deviceheight)];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320 , Deviceheight-64)];
     NSURL *url;
 
     if(loadUrl == nil)
