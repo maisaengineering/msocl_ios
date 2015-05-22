@@ -1342,7 +1342,7 @@
         NSString *emailIdBase64 = [emailId base64EncodedString];
         NSString *emailIdCipher = [CustomCipher encrypt:emailIdBase64];
         
-        NSString *bodyText = [NSString stringWithFormat:@"Dear M Socail,\r\n\r\nPlease review the content for a comment dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdCipher];
+        NSString *bodyText = [NSString stringWithFormat:@"Dear Same Pinch,\r\n\r\nPlease review the content for a comment dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdCipher];
         
         NSMutableDictionary *emailData = [[NSMutableDictionary alloc] init];
         [emailData setValue:@"Inappropriate content" forKey:@"subject"];
@@ -1422,7 +1422,7 @@
         NSString *emailIdBase64 = [emailId base64EncodedString];
         NSString *emailIdCipher = [CustomCipher encrypt:emailIdBase64];
         
-        NSString *bodyText = [NSString stringWithFormat:@"Dear M Socail,\r\n\r\nPlease review the content for a post item dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdCipher];
+        NSString *bodyText = [NSString stringWithFormat:@"Dear Same Pinch,\r\n\r\nPlease review the content for a post item dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdCipher];
         
         NSMutableDictionary *emailData = [[NSMutableDictionary alloc] init];
         [emailData setValue:@"Inappropriate content" forKey:@"subject"];
