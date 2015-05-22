@@ -1432,7 +1432,7 @@
         [mailComposer setSubject:subject];
         [mailComposer setMessageBody:body isHTML:NO];
         mailComposer.navigationBar.barStyle = UIBarStyleBlackOpaque;
-        [mailComposer setToRecipients:[NSArray arrayWithObjects: @"friends@samepinch.co",nil]];
+        [mailComposer setToRecipients:[NSArray arrayWithObjects: @"abuse@samepinch.co",nil]];
         
         //        [self presentModalViewController:mailComposer animated:TRUE];
         [self presentViewController:mailComposer animated:TRUE completion:NULL];

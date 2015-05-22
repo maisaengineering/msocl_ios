@@ -49,7 +49,7 @@
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."
 
-#define PROJECT_NAME            @"Socl"
+#define PROJECT_NAME            @"SamePinch"
 
 #ifdef DEBUG
 #define DebugLog( s, ... ) NSLog( @"<%p %@:%d (%@)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  NSStringFromSelector(_cmd), [NSString stringWithFormat:(s), ##__VA_ARGS__] )

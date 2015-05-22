@@ -66,23 +66,6 @@
     self.navigationItem.leftBarButtonItem = barButton;
 
     
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [rightButton addTarget:self action:@selector(MyTagsClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
-    [rightButton setTitle:@"Manage tags" forState:UIControlStateNormal];
-    [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [rightButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];
-    rightButton.frame = CGRectMake(0 ,0,100,30);
-    rightButton.clipsToBounds = YES;
-    rightButton.layer.borderColor = [UIColor whiteColor].CGColor;
-    rightButton.layer.borderWidth = 1.5;
-    rightButton.layer.cornerRadius = 5; // this value vary as per your desire
-
-    
-    
-    UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
-    self.navigationItem.rightBarButtonItem = rightBarButton;
-
-    
     UIColor *color = [UIColor lightGrayColor];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
     

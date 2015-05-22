@@ -132,7 +132,7 @@
             [self displayMailComposer];
             break;
         case 1:
-            
+            [self showSMS];
             
             break;
         default:
@@ -149,7 +149,7 @@
          [appdelegate showOrhideIndicator:YES];
         mailComposer= [[MFMailComposeViewController alloc] init];
         [mailComposer setMailComposeDelegate:self];
-        [mailComposer setSubject:@"SamePinch"];
+        [mailComposer setSubject:@"Heard about SamePinch?"];
         
     /*    ///////Attaching image//////////
         if(selectedImage != nil)
@@ -163,9 +163,9 @@
         
         
         //
-               NSString *styles = @"<style type='text/css'>body { font-family: 'HelveticaNeue-Light'; font-size: 20px; color: #7b7a7a; margin: 0; padding: 0; }</style>";
-                NSString *htmlMsg = [NSString stringWithFormat:@"<html><head>%@</head><body>%@</body></html>",styles,@"Same Pinch"];
-        [mailComposer setMessageBody:htmlMsg isHTML:YES];
+              // NSString *styles = @"<style type='text/css'>body { font-family: 'Ubuntu-Light'; font-size: 20px; color: #7b7a7a; margin: 0; padding: 0; }</style>";
+      //  NSString *htmlMsg = [NSString stringWithFormat:@"<html><head>%@</head><body>%@</body></html>",styles,@"Hey,\n\nThought you might be interested to check out this app I am in love with: www.samepinch.co\n\nThanks,\nSamePinch Fan"];
+        [mailComposer setMessageBody:@"Hey,\n\nThought you might be interested to check out this app I am in love with: www.samepinch.co\n\nThanks,\nSamePinch Fan" isHTML:NO];
         
         mailComposer.navigationBar.barStyle = UIBarStyleBlackOpaque;
         [self presentViewController:mailComposer animated:YES completion:^{
@@ -210,7 +210,7 @@
 #pragma mark Message Composer
 
 //pops up the native SMS window to send the sms message to their friend
-- (void)showSMS:(NSDictionary*)file
+- (void)showSMS
 {
     
     if(![MFMessageComposeViewController canSendText])
@@ -221,7 +221,7 @@
     }
     [appdelegate showOrhideIndicator:YES];
     
-    NSString *message = [NSString stringWithFormat:@"%@", @"Same Pinch"];
+    NSString *message = [NSString stringWithFormat:@"%@", @"Hey,\n\nThought you might be interested to check out this app I am in love with: www.samepinch.co\n\nThanks,\nSamePinch Fan"];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
