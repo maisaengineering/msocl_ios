@@ -698,14 +698,19 @@
     UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(15, yPosition+5, 220, 30)];
     [cell.contentView addSubview:tagsView];
     NSArray *tagsArray = postDetailsObject.tags;
-    int xPosition =0;
+    int xPosition =0, y = 6;
     for(int i=0; i <tagsArray.count ;i++)
     {
         NSString *tagNameStr = tagsArray[i];
         CGSize size = [tagNameStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
         
         if(size.width + xPosition >= 220)
-            break;
+        {
+            xPosition = 0;
+            y += 26;
+            i --;
+            continue;
+        }
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
@@ -718,11 +723,18 @@
         [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
         [tagsView addSubview:btn];
-        btn.frame = CGRectMake(xPosition, 6, size.width, 20);
+        btn.frame = CGRectMake(xPosition, y, size.width, 20);
         
         xPosition += btn.frame.size.width + 3;
+        
     }
-
+    
+    if(y+26 > 32)
+    {
+        CGRect frame = tagsView.frame;
+        frame.size.height = y+26+6;
+        tagsView.frame = frame;
+    }
     
     
 /*
@@ -981,26 +993,47 @@
     height = 40 + height1;
 
     
-    //Tags height
-    NSMutableArray *tagsArray = [[NSMutableArray alloc] init];
-    for(NSString *tag in postDetailsObject.tags)
+    NSArray *tagsArray = postDetailsObject.tags;
+    int xPosition =0, y = 6;
+    for(int i=0; i <tagsArray.count ;i++)
     {
-        [tagsArray addObject:[NSString stringWithFormat:@"#%@",tag]];
+        NSString *tagNameStr = tagsArray[i];
+        CGSize size = [tagNameStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
+        
+        if(size.width + xPosition >= 220)
+        {
+            xPosition = 0;
+            y += 26;
+            i --;
+            continue;
+        }
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
+        btn.layer.borderColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0].CGColor;
+        btn.layer.borderWidth = 1.0f;
+        btn.layer.cornerRadius = 5;
+        btn.layer.masksToBounds = YES;
+        [btn setTitle:tagNameStr forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
+        [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
+        btn.frame = CGRectMake(xPosition, y, size.width, 20);
+        
+        xPosition += btn.frame.size.width + 3;
+        
     }
     
-    NSAttributedString *tagsStr = [[NSAttributedString alloc] initWithString:[tagsArray componentsJoinedByString:@" "] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14.0],NSForegroundColorAttributeName:[UIColor blackColor]}];
-    
-
-    
-    CGSize tagsSize = [tagsStr boundingRectWithSize:CGSizeMake(300, CGFLOAT_MAX)
-                                            options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
-                                            context:nil].size;
-    
-    if(postDetailsObject.tags.count > 0)
-        height += (tagsSize.height> 40)?tagsSize.height:40;
+    if(y+26 > 32)
+    {
+        height += y+26 + 6;
+    }
     else
-            height += 40;
+    {
+        height += 40;
+    }
     
+    //Tags height
     return height;
 }
 
@@ -1024,7 +1057,7 @@
     NIAttributedLabel *textView = [NIAttributedLabel new];
     textView.numberOfLines = 0;
     textView.attributedText = attributedString;
-    CGSize expectedLabelSize = [textView sizeThatFits:CGSizeMake(220, 9999)];
+    CGSize expectedLabelSize = [textView sizeThatFits:CGSizeMake(205, 9999)];
     
     
     CGFloat height =0;

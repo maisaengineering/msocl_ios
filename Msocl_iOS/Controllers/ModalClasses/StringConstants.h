@@ -12,8 +12,8 @@
 #define APP_VERSION     @"1.0"
 
 // Dev Credentials
-#define CLIENT_ID               @"3e0786a2f258e6f9b08250dbd7f35010480988e0d3d1ef373b79e07884be79f9"
-#define CLIENT_SECRET           @"813c95cc2eb6c0cf4f49d30d0add0c6fc3ea82863d30507beb6733c0e643927c"
+#define CLIENT_ID               @"07b71e492ccb9de623cfa8d151157b5452ad52eae7197fe85689a07876960f8f"
+#define CLIENT_SECRET           @"2e716b657cd8d0a85ea632a915d0a3c699bd7bc2be326ecec167d26bba159a9b"
 
 //AVIARY
 #define kAFAviaryAPIKey         @"e9d5541aa86c51c9"
@@ -37,14 +37,14 @@
 #define DEVICE_UUID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
 //API URLS
-#define kBASE_URL               @"https://msocl.herokuapp.com/"
-#define BASE_URL                @"https://msocl.herokuapp.com/api/"
+#define kBASE_URL               @"https://samepinch.herokuapp.com/"
+#define BASE_URL                @"https://samepinch.herokuapp.com/api/"
 
 #define APP_BASE_URL @"http://www.samepinch.co/"
 
 // OAUTH URL
-#define OAUTH_URL                @"https://msocl.herokuapp.com/users/auth/"
-#define OAUTH_URL2                @"https://msocl.herokuapp.com/users/auth/"
+#define OAUTH_URL                @"https://samepinch.herokuapp.com/users/auth/"
+#define OAUTH_URL2                @"https://samepinch.herokuapp.com/users/auth/"
 
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."
