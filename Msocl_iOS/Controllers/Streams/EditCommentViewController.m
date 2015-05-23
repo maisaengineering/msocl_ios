@@ -164,14 +164,14 @@
         }
         else
         {
-            UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
-            [postAsLabel setText:@"Comment as"];
+            UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 260, 32)];
+            [postAsLabel setText:@"Comment as anonymous"];
             [postAsLabel setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
             [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
             [popView addSubview:postAsLabel];
             
-            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(192, 4, 32, 24)];
+            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 4, 32, 24)];
             [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
             [popView addSubview:anonymusImage];
             

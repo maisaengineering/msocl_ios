@@ -122,13 +122,13 @@
 
         case 4:
             cell.textLabel.text = @"Manage Tags";
-            cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
+            cell.imageView.image = [UIImage imageNamed:@"icon-menu-mtags.png"];
             break;
 
 
         case 5:
             cell.textLabel.text = @"About";
-            cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
+            cell.imageView.image = [UIImage imageNamed:@"icon-menu-about.png"];
             break;
 
 

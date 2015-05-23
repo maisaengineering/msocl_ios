@@ -1063,14 +1063,14 @@
     
     if(!isPrivate)
     {
-        UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
+        UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 260, 40)];
         [postAsLabel setText:@"Post as anonymous"];
         [postAsLabel setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
         [popView addSubview:postAsLabel];
         
-        UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 5, 30, 30)];
+        UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 5, 30, 30)];
         [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
         [popView addSubview:anonymusImage];
         
@@ -1089,7 +1089,7 @@
         [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
         [popView addSubview:postAsLabel1];
         
-        UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 7, 32, 24)];
+        UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(180, 7, 24, 24)];
         
         __weak UIImageView *weakSelf1 = userImage;
         __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
