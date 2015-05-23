@@ -45,6 +45,7 @@
     BOOL isImageClicked;
     UIView *addPopUpView;
     UIView *inputView;
+    UIImageView *iconImage;
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -55,9 +56,12 @@
 @synthesize subContext;
 @synthesize homeContext;
 @synthesize comment_uid;
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"";
     
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
@@ -66,7 +70,6 @@
     profileDateUtils = [ProfileDateUtils alloc];
     sharedModel   = [ModelManager sharedModel];
     
-    self.title = @"M SOCIAL";
     
    /* //Upvote
     UIButton *follow = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -99,7 +102,7 @@
     self.commentView = [[UIView alloc] initWithFrame:CGRectMake(0, streamTableView.frame.origin.y+streamTableView.frame.size.height, 320, 54)];
         self.commentView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.commentView];
-    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 235, 54)];
+    self.txt_comment = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 200, 54)];
     self.txt_comment.delegate = self;
         [self.txt_comment setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
 
@@ -118,8 +121,11 @@
         
     //Upvote
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [commentBtn setFrame:CGRectMake(224, 6.5, 48, 41)];
-    [commentBtn setImage:[UIImage imageNamed:@"comment-post.png"] forState:UIControlStateNormal];
+    [commentBtn setFrame:CGRectMake(204, 6.5, 68, 41)];
+    [commentBtn setTitleColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [commentBtn setTitle:@"comment" forState:UIControlStateNormal];
+    [commentBtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [commentBtn setBackgroundImage:[UIImage imageNamed:@"comment-btn.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
     [self.commentView addSubview:commentBtn];
     
@@ -168,11 +174,14 @@
         popover = [DXPopover popover];
     
     
-
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 57, 28)];
+    [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    
     [self.navigationController setNavigationBarHidden:NO];
 
     DebugLog(@"postID:%@",postID);
@@ -189,6 +198,8 @@
     [super viewWillAppear:YES];
     
     //[self check];
+    [self.navigationController.navigationBar addSubview:iconImage];
+
     
     if(!isImageClicked)
     {
@@ -208,6 +219,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
+    
+    [iconImage removeFromSuperview];
     
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
@@ -815,7 +828,7 @@
         else
         {
             UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
-            [postAsLabel setText:@"Comment as"];
+            [postAsLabel setText:@"Comment as anonymous"];
             [postAsLabel setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
             [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
@@ -875,7 +888,7 @@
     }
     if(self.txt_comment.text.length ==  0)
     {
-        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+        ShowAlert(PROJECT_NAME, @"Please enter comment", @"OK");
         return;
     }
     //Invalidate the timer

@@ -51,10 +51,7 @@
     {
         [[ModelManager sharedModel] setDetailsFromUserDefaults];
 
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
-            [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
-        else
-            [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+        [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
     }
     else
     {
@@ -63,9 +60,16 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
+    
     [super viewWillDisappear:YES];
-
+    [self askForNotificationPermission];
+    
 }
+-(void) askForNotificationPermission
+{
+    [appdelegate askForNotificationPermission];
+}
+
 ///Api call to get Accesstoken
 -(void)callAccessTokenApi
 {
@@ -104,12 +108,7 @@
         [[PageGuidePopUps sharedInstance] getAllTimedReminderImagesWithURLS:pageGuidePopUpData];
     }
     
-    
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
-    else
-        [self performSegueWithIdentifier: @"OnBoarding" sender: self];
-    
 }
 
 - (void)fetchingTokensFailedWithError

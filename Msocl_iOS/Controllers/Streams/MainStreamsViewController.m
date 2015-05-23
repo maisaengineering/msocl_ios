@@ -31,6 +31,7 @@
     UISearchBar *searchBar;
     UIImageView *imageView;
     UIButton *searchButton;
+    UIImageView *iconImage;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -44,6 +45,7 @@
     
     [UIApplication sharedApplication].statusBarHidden = NO;
 
+    self.title = @"";
     
     modelManager =[ModelManager sharedModel];
     appDelegate = [[UIApplication sharedApplication] delegate];
@@ -104,6 +106,10 @@
     [searchButton setFrame:CGRectMake(250, 11, 25, 25)];
     [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 57, 28)];
+    [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
+
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -137,7 +143,7 @@
     else
     [self.navigationItem setHidesBackButton:YES];
 
-
+[self.navigationController.navigationBar addSubview:iconImage];
     [self refreshWall];
     [self setUpTimer];
     [self.navigationController.navigationBar addSubview:searchButton];
@@ -156,7 +162,7 @@
     if([[self timer] isValid])
         [[self timer] invalidate];
 
-    
+    [iconImage removeFromSuperview];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AppFromPassiveState" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidClose" object:nil];

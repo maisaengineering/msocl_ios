@@ -167,10 +167,7 @@
 -(void)postDetailsScroll
 {
     int height = Deviceheight-64;
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0"))
-        scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight)];
-    else
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 64, 320, height)];
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
     scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:scrollView];
 
@@ -182,6 +179,7 @@
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 140)];
     textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:14];
     textView.delegate = self;
+    textView.autocorrectionType = UITextAutocorrectionTypeNo;
     [scrollView addSubview:textView];
     
     placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 5, textView.frame.size.width, 20)];
@@ -229,6 +227,7 @@
 
     collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 300, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height) collectionViewLayout:layout];
     collectionView.delegate = self;
+    collectionView.scrollEnabled = YES;
     collectionView.dataSource = self;
     [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [collectionView setBackgroundColor:[UIColor clearColor]];
@@ -306,7 +305,7 @@
     }while (1);
 
     textView.attributedText = attributedString;
-
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
     selectedtagsArray = [postDetailsObject.tags mutableCopy];
     [collectionView reloadData];
 
@@ -598,6 +597,8 @@
 
     [placeholderLabel removeFromSuperview];
     textView.attributedText = attributedString;
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+
     
     uploadingImages ++;
     
@@ -1063,7 +1064,7 @@
     if(!isPrivate)
     {
         UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 40)];
-        [postAsLabel setText:@"Post as"];
+        [postAsLabel setText:@"Post as anonymous"];
         [postAsLabel setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
