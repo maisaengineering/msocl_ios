@@ -39,8 +39,6 @@
             <string>Ubuntu</string>
             <string>Ubuntu</string>
             <string>Ubuntu</string>
-            <string>Ubuntu</string>
-            <string>Ubuntu</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -231,12 +229,6 @@
                                     <action selector="facebookButtonClikced:" destination="n8D-mp-AZb" eventType="touchUpInside" id="dkg-By-a93"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LOGIN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z82-I0-lkn">
-                                <rect key="frame" x="0.0" y="126" width="320" height="21"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                <color key="textColor" red="0.19215686274509805" green="0.19215686274509805" blue="0.19215686274509805" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x6Y-dA-Emj">
                                 <rect key="frame" x="23" y="154" width="274" height="30"/>
                                 <nil key="textColor"/>
@@ -267,7 +259,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WxX-NH-6Mw">
-                                <rect key="frame" x="84" y="284" width="153" height="20"/>
+                                <rect key="frame" x="0.0" y="284" width="320" height="20"/>
                                 <fontDescription key="fontDescription" name="Ubuntu-LightItalic" family="Ubuntu" pointSize="14"/>
                                 <state key="normal" title="Forgot your password?">
                                     <color key="titleColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -316,7 +308,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-login.png" translatesAutoresizingMaskIntoConstraints="NO" id="mjH-Yv-c3F">
-                                <rect key="frame" x="108" y="58" width="105" height="65"/>
+                                <rect key="frame" x="108" y="61" width="105" height="65"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -370,12 +362,6 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Job-oo-Ky4" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="REGISTER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O1Q-2E-iu1">
-                                        <rect key="frame" x="0.0" y="104" width="320" height="21"/>
-                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="15"/>
-                                        <color key="textColor" red="0.19215686269999999" green="0.19215686269999999" blue="0.19215686269999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGZ-36-8Wb">
                                         <rect key="frame" x="17" y="232" width="123" height="30"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
@@ -483,7 +469,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-login.png" translatesAutoresizingMaskIntoConstraints="NO" id="8hG-CR-z5C">
-                                        <rect key="frame" x="108" y="33" width="105" height="65"/>
+                                        <rect key="frame" x="108" y="36" width="105" height="65"/>
                                     </imageView>
                                 </subviews>
                             </scrollView>

@@ -338,11 +338,48 @@
     UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(17, yPosition, 40, 40)];
     if(!postDetailsObject.anonymous)
     {
+        
         __weak UIImageView *weakSelf = profileImage;
 
+        NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+            if([postDetailsObject.owner valueForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"fname"] length] >0)
+                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"fname"] substringToIndex:1] uppercaseString]];
+            if([postDetailsObject.owner valueForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"lname"] length]>0)
+                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
+        
+        NSMutableAttributedString *attributedText =
+        [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                               attributes:nil];
+        NSRange range;
+        if(parentFnameInitial.length > 0)
+        {
+            range.location = 0;
+            range.length = 1;
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Medium" size:20]}
+                                    range:range];
+        }
+        if(parentFnameInitial.length > 1)
+        {
+            range.location = 1;
+            range.length = 1;
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:20]}
+                                    range:range];
+        }
+        
+        
+        //add initials
+        
+        UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        initial.attributedText = attributedText;
+        [initial setBackgroundColor:[UIColor clearColor]];
+        initial.textAlignment = NSTextAlignmentCenter;
+        [profileImage addSubview:initial];
+
+        
     [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(40, 40)] withRadious:0];
+         [initial removeFromSuperview];
          
      }failure:nil];
     }
