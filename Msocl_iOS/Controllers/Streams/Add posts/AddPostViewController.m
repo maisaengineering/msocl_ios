@@ -292,7 +292,10 @@
                 [textView setNeedsDisplay];
             }];
             
-            NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+            NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
+            [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
+
+            
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
             
         }
@@ -575,22 +578,25 @@
    NSRange selectedrange = textView.selectedRange;
     if(textView.text.length > textView.selectedRange.location)
     {
-        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
+        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
         
         if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location];
         [attributedString insertAttributedString:attrStringWithImage atIndex:selectedrange.location+1];
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n"] atIndex:selectedrange.location+2];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location+2];
         
     }
     else
     {
-        NSAttributedString *attrStringWithImage = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
+        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
         
         if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
         [attributedString appendAttributedString:attrStringWithImage];
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
+        
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
         
     }
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
@@ -924,7 +930,7 @@
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
 {
-    
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
     [textView setInputAccessoryView:inputView];
     [placeholderLabel removeFromSuperview];
     return YES;
@@ -937,6 +943,8 @@
 }
 - (void)textViewDidChange:(UITextView *)textView1
 {
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+
     if(![textView1 hasText])
     {
         [textView1 addSubview:placeholderLabel];

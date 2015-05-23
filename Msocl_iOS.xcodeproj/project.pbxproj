@@ -98,6 +98,8 @@
 		7F76B7CF1B1077630045F9D7 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76B7CE1B1077630045F9D7 /* back@2x.png */; };
 		7F76B7D21B107B7A0045F9D7 /* icon-menu-about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76B7D01B107B7A0045F9D7 /* icon-menu-about@2x.png */; };
 		7F76B7D31B107B7A0045F9D7 /* icon-menu-mtags@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76B7D11B107B7A0045F9D7 /* icon-menu-mtags@2x.png */; };
+		7F76B7D61B1095E70045F9D7 /* checkbox_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76B7D41B1095E70045F9D7 /* checkbox_empty@2x.png */; };
+		7F76B7D71B1095E70045F9D7 /* checkbox_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76B7D51B1095E70045F9D7 /* checkbox_full@2x.png */; };
 		7F76EF851AECBE2400770101 /* icon-addsub@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76EF7F1AECBE2400770101 /* icon-addsub@2x.png */; };
 		7F76EF861AECBE2400770101 /* icon-create@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76EF801AECBE2400770101 /* icon-create@2x.png */; };
 		7F76EF871AECBE2400770101 /* icon-favorite-disable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F76EF811AECBE2400770101 /* icon-favorite-disable@2x.png */; };
@@ -204,8 +206,6 @@
 		7F916D4E1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D4B1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m */; };
 		7F916D511AF2169400103CAF /* EditCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D501AF2169400103CAF /* EditCommentViewController.m */; };
 		7F916D531AF256CB00103CAF /* btnKidProfileClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F916D521AF256CB00103CAF /* btnKidProfileClose@2x.png */; };
-		7F94806F1B0F115E00749392 /* checkbox_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94806D1B0F115E00749392 /* checkbox_empty@2x.png */; };
-		7F9480701B0F115E00749392 /* checkbox_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94806E1B0F115E00749392 /* checkbox_full@2x.png */; };
 		7F94E5B71B0E11480070DE80 /* setting-strip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94E5B61B0E11480070DE80 /* setting-strip@2x.png */; };
 		7F94E5B91B0E11C80070DE80 /* setting-strip-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94E5B81B0E11C80070DE80 /* setting-strip-selected@2x.png */; };
 		7FB2FEC71B074BD60001CEA6 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */; };
@@ -365,6 +365,8 @@
 		7F76B7CE1B1077630045F9D7 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		7F76B7D01B107B7A0045F9D7 /* icon-menu-about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-menu-about@2x.png"; sourceTree = "<group>"; };
 		7F76B7D11B107B7A0045F9D7 /* icon-menu-mtags@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-menu-mtags@2x.png"; sourceTree = "<group>"; };
+		7F76B7D41B1095E70045F9D7 /* checkbox_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_empty@2x.png"; sourceTree = "<group>"; };
+		7F76B7D51B1095E70045F9D7 /* checkbox_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_full@2x.png"; sourceTree = "<group>"; };
 		7F76EF7F1AECBE2400770101 /* icon-addsub@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-addsub@2x.png"; sourceTree = "<group>"; };
 		7F76EF801AECBE2400770101 /* icon-create@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-create@2x.png"; sourceTree = "<group>"; };
 		7F76EF811AECBE2400770101 /* icon-favorite-disable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-favorite-disable@2x.png"; sourceTree = "<group>"; };
@@ -532,8 +534,6 @@
 		7F916D4F1AF2169400103CAF /* EditCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCommentViewController.h; sourceTree = "<group>"; };
 		7F916D501AF2169400103CAF /* EditCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCommentViewController.m; sourceTree = "<group>"; };
 		7F916D521AF256CB00103CAF /* btnKidProfileClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnKidProfileClose@2x.png"; sourceTree = "<group>"; };
-		7F94806D1B0F115E00749392 /* checkbox_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_empty@2x.png"; sourceTree = "<group>"; };
-		7F94806E1B0F115E00749392 /* checkbox_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkbox_full@2x.png"; sourceTree = "<group>"; };
 		7F94E5B61B0E11480070DE80 /* setting-strip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip@2x.png"; sourceTree = "<group>"; };
 		7F94E5B81B0E11C80070DE80 /* setting-strip-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip-selected@2x.png"; sourceTree = "<group>"; };
 		7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
@@ -1037,6 +1037,8 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F76B7D41B1095E70045F9D7 /* checkbox_empty@2x.png */,
+				7F76B7D51B1095E70045F9D7 /* checkbox_full@2x.png */,
 				7F76B7D01B107B7A0045F9D7 /* icon-menu-about@2x.png */,
 				7F76B7D11B107B7A0045F9D7 /* icon-menu-mtags@2x.png */,
 				7F76B7CE1B1077630045F9D7 /* back@2x.png */,
@@ -1044,8 +1046,6 @@
 				7F76B7CA1B1066150045F9D7 /* icon-login@2x.png */,
 				7F76B7C81B1061B80045F9D7 /* comment-btn@2x.png */,
 				7F76B7C61B105E3F0045F9D7 /* header-icon-samepinch@2x.png */,
-				7F94806D1B0F115E00749392 /* checkbox_empty@2x.png */,
-				7F94806E1B0F115E00749392 /* checkbox_full@2x.png */,
 				7F94E5B81B0E11C80070DE80 /* setting-strip-selected@2x.png */,
 				7F94E5B61B0E11480070DE80 /* setting-strip@2x.png */,
 				7F7726E11B0B587800474190 /* search@2x.png */,
@@ -1310,8 +1310,8 @@
 				7F76B7CB1B1066150045F9D7 /* icon-login@2x.png in Resources */,
 				7F5941D71AF3C586001F79BD /* semi-transparent@2x.png in Resources */,
 				7F0AB8F01AE27280009219B2 /* menu-profile@2x.png in Resources */,
-				7F9480701B0F115E00749392 /* checkbox_full@2x.png in Resources */,
 				7FB2FED11B077A910001CEA6 /* comment_Count@2x.png in Resources */,
+				7F76B7D71B1095E70045F9D7 /* checkbox_full@2x.png in Resources */,
 				7FB2FECB1B0764D20001CEA6 /* time@2x.png in Resources */,
 				7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */,
 				7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */,
@@ -1323,7 +1323,6 @@
 				7F83BC7E1AD17844008DFD8B /* Images.xcassets in Resources */,
 				7F826F9D1B08A00C009455E9 /* icon-flag@2x.png in Resources */,
 				7FB2FED31B0782C70001CEA6 /* icon-back@2x.png in Resources */,
-				7F94806F1B0F115E00749392 /* checkbox_empty@2x.png in Resources */,
 				7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */,
 				7F826FA71B08A690009455E9 /* option-dropdown@2x.png in Resources */,
 				7FB2FEC71B074BD60001CEA6 /* Ubuntu-R.ttf in Resources */,
@@ -1361,6 +1360,7 @@
 				7F76B7D21B107B7A0045F9D7 /* icon-menu-about@2x.png in Resources */,
 				7F8999271AD2B1F6007E2917 /* tour_6@2x.png in Resources */,
 				7F2A59981AE258950089EDBB /* icon-profile-register@2x.png in Resources */,
+				7F76B7D61B1095E70045F9D7 /* checkbox_empty@2x.png in Resources */,
 				7F5941CC1AF3B337001F79BD /* menu-logout@2x.png in Resources */,
 				7F8D80D91AEFC1AD00D3F052 /* profile-register@2x.png in Resources */,
 				7F861AB51AFCB7E000BF26AC /* post-bg-wall@2x.png in Resources */,
