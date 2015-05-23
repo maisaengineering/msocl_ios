@@ -1386,26 +1386,18 @@
         NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
         if([[commentDict objectForKey:@"upvoted"] boolValue])
         {
-            [commentDict setObject:[NSNumber numberWithBool:NO] forKey:@"upvoted"];
-            [commentDict setObject:[NSNumber numberWithInt:[[commentDict objectForKey:@"upvote_count"] intValue]-1] forKey:@"upvote_count"];
 
             postData = @{@"command": @"undoVoting",@"access_token": token.access_token};
         }
         else
         {
-            [commentDict setObject:[NSNumber numberWithBool:YES] forKey:@"upvoted"];
-            [commentDict setObject:[NSNumber numberWithInt:[[commentDict objectForKey:@"upvote_count"] intValue]+1] forKey:@"upvote_count"];
             postData = @{@"command": @"upvote",@"access_token": token.access_token};
         }
         
-        [postDetails.comments replaceObjectAtIndex:commentIndex withObject:commentDict];
         
         NSDictionary *userInfo = @{@"command": @"commentUpvote"};
         NSString *urlAsString = [NSString stringWithFormat:@"%@comments/%@",BASE_URL,[commentDict objectForKey:@"uid"]];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-        
-        [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
-        [streamTableView reloadData];
     }
     else
     {
@@ -1415,6 +1407,10 @@
 }
 -(void) commentUpVoteSuccessFull:(NSDictionary *)recievedDict
 {
+    PostDetails *postDetails = [storiesArray lastObject];
+    [postDetails.comments replaceObjectAtIndex:commentIndex withObject:recievedDict];
+    [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
+    [streamTableView reloadData];
     [appDelegate showOrhideIndicator:NO];
 }
 -(void) commentUpVoteFailed
