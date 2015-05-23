@@ -119,7 +119,7 @@
          weakSelf1.image = [image resizedImageByMagick:@"110x80#"];
          
      }failure:nil];
-
+    followOrEditBtn.hidden = YES;
     
 }
 -(IBAction)addClicked:(id)sender

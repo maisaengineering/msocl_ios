@@ -225,7 +225,7 @@
     layout.minimumInteritemSpacing = 7;
     layout.minimumLineSpacing = 7;
 
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 300, height - selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height) collectionViewLayout:layout];
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 300, height - selectTagslabel.frame.origin.y-selectTagslabel.frame.size.height - 15) collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.scrollEnabled = YES;
     collectionView.dataSource = self;

@@ -373,7 +373,7 @@
         initial.attributedText = attributedText;
         [initial setBackgroundColor:[UIColor clearColor]];
         initial.textAlignment = NSTextAlignmentCenter;
-        [profileImage addSubview:initial];
+        //[profileImage addSubview:initial];
 
         
     [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
