@@ -44,7 +44,7 @@
     followOrEditBtn.hidden = YES;
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 195, 320, Deviceheight-195)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 195, 320, Deviceheight-195-64)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
     streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -100,7 +100,7 @@
     NSArray *array = [tagsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",tagName]];
 
     NSDictionary *dict = [array lastObject];
-   __weak UIImageView *weakSelf = profileImageVw;
+  /* __weak UIImageView *weakSelf = profileImageVw;
     __weak TagViewController *weakSelf2 = self;
     profileImageVw.tintColor = [UIColor redColor];
 
@@ -110,7 +110,7 @@
          weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
          
      }failure:nil];
-
+*/
     profileImageVw.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
     
@@ -312,16 +312,16 @@
 
 -(void)tagImage:(NSString *)url
 {
-    __weak TagViewController *weakSelf2 = self;
+ /*   __weak TagViewController *weakSelf2 = self;
     __weak UIImageView *weakSelf = profileImageVw;
     
     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
      }failure:nil];
-    
+    */
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
-    
+  
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf1.image = [image resizedImageByMagick:@"110x80#"];

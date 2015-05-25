@@ -416,6 +416,41 @@
         //add initials
         //NSString *nickname = [dict valueForKey:@"commented_by"];
         
+        NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+        if([commentDict valueForKey:@"fname"] != (id)[NSNull null] && [[commentDict valueForKey:@"fname"] length] >0)
+            [parentFnameInitial appendString:[[[commentDict valueForKey:@"fname"] substringToIndex:1] uppercaseString]];
+        if([commentDict valueForKey:@"lname"] != (id)[NSNull null] && [[commentDict  valueForKey:@"lname"] length]>0)
+            [parentFnameInitial appendString:[[[commentDict valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
+        
+        NSMutableAttributedString *attributedText =
+        [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                               attributes:nil];
+        NSRange range;
+        if(parentFnameInitial.length > 0)
+        {
+            range.location = 0;
+            range.length = 1;
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+                                    range:range];
+        }
+        if(parentFnameInitial.length > 1)
+        {
+            range.location = 1;
+            range.length = 1;
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+                                    range:range];
+        }
+        
+        
+        //add initials
+        
+        UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        initial.attributedText = attributedText;
+        [initial setBackgroundColor:[UIColor clearColor]];
+        initial.textAlignment = NSTextAlignmentCenter;
+        [imagVw addSubview:initial];
+
+        
         NSString *url = [[commentDict objectForKey:@"commenter"] objectForKey:@"photo"];
         if(url != (id)[NSNull null] && url.length > 0)
         {
@@ -425,6 +460,7 @@
                  [photoUtils saveImageToCache:url :image];
                  
                  weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
+                 [initial removeFromSuperview];
                  
              }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
@@ -523,8 +559,44 @@
     {
         __weak UIImageView *weakSelf = profileImage;
         
-        [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+        NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+        if([postDetailsObject.owner valueForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"fname"] length] >0)
+            [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"fname"] substringToIndex:1] uppercaseString]];
+        if([postDetailsObject.owner valueForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"lname"] length]>0)
+            [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
+        
+        NSMutableAttributedString *attributedText =
+        [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                               attributes:nil];
+        NSRange range;
+        if(parentFnameInitial.length > 0)
+        {
+            range.location = 0;
+            range.length = 1;
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+                                    range:range];
+        }
+        if(parentFnameInitial.length > 1)
+        {
+            range.location = 1;
+            range.length = 1;
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+                                    range:range];
+        }
+        
+        
+        //add initials
+        
+        UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+        initial.attributedText = attributedText;
+        [initial setBackgroundColor:[UIColor clearColor]];
+        initial.textAlignment = NSTextAlignmentCenter;
+        [profileImage addSubview:initial];
+
+        
+        [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"circle-56.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
+             [initial removeFromSuperview];
              weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
              
          }failure:nil];

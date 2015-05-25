@@ -355,14 +355,14 @@
         {
             range.location = 0;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Medium" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:16]}
                                     range:range];
         }
         if(parentFnameInitial.length > 1)
         {
             range.location = 1;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:16]}
                                     range:range];
         }
         
@@ -373,10 +373,10 @@
         initial.attributedText = attributedText;
         [initial setBackgroundColor:[UIColor clearColor]];
         initial.textAlignment = NSTextAlignmentCenter;
-        //[profileImage addSubview:initial];
+        [profileImage addSubview:initial];
 
         
-    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(40, 40)] withRadious:0];
          [initial removeFromSuperview];

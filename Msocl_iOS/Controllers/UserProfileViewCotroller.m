@@ -40,7 +40,6 @@
 {
     [super viewDidLoad];
     
-    [followOrEditBtn setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
 
     
     aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 180, 320, 30)];
@@ -51,7 +50,7 @@
     [self.view addSubview:aboutLabel];
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 180, 320, Deviceheight-180)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 180, 320, Deviceheight-180-64)];
     streamDisplay.delegate = self;
     streamDisplay.isUserProfilePosts = YES;
     streamDisplay.userProfileId = profileId;
@@ -73,21 +72,52 @@
 
     modelManager = [ModelManager sharedModel];
     photoUtils = [ProfilePhotoUtils alloc];
-    if([modelManager.userProfile.uid isEqualToString:profileId])
-    {
-        [followOrEditBtn setTitle:@"Edit" forState:UIControlStateNormal];
-    }
-    else
-        followOrEditBtn.hidden = YES;
     
     nameLabel.text = name;
 
+    NSArray *nameArray = [name componentsSeparatedByString:@" "];
         __weak UIImageView *weakSelf = profileImageVw;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
-        
-        [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photo]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    
+    NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+    if( [[nameArray firstObject] length] >0)
+        [parentFnameInitial appendString:[[[nameArray firstObject] substringToIndex:1] uppercaseString]];
+    if( [[nameArray lastObject] length] >0)
+        [parentFnameInitial appendString:[[[nameArray lastObject] substringToIndex:1] uppercaseString]];
+    
+    NSMutableAttributedString *attributedText =
+    [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                           attributes:nil];
+    NSRange range;
+    if(parentFnameInitial.length > 0)
+    {
+        range.location = 0;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:32]}
+                                range:range];
+    }
+    if(parentFnameInitial.length > 1)
+    {
+        range.location = 1;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:32]}
+                                range:range];
+    }
+    
+    
+    //add initials
+    
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 93, 93)];
+    initial.attributedText = attributedText;
+    [initial setBackgroundColor:[UIColor clearColor]];
+    initial.textAlignment = NSTextAlignmentCenter;
+    [profileImageVw addSubview:initial];
+
+    
+        [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photo]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
              weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
+             [initial removeFromSuperview];
              
          }failure:nil];
     
@@ -168,7 +198,7 @@
         aboutLabel.text = [recievedDict objectForKey:@"summary"];
         aboutLabel.frame = frame;
         
-      streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y);
+      streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
     
     }
 

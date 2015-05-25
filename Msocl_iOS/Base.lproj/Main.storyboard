@@ -39,6 +39,7 @@
             <string>Ubuntu</string>
             <string>Ubuntu</string>
             <string>Ubuntu</string>
+            <string>Ubuntu</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -104,10 +105,12 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLN-UP-Hog">
                                 <rect key="frame" x="0.0" y="155" width="320" height="23"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                <state key="normal" image="icon-favorite-disable.png">
+                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                <state key="normal" title="Follow">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" title="Unfollow"/>
                                 <connections>
                                     <action selector="followOrEditClicked:" destination="a4M-BD-S81" eventType="touchUpInside" id="g1h-PP-WNT"/>
                                 </connections>
@@ -1019,12 +1022,13 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5X5-sC-iHe">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
+                                <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-gy-Eq5">
                                 <rect key="frame" x="105" y="58" width="110" height="80"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="TAG VIEW" id="NsE-NG-ANl">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TRj-sO-i3u">
@@ -1034,7 +1038,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="profileImageVw" destination="5X5-sC-iHe" id="vRd-88-bhe"/>
                         <outlet property="smallProfileImageVw" destination="cq4-gy-Eq5" id="n4t-7W-vMK"/>
                         <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="fCv-1J-IEX"/>
                         <segue destination="a4M-BD-S81" kind="push" identifier="UserProfile" id="dLo-Yv-fr4"/>
@@ -1043,7 +1046,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y69-Xu-VKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1536" y="-654"/>
+            <point key="canvasLocation" x="1519" y="-653"/>
         </scene>
         <!--Edit Comment View Controller-->
         <scene sceneID="b6S-H1-XqM">
@@ -1108,7 +1111,6 @@
         <image name="checkbox_empty.png" width="20" height="20"/>
         <image name="checkbox_full.png" width="20" height="20"/>
         <image name="icon-close.png" width="32" height="34"/>
-        <image name="icon-favorite-disable.png" width="17" height="17"/>
         <image name="icon-login.png" width="130" height="81"/>
         <image name="icon-profile-register.png" width="50" height="50"/>
         <image name="profile-register.png" width="51" height="50"/>
@@ -1121,10 +1123,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dLo-Yv-fr4"/>
-        <segue reference="Jmt-4A-19X"/>
-        <segue reference="M8x-x6-6lY"/>
-        <segue reference="fCv-1J-IEX"/>
         <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="m3S-0J-NjW"/>
+        <segue reference="dLo-Yv-fr4"/>
+        <segue reference="iax-nE-auz"/>
+        <segue reference="fCv-1J-IEX"/>
     </inferredMetricsTieBreakers>
 </document>
