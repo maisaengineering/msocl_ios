@@ -94,32 +94,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile-register.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Xo-L3-LQf">
-                                <rect key="frame" x="114" y="30" width="93" height="93"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05K-Xq-L3v">
-                                <rect key="frame" x="0.0" y="126" width="320" height="30"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLN-UP-Hog">
-                                <rect key="frame" x="0.0" y="155" width="320" height="23"/>
-                                <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                <state key="normal" title="Follow">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" title="Unfollow"/>
-                                <connections>
-                                    <action selector="followOrEditClicked:" destination="a4M-BD-S81" eventType="touchUpInside" id="g1h-PP-WNT"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocX-RW-QJw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile-register.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Xo-L3-LQf">
+                                        <rect key="frame" x="114" y="30" width="93" height="93"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05K-Xq-L3v">
+                                        <rect key="frame" x="0.0" y="126" width="320" height="30"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLN-UP-Hog">
+                                        <rect key="frame" x="0.0" y="155" width="320" height="23"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                        <state key="normal">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="followOrEditClicked:" destination="a4M-BD-S81" eventType="touchUpInside" id="g1h-PP-WNT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.77254901960784317" green="0.12941176470588234" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="PROFILE" id="6tI-RL-ekl"/>
                     <connections>
+                        <outlet property="animatedTopView" destination="ocX-RW-QJw" id="Urj-NA-Jad"/>
                         <outlet property="followOrEditBtn" destination="RLN-UP-Hog" id="y7m-g1-Hai"/>
                         <outlet property="nameLabel" destination="05K-Xq-L3v" id="IQ8-AC-IlK"/>
                         <outlet property="profileImageVw" destination="3Xo-L3-LQf" id="CDv-aa-qb3"/>
@@ -1020,15 +1026,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5X5-sC-iHe">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="195"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tJO-K4-NNs">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-gy-Eq5">
+                                        <rect key="frame" x="105" y="45" width="110" height="80"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-gy-Eq5">
-                                <rect key="frame" x="105" y="58" width="110" height="80"/>
-                            </imageView>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="TAG VIEW" id="NsE-NG-ANl">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TRj-sO-i3u">
@@ -1038,6 +1046,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="animatedTopView" destination="tJO-K4-NNs" id="tWe-P2-jTr"/>
                         <outlet property="smallProfileImageVw" destination="cq4-gy-Eq5" id="n4t-7W-vMK"/>
                         <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="fCv-1J-IEX"/>
                         <segue destination="a4M-BD-S81" kind="push" identifier="UserProfile" id="dLo-Yv-fr4"/>
@@ -1046,7 +1055,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y69-Xu-VKI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1519" y="-653"/>
+            <point key="canvasLocation" x="1604" y="-677"/>
         </scene>
         <!--Edit Comment View Controller-->
         <scene sceneID="b6S-H1-XqM">
@@ -1123,10 +1132,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="m3S-0J-NjW"/>
         <segue reference="dLo-Yv-fr4"/>
-        <segue reference="iax-nE-auz"/>
+        <segue reference="m3S-0J-NjW"/>
         <segue reference="fCv-1J-IEX"/>
+        <segue reference="iax-nE-auz"/>
+        <segue reference="Ngw-Gf-AxF"/>
     </inferredMetricsTieBreakers>
 </document>

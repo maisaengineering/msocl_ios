@@ -16,9 +16,12 @@
 @property (nonatomic, strong) NSString *photo;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImageVw;
+@property (nonatomic, strong) IBOutlet UIView *animatedTopView;
+
 @property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong)  UILabel *aboutLabel;
 @property (nonatomic, strong) IBOutlet UIButton *followOrEditBtn;
+
 
 
 -(IBAction)followOrEditClicked:(id)sender;

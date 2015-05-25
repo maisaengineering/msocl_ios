@@ -904,7 +904,10 @@
         
         [searchBar removeFromSuperview];
 }
-
+-(void)tableScrolledForTopView:(float)y
+{
+    
+}
 -(void)setTimedRemindersActionTaken:(NSString *)context
 {
     if([[self  timerHomepage] isValid])

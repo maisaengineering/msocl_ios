@@ -27,12 +27,20 @@
     int selectedIndex;
     Webservices *webServices;
     AppDelegate *appdelegate;
+    BOOL animated;
+    float currentIndex;
+    float upstart;
+    float downstart;
+    CGRect originalPosition;
+
 }
 @synthesize tagName;
 @synthesize followOrEditBtn;
 @synthesize nameLabel;
 @synthesize profileImageVw;
 @synthesize smallProfileImageVw;
+@synthesize animatedTopView;
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,11 +52,14 @@
     followOrEditBtn.hidden = YES;
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 195, 320, Deviceheight-195-64)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 195, 320, Deviceheight-180-64)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
     streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view addSubview:streamDisplay];
+    
+    originalPosition = CGRectMake(0, 180, 320, Deviceheight-180-64);
+
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -71,7 +82,7 @@
     
     nameLabel = [[UILabel alloc] init];
     [nameLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.view addSubview:nameLabel];
+    [animatedTopView addSubview:nameLabel];
     nameLabel.text = tagName;
     nameLabel.textColor = [UIColor whiteColor];
     nameLabel.font = [UIFont fontWithName:@"Ubuntu" size:17];
@@ -81,7 +92,7 @@
     CGRect frame ;
     frame.origin.x = (320-size.width)/2;
     frame.size.width = size.width;
-    frame.origin.y = 144;
+    frame.origin.y = 140;
     frame.size.height = 26;
     nameLabel.frame = frame;
     nameLabel.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -307,6 +318,100 @@
 }
 - (void)tableScrolled:(float)y
 {
+    
+}
+-(void)tableScrolledForTopView:(float)index
+{
+    DebugLog(@"Did Scroll in TOC %f", index);
+    /*
+     if (index > 25 && animated == FALSE)
+     {
+     animated = TRUE;
+     [self animateTop];
+     }
+     */
+    if (index < -20 && animated == TRUE)
+    {
+        [self animateTopDown];
+        animated = FALSE;
+        return;
+    }
+    
+    if (index > 0)
+    {
+        if (currentIndex < index) //going back down
+        {
+            upstart = 0;
+            
+            if (downstart == 0)
+            {
+                downstart = currentIndex;
+                //DebugLog(@"downstart = %f", currentIndex);
+                //[self animateTopDown];
+            }
+            else
+            {
+                float distance = currentIndex - downstart;
+                //DebugLog(@"down distance %f", distance);
+                if (distance > 20 && animated == FALSE)
+                {
+                    //DebugLog(@"Make it go up");
+                    [self animateTopUp];
+                    animated = TRUE;
+                }
+            }
+        }
+        
+        
+        if (currentIndex > index) //going back up
+        {
+            downstart = 0;
+            
+            if (upstart == 0)
+            {
+                upstart = currentIndex;
+            }
+        }
+        
+        currentIndex = index;
+    }
+}
+- (void)animateTopUp
+{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    // originalPosition = streamView.frame;
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        animatedTopView.frame = CGRectMake(0, -178, screenWidth, 178);
+        streamDisplay.frame = CGRectMake(0, 0, 320, screenHeight-64);
+        streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, screenHeight-64);
+        
+    }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+    
+}
+
+- (void)animateTopDown
+{
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    
+    [UIView animateWithDuration:0.5f
+                     animations:^{
+                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, 178);
+                         streamDisplay.frame = originalPosition;
+                         streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, originalPosition.size.height);
+                         
+                     }
+     ];
+    
+    
     
 }
 

@@ -27,6 +27,12 @@
     Webservices *webServices;
     AppDelegate *appdelegate;
     NSString *selectedTag;
+    BOOL animated;
+    float currentIndex;
+    float upstart;
+    float downstart;
+    CGRect originalPosition;
+
 }
 @synthesize name;
 @synthesize profileId;
@@ -35,6 +41,7 @@
 @synthesize nameLabel;
 @synthesize profileImageVw;
 @synthesize aboutLabel;
+@synthesize animatedTopView;
 
 -(void)viewDidLoad
 {
@@ -55,6 +62,9 @@
     streamDisplay.isUserProfilePosts = YES;
     streamDisplay.userProfileId = profileId;
     [self.view addSubview:streamDisplay];
+    
+    originalPosition = CGRectMake(0, 180, 320, Deviceheight-180-64);
+
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -136,7 +146,7 @@
         __weak UIImageView *weakSelf = profileImageVw;
         __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
 
-        [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:modelManager.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+        [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:modelManager.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
              weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
              
@@ -207,6 +217,105 @@
 {
 
 }
+-(void)tableScrolledForTopView:(float)index
+{
+    DebugLog(@"Did Scroll in TOC %f", index);
+    /*
+     if (index > 25 && animated == FALSE)
+     {
+     animated = TRUE;
+     [self animateTop];
+     }
+     */
+    if (index < -20 && animated == TRUE)
+    {
+        [self animateTopDown];
+        animated = FALSE;
+        return;
+    }
+    
+    if (index > 0)
+    {
+        if (currentIndex < index) //going back down
+        {
+            upstart = 0;
+            
+            if (downstart == 0)
+            {
+                downstart = currentIndex;
+                //DebugLog(@"downstart = %f", currentIndex);
+                //[self animateTopDown];
+            }
+            else
+            {
+                float distance = currentIndex - downstart;
+                //DebugLog(@"down distance %f", distance);
+                if (distance > 20 && animated == FALSE)
+                {
+                    //DebugLog(@"Make it go up");
+                    [self animateTopUp];
+                    animated = TRUE;
+                }
+            }
+        }
+        
+        
+        if (currentIndex > index) //going back up
+        {
+            downstart = 0;
+            
+            if (upstart == 0)
+            {
+                upstart = currentIndex;
+            }
+        }
+        
+        currentIndex = index;
+    }
+}
+- (void)tableScrolled:(float)index
+{
+    
+}
+//The event handling method
+- (void)animateTopUp
+{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    // originalPosition = streamView.frame;
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        animatedTopView.frame = CGRectMake(0, -178, screenWidth, 178);
+        streamDisplay.frame = CGRectMake(0, 0, 320, screenHeight-64);
+        streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, screenHeight-64);
+
+    }
+                     completion:^(BOOL finished){
+                         
+                     }
+     ];
+    
+}
+
+- (void)animateTopDown
+{
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    
+    [UIView animateWithDuration:0.5f
+                     animations:^{
+                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, 178);
+                         streamDisplay.frame = originalPosition;
+                         streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, originalPosition.size.height);
+
+                     }
+     ];
+    
+    
+    
+}
 
 
 #pragma mark -
@@ -230,10 +339,10 @@
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = modelManager.accessToken;
             NSString *command;
-            if(!followOrEditBtn.selected)
-                command = @"follow";
-            else
+            if( [[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"unfollow"])
                 command = @"unfollow";
+            else
+                command = @"follow";
             NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
             NSDictionary *userInfo = @{@"command": @"followUser"};
             NSString *urlAsString = [NSString stringWithFormat:@"%@users/%@",BASE_URL,profileId];
@@ -249,7 +358,10 @@
 }
 -(void) followingUserSuccessFull:(NSDictionary *)recievedDict
 {
-    followOrEditBtn.selected = !followOrEditBtn.selected;
+    if( [[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"unfollow"])
+       [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+    else
+        [followOrEditBtn setTitle:@"unfollow" forState:UIControlStateNormal];
     [appdelegate showOrhideIndicator:NO];
 }
 -(void) followingUserFailed
@@ -273,15 +385,11 @@
     
     if(![modelManager.userProfile.uid isEqualToString:profileId])
     {
-        followOrEditBtn.hidden = NO;
-    if(isFollowing)
-    {
-        followOrEditBtn.selected = YES;
-    }
-    else
-    {
-        followOrEditBtn.selected = NO;
-    }
+        if(isFollowing)
+            [followOrEditBtn setTitle:@"unfollow" forState:UIControlStateNormal];
+        else
+            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+
     }
 }
 - (void)tableDidSelect:(int)index
@@ -319,10 +427,6 @@
 {
         [streamDisplay.storiesArray removeObjectAtIndex:selectedIndex];
         [streamDisplay.streamTableView reloadData];
-    
-}
-- (void)tableScrolled:(float)y
-{
     
 }
 -(void)tagImage:(NSString *)url

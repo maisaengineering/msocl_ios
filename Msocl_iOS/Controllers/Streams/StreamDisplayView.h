@@ -18,6 +18,7 @@
 - (void)tagCicked:(NSString *)tagName;
 - (void)tableScrolled:(float)y;
 -(void)tagImage:(NSString *)url;
+-(void)tableScrolledForTopView:(float)y;
 
 @end
 @interface StreamDisplayView : UIView<UITableViewDataSource,UITableViewDelegate,webServiceProtocol,NIAttributedLabelDelegate>

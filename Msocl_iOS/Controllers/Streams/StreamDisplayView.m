@@ -789,6 +789,8 @@
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
     {
+        [self.delegate tableScrolledForTopView:scrollView.contentOffset.y];
+
         if (lastContentOffset > scrollView.contentOffset.y)
             {
             }
