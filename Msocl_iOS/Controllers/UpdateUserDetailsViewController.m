@@ -173,6 +173,8 @@
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
     [postDetails setObject:txt_blog.text forKey:@"summary"];
+    [postDetails setObject:txt_emailAddress.text forKey:@"email"];
+
     if(imageId.length > 0)
     [postDetails setObject:imageId forKey:@"key"];
     
