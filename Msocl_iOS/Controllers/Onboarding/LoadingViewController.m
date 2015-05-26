@@ -108,7 +108,11 @@
         [[PageGuidePopUps sharedInstance] getAllTimedReminderImagesWithURLS:pageGuidePopUpData];
     }
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
+    else
+    [self performSegueWithIdentifier: @"OnBoarding" sender: self];
+    
 }
 
 - (void)fetchingTokensFailedWithError

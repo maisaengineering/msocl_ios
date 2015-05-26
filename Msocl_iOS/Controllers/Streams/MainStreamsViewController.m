@@ -60,14 +60,16 @@
     [self.view addSubview:line];
     self.view.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     
-    mostRecent = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
+    mostRecent = [StreamDisplayView alloc] ;
     mostRecent.delegate = self;
     mostRecent.isMostRecent = YES;
+    mostRecent = [mostRecent initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
     [self.view addSubview:mostRecent];
 
-    following = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
+    following = [StreamDisplayView alloc];
     following.delegate = self;
     following.isFollowing = YES;
+    following = [following initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
     [self.view addSubview:following];
     following.hidden = YES;
     
@@ -737,8 +739,15 @@
         
 }
 
--(void) didReceiveStreams:(NSDictionary *)responseObject
+-(void) didReceiveStreams:(NSDictionary *)responseObject originalPosts:(NSArray *)posts
 {
+    if(posts.count > 0)
+    {
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
+        [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"mostRecentStreamArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+   
         NSDictionary *dict = responseObject;
         NSMutableArray *storiesArray1 = [[dict objectForKey:@"posts"] mutableCopy];
 
@@ -796,10 +805,18 @@
 {
     
 }
--(void) didReceiveFavPost:(NSDictionary *)responseObject
+-(void) didReceiveFavPost:(NSDictionary *)responseObject originalPosts:(NSArray *)posts
 {
     NSDictionary *dict = responseObject;
     NSMutableArray *storiesArray1 = [[dict objectForKey:@"posts"] mutableCopy];
+    
+    if(posts.count > 0)
+    {
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
+        [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"favStreamArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
     
     if(!following.hidden)
     {

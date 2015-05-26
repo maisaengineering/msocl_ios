@@ -94,6 +94,42 @@
     [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
     [streamTableView addSubview:refreshControl];
     
+    
+    if(isFollowing &&  [[NSUserDefaults standardUserDefaults] objectForKey:@"favStreamArray"] != nil)
+    {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSData *encodedObject = [defaults objectForKey:@"favStreamArray"];
+        NSArray *arrayPostDetails = [[NSKeyedUnarchiver unarchiveObjectWithData:encodedObject] mutableCopy];
+        
+        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+        
+        for(NSDictionary *postDict in arrayPostDetails)
+        {
+            PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];
+            [arrayOfpostDetailsObjects addObject:postObject];
+        }
+
+        storiesArray = arrayOfpostDetailsObjects;
+    }
+    else if(isMostRecent &&  [[NSUserDefaults standardUserDefaults] objectForKey:@"mostRecentStreamArray"] != nil)
+    {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSData *encodedObject = [defaults objectForKey:@"mostRecentStreamArray"];
+        NSArray *arrayPostDetails = [[NSKeyedUnarchiver unarchiveObjectWithData:encodedObject] mutableCopy];
+        
+        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+        
+        for(NSDictionary *postDict in arrayPostDetails)
+        {
+            PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];
+            [arrayOfpostDetailsObjects addObject:postObject];
+        }
+        
+        storiesArray = arrayOfpostDetailsObjects;
+        
+    }
+
+    
 }
 -(void)handleRefresh:(id)sender
 {
@@ -176,7 +212,7 @@
         
     }
 }
--(void) didReceiveStreams:(NSDictionary *)recievedDict
+-(void) didReceiveStreams:(NSDictionary *)recievedDict originalPosts:(NSArray *)posts
 {
     bProcessing = NO;
     
@@ -222,6 +258,25 @@
 
     [streamTableView reloadData];
 
+    if(isMostRecent)
+    {
+    if(posts.count > 0)
+    {
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
+        [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"mostRecentStreamArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    }
+    else if(isFollowing)
+    {
+    if(posts.count > 0)
+    {
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
+        [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"favStreamArray"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    }
+    
     
 }
 -(void) streamsFailed

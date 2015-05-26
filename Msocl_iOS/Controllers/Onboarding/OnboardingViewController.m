@@ -22,7 +22,10 @@
     MBProgressHUD *HUD;
     int downloadingImagesCount;
     int downloadedImagesCount;
+    NSTimer *timer;
     AppDelegate *appDelegate;
+    
+    UIButton *hyperLinkButton;
 }
 @end
 
@@ -67,7 +70,23 @@
         [self loadLocalImages];
         [self addScrollviewWithLocalImages];
     }
+    
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval: 5
+                                                 target: self
+                                           selector: @selector(timerMethod)
+                                               userInfo: nil
+                                                repeats: NO];
+
+    
     [self.navigationController setNavigationBarHidden:YES];
+    
+
+}
+- (void)timerMethod
+{
+    [self askForNotificationPermission];
+    [self goToMainStreams];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -121,12 +140,18 @@
 }
 -(void)loadLocalImages
 {
-    imageArray = @[[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_0.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_1.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_2.png",@"name",[NSNumber numberWithBool:NO],@"perm_notification",nil],[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_3.png",@"name",[NSNumber numberWithBool:YES],@"perm_notification",nil]];
+    
+    if(Deviceheight == 468)
+    {
+        imageArray = @[[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour0-4.png",@"name",nil]];
+
+    }
+    else
+        imageArray = @[[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour_0.png",@"name",nil]];
+
 }
 -(void)addScrollviewWithLocalImages
 {
-    
-    
     for (int i = 0; i < [imageArray count]; i++)
     {
         //We'll create an imageView object in every 'page' of our scrollView.
@@ -139,6 +164,7 @@
         tour_ImageView.image = [UIImage imageNamed:[[imageArray objectAtIndex:i] objectForKey:@"name"]];
         [self.scrollView addSubview:tour_ImageView];
     }
+
     
     //Set the content size of our scrollview according to the total width of our imageView objects.
     scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * [imageArray count], 300);
@@ -206,6 +232,23 @@
         [inviteFriendsButton removeFromSuperview];
         [justExploreButton removeFromSuperview];
     }
+    
+    UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftSwipe:)];
+    [left setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.scrollView addGestureRecognizer:left];
+    
+    hyperLinkButton = [UIButton  buttonWithType:UIButtonTypeCustom];
+    [hyperLinkButton addTarget:self action:@selector(linkClicked) forControlEvents:UIControlEventTouchUpInside];
+    hyperLinkButton.frame = CGRectMake(0, 380, 320, 100);
+    [scrollView addSubview:hyperLinkButton];
+    
+}
+-(void)leftSwipe:(UISwipeGestureRecognizer *)gesture
+{
+    [timer invalidate];
+    [self askForNotificationPermission];
+    [self goToMainStreams];
+
 }
 -(void)addScrollView
 {
@@ -490,7 +533,11 @@
     [self goToMainStreams];
     
 }
-
+-(void)linkClicked
+{
+    NSURL *url = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@rules",APP_BASE_URL]];
+    [[UIApplication sharedApplication] openURL:url];
+}
 -(void)goToMainStreams
 {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"onboarding"] ;

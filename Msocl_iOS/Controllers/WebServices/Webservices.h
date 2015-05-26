@@ -28,9 +28,9 @@
 -(void) profileImageUploadFailed;
 -(void) postCreationSccessfull:(NSDictionary *)recievedDict;
 -(void) postCreationFailed;
--(void) didReceiveStreams:(NSDictionary *)recievedDict;
+-(void) didReceiveStreams:(NSDictionary *)recievedDict originalPosts:(NSArray *)posts;
 -(void) streamsFailed;
--(void) didReceiveFavPost:(NSDictionary *)recievedDict;
+-(void) didReceiveFavPost:(NSDictionary *)recievedDict originalPosts:(NSArray *)posts;;
 -(void) FavPostFailed;
 -(void) didReceiveTokens:(NSArray *)tokens;
 -(void) fetchingTokensFailedWithError;

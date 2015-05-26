@@ -38,14 +38,14 @@
     UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:14];
     
     txt_password.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter password"
+    [[NSAttributedString alloc] initWithString:@"Password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_username.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter email"
+    [[NSAttributedString alloc] initWithString:@"Email"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font

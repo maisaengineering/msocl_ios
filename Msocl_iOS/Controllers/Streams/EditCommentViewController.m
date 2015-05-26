@@ -137,17 +137,52 @@
         
         if(isAnonymous)
         {
-            UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 32)];
+            UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,200, 32)];
             [postAsLabel1 setText:@"Comment as"];
-            [postAsLabel1 setTextAlignment:NSTextAlignmentCenter];
+            [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
             [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
             [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
             [popView addSubview:postAsLabel1];
             
-            UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(200, 4, 24, 24)];
+            UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 4, 24, 24)];
             
             __weak UIImageView *weakSelf1 = userImage;
             __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
+            
+            NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+            if( [sharedModel.userProfile.fname length] >0)
+                [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
+            if( [sharedModel.userProfile.lname length] >0)
+                [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+            
+            NSMutableAttributedString *attributedText =
+            [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                                   attributes:nil];
+            NSRange range;
+            if(parentFnameInitial.length > 0)
+            {
+                range.location = 0;
+                range.length = 1;
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+                                        range:range];
+            }
+            if(parentFnameInitial.length > 1)
+            {
+                range.location = 1;
+                range.length = 1;
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+                                        range:range];
+            }
+            
+            
+            //add initials
+            
+            UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+            initial.attributedText = attributedText;
+            [initial setBackgroundColor:[UIColor clearColor]];
+            initial.textAlignment = NSTextAlignmentCenter;
+            [userImage addSubview:initial];
+
             
             [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
              {
@@ -189,6 +224,11 @@
 }
 -(void)commentAsAnonymous
 {
+    for(UIView *viw in [postAnonymous subviews])
+    {
+        [viw removeFromSuperview];
+    }
+
     [popover dismiss];
     isAnonymous = YES;
     postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
@@ -199,10 +239,45 @@
     isAnonymous = NO;
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+    if( [sharedModel.userProfile.fname length] >0)
+        [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
+    if( [sharedModel.userProfile.lname length] >0)
+        [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+    
+    NSMutableAttributedString *attributedText =
+    [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                           attributes:nil];
+    NSRange range;
+    if(parentFnameInitial.length > 0)
+    {
+        range.location = 0;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:13]}
+                                range:range];
+    }
+    if(parentFnameInitial.length > 1)
+    {
+        range.location = 1;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:13]}
+                                range:range];
+    }
+    
+    
+    //add initials
+    
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
+    initial.attributedText = attributedText;
+    [initial setBackgroundColor:[UIColor clearColor]];
+    initial.textAlignment = NSTextAlignmentCenter;
+    [postAnonymous addSubview:initial];
+
     
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         [initial removeFromSuperview];
          
      }failure:nil];
     isAnonymous = NO;

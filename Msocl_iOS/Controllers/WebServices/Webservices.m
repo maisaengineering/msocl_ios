@@ -481,7 +481,7 @@
             [arrayOfpostDetailsObjects addObject:postObject];
         }
         [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"posts"];
-        [self.delegate didReceiveFavPost:dictCopty];
+        [self.delegate didReceiveFavPost:dictCopty originalPosts:arrayPostDetails];
         
         
     }
@@ -515,7 +515,8 @@
         [[NSUserDefaults standardUserDefaults] setObject:anonymousUrl forKey:@"anonymous_image"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
-        [self.delegate didReceiveStreams:dictCopty];
+        
+        [self.delegate didReceiveStreams:dictCopty originalPosts:arrayPostDetails];
         
         
     }
