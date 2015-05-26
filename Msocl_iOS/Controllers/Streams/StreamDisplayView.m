@@ -657,10 +657,6 @@
         frame.origin.y += 30;
         commentersView.frame = frame;
         
-        frame =  commentersView.frame;
-        frame.origin.y += 30;
-        commentersView.frame = frame;
-        
         frame =  postImage.frame;
         frame.origin.y += 30;
         postImage.frame = frame;
