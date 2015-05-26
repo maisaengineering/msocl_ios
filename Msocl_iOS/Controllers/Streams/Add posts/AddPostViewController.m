@@ -101,9 +101,45 @@
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
     ModelManager *sharedModel = [ModelManager sharedModel];
     
-    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+    if( [sharedModel.userProfile.fname length] >0)
+        [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
+    if( [sharedModel.userProfile.lname length] >0)
+        [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+    
+    NSMutableAttributedString *attributedText =
+    [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                           attributes:nil];
+    NSRange range;
+    if(parentFnameInitial.length > 0)
+    {
+        range.location = 0;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:12]}
+                                range:range];
+    }
+    if(parentFnameInitial.length > 1)
+    {
+        range.location = 1;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:12]}
+                                range:range];
+    }
+    
+    
+    //add initials
+    
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
+    initial.attributedText = attributedText;
+    [initial setBackgroundColor:[UIColor clearColor]];
+    initial.textAlignment = NSTextAlignmentCenter;
+    [postAnonymous addSubview:initial];
+    
+
+    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(22, 22)] withRadious:0];
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         [initial  removeFromSuperview];
          
      }failure:nil];
     [anonymousButton addSubview:postAnonymous];
@@ -1195,21 +1231,21 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:13]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:12]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:13]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:12]}
                                 range:range];
     }
     
     
     //add initials
     
-    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
     initial.attributedText = attributedText;
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;

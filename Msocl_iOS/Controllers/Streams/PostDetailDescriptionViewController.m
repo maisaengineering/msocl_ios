@@ -141,9 +141,44 @@
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
     
-    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+    if( [sharedModel.userProfile.fname length] >0)
+        [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
+    if( [sharedModel.userProfile.lname length] >0)
+        [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+    
+    NSMutableAttributedString *attributedText =
+    [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                           attributes:nil];
+    NSRange range;
+    if(parentFnameInitial.length > 0)
+    {
+        range.location = 0;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:13]}
+                                range:range];
+    }
+    if(parentFnameInitial.length > 1)
+    {
+        range.location = 1;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:13]}
+                                range:range];
+    }
+    
+    
+    //add initials
+    
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    initial.attributedText = attributedText;
+    [initial setBackgroundColor:[UIColor clearColor]];
+    initial.textAlignment = NSTextAlignmentCenter;
+    [postAnonymous addSubview:initial];
+
+    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(25, 25)] withRadious:0];
+         [initial removeFromSuperview];
          
      }failure:nil];
     [anonymousButton addSubview:postAnonymous];
@@ -625,6 +660,14 @@
     [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
     [cell.contentView addSubview:name];
     }
+    else
+    {
+        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 160, 28)];
+        [name setText:@"Anonymous"];
+        [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+        [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
+        [cell.contentView addSubview:name];
+    }
     
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
@@ -940,7 +983,7 @@
             [userImage addSubview:initial];
 
             
-            [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+            [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
              {
                  weakSelf1.image = [weakphotoUtils1 makeRoundWithBoarder:[weakphotoUtils1 squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
                  [initial removeFromSuperview];
@@ -1032,16 +1075,16 @@
     
     //add initials
     
-    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     initial.attributedText = attributedText;
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
     [postAnonymous addSubview:initial];
 
     
-    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(25, 25)] withRadious:0];
          [initial removeFromSuperview];
          
      }failure:nil];

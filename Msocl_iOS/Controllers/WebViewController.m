@@ -101,7 +101,8 @@
     }
     else if([url hasPrefix:FbFailure])
     {
-        [self.navigationController popViewControllerAnimated:YES];
+        NSArray *viewControllers = [self.navigationController viewControllers];
+        [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
     }
     return YES;
 }

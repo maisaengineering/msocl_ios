@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
-            timestampString = "454337913.987347"
+            timestampString = "454361903.506215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "352"
+            endingLineNumber = "352"
             landmarkName = "-setDetails"
             landmarkType = "5">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "454237893.809598"
+            timestampString = "454361903.506215"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-buildCommentCell:::"
             landmarkType = "5">
          </BreakpointContent>
@@ -164,7 +164,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/WebViewController.m"
-            timestampString = "454089521.431285"
+            timestampString = "454360720.352349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
@@ -282,22 +282,6 @@
             startingLineNumber = "217"
             endingLineNumber = "217"
             landmarkName = "-didReceiveStreams:originalPosts:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/Streams/StreamDisplayView.m"
-            timestampString = "454338355.77944"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "-baseInit"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -465,6 +465,16 @@
     [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
     [cell.contentView addSubview:name];
     }
+    else
+    {
+        
+        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition, 110, 30)];
+            [name setText:@"Anonymous"];
+        name.textAlignment = NSTextAlignmentLeft;
+        [name setFont:[UIFont fontWithName:@"Ubuntu" size:15]];
+        [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+        [cell.contentView addSubview:name];
+    }
     
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
