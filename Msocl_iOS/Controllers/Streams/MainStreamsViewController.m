@@ -1008,7 +1008,6 @@
 {
     if([searchText length] == 0)
     {
-        [self setUpTimer];
         
         mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
         following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
@@ -1031,6 +1030,9 @@
             [following callStreamsApi:@"next"];
             
         }
+        
+        [self setUpTimer];
+
 
     }
 }
