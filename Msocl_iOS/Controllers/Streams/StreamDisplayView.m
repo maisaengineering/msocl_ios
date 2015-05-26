@@ -240,6 +240,8 @@
     CGFloat descrHeight = [self cellHeight:postDetailsObject];
     height += descrHeight;
     
+    if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
+        height += 32+5;
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
         return height + 30;
@@ -255,39 +257,15 @@
     
     //Calculating content height
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14]}];
-    
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
-    
-    
-    do{
-        
-        NSArray *myArray = [regex matchesInString:attributedString.string options:0 range:NSMakeRange(0, [attributedString.string length])] ;
-        if(myArray.count > 0)
-        {
-            NSTextCheckingResult *match =  [myArray firstObject];
-            UIImage  *image = [photoUtils squareImageWithImage:[UIImage imageNamed:@"placeHolder_wall.png"] scaledToSize:CGSizeMake(32, 32)];
-            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            textAttachment.image = image;
-            
-            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
-            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-            [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
-        }
-        else
-        {
-            break;
-        }
-        
-    }while (1);
-    //This regex captures all items between []
-    UITextView *textView = [UITextView new];
+        UITextView *textView = [UITextView new];
     textView.attributedText = attributedString;
     
     
     CGSize contentSize = [textView sizeThatFits:CGSizeMake(230, CGFLOAT_MAX)];
     
-    if(contentSize.height > 80)
-        contentSize.height = 80;
+    if(contentSize.height > 65)
+        contentSize.height = 65;
+    
     return contentSize.height;
 }
 
@@ -490,67 +468,6 @@
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
     
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
-    
-    
-    do{
-        
-        NSArray *myArray = [regex matchesInString:attributedString.string options:0 range:NSMakeRange(0, [attributedString.string length])] ;
-        if(myArray.count > 0)
-        {
-            NSTextCheckingResult *match =  [myArray firstObject];
-            NSRange matchRange = [match rangeAtIndex:1];
-            NSLog(@"%@", [attributedString.string substringWithRange:matchRange]);
-            
-            UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"placeHolder_wall.png"] scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
-            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-
-            textAttachment.image = image;
-            
-            NSString *url = [postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]];
-            
-            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
-                attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
-            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-            [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
-
-            
-            SDWebImageManager *manager = [SDWebImageManager sharedManager];
-           /* if(postDetailsObject.thumb_images != nil && postDetailsObject.thumb_images.count > 0)
-            {
-                [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.thumb_images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                    
-                    textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[image resizedImageByMagick:@"26x16#"] withRadious:3.0];
-                    [textView setNeedsDisplay];
-                    
-                }];
-            }
-            else
-            {*/
-            [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                
-                textAttachment.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
-                image.accessibilityIdentifier = textAttachment.image.accessibilityIdentifier;
-                NSRange range = [attributedString.string rangeOfString:attrStringWithImage.string];
-                NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
-                attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:1]}];
-                [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-                
-                [attributedString replaceCharactersInRange:range withAttributedString:attrStringWithImage];
-                
-                textView.attributedText = attributedString;
-                
-            }];
-            //}
-        }
-        else
-        {
-            break;
-        }
-        
-    }while (1);
-    //This regex captures all items between []
-    
     textView.editable = NO;
     textView.scrollEnabled = NO;
     textView.attributedText = attributedString;
@@ -570,9 +487,9 @@
     if((isMostRecent || isFollowing) && indexPath.row == 0)
 
     {
-        if(contentSize .height > 80)
+        if(contentSize .height > 65)
         {
-            textView.frame = CGRectMake(60, yPosition+30, 230, 80);
+            textView.frame = CGRectMake(60, yPosition+30, 230, 65);
             
         }
         else
@@ -581,9 +498,9 @@
     }
     else
     {
-        if(contentSize .height > 80)
+        if(contentSize .height > 65)
         {
-            textView.frame = CGRectMake(60, yPosition, 230, 80);
+            textView.frame = CGRectMake(60, yPosition, 230, 65);
             
         }
         else
@@ -591,9 +508,25 @@
 
     }
     
-
     yPosition += textView.frame.size.height;
-    
+    UIImageView *postImage;
+    if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
+    {
+        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(65, yPosition-3, 32, 32)];
+        UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"placeHolder_wall.png"] scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
+      
+        __weak UIImageView *weakSelf = postImage;
+
+        [postImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.postImage]] placeholderImage:image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             weakSelf.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
+             
+         }failure:nil];
+        
+        yPosition += 32+5;
+        
+        [cell.contentView addSubview:postImage];
+    }
     
     UIImageView *lineImage  =[[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 300, 1)];
     lineImage.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
@@ -724,6 +657,14 @@
         frame.origin.y += 30;
         commentersView.frame = frame;
         
+        frame =  commentersView.frame;
+        frame.origin.y += 30;
+        commentersView.frame = frame;
+        
+        frame =  postImage.frame;
+        frame.origin.y += 30;
+        postImage.frame = frame;
+    
     }
 }
 

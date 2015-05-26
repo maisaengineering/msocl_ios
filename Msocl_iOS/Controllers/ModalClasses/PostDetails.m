@@ -16,7 +16,7 @@
 @synthesize uid;
 @synthesize images;
 @synthesize tags;
-@synthesize profileImage;
+@synthesize postImage;
 @synthesize time;
 @synthesize owner;
 @synthesize upVoteCount;
@@ -51,8 +51,8 @@
             else if ([key isEqualToString:@"tags"]) {
                 self.tags = [response objectForKey:key];
             }
-            else if ([key isEqualToString:@"profileImage"]) {
-                self.profileImage = [response objectForKey:key];
+            else if ([key isEqualToString:@"image"]) {
+                self.postImage = [response objectForKey:key];
             }
             else if ([key isEqualToString:@"time"]) {
                 self.time = [response objectForKey:key];

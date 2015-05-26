@@ -238,10 +238,10 @@
     postObjectFromWall.tags = post.tags;
     postObjectFromWall.upVoteCount = post.upVoteCount;
     postObjectFromWall.upvoted = post.upvoted;
-    postObjectFromWall.content = post.content;
+    //postObjectFromWall.content = post.content;
     postObjectFromWall.anonymous = post.anonymous;
     postObjectFromWall.time = post.time;
-    postObjectFromWall.images = post.images;
+    //postObjectFromWall.images = post.images;
     [self.delegate PostEditedFromPostDetails:postObjectFromWall];
     }
     [self.navigationController popViewControllerAnimated:YES];

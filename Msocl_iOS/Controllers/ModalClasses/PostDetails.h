@@ -14,7 +14,7 @@
 @property (nonatomic,strong) NSString *uid;
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *content;
-@property (nonatomic, strong) NSString * profileImage;
+@property (nonatomic, strong) NSString * postImage;
 @property (nonatomic,strong) NSMutableDictionary *images;
 @property (nonatomic,strong) NSMutableDictionary *large_images;
 @property (nonatomic,strong) NSMutableDictionary *owner;
