@@ -398,7 +398,7 @@
     //Profile name
     if(!postDetailsObject.anonymous)
     {
-        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition, 150, 30)];
+        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition, 110, 30)];
         if(([postDetailsObject.owner objectForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner objectForKey:@"fname"] length] > 0) &&
            ([postDetailsObject.owner objectForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner objectForKey:@"lname"] length] > 0)
            )
@@ -451,6 +451,19 @@
     [heartCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
     [heartCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
     [cell.contentView addSubview:heartCount];
+
+    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(175, yPosition+7.5, 22, 13)];
+    [viewsCntImage setImage:[UIImage imageNamed:@"icon-view-count.png"]];
+    [cell.contentView addSubview:viewsCntImage];
+    
+    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(197.5f, yPosition+9, 10, 10)];
+    [viewsCount setText:postDetailsObject.time];
+    [viewsCount setTextAlignment:NSTextAlignmentLeft];
+    [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+    [viewsCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
+    [viewsCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
+    [cell.contentView addSubview:viewsCount];
+
     
     [self addDescription:cell withDetails:postDetailsObject :indexPath];
     
@@ -603,6 +616,8 @@
         
         if(commenters.count < 6)
         x = (290 - (22*(commenters.count+1) + 3*(commenters.count) ))/2;
+        else
+        x = (290 - (22*(7) + 3*6 ))/2;
         for(int i = 0; i < commenters.count; i++)
             //for(id dict in array)
         {

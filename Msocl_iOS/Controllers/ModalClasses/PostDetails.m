@@ -26,6 +26,7 @@
 @synthesize commentCount;
 @synthesize large_images;
 @synthesize can;
+@synthesize viewsCount;
 -(id)initWithDictionary:(NSDictionary *)response{
     
     if (self=[super init]) {
@@ -83,6 +84,9 @@
             }
             else if ([key isEqualToString:@"comment_count"]) {
                 self.commentCount = [[response objectForKey:key] intValue];
+            }
+            else if ([key isEqualToString:@"views"]) {
+                self.viewsCount = [[response objectForKey:key] intValue];
             }
         }
     }

@@ -24,6 +24,7 @@
 @property (nonatomic,strong) NSMutableArray *comments;
 @property (nonatomic,assign) int upVoteCount;
 @property (nonatomic,assign) int commentCount;
+@property (nonatomic,assign) int viewsCount;
 
 @property (nonatomic, assign) BOOL anonymous;
 @property (nonatomic, strong) NSMutableArray *can;

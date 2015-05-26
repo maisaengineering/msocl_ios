@@ -638,10 +638,6 @@
     [upVoteCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
     [cell.contentView addSubview:upVoteCount];
     
-    
-
-    
-    
     UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(240, 15, 13, 13)];
     [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
     [cell.contentView addSubview:timeIcon];
@@ -653,6 +649,19 @@
     [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
     [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
     [cell.contentView addSubview:time];
+
+    
+    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(175, 16, 22, 13)];
+    [viewsCntImage setImage:[UIImage imageNamed:@"icon-view-count.png"]];
+    [cell.contentView addSubview:viewsCntImage];
+    
+    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(197, 13, 10, 18)];
+    [viewsCount setText:postDetailsObject.time];
+    [viewsCount setTextAlignment:NSTextAlignmentLeft];
+    [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+    [viewsCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
+    [viewsCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [cell.contentView addSubview:viewsCount];
 
     
     
