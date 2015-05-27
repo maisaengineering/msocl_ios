@@ -1583,7 +1583,22 @@
     
     if (thumb)
     {
+        addPopUpView.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+        
         [[[[UIApplication sharedApplication] delegate] window] addSubview:addPopUpView];
+        
+        
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            addPopUpView.frame = CGRectMake(0,0,screenWidth,screenHeight);
+            
+        }
+                         completion:^(BOOL finished){
+                             
+                         }
+         ];
+        
+        
+        
     }
     
 }

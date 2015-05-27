@@ -543,7 +543,7 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
-    addPopUpView = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth,screenHeight)];
+    addPopUpView = [[UIView alloc] init];
     [addPopUpView setBackgroundColor:[UIColor clearColor]];
     
     
@@ -591,10 +591,26 @@
     gotItButton.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
     gotItButton.tag = 1;
     [addPopUpView addSubview:gotItButton];
+
     
     if (thumb)
     {
+        addPopUpView.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+
         [[[[UIApplication sharedApplication] delegate] window] addSubview:addPopUpView];
+
+        
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            addPopUpView.frame = CGRectMake(0,0,screenWidth,screenHeight);
+
+        }
+                         completion:^(BOOL finished){
+                             
+                         }
+         ];
+        
+
+        
     }
     
 }

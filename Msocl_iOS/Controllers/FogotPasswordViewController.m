@@ -119,13 +119,22 @@
 }
 -(void) resetPasswordSuccessFull:(NSDictionary *)recievedDict
 {
-    ShowAlert(PROJECT_NAME,[recievedDict objectForKey:@"message"], @"OK");
     [appdelegate showOrhideIndicator:NO];
-    [self.navigationController popViewControllerAnimated:YES];
+
+    UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:PROJECT_NAME message:[recievedDict objectForKey:@"message"] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [warningAlert show];
+    
 }
 -(void) resetPasswordFailed
 {
+    ShowAlert(PROJECT_NAME,@"Account with that email address not found. Please check for typos.", @"OK");
+
     [appdelegate showOrhideIndicator:NO];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
