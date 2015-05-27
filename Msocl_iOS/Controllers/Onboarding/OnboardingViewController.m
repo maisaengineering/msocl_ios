@@ -93,24 +93,20 @@
     
     UIButton * iAmInBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
     [iAmInBtn addTarget:self action:@selector(iAmInBtnClicked) forControlEvents:UIControlEventTouchUpInside];
-    [iAmInBtn setTitle:@"I am in" forState:UIControlStateNormal];
-    [iAmInBtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-LightItalic" size:15]];
-    [iAmInBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self.view addSubview:iAmInBtn];
-
     
     if(Deviceheight == 480)
     {
-        hyperLinkButton.frame = CGRectMake(0, 330, 320, 100);
+        hyperLinkButton.frame = CGRectMake(0, 324, 320, 40);
         tour_ImageView.image = [UIImage imageNamed:@"tour0-4.png"];
         
-        iAmInBtn.frame = CGRectMake(230, 390, 80, 40);
+        iAmInBtn.frame = CGRectMake(115, 370, 80, 40);
     }
     else
     {
         tour_ImageView.image = [UIImage imageNamed:@"tour_0.png"];
-        hyperLinkButton.frame = CGRectMake(0, 385, 320, 40);
-        iAmInBtn.frame = CGRectMake(230, 445, 80, 40);
+        hyperLinkButton.frame = CGRectMake(0, 380, 320, 40);
+        iAmInBtn.frame = CGRectMake(115, 429, 80, 40);
 
     }
     

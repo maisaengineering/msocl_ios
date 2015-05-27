@@ -27,6 +27,7 @@
     ModelManager *sharedModel;
     UIButton *anonymousButton;
     BOOL isAnonymous;
+    UILabel *titleName;
     UIImageView *dropDown;
 
 }
@@ -43,7 +44,16 @@
     
     popover = [DXPopover popover];
     
-    self.title = @"EDIT COMMENT";
+    self.title = @"";
+    
+   titleName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    [titleName setBackgroundColor:[UIColor clearColor]];
+    titleName.textColor = [UIColor whiteColor];
+    titleName.text = @"EDIT COMMENT";
+    titleName.font =[UIFont fontWithName:@"Ubuntu" size:18];
+    titleName.textAlignment = NSTextAlignmentRight;
+    [self.navigationController.navigationBar addSubview:titleName];
+    
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -59,13 +69,17 @@
     
     commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
-    [commentBtn setFrame:CGRectMake(244, 5, 43, 30.5)];
-    [commentBtn setImage:[UIImage imageNamed:@"btn-post.png"] forState:UIControlStateNormal];
+    [commentBtn setFrame:CGRectMake(203, 4.5, 84, 31)];
+    [commentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [commentBtn setTitle:@"Comment as" forState:UIControlStateNormal];
+    [commentBtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];
+    [commentBtn setBackgroundImage:[UIImage imageNamed:@"btn-Cmntas.png"] forState:UIControlStateNormal];
+
     
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousCommentClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(287, 5, 30, 30)];
+    [anonymousButton setFrame:CGRectMake(287, 4.5, 30, 31)];
     
     postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 2.5, 22, 22)];
     
@@ -85,9 +99,6 @@
     [popView addSubview:postAsLabel1];
     
     UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 4, 24, 24)];
-    
-    __weak UIImageView *weakSelf1 = userImage;
-    __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
     
     NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
     if( [sharedModel.userProfile.fname length] >0)
@@ -116,12 +127,13 @@
     
     
     //add initials
-    
     UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
     initial.attributedText = attributedText;
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
     [userImage addSubview:initial];
+    
+
 
     
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-56.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
@@ -148,6 +160,11 @@
     self.view.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setDetails];
 
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [titleName removeFromSuperview];
+    [super viewWillDisappear:YES];
 }
 -(void)setDetails
 {

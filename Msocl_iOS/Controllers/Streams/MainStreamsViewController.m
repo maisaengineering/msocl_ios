@@ -108,7 +108,7 @@
     [searchButton setFrame:CGRectMake(250, 11, 25, 25)];
     [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
-    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 57, 28)];
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
 
     
@@ -588,7 +588,7 @@
     // MARK:Got it button
     UIButton *gotItButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [gotItButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    gotItButton.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
+    gotItButton.frame = CGRectMake(110, 432, 100, 40);
     gotItButton.tag = 1;
     [addPopUpView addSubview:gotItButton];
 

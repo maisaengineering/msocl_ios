@@ -14,6 +14,7 @@
 
     AppDelegate *appdelegate;
     Webservices *webServices;
+    UIImageView *iconImage;
 }
 
 @end

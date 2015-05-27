@@ -209,7 +209,7 @@
         popover = [DXPopover popover];
     
     
-    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 57, 28)];
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
     

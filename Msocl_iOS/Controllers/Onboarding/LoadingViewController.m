@@ -24,28 +24,26 @@
     webServices.delegate = self;
 
     
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    //CGFloat screenWidth = screenRect.size.width;
-    CGFloat screenHeight = screenRect.size.height;
-    
     //add image with the frame set so the bottom stays the same
-    UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Loading@2x.jpg"]];
-    background.frame = CGRectMake(0, screenHeight - 568, 320, 568);
+    UIImageView *background = [[UIImageView alloc] init];
+    background.frame = CGRectMake(66, 100, 188, 50);
+    background.animationImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"cd-1.png"],[UIImage imageNamed:@"cd-2.png"],[UIImage imageNamed:@"cd-3.png"],[UIImage imageNamed:@"cd-4.png"], nil];
+    background.animationDuration = 1;
+    [background startAnimating] ;
+
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
+    [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
+    
     [self.view addSubview:background]; //screenHeight - 1136
     
-    UILabel *lblLoading = [[UILabel alloc] initWithFrame:CGRectMake(0,100,320, 41)];
-    [lblLoading setText:LOADING];
-    [lblLoading setBackgroundColor:[UIColor clearColor]];
-    [lblLoading setTextAlignment:NSTextAlignmentCenter];
-    [lblLoading setTextColor:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]];
-    [lblLoading setFont:[UIFont fontWithName:@"Ubuntu-Light" size:20]];
-    [self.view addSubview:lblLoading];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
 
     self.navigationItem.hidesBackButton = YES;
+
+    [self.navigationController.navigationBar addSubview:iconImage];
 
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
@@ -60,7 +58,7 @@
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    
+    [iconImage removeFromSuperview];
     [super viewWillDisappear:YES];
     [self askForNotificationPermission];
     
@@ -73,7 +71,6 @@
 ///Api call to get Accesstoken
 -(void)callAccessTokenApi
 {
-    [appdelegate showOrhideIndicator:YES];
     
     //build an info object and convert to json
     NSDictionary* postData = @{@"grant_type": @"client_credentials",

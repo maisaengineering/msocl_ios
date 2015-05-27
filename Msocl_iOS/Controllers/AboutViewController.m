@@ -83,7 +83,7 @@
             break;
         case 3:
         {
-            NSString *iTunesLink = @"itms-apps://itunes.apple.com/us/app/id984901373?mt=8";
+            NSString *iTunesLink = @"itms-apps://itunes.apple.com/us/app/id998823966?mt=8";
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
 
         }

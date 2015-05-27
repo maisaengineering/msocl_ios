@@ -1117,7 +1117,7 @@
         <image name="checkbox_empty.png" width="20" height="20"/>
         <image name="checkbox_full.png" width="20" height="20"/>
         <image name="icon-close.png" width="32" height="34"/>
-        <image name="icon-login.png" width="240" height="48"/>
+        <image name="icon-login.png" width="240" height="56"/>
         <image name="icon-profile-register.png" width="50" height="50"/>
         <image name="profile-register.png" width="51" height="50"/>
         <image name="setting-strip-selected.png" width="292" height="35"/>
@@ -1132,7 +1132,7 @@
         <segue reference="fCv-1J-IEX"/>
         <segue reference="m3S-0J-NjW"/>
         <segue reference="dLo-Yv-fr4"/>
-        <segue reference="M8x-x6-6lY"/>
+        <segue reference="iax-nE-auz"/>
         <segue reference="Ngw-Gf-AxF"/>
     </inferredMetricsTieBreakers>
 </document>
