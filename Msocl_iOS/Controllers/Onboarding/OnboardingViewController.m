@@ -51,7 +51,10 @@
     imageID = 0;
     appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     sharedModel = [ModelManager sharedModel];
+    
+   /*
     [[NSNotificationCenter defaultCenter]
+ 
      addObserver:self
      selector:@selector(downloadImages)
      name:@"TourImages_API"
@@ -72,18 +75,50 @@
     }
     
     
-    timer = [NSTimer scheduledTimerWithTimeInterval: 5
-                                                 target: self
-                                           selector: @selector(timerMethod)
-                                               userInfo: nil
-                                                repeats: NO];
+    
+    */
+    
+    
+    UIImageView *tour_ImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:tour_ImageView];
+    
+    
+    UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(leftSwipe:)];
+    [left setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.view addGestureRecognizer:left];
+    
+    hyperLinkButton = [UIButton  buttonWithType:UIButtonTypeCustom];
+    [hyperLinkButton addTarget:self action:@selector(linkClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:hyperLinkButton];
+    
+    UIButton * iAmInBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
+    [iAmInBtn addTarget:self action:@selector(iAmInBtnClicked) forControlEvents:UIControlEventTouchUpInside];
+    [iAmInBtn setTitle:@"I am in" forState:UIControlStateNormal];
+    [iAmInBtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-LightItalic" size:15]];
+    [iAmInBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.view addSubview:iAmInBtn];
 
+    
+    if(Deviceheight == 480)
+    {
+        hyperLinkButton.frame = CGRectMake(0, 330, 320, 100);
+        tour_ImageView.image = [UIImage imageNamed:@"tour0-4.png"];
+        
+        iAmInBtn.frame = CGRectMake(230, 390, 80, 40);
+    }
+    else
+    {
+        tour_ImageView.image = [UIImage imageNamed:@"tour_0.png"];
+        hyperLinkButton.frame = CGRectMake(0, 385, 320, 40);
+        iAmInBtn.frame = CGRectMake(230, 445, 80, 40);
+
+    }
     
     [self.navigationController setNavigationBarHidden:YES];
     
 
 }
-- (void)timerMethod
+- (void)iAmInBtnClicked
 {
     [self askForNotificationPermission];
     [self goToMainStreams];
@@ -141,7 +176,7 @@
 -(void)loadLocalImages
 {
     
-    if(Deviceheight == 468)
+    if(Deviceheight == 480)
     {
         imageArray = @[[NSDictionary dictionaryWithObjectsAndKeys:[NSArray arrayWithObjects:@"continue", nil],@"actions",@"tour0-4.png",@"name",nil]];
 

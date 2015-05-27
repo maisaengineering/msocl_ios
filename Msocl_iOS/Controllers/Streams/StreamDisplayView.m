@@ -469,10 +469,10 @@
     {
         
         UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition, 110, 30)];
-            [name setText:@"Anonymous"];
+            [name setText:@"anonymous"];
         name.textAlignment = NSTextAlignmentLeft;
         [name setFont:[UIFont fontWithName:@"Ubuntu" size:15]];
-        [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+        [name setTextColor:[UIColor grayColor]];
         [cell.contentView addSubview:name];
     }
     
@@ -505,28 +505,28 @@
     [cell.contentView addSubview:time];
     
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(209, yPosition+3, 18, 18)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(211, yPosition+3, 18, 18)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
     [cell.contentView addSubview:heartCntImage];
     
-    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(228, yPosition+9, 10, 10)];
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(230, yPosition+9, 10, 10)];
     [heartCount setText:postDetailsObject.time];
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [heartCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [heartCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
+    [heartCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:8]];
     [cell.contentView addSubview:heartCount];
 
-    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(175, yPosition+7.5, 22, 13)];
+    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(173, yPosition+7.5, 22, 13)];
     [viewsCntImage setImage:[UIImage imageNamed:@"icon-view-count.png"]];
     [cell.contentView addSubview:viewsCntImage];
     
-    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(197.5f, yPosition+9, 10, 10)];
+    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(195.5f, yPosition+9, 20, 10)];
     [viewsCount setText:postDetailsObject.time];
     [viewsCount setTextAlignment:NSTextAlignmentLeft];
-    [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+    [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.viewsCount]];
     [viewsCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [viewsCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
+    [viewsCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:8]];
     [cell.contentView addSubview:viewsCount];
 
     

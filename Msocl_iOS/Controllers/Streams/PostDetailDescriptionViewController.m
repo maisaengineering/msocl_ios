@@ -123,7 +123,7 @@
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [commentBtn setFrame:CGRectMake(188, 6.5, 84, 41)];
     [commentBtn setTitleColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [commentBtn setTitle:@"comment as" forState:UIControlStateNormal];
+    [commentBtn setTitle:@"Comment as" forState:UIControlStateNormal];
     [commentBtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
     [commentBtn setBackgroundImage:[UIImage imageNamed:@"comment-btn.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
@@ -275,6 +275,7 @@
     postObjectFromWall.upvoted = post.upvoted;
     //postObjectFromWall.content = post.content;
     postObjectFromWall.anonymous = post.anonymous;
+    postObjectFromWall.viewsCount = post.viewsCount;
     postObjectFromWall.time = post.time;
     //postObjectFromWall.images = post.images;
     [self.delegate PostEditedFromPostDetails:postObjectFromWall];
@@ -654,7 +655,7 @@
     //Profile name
     if(!postDetailsObject.anonymous)
     {
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 160, 28)];
+    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 120, 28)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
     [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
     [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
@@ -662,23 +663,23 @@
     }
     else
     {
-        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 160, 28)];
-        [name setText:@"Anonymous"];
-        [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 120, 28)];
+        [name setText:@"anonymous"];
+        [name setTextColor:[UIColor grayColor]];
         [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
         [cell.contentView addSubview:name];
     }
     
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(209, 11, 18, 18)];
+    [heartButton setFrame:CGRectMake(204, 11, 18, 18)];
     [heartButton setTag:[indexPath row]];
     [cell.contentView addSubview:heartButton];
     
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(227, 13, 20 , 18)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(222, 13, 20 , 18)];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
      [upVoteCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [upVoteCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [upVoteCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
     [cell.contentView addSubview:upVoteCount];
     
     UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(240, 15, 13, 13)];
@@ -694,16 +695,16 @@
     [cell.contentView addSubview:time];
 
     
-    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(175, 16, 22, 13)];
+    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(162, 16, 22, 13)];
     [viewsCntImage setImage:[UIImage imageNamed:@"icon-view-count.png"]];
     [cell.contentView addSubview:viewsCntImage];
     
-    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(197, 13, 10, 18)];
+    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(184, 13, 20, 18)];
     [viewsCount setText:postDetailsObject.time];
     [viewsCount setTextAlignment:NSTextAlignmentLeft];
-    [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
+    [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.viewsCount]];
     [viewsCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [viewsCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [viewsCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
     [cell.contentView addSubview:viewsCount];
 
     
@@ -937,7 +938,7 @@
         if(isAnonymous)
         {
             UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-            [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
+            [postAsLabel1 setText:[NSString stringWithFormat:@"Comment as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
             [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
             [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
             [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
