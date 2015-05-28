@@ -303,7 +303,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-login.png" translatesAutoresizingMaskIntoConstraints="NO" id="mjH-Yv-c3F">
-                                <rect key="frame" x="40" y="63" width="240" height="48"/>
+                                <rect key="frame" x="40" y="63" width="240" height="56"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="96E-Sr-sml">
                                 <rect key="frame" x="196" y="284" width="116" height="20"/>
@@ -475,7 +475,7 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-login.png" translatesAutoresizingMaskIntoConstraints="NO" id="8hG-CR-z5C">
-                                        <rect key="frame" x="40" y="66" width="240" height="48"/>
+                                        <rect key="frame" x="40" y="66" width="240" height="56"/>
                                     </imageView>
                                 </subviews>
                             </scrollView>
