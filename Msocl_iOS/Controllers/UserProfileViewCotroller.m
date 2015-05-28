@@ -63,10 +63,6 @@
     streamDisplay.userProfileId = profileId;
     [self.view addSubview:streamDisplay];
     
-    followOrEditBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-    followOrEditBtn.layer.borderWidth = 1.5f;
-    followOrEditBtn.layer.cornerRadius = 5;
-    followOrEditBtn.layer.masksToBounds = YES;
 
     
     originalPosition = CGRectMake(0, 180, 320, Deviceheight-180-64);
@@ -223,6 +219,7 @@
         frame.size.height = size.height;
         aboutLabel.text = [recievedDict objectForKey:@"summary"];
         aboutLabel.frame = frame;
+        
         
         CGRect frameTop = animatedTopView.frame;
         frameTop.size.height += size.height;
@@ -410,6 +407,12 @@
     
     if(![modelManager.userProfile.uid isEqualToString:profileId])
     {
+        followOrEditBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+        followOrEditBtn.layer.borderWidth = 1.5f;
+        followOrEditBtn.layer.cornerRadius = 5;
+        followOrEditBtn.layer.masksToBounds = YES;
+
+        
         if(isFollowing)
             [followOrEditBtn setTitle:@"unfollow" forState:UIControlStateNormal];
         else
