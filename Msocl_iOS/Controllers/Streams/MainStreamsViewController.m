@@ -590,6 +590,7 @@
     [gotItButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     gotItButton.frame = CGRectMake(110, 432, 100, 40);
     gotItButton.tag = 1;
+    gotItButton.backgroundColor = [UIColor redColor];
     [addPopUpView addSubview:gotItButton];
 
     

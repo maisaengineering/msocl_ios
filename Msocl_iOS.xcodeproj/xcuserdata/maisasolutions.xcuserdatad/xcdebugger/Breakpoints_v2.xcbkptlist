@@ -115,13 +115,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/WebServices/Webservices.m"
-            timestampString = "454337814.116311"
+            filePath = "Msocl_iOS/Controllers/Streams/MainStreamsViewController.m"
+            timestampString = "454507466.78371"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
-            landmarkName = "-connectionSuccessGetShowPost:"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
+            landmarkName = "-check"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -91,9 +91,13 @@
     [hyperLinkButton addTarget:self action:@selector(linkClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:hyperLinkButton];
     
+    
+    
     UIButton * iAmInBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
     [iAmInBtn addTarget:self action:@selector(iAmInBtnClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:iAmInBtn];
+    
+    
     
     if(Deviceheight == 480)
     {

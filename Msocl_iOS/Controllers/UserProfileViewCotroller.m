@@ -52,9 +52,9 @@
     aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 180, 320, 30)];
     aboutLabel.font =[UIFont fontWithName:@"Ubuntu-Light" size:12];
     [aboutLabel setTextAlignment:NSTextAlignmentCenter];
+    [aboutLabel setBackgroundColor:[UIColor whiteColor]];
     aboutLabel.textColor = [UIColor colorWithRed:(68/255.f) green:(68/255.f) blue:(68/255.f) alpha:1];
     aboutLabel.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:aboutLabel];
 
     
     streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 180, 320, Deviceheight-180-64)];
@@ -62,6 +62,12 @@
     streamDisplay.isUserProfilePosts = YES;
     streamDisplay.userProfileId = profileId;
     [self.view addSubview:streamDisplay];
+    
+    followOrEditBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    followOrEditBtn.layer.borderWidth = 1.5f;
+    followOrEditBtn.layer.cornerRadius = 5;
+    followOrEditBtn.layer.masksToBounds = YES;
+
     
     originalPosition = CGRectMake(0, 180, 320, Deviceheight-180-64);
 
@@ -218,8 +224,15 @@
         aboutLabel.text = [recievedDict objectForKey:@"summary"];
         aboutLabel.frame = frame;
         
+        CGRect frameTop = animatedTopView.frame;
+        frameTop.size.height += size.height;
+        animatedTopView.frame = frameTop;
+        [animatedTopView addSubview:aboutLabel];
+        originalPosition = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
+
       streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
     
+        
     }
 
 }
@@ -296,7 +309,8 @@
     
     // originalPosition = streamView.frame;
     [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        animatedTopView.frame = CGRectMake(0, -178, screenWidth, 178);
+        CGRect frame = animatedTopView.frame;
+        animatedTopView.frame = CGRectMake(0, -frame.size.height, screenWidth, frame.size.height);
         streamDisplay.frame = CGRectMake(0, 0, 320, screenHeight-64);
         streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, screenHeight-64);
 
@@ -316,7 +330,8 @@
     
     [UIView animateWithDuration:0.5f
                      animations:^{
-                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, 178);
+                         CGRect frame = animatedTopView.frame;
+                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, frame.size.height);
                          streamDisplay.frame = originalPosition;
                          streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, originalPosition.size.height);
 
