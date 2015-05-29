@@ -520,7 +520,7 @@
              {
                  [photoUtils saveImageToCache:url :image];
                  
-                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
+                 weakSelf.image = image;
                  
              }
                                    failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error)
@@ -653,7 +653,7 @@
         
         [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(28, 28)] withRadious:0];
+             weakSelf.image = image;
              
          }failure:nil];
 
