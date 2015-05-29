@@ -32,6 +32,7 @@
     UIImageView *imageView;
     UIButton *searchButton;
     UIImageView *iconImage;
+    BOOL menuOpened;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -44,7 +45,7 @@
     [super viewDidLoad];
     
     [UIApplication sharedApplication].statusBarHidden = NO;
-
+    
     self.title = @"";
     
     modelManager =[ModelManager sharedModel];
@@ -65,7 +66,7 @@
     mostRecent.isMostRecent = YES;
     mostRecent = [mostRecent initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
     [self.view addSubview:mostRecent];
-
+    
     following = [StreamDisplayView alloc];
     following.delegate = self;
     following.isFollowing = YES;
@@ -101,7 +102,7 @@
     [mostRecentButton setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
     mostRecentButton.frame= CGRectMake(0, 0, 320, 30) ;
     [self.view addSubview:mostRecentButton];
-
+    
     
     searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
@@ -110,15 +111,15 @@
     
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
-
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-
+    
     [self.navigationController setNavigationBarHidden:NO];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadOnLogOut)
                                                  name:RELOAD_ON_LOG_OUT
@@ -132,25 +133,32 @@
                                                  name:@"SlideNavigationControllerDidClose"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(pageGuidesDownloaded)
+                                                 name:@"PageGuidsDownloaded"
+                                               object:nil];
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStreamsDataInBackgroundForPUSHNotificationAlerts) name:@"AppFromPassiveState" object:nil];
-
+    
     
     [self check];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-    
-    [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
+        
+        [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
     }
     else
-    [self.navigationItem setHidesBackButton:YES];
-
-[self.navigationController.navigationBar addSubview:iconImage];
+        [self.navigationItem setHidesBackButton:YES];
+    
+    [self.navigationController.navigationBar addSubview:iconImage];
     [self refreshWall];
     [self setUpTimer];
     [self.navigationController.navigationBar addSubview:searchButton];
-
-
+    
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -163,24 +171,36 @@
     
     if([[self timer] isValid])
         [[self timer] invalidate];
-
+    
     [iconImage removeFromSuperview];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AppFromPassiveState" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidClose" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidOpen" object:nil];
-
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageGuidsDownloaded" object:nil];
+    
+    
     searchBar.text = @"";
     mostRecent.isSearching = NO;
     following.isSearching = NO;
     [searchButton removeFromSuperview];
-
+    
+}
+-(void)pageGuidesDownloaded
+{
+    if(!menuOpened && [[self.navigationController topViewController] isKindOfClass:[MainStreamsViewController class]])
+    {
+    if([[self  timerHomepage] isValid])
+        [[self  timerHomepage] invalidate];
+    
+    [self check];
+    }
 }
 -(void)reloadOnLogOut
 {
     self.navigationItem.leftBarButtonItem.enabled = NO;
     self.navigationItem.leftBarButtonItem.title = @"";
-
+    
     mostRecentButton.selected = NO;
     
     [mostRecent setHidden:NO];
@@ -194,10 +214,11 @@
 }
 -(void)menuDidOpen
 {
+    menuOpened = YES;
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
-
+    
 }
 - (BOOL)prefersStatusBarHidden
 {
@@ -206,34 +227,35 @@
 
 -(void)menuDidClose
 {
+    menuOpened = NO;
     [self check];
 }
 -(void)refreshWall
 {
-    if(searchBar.text.length == 0)
+    if(searchBar.text.length == 0 )
     {
-    mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
-    following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
-    imageView.frame = CGRectMake(0, 0, 320, 30);
-    mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
-    [searchBar removeFromSuperview];
+        mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+        following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+        imageView.frame = CGRectMake(0, 0, 320, 30);
+        mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
+        [searchBar removeFromSuperview];
     }
     
     if(!isShowPostCalled)
     {
-    if(!mostRecent.hidden)
-    {
-        [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        [mostRecent resetData];
-        [mostRecent callStreamsApi:@"next"];
-    }
-    else
-    {
-        [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        [following resetData];
-        [following callStreamsApi:@"next"];
-
-    }
+        if(!mostRecent.hidden)
+        {
+            [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [mostRecent resetData];
+            [mostRecent callStreamsApi:@"next"];
+        }
+        else
+        {
+            [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [following resetData];
+            [following callStreamsApi:@"next"];
+            
+        }
     }
     else
     {
@@ -243,7 +265,7 @@
         }
         else
             [following.streamTableView reloadData];
-
+        
     }
     isShowPostCalled = NO;
 }
@@ -263,7 +285,7 @@
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
         [[SlideNavigationController sharedInstance] pushViewController:login animated:NO];
-
+        
     }
     else
         [self performSegueWithIdentifier: @"UserProfile" sender: self];
@@ -281,7 +303,7 @@
 - (void)tableDidSelect:(int)index
 {
     [self setTimedRemindersActionTaken:@"addComment"];
-
+    
     if(!mostRecent.hidden)
     {
         isShowPostCalled = YES;
@@ -317,7 +339,7 @@
             postObject = [mostRecent.storiesArray objectAtIndex:selectedIndex];
         else
             postObject = [following.storiesArray objectAtIndex:selectedIndex];
-
+        
         UserProfileViewCotroller *destViewController = segue.destinationViewController;
         destViewController.photo = [postObject.owner objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
@@ -355,14 +377,14 @@
     {
         [following.storiesArray removeObjectAtIndex:selectedIndex];
         [following.streamTableView reloadData];
-
+        
     }
-
+    
 }
 -(IBAction)addClicked:(id)sender
 {
     [self setTimedRemindersActionTaken:@"addPost"];
-
+    
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
         [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
@@ -370,7 +392,7 @@
     }
     else
     {
-
+        
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         [self.navigationController pushViewController:login animated:NO];
@@ -380,40 +402,40 @@
 -(IBAction)RecentOrFollowignClicked:(id)sender
 {
     [self setTimedRemindersActionTaken:@"favourites"];
-
+    
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-    if(mostRecentButton.selected)
-    {
+        if(mostRecentButton.selected)
+        {
+            
+            [mostRecent setHidden:NO];
+            [following setHidden:YES];
+            
+            [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [mostRecent resetData];
+            [mostRecent callStreamsApi:@"next"];
+            
+        }
+        else
+        {
+            [mostRecent setHidden:YES];
+            [following setHidden:NO];
+            
+            [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+            [following resetData];
+            [following callStreamsApi:@"next"];
+            
+        }
+        mostRecentButton.selected = !mostRecentButton.selected;
         
-        [mostRecent setHidden:NO];
-        [following setHidden:YES];
-
-        [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        [mostRecent resetData];
-        [mostRecent callStreamsApi:@"next"];
-
-    }
-    else
-    {
-        [mostRecent setHidden:YES];
-        [following setHidden:NO];
         
-        [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        [following resetData];
-        [following callStreamsApi:@"next"];
-
-    }
-    mostRecentButton.selected = !mostRecentButton.selected;
-        
-
     }
     else
     {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
         [self.navigationController pushViewController:login animated:NO];
-
+        
     }
 }
 -(void)resetFavoritesFromWall
@@ -424,16 +446,16 @@
     [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     [mostRecent resetData];
     [mostRecent callStreamsApi:@"next"];
-
+    
     mostRecentButton.selected = NO;
-
+    
 }
 #pragma mark - SlideNavigationController Methods -
 
 - (BOOL)slideNavigationControllerShouldDisplayLeftMenu
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    return YES;
+        return YES;
     else
         return NO;
 }
@@ -448,7 +470,8 @@
 -(void)check
 {
     NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"addPost"]];
+    
+    NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"popup"]];
     if(array.count > 0)
     {
         homeContext = [[array firstObject] mutableCopy];
@@ -457,9 +480,25 @@
         if(graphicsArray.count > 0)
         {
             
-                subContext = [graphicsArray firstObject];
-                [self setUpTimerWithStartInSubContext:subContext];
-
+            subContext = [graphicsArray firstObject];
+            [self setUpTimerWithStartInSubContext:subContext];
+            
+            return;
+        }
+    }
+    
+    array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"addPost"]];
+    if(array.count > 0)
+    {
+        homeContext = [[array firstObject] mutableCopy];
+        NSDictionary *dictionary = [array firstObject];
+        NSArray *graphicsArray = [dictionary objectForKey:@"graphics"];
+        if(graphicsArray.count > 0)
+        {
+            
+            subContext = [graphicsArray firstObject];
+            [self setUpTimerWithStartInSubContext:subContext];
+            
             return;
         }
     }
@@ -538,7 +577,7 @@
 /// Display the pop up
 -(void)displayPromptForNewKidWhenStreamDataEmpty
 {
- 
+    
     [searchBar resignFirstResponder];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
@@ -565,7 +604,7 @@
                            {
                                NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
                                UIImage* image = [[UIImage alloc] initWithData:imageData];
-
+                               
                                if (image) {
                                    [photoUtils saveImageToCache:imageURL :image];
                                    [popUpContent setImage:thumb];
@@ -591,25 +630,25 @@
     gotItButton.frame = CGRectMake(110, 432, 100, 40);
     gotItButton.tag = 1;
     [addPopUpView addSubview:gotItButton];
-
+    
     
     if (thumb)
     {
         addPopUpView.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
-
+        
         [[[[UIApplication sharedApplication] delegate] window] addSubview:addPopUpView];
-
+        
         
         [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             addPopUpView.frame = CGRectMake(0,0,screenWidth,screenHeight);
-
+            
         }
                          completion:^(BOOL finished){
                              
                          }
          ];
         
-
+        
         
     }
     
@@ -621,7 +660,7 @@
     
     NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
     long int index = [userDefaultsArray indexOfObject:homeContext];
-   NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
+    NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
     [graphicsArrray removeObject:subContext];
     [homeContext setObject:graphicsArrray forKey:@"graphics"];
     [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
@@ -650,20 +689,20 @@
         {
             [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
             [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
-
+            
         }
         
-
+        
     }
     else
     {
         NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
         [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
-
+        
     }
     
     [userDefaults synchronize];
-
+    
     
     [self check];
     
@@ -694,7 +733,7 @@
                                                 repeats: YES];
     }
     [timer fire];
-  
+    
 }
 - (void)updateStreamData
 {
@@ -706,14 +745,14 @@
 }
 -(void)callStreamsApi
 {
-
-        AccessToken* token = modelManager.accessToken;
-        
-        NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
-        NSString *command = @"all";
-        [body setValue:[NSNumber numberWithInt:0] forKeyPath:@"post_count"];
-        [body setValue:@"new" forKeyPath:@"step"];
-
+    
+    AccessToken* token = modelManager.accessToken;
+    
+    NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
+    NSString *command = @"all";
+    [body setValue:[NSNumber numberWithInt:0] forKeyPath:@"post_count"];
+    [body setValue:@"new" forKeyPath:@"step"];
+    
     if(mostRecent.isSearching)
     {
         command = @"search";
@@ -726,16 +765,16 @@
         {
             [body setValue:following.timeStamp forKeyPath:@"last_modified"];
             [body setValue:following.searchString forKeyPath:@"text"];
-
+            
             [body setValue:[NSNumber numberWithBool:YES] forKeyPath:@"favourites"];
         }
-
+        
     }
-
+    
     else
     {
         if(!mostRecent.hidden)
-        [body setValue:mostRecent.timeStamp forKeyPath:@"last_modified"];
+            [body setValue:mostRecent.timeStamp forKeyPath:@"last_modified"];
         else
         {
             [body setValue:following.timeStamp forKeyPath:@"last_modified"];
@@ -743,16 +782,16 @@
             command = @"filter";
         }
     }
-        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
+    NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
     NSDictionary *userInfo;
     if(!mostRecent.hidden)
-     userInfo = @{@"command": @"GetStreams"};
+        userInfo = @{@"command": @"GetStreams"};
     else
-     userInfo = @{@"command": @"GetFav"};
-        
-        NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
-        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-        
+        userInfo = @{@"command": @"GetFav"};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    
 }
 
 -(void) didReceiveStreams:(NSDictionary *)responseObject originalPosts:(NSArray *)posts
@@ -763,10 +802,10 @@
         [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"mostRecentStreamArray"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-   
-        NSDictionary *dict = responseObject;
-        NSMutableArray *storiesArray1 = [[dict objectForKey:@"posts"] mutableCopy];
-
+    
+    NSDictionary *dict = responseObject;
+    NSMutableArray *storiesArray1 = [[dict objectForKey:@"posts"] mutableCopy];
+    
     if(!mostRecent.hidden)
     {
         if (appDelegate.isAppFromBackground == YES)
@@ -800,18 +839,18 @@
                 NSDate *newTimeStamp = [dateFormatter dateFromString:[dict objectForKey:@"last_modified"]];
                 if ( ([dict objectForKey:@"etag"] != nil && [[dict objectForKey:@"etag"] length] >0 && ![mostRecent.etag isEqualToString:[dict objectForKey:@"etag"]]) || [newTimeStamp compare:oldTimeStamp] == NSOrderedDescending)
                 {
-                
-                        [mostRecent resetData];
-                        mostRecent.timeStamp = [dict objectForKey:@"last_modified"];
-                        mostRecent.etag = [dict objectForKey:@"etag"];
-                        mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
-                        [mostRecent.streamTableView reloadData];
+                    
+                    [mostRecent resetData];
+                    mostRecent.timeStamp = [dict objectForKey:@"last_modified"];
+                    mostRecent.etag = [dict objectForKey:@"etag"];
+                    mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                    [mostRecent.streamTableView reloadData];
                 }
                 else
                 {
                     
-                        mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
-                        [mostRecent.streamTableView reloadData];
+                    mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
+                    [mostRecent.streamTableView reloadData];
                 }
             }
         }
@@ -832,7 +871,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"favStreamArray"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-
+    
     
     if(!following.hidden)
     {
@@ -901,41 +940,41 @@
     {
         [mostRecent.streamTableView setContentOffset:mostRecent.streamTableView.contentOffset animated:NO];
         [following.streamTableView setContentOffset:following.streamTableView.contentOffset animated:NO];
-    searchBar.frame = CGRectMake(0, -30, 320, 32);
-    
-    [UIView animateWithDuration:0.3f
-                     animations:^{
-                         searchBar.frame = CGRectMake(0, 0, 320, 32);
-                         [self.view addSubview:searchBar];
-                         
-                     }
-                     completion:^(BOOL finished) {
-                         //do smth after animation finishes
-                     }
-     ];
-    
-    
-    
-    // [self.view addSubview:searchBar];
-    UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
-    cancelButton.enabled = YES;
-    
-    mostRecentButton.frame = CGRectMake(0, 32, 320, 30);
-    mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-97);
-    following.frame = CGRectMake(0, 32, 320, Deviceheight-97);
-    imageView.frame = CGRectMake(0, 32, 320, 30);
+        searchBar.frame = CGRectMake(0, -30, 320, 32);
+        
+        [UIView animateWithDuration:0.3f
+                         animations:^{
+                             searchBar.frame = CGRectMake(0, 0, 320, 32);
+                             [self.view addSubview:searchBar];
+                             
+                         }
+                         completion:^(BOOL finished) {
+                             //do smth after animation finishes
+                         }
+         ];
+        
+        
+        
+        // [self.view addSubview:searchBar];
+        UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
+        cancelButton.enabled = YES;
+        
+        mostRecentButton.frame = CGRectMake(0, 32, 320, 30);
+        mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-97);
+        following.frame = CGRectMake(0, 32, 320, Deviceheight-97);
+        imageView.frame = CGRectMake(0, 32, 320, 30);
     }
 }
 
 
 - (void)tableScrolled:(float)y
 {
-        mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
-        following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
-        imageView.frame = CGRectMake(0, 0, 320, 30);
-        mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
-        
-        [searchBar removeFromSuperview];
+    mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+    following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+    imageView.frame = CGRectMake(0, 0, 320, 30);
+    mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
+    
+    [searchBar removeFromSuperview];
 }
 -(void)tableScrolledForTopView:(float)y
 {
@@ -1007,11 +1046,11 @@
             
         }
     }
-
+    
 }
 -(void) searchBarCancelButtonClicked:(UISearchBar *)searchBar1
 {
-
+    
     [self setUpTimer];
     
     mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
@@ -1035,7 +1074,7 @@
         [following callStreamsApi:@"next"];
         
     }
-
+    
 }
 - (void)searchBar:(UISearchBar *)searchBar1 textDidChange:(NSString *)searchText
 {
@@ -1065,8 +1104,8 @@
         }
         
         [self setUpTimer];
-
-
+        
+        
     }
 }
 
@@ -1074,7 +1113,7 @@
 {
     if([[self timer] isValid])
         [[self timer] invalidate];
-
+    
     
     mostRecent.isSearching = YES;
     following.isSearching = YES;
@@ -1083,23 +1122,23 @@
     [searchBar resignFirstResponder];
     
     if(!mostRecent.hidden)
-        {
-            
-            [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-            [mostRecent resetData];
-            [mostRecent callStreamsApi:@"next"];
-        }
-        else
-        {
-            [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-            [following resetData];
-            [following callStreamsApi:@"next"];
-            
-        }
+    {
+        
+        [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [mostRecent resetData];
+        [mostRecent callStreamsApi:@"next"];
+    }
+    else
+    {
+        [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        [following resetData];
+        [following callStreamsApi:@"next"];
+        
+    }
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-
+    
     return YES;
 }
 - (UIImage *)imageFromColor:(UIColor *)color {

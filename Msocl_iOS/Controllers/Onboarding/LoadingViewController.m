@@ -94,16 +94,14 @@
         [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
 
     
-    // Get the PageGuidePopUpImages
-    NSMutableArray *pageGuidePopUpData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-    if ([pageGuidePopUpData count] == 0)
+    NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
+    
+    if(visited_reminders != nil && visited_reminders.count  > 0)
     {
-        [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
+        [[PageGuidePopUps sharedInstance] sendVisitedPageGuides];
     }
     else
-    {
-        [[PageGuidePopUps sharedInstance] getAllTimedReminderImagesWithURLS:pageGuidePopUpData];
-    }
+        [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];

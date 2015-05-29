@@ -236,18 +236,16 @@
     
     if(token.access_token.length>0)
     {
-            [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
+        [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
 
-        
-        NSMutableArray *pageGuidePopUpData = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
-        if ([pageGuidePopUpData count] == 0)
+        NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
+
+        if(visited_reminders != nil && visited_reminders.count  > 0)
         {
-            [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
+            [[PageGuidePopUps sharedInstance] sendVisitedPageGuides];
         }
         else
-        {
-            [[PageGuidePopUps sharedInstance] getAllTimedReminderImagesWithURLS:pageGuidePopUpData];
-        }
+       [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
     }
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"AppFromPassiveState" object:nil];

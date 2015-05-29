@@ -119,6 +119,9 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     }
     [[NSUserDefaults standardUserDefaults] setObject:pageGuidesArray forKey:@"PageGuidePopUpImages"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PageGuidsDownloaded" object:nil userInfo:nil];
+
 }
 
 -(void)setUpTimerWithStartIn
@@ -289,6 +292,8 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 }
 -(void)didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray
 {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"time_reminder_visits"];
+    [self getPageGuidePopUpData];
     DebugLog(@"recievded dict %@",recievedArray);
 }
 -(void)visitedPageGuidesFailed
