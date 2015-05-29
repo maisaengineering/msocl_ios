@@ -99,13 +99,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/WebViewController.m"
-            timestampString = "454360720.352349"
+            filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
+            timestampString = "454590579.762226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
+            landmarkName = "-buildCommentCell:::"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -26,7 +26,7 @@
 #import "EditCommentViewController.h"
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
-
+#import "UserProfileViewCotroller.h"
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -535,7 +535,17 @@
     
 
         [cell.contentView addSubview:imagVw];
-        
+    
+    
+    
+    UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+    profileButton1.tag = indexPath.row;
+    [profileButton1 setFrame:imagVw.frame];
+    [profileButton1 addTarget:self action:@selector(commentProfileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:profileButton1];
+
+    
         // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
     
         NSString *milestoneDate = [commentDict objectForKey:@"createdAt"];
@@ -653,9 +663,10 @@
     [cell.contentView addSubview:profileImage];
     
     //Profile name
+    UILabel *name;
     if(!postDetailsObject.anonymous)
     {
-    UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 120, 28)];
+   name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 120, 28)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
     [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
     [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
@@ -663,12 +674,26 @@
     }
     else
     {
-        UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 120, 28)];
+        name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 120, 28)];
         [name setText:@"anonymous"];
         [name setTextColor:[UIColor grayColor]];
         [name setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:16]];
         [cell.contentView addSubview:name];
     }
+    
+    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+    [profileButton setFrame:name.frame];
+    [cell.contentView addSubview:profileButton];
+    
+    UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+    profileButton1.tag = indexPath.row;
+    [profileButton1 setFrame:profileImage.frame];
+    [profileButton1 addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.contentView addSubview:profileButton1];
+
     
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
@@ -917,6 +942,43 @@
     UIButton *btn = sender;
     [self tagCicked:[btn titleForState:UIControlStateNormal]];
     
+}
+-(void)profileButtonClicked:(id)sender
+{
+    // Resrict the anonymous users
+    PostDetails *postObject = [storiesArray lastObject];
+    if (!postObject.anonymous)
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        UserProfileViewCotroller *destViewController = (UserProfileViewCotroller*)[mainStoryboard
+                                                                  instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
+        destViewController.photo = [postObject.owner objectForKey:@"photo"];
+        destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
+        destViewController.profileId = [postObject.owner objectForKey:@"uid"];
+        [self.navigationController pushViewController:destViewController animated:YES];
+
+    }
+}
+
+-(void)commentProfileButtonClicked:(id)sender
+{
+    // Resrict the anonymous users
+    PostDetails *post = [storiesArray lastObject];
+    NSDictionary * commentDict = [post.comments objectAtIndex:[sender tag]-1];
+
+    if (![[commentDict objectForKey:@"anonymous"] boolValue])
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        UserProfileViewCotroller *destViewController = (UserProfileViewCotroller*)[mainStoryboard
+                                                                                   instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
+        destViewController.photo = [[commentDict objectForKey:@"commenter"] objectForKey:@"photo"];
+        destViewController.name = [NSString stringWithFormat:@"%@ %@",[[commentDict objectForKey:@"commenter"] objectForKey:@"fname"],[[commentDict objectForKey:@"commenter"] objectForKey:@"lname"]];
+        destViewController.profileId = [[commentDict objectForKey:@"commenter"] objectForKey:@"uid"];
+        [self.navigationController pushViewController:destViewController animated:YES];
+        
+    }
 }
 
 #pragma mark -
