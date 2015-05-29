@@ -249,6 +249,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B7E7A711B18B99400AA4255 /* Msocl_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Msocl_iOS.entitlements; sourceTree = "<group>"; };
 		25214C321AD6C23C0084BAC4 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		25214C331AD6C23C0084BAC4 /* libFlurry_6.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_6.3.0.a; sourceTree = "<group>"; };
 		25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -1225,6 +1226,7 @@
 		7FF5CBFD1ACE9E60004F4F9B /* Msocl_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				1B7E7A711B18B99400AA4255 /* Msocl_iOS.entitlements */,
 				7F7E96ED1AF4EA0500995667 /* font */,
 				7F83BC071AD11B06008DFD8B /* Appdelegate */,
 				7F7E55C31AD3F643007070EF /* Utitlities */,
@@ -1313,6 +1315,12 @@
 				TargetAttributes = {
 					7FF5CBFA1ACE9E60004F4F9B = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 867QTRXZVS;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					7FF5CC131ACE9E61004F4F9B = {
 						CreatedOnToolsVersion = 6.1;
@@ -1681,7 +1689,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1700,7 +1710,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "1f59a4d7-daad-4d05-8260-4361b3df21e1";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1710,7 +1720,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1729,7 +1741,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "1f59a4d7-daad-4d05-8260-4361b3df21e1";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
