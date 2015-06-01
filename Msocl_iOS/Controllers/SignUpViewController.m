@@ -102,7 +102,7 @@
 {
     [self resignKeyBoards];
     NSArray *viewControllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:viewControllers[viewControllers.count - 2] animated:NO];
+    [self.navigationController popToViewController:viewControllers[viewControllers.count - 2] animated:YES];
 }
 
 -(IBAction)closeClicked:(id)sender

@@ -395,7 +395,29 @@
         
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        [self.navigationController pushViewController:login animated:NO];
+       
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenWidth = screenRect.size.width;
+        CGFloat screenHeight = screenRect.size.height;
+
+        login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+        
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+        
+        
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+            
+        }
+                         completion:^(BOOL finished){
+                             [login.view removeFromSuperview];
+
+                             [self.navigationController pushViewController:login animated:NO];
+                         }
+         ];
+        
+        
+    
     }
 }
 
@@ -432,9 +454,31 @@
     }
     else
     {
+        
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        [self.navigationController pushViewController:login animated:NO];
+        
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenWidth = screenRect.size.width;
+        CGFloat screenHeight = screenRect.size.height;
+        
+        login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+        
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+        
+        
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+            
+        }
+                         completion:^(BOOL finished){
+                             [login.view removeFromSuperview];
+                             
+                             [self.navigationController pushViewController:login animated:NO];
+                         }
+         ];
+        
+        
         
     }
 }
