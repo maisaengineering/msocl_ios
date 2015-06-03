@@ -7,7 +7,7 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>663B4C2B-374D-4033-823B-C06B90F54FF7</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Msocl_iOS</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>1C18AD4008A337AB0C340A15C17C330419AB6B0A</key>
@@ -16,13 +16,13 @@
 		<string>https://bitbucket.org/maisaengineering/aviarysdk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Msocl_iOS.xcodeproj</string>
+	<string>Msocl_iOS.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1C18AD4008A337AB0C340A15C17C330419AB6B0A</key>
 		<string>../..</string>
 		<key>A7B06E0A0F43CA6C06BEC255886967C4787C2D70</key>
-		<string>../../Msocl_iOS/AviarySDK</string>
+		<string>../..Msocl_iOS/AviarySDK/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:maisaengineering/msocl_ios.git</string>
