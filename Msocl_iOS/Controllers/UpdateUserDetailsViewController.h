@@ -26,7 +26,10 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UIImageView *profileImage;
 @property (nonatomic, strong) IBOutlet UITextField *txt_postal_code;
 @property (nonatomic, strong) IBOutlet UITextField *txt_phno;
+@property (nonatomic, strong) IBOutlet UITextField *txt_Password;
 @property (nonatomic, strong) IBOutlet UITextField *txt_blog;
+@property (nonatomic, strong) IBOutlet UIImageView *lineImage;
+
 
 -(IBAction)closeClicked:(id)sender;
 -(IBAction)signupClicked:(id)sender;

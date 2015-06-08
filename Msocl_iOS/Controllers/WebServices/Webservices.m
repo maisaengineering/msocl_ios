@@ -177,6 +177,16 @@
         [self connectionSuccessExternalSignInOptions:responseDict];
     }
 
+    else if([command isEqualToString:@"emailNotify"])
+    {
+        [self connectionSuccessEmailNotification:responseDict];
+    }
+
+    else if([command isEqualToString:@"apnNotify"])
+    {
+        [self connectionSuccessPushNotification:responseDict];
+    }
+
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -292,6 +302,14 @@
     else if([command isEqualToString:@"appConfig"])
     {
         [self.delegate externalSigninOptionsFailed];
+    }
+    else if([command isEqualToString:@"emailNotify"])
+    {
+        [self.delegate emailNotificationFailed];
+    }
+    else if([command isEqualToString:@"apnNotify"])
+    {
+        [self.delegate pushNotificationFailed];
     }
 }
 #pragma mark -
@@ -815,4 +833,35 @@
         
     }
 }
+-(void)connectionSuccessEmailNotification:(NSDictionary *)respDict
+{
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate emailNotificationSuccessFull:respDict];
+    }
+    
+    else
+    {
+        [self.delegate emailNotificationFailed];
+        
+    }
+}
+-(void)connectionSuccessPushNotification:(NSDictionary *)respDict
+{
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate pushNotificationSuccessFull:respDict];
+    }
+    
+    else
+    {
+        [self.delegate pushNotificationFailed];
+        
+    }
+}
+
 @end

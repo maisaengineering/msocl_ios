@@ -22,6 +22,7 @@
 		25F51BB81AD8F08B00369764 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F51BB61AD8F08B00369764 /* Bolts.framework */; };
 		25F51BB91AD8F08B00369764 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F51BB71AD8F08B00369764 /* Parse.framework */; };
 		25F51BBC1AD8F1F200369764 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F51BBB1AD8F1F200369764 /* WebViewController.m */; };
+		7F07C4B71B2571BE00627F4F /* EmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C4B61B2571BE00627F4F /* EmailViewController.m */; };
 		7F0AB8EF1AE27280009219B2 /* menu-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0AB8E91AE27280009219B2 /* menu-notifications@2x.png */; };
 		7F0AB8F01AE27280009219B2 /* menu-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0AB8EA1AE27280009219B2 /* menu-profile@2x.png */; };
 		7F0AB8F51AE2960E009219B2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AB8F41AE2960E009219B2 /* SignUpViewController.m */; };
@@ -221,6 +222,7 @@
 		7F916D531AF256CB00103CAF /* btnKidProfileClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F916D521AF256CB00103CAF /* btnKidProfileClose@2x.png */; };
 		7F94E5B71B0E11480070DE80 /* setting-strip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94E5B61B0E11480070DE80 /* setting-strip@2x.png */; };
 		7F94E5B91B0E11C80070DE80 /* setting-strip-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94E5B81B0E11C80070DE80 /* setting-strip-selected@2x.png */; };
+		7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */; };
 		7FB2FEC71B074BD60001CEA6 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */; };
 		7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC81B07649F0001CEA6 /* icon-upvote-gray@2x.png */; };
 		7FB2FECB1B0764D20001CEA6 /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FECA1B0764D20001CEA6 /* time@2x.png */; };
@@ -268,6 +270,8 @@
 		25F51BB71AD8F08B00369764 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		25F51BBA1AD8F1F200369764 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		25F51BBB1AD8F1F200369764 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		7F07C4B51B2571BE00627F4F /* EmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailViewController.h; sourceTree = "<group>"; };
+		7F07C4B61B2571BE00627F4F /* EmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailViewController.m; sourceTree = "<group>"; };
 		7F0AB8E91AE27280009219B2 /* menu-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-notifications@2x.png"; sourceTree = "<group>"; };
 		7F0AB8EA1AE27280009219B2 /* menu-profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-profile@2x.png"; sourceTree = "<group>"; };
 		7F0AB8F41AE2960E009219B2 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
@@ -567,6 +571,8 @@
 		7F916D521AF256CB00103CAF /* btnKidProfileClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnKidProfileClose@2x.png"; sourceTree = "<group>"; };
 		7F94E5B61B0E11480070DE80 /* setting-strip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip@2x.png"; sourceTree = "<group>"; };
 		7F94E5B81B0E11C80070DE80 /* setting-strip-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip-selected@2x.png"; sourceTree = "<group>"; };
+		7FA8FF2C1B25628D006F751A /* PushNotiSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotiSettingsViewController.h; sourceTree = "<group>"; };
+		7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotiSettingsViewController.m; sourceTree = "<group>"; };
 		7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
 		7FB2FEC81B07649F0001CEA6 /* icon-upvote-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote-gray@2x.png"; sourceTree = "<group>"; };
 		7FB2FECA1B0764D20001CEA6 /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
@@ -1019,6 +1025,10 @@
 				7F599E2C1AE66E8100DED294 /* MenuViewController.m */,
 				7F714F431AE7D25300C69BF4 /* SettingsViewController.h */,
 				7F714F441AE7D25300C69BF4 /* SettingsViewController.m */,
+				7FA8FF2C1B25628D006F751A /* PushNotiSettingsViewController.h */,
+				7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */,
+				7F07C4B51B2571BE00627F4F /* EmailViewController.h */,
+				7F07C4B61B2571BE00627F4F /* EmailViewController.m */,
 				7F714F461AE7D2B700C69BF4 /* ChangePasswordViewController.h */,
 				7F714F471AE7D2B700C69BF4 /* ChangePasswordViewController.m */,
 				7F5941B91AF3891E001F79BD /* ManageTagsViewController.h */,
@@ -1482,6 +1492,7 @@
 				7F83BC641AD14CEF008DFD8B /* UIButton+AFNetworking.m in Sources */,
 				7F83BC581AD14CEF008DFD8B /* AFHTTPRequestOperation.m in Sources */,
 				7F80DE781AD6AAB500EA6D1F /* APIConnector.m in Sources */,
+				7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */,
 				7F5DEFB91AD7C50A00F2C60A /* UIImage+GIF.m in Sources */,
 				7F80DE8E1AD6AB3000EA6D1F /* OnboardingViewController.m in Sources */,
 				7F7726E51B0B755500474190 /* AboutViewController.m in Sources */,
@@ -1515,6 +1526,7 @@
 				7F8D80E31AEFC89B00D3F052 /* PhotoCollectionViewCell.m in Sources */,
 				7F5F18E91ADE997200C5B4EC /* SWTableViewCell.m in Sources */,
 				7F8334541ADCF0480067C538 /* STTweetTextStorage.m in Sources */,
+				7F07C4B71B2571BE00627F4F /* EmailViewController.m in Sources */,
 				7F83BC261AD13C09008DFD8B /* MBProgressHUD.m in Sources */,
 				7F80DE841AD6AAF700EA6D1F /* AccessToken.m in Sources */,
 				7F5941B61AF388EC001F79BD /* StreamDisplayView.m in Sources */,

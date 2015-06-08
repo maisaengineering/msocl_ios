@@ -9,7 +9,16 @@
             <string>Ubuntu-LightItalic</string>
             <string>Ubuntu-LightItalic</string>
         </mutableArray>
+        <mutableArray key="Ubuntu-M.ttf">
+            <string>Ubuntu-Medium</string>
+            <string>Ubuntu-Medium</string>
+            <string>Ubuntu-Medium</string>
+            <string>Ubuntu-Medium</string>
+        </mutableArray>
         <mutableArray key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+            <string>Ubuntu</string>
+            <string>Ubuntu</string>
             <string>Ubuntu</string>
             <string>Ubuntu</string>
             <string>Ubuntu</string>
@@ -105,12 +114,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLN-UP-Hog">
-                                        <rect key="frame" x="115" y="146" width="90" height="25"/>
+                                        <rect key="frame" x="0.0" y="146" width="320" height="18"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                        <state key="normal">
+                                        <state key="normal" image="icon-favorite-disable.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="icon-favorite.png"/>
                                         <connections>
                                             <action selector="followOrEditClicked:" destination="a4M-BD-S81" eventType="touchUpInside" id="g1h-PP-WNT"/>
                                         </connections>
@@ -709,17 +719,43 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vLB-0N-c0J">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eg2-uU-idd">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eg2-uU-idd">
                                         <rect key="frame" x="14" y="39" width="293" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
-                                        <state key="normal" title="Change Password" backgroundImage="setting-strip.png">
+                                        <state key="normal" title="Edit My Profile" backgroundImage="setting-strip.png">
                                             <color key="titleColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="highlighted" backgroundImage="setting-strip-selected.png"/>
                                         <connections>
-                                            <action selector="changePassword:" destination="zEq-YT-i0r" eventType="touchUpInside" id="Ii0-M6-6BZ"/>
+                                            <action selector="profileClicked:" destination="zEq-YT-i0r" eventType="touchUpInside" id="XFo-M2-ccY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KEt-yf-S5W">
+                                        <rect key="frame" x="14" y="88" width="293" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                        <state key="normal" title="Edit Push Notifications" backgroundImage="setting-strip.png">
+                                            <color key="titleColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="setting-strip-selected.png"/>
+                                        <connections>
+                                            <action selector="PushNotifiClicked:" destination="zEq-YT-i0r" eventType="touchUpInside" id="ifs-9S-MIB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSU-hN-64e">
+                                        <rect key="frame" x="14" y="136" width="293" height="34"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
+                                        <state key="normal" title="Edit Email Notifications" backgroundImage="setting-strip.png">
+                                            <color key="titleColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="setting-strip-selected.png"/>
+                                        <connections>
+                                            <action selector="emailNotifiClicked:" destination="zEq-YT-i0r" eventType="touchUpInside" id="R1A-lX-jg7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -727,9 +763,6 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <connections>
-                        <outlet property="changePasswordBtn" destination="Eg2-uU-idd" id="Pl9-Ut-ZGy"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="96l-RF-OED" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -886,6 +919,88 @@
             </objects>
             <point key="canvasLocation" x="-554" y="-660"/>
         </scene>
+        <!--Push Noti Settings View Controller-->
+        <scene sceneID="2jv-Be-8Lj">
+            <objects>
+                <viewController storyboardIdentifier="PushNotiSettingsViewController" id="t7N-CT-Jzj" customClass="PushNotiSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="B3f-eQ-776"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZXr-Fa-Liu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qZz-XG-scA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="twb-V7-Bxk">
+                                <rect key="frame" x="10" y="37" width="300" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="t7N-CT-Jzj" eventType="touchUpInside" id="0Fk-uw-bm4"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From my posts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AG-d0-gR3">
+                                <rect key="frame" x="16" y="75" width="93" height="28"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From my likes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPb-CZ-Pd2">
+                                <rect key="frame" x="113" y="75" width="93" height="28"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From interested tags" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qc7-Th-Efy">
+                                <rect key="frame" x="216" y="75" width="93" height="40"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="slider" destination="twb-V7-Bxk" id="bFJ-1Y-iE1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hRC-KS-VVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1837" y="1383"/>
+        </scene>
+        <!--Email View Controller-->
+        <scene sceneID="Kfg-Q3-2U4">
+            <objects>
+                <viewController storyboardIdentifier="EmailViewController" id="Jmo-iJ-E1f" customClass="EmailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R5b-Uc-YXW"/>
+                        <viewControllerLayoutGuide type="bottom" id="LF0-lQ-x2S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gap-q3-lUp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Subscribe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzp-zt-ozi">
+                                <rect key="frame" x="9" y="28" width="89" height="28"/>
+                                <fontDescription key="fontDescription" name="Ubuntu-Medium" family="Ubuntu" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="drk-hd-cA9">
+                                <rect key="frame" x="233" y="25" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchChanged:" destination="Jmo-iJ-E1f" eventType="valueChanged" id="NUS-Eo-gzA"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="switchCntrl" destination="drk-hd-cA9" id="pCC-dV-zSU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="74F-oI-Ej6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2200" y="1383"/>
+        </scene>
         <!--M SOCIAL-->
         <scene sceneID="6Eo-hb-mqL">
             <objects>
@@ -901,7 +1016,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gb-HQ-B0G" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7VL-c4-ZVi">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7VL-c4-ZVi">
                                         <rect key="frame" x="17" y="144" width="123" height="30"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -909,7 +1024,7 @@
                                             <outlet property="delegate" destination="QhP-9v-hjI" id="bWv-I8-CSK"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztU-e8-u5f">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztU-e8-u5f">
                                         <rect key="frame" x="176" y="144" width="123" height="30"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -917,7 +1032,7 @@
                                             <outlet property="delegate" destination="QhP-9v-hjI" id="AIR-Jt-RV3"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THy-ew-Fa3">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Change email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THy-ew-Fa3">
                                         <rect key="frame" x="17" y="188" width="240" height="30"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -946,7 +1061,7 @@
                                         <rect key="frame" x="16" y="217" width="288" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Xb-BT-8eQ">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="About me" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Xb-BT-8eQ">
                                         <rect key="frame" x="17" y="233" width="240" height="30"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -963,7 +1078,7 @@
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGT-Fn-0Vb">
-                                        <rect key="frame" x="16" y="297" width="288" height="35"/>
+                                        <rect key="frame" x="16" y="334" width="288" height="35"/>
                                         <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="16"/>
                                         <state key="normal" title="Update">
@@ -974,6 +1089,18 @@
                                             <action selector="signupClicked:" destination="QhP-9v-hjI" eventType="touchUpInside" id="Ko8-qg-OQG"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Change password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Kj-7o-gfF">
+                                        <rect key="frame" x="16" y="278" width="240" height="30"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="QhP-9v-hjI" id="Znh-fx-gQE"/>
+                                        </connections>
+                                    </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ABX-Td-7gI">
+                                        <rect key="frame" x="16" y="307" width="288" height="1"/>
+                                        <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -982,7 +1109,9 @@
                     <navigationItem key="navigationItem" title="M SOCIAL" id="Pe4-wm-Y5D"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="lineImage" destination="ABX-Td-7gI" id="SbE-b1-PMr"/>
                         <outlet property="profileImage" destination="Mm5-RI-Lrl" id="okK-fi-eYF"/>
+                        <outlet property="txt_Password" destination="2Kj-7o-gfF" id="VNg-nh-P47"/>
                         <outlet property="txt_blog" destination="6Xb-BT-8eQ" id="0fe-v9-68R"/>
                         <outlet property="txt_emailAddress" destination="THy-ew-Fa3" id="mcH-M9-fSv"/>
                         <outlet property="txt_firstName" destination="7VL-c4-ZVi" id="whS-ab-1Ya"/>
@@ -1117,6 +1246,8 @@
         <image name="checkbox_empty.png" width="20" height="20"/>
         <image name="checkbox_full.png" width="20" height="20"/>
         <image name="icon-close.png" width="32" height="34"/>
+        <image name="icon-favorite-disable.png" width="17" height="17"/>
+        <image name="icon-favorite.png" width="23" height="20"/>
         <image name="icon-login.png" width="240" height="56"/>
         <image name="icon-profile-register.png" width="50" height="50"/>
         <image name="profile-register.png" width="51" height="50"/>

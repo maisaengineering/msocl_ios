@@ -68,6 +68,11 @@
 -(void) profileDetailsFailed;
 -(void) externalSigninOptionsSuccessFull:(NSDictionary *)recievedDict;
 -(void) externalSigninOptionsFailed;
+-(void) emailNotificationSuccessFull:(NSDictionary *)recievedDict;
+-(void) emailNotificationFailed;
+-(void) pushNotificationSuccessFull:(NSDictionary *)recievedDict;
+-(void) pushNotificationFailed;
+
 
 @end
 

@@ -186,9 +186,15 @@
     {
         case 0:
         {
-            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
-            [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            UserProfileViewCotroller *destViewController = (UserProfileViewCotroller*)[mainStoryboard
+                                                                                       instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
+            destViewController.photo = sharedModel.userProfile.image;
+            destViewController.name = [NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname];
+            destViewController.profileId = sharedModel.userProfile.uid;
+            [[SlideNavigationController sharedInstance] pushViewController:destViewController animated:YES];
+
         }
 
             break;

@@ -34,6 +34,8 @@
 @synthesize txt_postal_code;
 @synthesize txt_phno;
 @synthesize txt_blog;
+@synthesize txt_Password;
+@synthesize lineImage;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -70,14 +72,14 @@
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
     
     txt_firstName.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter first name"
+    [[NSAttributedString alloc] initWithString:@"First name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_lastname.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter last name"
+    [[NSAttributedString alloc] initWithString:@"Last name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
@@ -98,7 +100,19 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
+    txt_Password.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Change password"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"externalSignIn"])
+    {
+        txt_Password.hidden = YES;
+        lineImage.hidden = YES;
+    }
     
     [self setDetails];
 }
@@ -127,6 +141,7 @@
     [txt_emailAddress setText:sharedModel.userProfile.email];
     [txt_blog setText:sharedModel.userProfile.blog];
 
+    
     __weak UIImageView *weakSelf = profileImage;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
     
@@ -211,6 +226,8 @@
     [postDetails setObject:txt_blog.text forKey:@"summary"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
 
+    if(txt_Password.text.length > 0)
+         [postDetails setObject:txt_Password.text forKey:@"password"];
     if(imageId.length > 0)
     [postDetails setObject:imageId forKey:@"key"];
     

@@ -133,7 +133,13 @@
              
          }failure:nil];
     
+    if([modelManager.userProfile.uid isEqualToString:profileId])
+
+    {
+        followOrEditBtn.hidden = YES;
+    }
     [self callUserProfile];
+    
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -361,7 +367,7 @@
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = modelManager.accessToken;
             NSString *command;
-            if( [[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"unfollow"])
+            if( followOrEditBtn.selected)
                 command = @"unfollow";
             else
                 command = @"follow";
@@ -380,10 +386,10 @@
 }
 -(void) followingUserSuccessFull:(NSDictionary *)recievedDict
 {
-    if( [[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"unfollow"])
-       [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+    if( followOrEditBtn.selected)
+       [followOrEditBtn setSelected:NO];
     else
-        [followOrEditBtn setTitle:@"unfollow" forState:UIControlStateNormal];
+        [followOrEditBtn setSelected:YES];
     [appdelegate showOrhideIndicator:NO];
 }
 -(void) followingUserFailed
@@ -407,16 +413,11 @@
     
     if(![modelManager.userProfile.uid isEqualToString:profileId])
     {
-        followOrEditBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-        followOrEditBtn.layer.borderWidth = 1.5f;
-        followOrEditBtn.layer.cornerRadius = 5;
-        followOrEditBtn.layer.masksToBounds = YES;
-
         
         if(isFollowing)
-            [followOrEditBtn setTitle:@"unfollow" forState:UIControlStateNormal];
+            [followOrEditBtn setSelected:YES];
         else
-            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+            [followOrEditBtn setSelected:NO];
 
     }
 }

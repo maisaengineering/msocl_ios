@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface SettingsViewController : UIViewController
+#import "Webservices.h"
+@interface SettingsViewController : UIViewController<webServiceProtocol>
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIButton *changePasswordBtn;
--(IBAction)changePassword:(id)sender;
--(IBAction)manageTags:(id)sender;
+-(IBAction)profileClicked:(id)sender;
+-(IBAction)PushNotifiClicked:(id)sender;
+-(IBAction)emailNotifiClicked:(id)sender;
 @end
