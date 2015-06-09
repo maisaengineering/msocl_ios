@@ -222,6 +222,9 @@
 		7F916D531AF256CB00103CAF /* btnKidProfileClose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F916D521AF256CB00103CAF /* btnKidProfileClose@2x.png */; };
 		7F94E5B71B0E11480070DE80 /* setting-strip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94E5B61B0E11480070DE80 /* setting-strip@2x.png */; };
 		7F94E5B91B0E11C80070DE80 /* setting-strip-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F94E5B81B0E11C80070DE80 /* setting-strip-selected@2x.png */; };
+		7F952F621B26E0F600810014 /* slider-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F601B26E0F600810014 /* slider-gray@2x.png */; };
+		7F952F631B26E0F600810014 /* slider-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F611B26E0F600810014 /* slider-red@2x.png */; };
+		7F952F651B26E53B00810014 /* slider-circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F641B26E53B00810014 /* slider-circle@2x.png */; };
 		7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */; };
 		7FB2FEC71B074BD60001CEA6 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */; };
 		7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC81B07649F0001CEA6 /* icon-upvote-gray@2x.png */; };
@@ -571,6 +574,9 @@
 		7F916D521AF256CB00103CAF /* btnKidProfileClose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnKidProfileClose@2x.png"; sourceTree = "<group>"; };
 		7F94E5B61B0E11480070DE80 /* setting-strip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip@2x.png"; sourceTree = "<group>"; };
 		7F94E5B81B0E11C80070DE80 /* setting-strip-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip-selected@2x.png"; sourceTree = "<group>"; };
+		7F952F601B26E0F600810014 /* slider-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-gray@2x.png"; sourceTree = "<group>"; };
+		7F952F611B26E0F600810014 /* slider-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-red@2x.png"; sourceTree = "<group>"; };
+		7F952F641B26E53B00810014 /* slider-circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-circle@2x.png"; sourceTree = "<group>"; };
 		7FA8FF2C1B25628D006F751A /* PushNotiSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotiSettingsViewController.h; sourceTree = "<group>"; };
 		7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotiSettingsViewController.m; sourceTree = "<group>"; };
 		7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
@@ -1082,6 +1088,9 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F952F641B26E53B00810014 /* slider-circle@2x.png */,
+				7F952F601B26E0F600810014 /* slider-gray@2x.png */,
+				7F952F611B26E0F600810014 /* slider-red@2x.png */,
 				7F8891131B1624A8009C8CC8 /* icon-login@3x.png */,
 				7F88910F1B162459009C8CC8 /* header-icon-samepinch@2x.png */,
 				7F8891101B162459009C8CC8 /* header-icon-samepinch@3x.png */,
@@ -1389,6 +1398,7 @@
 				7FF5CC0A1ACE9E61004F4F9B /* Main.storyboard in Resources */,
 				7F8891061B16024C009C8CC8 /* btn-Cmntas@2x.png in Resources */,
 				7FE62B741B14A94000CFE9AA /* btn-post-ana@2x.png in Resources */,
+				7F952F621B26E0F600810014 /* slider-gray@2x.png in Resources */,
 				7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */,
 				7F826FB31B08AF2F009455E9 /* icon-edit@2x.png in Resources */,
 				7F826FAB1B08A9CE009455E9 /* tag-tick@2x.png in Resources */,
@@ -1440,6 +1450,7 @@
 				7F8999271AD2B1F6007E2917 /* tour_6@2x.png in Resources */,
 				7FE62B701B14A3D700CFE9AA /* comment-btn@2x.png in Resources */,
 				7F76B7E21B10B83E0045F9D7 /* icon-menu-about@2x.png in Resources */,
+				7F952F651B26E53B00810014 /* slider-circle@2x.png in Resources */,
 				7F76B7D61B1095E70045F9D7 /* checkbox_empty@2x.png in Resources */,
 				7F5941CC1AF3B337001F79BD /* menu-logout@2x.png in Resources */,
 				7FE62B6C1B14792700CFE9AA /* icon-view-count@2x.png in Resources */,
@@ -1465,6 +1476,7 @@
 				7F86E5951ADBF0A50002493F /* icon-post-@2x.png in Resources */,
 				7F5941BE1AF3892D001F79BD /* placeHolder_show@2x.png in Resources */,
 				7F826FA01B08A0CF009455E9 /* icon-like-postview-active@2x.png in Resources */,
+				7F952F631B26E0F600810014 /* slider-red@2x.png in Resources */,
 				7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */,
 				7F714F361AE79A2B00C69BF4 /* icon-anamous@2x.png in Resources */,
 			);

@@ -194,6 +194,14 @@
     [self resignKeyBoards];
     [self.navigationController  popViewControllerAnimated:YES];
 }
+-(IBAction)changePassword:(id)sender
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"ChangePasswordViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 #pragma mark -
 #pragma mark Signup Methods
 -(IBAction)signupClicked:(id)sender
@@ -593,6 +601,8 @@
     isUploadingImage = NO;
     
 }
+
+
 
 #pragma mark -
 #pragma mark Textfield Delegate methods

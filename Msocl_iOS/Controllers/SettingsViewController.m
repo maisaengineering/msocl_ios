@@ -55,6 +55,7 @@
     [super viewWillAppear:YES];
     [self getOptionsForExternalSignIn];
 }
+
 #pragma mark -
 #pragma mark Call to Disable External Sign in
 -(void)getOptionsForExternalSignIn
@@ -95,27 +96,24 @@
 }
 -(IBAction)PushNotifiClicked:(id)sender
 {
-    if(notifiResoonseDict != nil)
-    {
+    
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PushNotiSettingsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"PushNotiSettingsViewController"];
         login.notifiResoonseDict = notifiResoonseDict;
     [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
     
-    }
+    
 }
 -(IBAction)emailNotifiClicked:(id)sender
 {
-    if(notifiResoonseDict != nil)
-    {
-        
+    
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         EmailViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"EmailViewController"];
         login.notifiResoonseDict = notifiResoonseDict;
         [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
         
-    }
+    
 }
 
 

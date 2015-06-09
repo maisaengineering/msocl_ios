@@ -31,6 +31,22 @@
     webServices.delegate = self;
 
     
+    UIImage *minImage = [[UIImage imageNamed:@"slider-red.png"]
+                         resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *maxImage = [[UIImage imageNamed:@"slider-gray.png"]
+                         resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    UIImage *thumbImage = [UIImage imageNamed:@"slider-circle.png"];
+    
+    [[UISlider appearance] setMaximumTrackImage:maxImage
+                                       forState:UIControlStateNormal];
+    [[UISlider appearance] setMinimumTrackImage:minImage
+                                       forState:UIControlStateNormal];
+    [[UISlider appearance] setThumbImage:thumbImage
+                                forState:UIControlStateNormal];
+    
+//    [slider setMinimumTrackImage:[UIImage imageNamed:@"slider-red.png"] forState:UIControlStateNormal];
+//    [slider setMaximumTrackImage:[UIImage imageNamed:@"slider-gray.png"] forState:UIControlStateNormal];
+    
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -40,6 +56,8 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
    
+    
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
