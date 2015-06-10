@@ -15,13 +15,14 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "NIAttributedLabel.h"
+#import "FacebookShareController.h"
 @protocol PostDetailsProtocol<NSObject>
 -(void)PostEditedFromPostDetails:(PostDetails *)postDetails;
 -(void)PostDeletedFromPostDetails;
 @end
 
 
-@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate,EditPostProtocol,UIActionSheetDelegate,MFMailComposeViewControllerDelegate,NIAttributedLabelDelegate>
+@interface PostDetailDescriptionViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,webServiceProtocol,SWTableViewCellDelegate,EditPostProtocol,UIActionSheetDelegate,MFMailComposeViewControllerDelegate,NIAttributedLabelDelegate,FacebookPostedConfirmationDelegate>
 
 @property (nonatomic, strong) NSString *postID;
 @property (nonatomic, strong) NSMutableArray *storiesArray;

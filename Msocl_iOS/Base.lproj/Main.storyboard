@@ -946,7 +946,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="twb-V7-Bxk">
-                                <rect key="frame" x="10" y="37" width="300" height="31"/>
+                                <rect key="frame" x="13" y="37" width="294" height="31"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="t7N-CT-Jzj" eventType="touchUpInside" id="0Fk-uw-bm4"/>
                                 </connections>

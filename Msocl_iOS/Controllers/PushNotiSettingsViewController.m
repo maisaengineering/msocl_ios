@@ -35,14 +35,14 @@
                          resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     UIImage *maxImage = [[UIImage imageNamed:@"slider-gray.png"]
                          resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    UIImage *thumbImage = [UIImage imageNamed:@"slider-circle.png"];
+  //  UIImage *thumbImage = [UIImage imageNamed:@"slider-circle.png"];
     
     [[UISlider appearance] setMaximumTrackImage:maxImage
                                        forState:UIControlStateNormal];
     [[UISlider appearance] setMinimumTrackImage:minImage
                                        forState:UIControlStateNormal];
-    [[UISlider appearance] setThumbImage:thumbImage
-                                forState:UIControlStateNormal];
+//    [[UISlider appearance] setThumbImage:thumbImage
+//                                forState:UIControlStateNormal];
     
 //    [slider setMinimumTrackImage:[UIImage imageNamed:@"slider-red.png"] forState:UIControlStateNormal];
 //    [slider setMaximumTrackImage:[UIImage imageNamed:@"slider-gray.png"] forState:UIControlStateNormal];

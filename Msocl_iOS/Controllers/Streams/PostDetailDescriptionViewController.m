@@ -27,6 +27,7 @@
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
 #import "UserProfileViewCotroller.h"
+
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -250,7 +251,12 @@
     return UIStatusBarStyleLightContent;
 }
 
-
+-(void)sharetoFB
+{
+    FacebookShareController *fbc = [[FacebookShareController alloc] init];
+    fbc.postedConfirmationDelegate = self;
+    [fbc PostToFacebookViaAPI:@"google.com":@"":@"":@"story"];
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
@@ -1740,7 +1746,8 @@
 #pragma mark Post Flag
 -(void)flagButtonClicked:(id)sender
 {
-    
+    [self sharetoFB];
+    return;
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
         PostDetails *postDetails = [self.storiesArray lastObject];

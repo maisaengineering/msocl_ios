@@ -67,8 +67,7 @@
         loginWith.hidden = YES;
     else
         loginWith.hidden = NO;
-    if([externalSignInOptions count] > 0)
-    {
+   
         float x = 16+(288-(3 - [externalSignInOptions count])*92 - (3 - [externalSignInOptions count]-1)*6)/2 ;
         
     if([externalSignInOptions containsObject:@"facebook"])
@@ -110,7 +109,6 @@
             googleButton.frame = frame;
             x+=98;
         }
-    }
 }
 - (void)tapGestureUpdated:(UIGestureRecognizer *)recognizer
 {

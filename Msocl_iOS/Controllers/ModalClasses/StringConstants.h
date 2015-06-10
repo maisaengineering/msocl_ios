@@ -22,6 +22,11 @@
 //FLURRY
 #define FLURRY_KEY              @"NXH4VDMB242THB6Y48CT"
 
+// Facebook Namespace
+#define FACEBOOK_NAME_SPACE       @"miossamepinch"
+
+
+
 // PARSE
 #define PARSE_APPLICATION_KEY   @"7aRj7WVidMmPN5RpMzzUXVbCyG3edtVozRK2kBKu"
 #define PARSE_CLIENT_KEY        @"09oD7RgPSdqY7zwkDPNnGeDcq3dQu5T3HCcJSuyg"
@@ -41,6 +46,8 @@
 #define BASE_URL                @"https://samepinch.herokuapp.com/api/"
 
 #define APP_BASE_URL @"http://www.samepinch.co/"
+
+#define FACEBOOK_CHECK          @"FACEBOOK_CHECK"
 
 // OAUTH URL
 #define OAUTH_URL                @"https://samepinch.herokuapp.com/users/auth/"

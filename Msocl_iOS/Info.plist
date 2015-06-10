@@ -24,6 +24,20 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>8</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.maisasolutions.msocl</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>miossamepinch</string>
+				<string>fb1649226515293024</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>1649226515293024</string>
 	<key>LSApplicationCategoryType</key>
 	<string>status</string>
 	<key>LSRequiresIPhoneOS</key>
