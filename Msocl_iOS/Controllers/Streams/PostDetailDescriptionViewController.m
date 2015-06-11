@@ -47,6 +47,8 @@
     UIView *addPopUpView;
     UIView *inputView;
     UIImageView *iconImage;
+    UIButton *editButton;
+    UIButton *shareButton;
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -262,6 +264,8 @@
     [super viewWillDisappear:YES];
     
     [iconImage removeFromSuperview];
+    [editButton removeFromSuperview];
+    [shareButton removeFromSuperview];
     
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
@@ -322,15 +326,20 @@
     PostDetails *postObject = [postArray lastObject];
     if([postObject.can containsObject:@"edit"])
     {
-        UIButton *editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        editButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
         [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
-        editButton.frame = CGRectMake(0 ,0,20,18);
-        
-        UIBarButtonItem *rightbarButton = [[UIBarButtonItem alloc] initWithCustomView:editButton];
-        self.navigationItem.rightBarButtonItem = rightbarButton;
+        editButton.frame = CGRectMake(250 ,7,30,30);
+        [self.navigationController.navigationBar addSubview:editButton];
 
     }
+    
+    shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [shareButton addTarget:self action:@selector(sharetoFB) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [shareButton setImage:[UIImage imageNamed:@"icon-share.png"] forState:UIControlStateNormal];
+    shareButton.frame = CGRectMake(280 ,7,30,30);
+    [self.navigationController.navigationBar addSubview:shareButton];
+    
     [storiesArray removeAllObjects];
     [storiesArray addObjectsFromArray:postArray];
     [self.streamTableView reloadData];
@@ -1746,8 +1755,6 @@
 #pragma mark Post Flag
 -(void)flagButtonClicked:(id)sender
 {
-    [self sharetoFB];
-    return;
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
         PostDetails *postDetails = [self.storiesArray lastObject];

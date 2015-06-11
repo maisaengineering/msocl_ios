@@ -21,7 +21,7 @@
 {
     UITableView *tableView;
     Webservices *webServices;
-
+    AppDelegate *appdelegate;
     NSDictionary *notifiResoonseDict;
 }
 @synthesize scrollView;
@@ -34,7 +34,7 @@
     webServices.delegate = self;
 
     
-    
+    appdelegate = [[UIApplication sharedApplication] delegate];
     self.title = @"SETTINGS";
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
@@ -60,6 +60,7 @@
 #pragma mark Call to Disable External Sign in
 -(void)getOptionsForExternalSignIn
 {
+    [appdelegate showOrhideIndicator:YES];
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     NSString *command = @"appConfig";
@@ -71,12 +72,13 @@
 }
 -(void)externalSigninOptionsSuccessFull:(NSDictionary *)recievedDict
 {
+    [appdelegate showOrhideIndicator:NO];
     notifiResoonseDict = recievedDict;
     
 }
 -(void)externalSigninOptionsFailed
 {
-    
+    [appdelegate showOrhideIndicator:NO];
 }
 
 

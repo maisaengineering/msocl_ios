@@ -85,6 +85,9 @@
         UIImageView *profileImage = (UIImageView *)[cell viewWithTag:1];
             __weak UIImageView *weakSelf = profileImage;
         
+        for (UIView *view in [profileImage subviews])
+             [view removeFromSuperview];
+        
         NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
         if( [sharedModel.userProfile.fname length] >0)
             [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];

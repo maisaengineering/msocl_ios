@@ -225,6 +225,7 @@
 		7F952F621B26E0F600810014 /* slider-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F601B26E0F600810014 /* slider-gray@2x.png */; };
 		7F952F631B26E0F600810014 /* slider-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F611B26E0F600810014 /* slider-red@2x.png */; };
 		7F952F651B26E53B00810014 /* slider-circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F641B26E53B00810014 /* slider-circle@2x.png */; };
+		7FA34A811B295C0C0081EC79 /* icon-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA34A801B295C0C0081EC79 /* icon-share@2x.png */; };
 		7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */; };
 		7FB2FEC71B074BD60001CEA6 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */; };
 		7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC81B07649F0001CEA6 /* icon-upvote-gray@2x.png */; };
@@ -578,6 +579,7 @@
 		7F952F601B26E0F600810014 /* slider-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-gray@2x.png"; sourceTree = "<group>"; };
 		7F952F611B26E0F600810014 /* slider-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-red@2x.png"; sourceTree = "<group>"; };
 		7F952F641B26E53B00810014 /* slider-circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-circle@2x.png"; sourceTree = "<group>"; };
+		7FA34A801B295C0C0081EC79 /* icon-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-share@2x.png"; sourceTree = "<group>"; };
 		7FA8FF2C1B25628D006F751A /* PushNotiSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotiSettingsViewController.h; sourceTree = "<group>"; };
 		7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotiSettingsViewController.m; sourceTree = "<group>"; };
 		7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
@@ -1089,6 +1091,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FA34A801B295C0C0081EC79 /* icon-share@2x.png */,
 				7F952F641B26E53B00810014 /* slider-circle@2x.png */,
 				7F952F601B26E0F600810014 /* slider-gray@2x.png */,
 				7F952F611B26E0F600810014 /* slider-red@2x.png */,
@@ -1450,6 +1453,7 @@
 				7F0AB8EF1AE27280009219B2 /* menu-notifications@2x.png in Resources */,
 				7F8999271AD2B1F6007E2917 /* tour_6@2x.png in Resources */,
 				7FE62B701B14A3D700CFE9AA /* comment-btn@2x.png in Resources */,
+				7FA34A811B295C0C0081EC79 /* icon-share@2x.png in Resources */,
 				7F76B7E21B10B83E0045F9D7 /* icon-menu-about@2x.png in Resources */,
 				7F952F651B26E53B00810014 /* slider-circle@2x.png in Resources */,
 				7F76B7D61B1095E70045F9D7 /* checkbox_empty@2x.png in Resources */,
