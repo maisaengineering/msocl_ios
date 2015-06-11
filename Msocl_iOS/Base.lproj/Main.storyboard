@@ -1173,7 +1173,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="178"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-gy-Eq5">
-                                        <rect key="frame" x="105" y="45" width="110" height="80"/>
+                                        <rect key="frame" x="114" y="36" width="93" height="93"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1276,10 +1276,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="Ngw-Gf-AxF"/>
         <segue reference="fCv-1J-IEX"/>
         <segue reference="m3S-0J-NjW"/>
         <segue reference="dLo-Yv-fr4"/>
-        <segue reference="iax-nE-auz"/>
-        <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="M8x-x6-6lY"/>
     </inferredMetricsTieBreakers>
 </document>
