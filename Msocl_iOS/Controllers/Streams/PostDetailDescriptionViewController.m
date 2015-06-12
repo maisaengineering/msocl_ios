@@ -255,9 +255,8 @@
 
 -(void)sharetoFB
 {
-    FacebookShareController *fbc = [[FacebookShareController alloc] init];
-    fbc.postedConfirmationDelegate = self;
-    [fbc PostToFacebookViaAPI:@"google.com":@"":@"":@"story"];
+    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", nil];
+    [shareActionSheet showInView:self.view];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -1670,6 +1669,8 @@
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if(actionSheet.tag == 1)
+    {
     NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
     if([title isEqualToString:@"Like"])
     {
@@ -1700,6 +1701,20 @@
     else if([title isEqualToString:@"Edit"])
     {
         [self performSegueWithIdentifier: @"EditComment" sender: self];
+    }
+    }
+    else
+    {
+        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+        if([title isEqualToString:@"Share on Facebook"])
+        {
+            PostDetails *post = [storiesArray lastObject];
+
+            FacebookShareController *fbc = [[FacebookShareController alloc] init];
+        fbc.postedConfirmationDelegate = self;
+        [fbc PostToFacebookViaAPI:post.url:@"":@"":@"story"];
+        }
+
     }
 }
 -(void)CommentUpVote

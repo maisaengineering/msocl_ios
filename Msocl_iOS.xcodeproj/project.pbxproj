@@ -84,7 +84,6 @@
 		7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18ED1ADE9B8700C5B4EC /* icon-edit-scroll@2x.png */; };
 		7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */; };
 		7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */; };
-		7F6B16E11B281C31004095BC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6B16E01B281C31004095BC /* FacebookSDK.framework */; };
 		7F714F351AE79A2B00C69BF4 /* comment-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */; };
 		7F714F361AE79A2B00C69BF4 /* icon-anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2E1AE79A2B00C69BF4 /* icon-anamous@2x.png */; };
 		7F714F371AE79A2B00C69BF4 /* icon-more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2F1AE79A2B00C69BF4 /* icon-more@2x.png */; };
@@ -226,6 +225,7 @@
 		7F952F631B26E0F600810014 /* slider-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F611B26E0F600810014 /* slider-red@2x.png */; };
 		7F952F651B26E53B00810014 /* slider-circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F641B26E53B00810014 /* slider-circle@2x.png */; };
 		7FA34A811B295C0C0081EC79 /* icon-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA34A801B295C0C0081EC79 /* icon-share@2x.png */; };
+		7FA89E1F1B2AD3C90019BFBC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */; };
 		7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */; };
 		7FB2FEC71B074BD60001CEA6 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */; };
 		7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC81B07649F0001CEA6 /* icon-upvote-gray@2x.png */; };
@@ -375,7 +375,6 @@
 		7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-scroll@2x.png"; sourceTree = "<group>"; };
 		7F5F18F21ADE9E7D00C5B4EC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
-		7F6B16E01B281C31004095BC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-textfield@2x.png"; sourceTree = "<group>"; };
 		7F714F2E1AE79A2B00C69BF4 /* icon-anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-anamous@2x.png"; sourceTree = "<group>"; };
 		7F714F2F1AE79A2B00C69BF4 /* icon-more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-more@2x.png"; sourceTree = "<group>"; };
@@ -580,6 +579,7 @@
 		7F952F611B26E0F600810014 /* slider-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-red@2x.png"; sourceTree = "<group>"; };
 		7F952F641B26E53B00810014 /* slider-circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-circle@2x.png"; sourceTree = "<group>"; };
 		7FA34A801B295C0C0081EC79 /* icon-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-share@2x.png"; sourceTree = "<group>"; };
+		7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		7FA8FF2C1B25628D006F751A /* PushNotiSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotiSettingsViewController.h; sourceTree = "<group>"; };
 		7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotiSettingsViewController.m; sourceTree = "<group>"; };
 		7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
@@ -629,8 +629,8 @@
 				7F8998FF1AD25E39007E2917 /* Accelerate.framework in Frameworks */,
 				7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */,
 				7F8998FD1AD25DF2007E2917 /* OpenGLES.framework in Frameworks */,
+				7FA89E1F1B2AD3C90019BFBC /* FacebookSDK.framework in Frameworks */,
 				7F8998FB1AD25DDA007E2917 /* CoreText.framework in Frameworks */,
-				7F6B16E11B281C31004095BC /* FacebookSDK.framework in Frameworks */,
 				7F8998F71AD25DC5007E2917 /* QuartzCore.framework in Frameworks */,
 				7F8998F51AD25DAC007E2917 /* Foundation.framework in Frameworks */,
 				7F8998F31AD25DA5007E2917 /* UIKit.framework in Frameworks */,
@@ -1052,7 +1052,7 @@
 		7F89990A1AD25EE8007E2917 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7F6B16E01B281C31004095BC /* FacebookSDK.framework */,
+				7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */,
 				253C89541AD804C9002477A8 /* Social.framework */,
 				253C89521AD804C0002477A8 /* Accounts.framework */,
 				253C89501AD804BA002477A8 /* libsqlite3.dylib */,
@@ -1720,8 +1720,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1735,13 +1735,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/Flurry",
+					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = (
-					"-Objc",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1f59a4d7-daad-4d05-8260-4361b3df21e1";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1752,8 +1750,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1767,13 +1765,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/Flurry",
+					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = (
-					"-Objc",
-					"-all_load",
-				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1f59a4d7-daad-4d05-8260-4361b3df21e1";
+				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

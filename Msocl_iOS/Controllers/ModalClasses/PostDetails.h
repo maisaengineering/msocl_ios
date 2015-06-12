@@ -20,7 +20,7 @@
 @property (nonatomic,strong) NSMutableDictionary *owner;
 @property (nonatomic,strong) NSMutableArray *commenters;
 @property (nonatomic,strong) NSMutableArray *tags;
-
+@property (nonatomic,strong) NSString *url;
 @property (nonatomic,strong) NSMutableArray *comments;
 @property (nonatomic,assign) int upVoteCount;
 @property (nonatomic,assign) int commentCount;

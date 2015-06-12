@@ -27,6 +27,7 @@
 @synthesize large_images;
 @synthesize can;
 @synthesize viewsCount;
+@synthesize url;
 -(id)initWithDictionary:(NSDictionary *)response{
     
     if (self=[super init]) {
@@ -87,6 +88,9 @@
             }
             else if ([key isEqualToString:@"views"]) {
                 self.viewsCount = [[response objectForKey:key] intValue];
+            }
+            else if ([key isEqualToString:@"url"]) {
+                self.url = [response objectForKey:key];
             }
         }
     }

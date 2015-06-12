@@ -30,7 +30,6 @@
              
              if (state == FBSessionStateOpen)
              {
-                
                  // instantiate a Facebook Open Graph object
                  NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
                  object.provisionedForPost = YES;
@@ -39,12 +38,12 @@
                  
                  
                 
-                     object[@"image"] = @[
-                                          @{@"url": @"http://www.mykidslink.com/kl_icon_big.png", @"user_generated" : @"false" }
-                                          ];
-                     object[@"description"] = @"SamePinch";
+//                     object[@"image"] = @[
+//                                          @{@"url": @"http://www.mykidslink.com/kl_icon_big.png", @"user_generated" : @"false" }
+//                                          ];
+//                     object[@"description"] = @"SamePinch";
 
-                 object[@"url"] = @"http://www.google.com";
+                 object[@"url"] = imageURL;
 
                  // Make the object request
                  [FBRequestConnection startForPostOpenGraphObject:object completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -64,7 +63,7 @@
             
                          
                          // create action referencing user owned object
-                         NSString *graphPath = [NSString stringWithFormat:@"me/%@:post",FACEBOOK_NAME_SPACE];
+                         NSString *graphPath = [NSString stringWithFormat:@"me/%@:share",FACEBOOK_NAME_SPACE];
                          [FBRequestConnection startForPostWithGraphPath:graphPath graphObject:action completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                              
                              if(!error)
