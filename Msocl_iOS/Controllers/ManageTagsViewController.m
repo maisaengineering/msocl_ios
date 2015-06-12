@@ -146,7 +146,7 @@
     label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [label setText:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [label setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
     [label setTextColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
     [cell addSubview:label];
     

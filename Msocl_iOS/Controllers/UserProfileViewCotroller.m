@@ -50,7 +50,7 @@
 
     
     aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 180, 320, 30)];
-    aboutLabel.font =[UIFont fontWithName:@"Ubuntu-Light" size:12];
+    aboutLabel.font =[UIFont fontWithName:@"SanFranciscoText-Light" size:12];
     [aboutLabel setTextAlignment:NSTextAlignmentCenter];
     [aboutLabel setBackgroundColor:[UIColor whiteColor]];
     aboutLabel.textColor = [UIColor colorWithRed:(68/255.f) green:(68/255.f) blue:(68/255.f) alpha:1];
@@ -105,14 +105,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:32]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:32]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:32]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:32]}
                                 range:range];
     }
     
@@ -218,7 +218,7 @@
     
     if([recievedDict objectForKey:@"summary"] != nil)
     {
-        CGSize size = [[recievedDict objectForKey:@"summary"] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:12]}];
+        CGSize size = [[recievedDict objectForKey:@"summary"] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]}];
         if(size.height < 21)
             size.height = 21;
         CGRect frame =  aboutLabel.frame;
@@ -367,7 +367,8 @@
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = modelManager.accessToken;
             NSString *command;
-            if( followOrEditBtn.selected)
+
+            if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"un follow"])
                 command = @"unfollow";
             else
                 command = @"follow";
@@ -386,10 +387,10 @@
 }
 -(void) followingUserSuccessFull:(NSDictionary *)recievedDict
 {
-    if( followOrEditBtn.selected)
-       [followOrEditBtn setSelected:NO];
+    if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
+        [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
     else
-        [followOrEditBtn setSelected:YES];
+        [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
     [appdelegate showOrhideIndicator:NO];
 }
 -(void) followingUserFailed
@@ -415,9 +416,10 @@
     {
         
         if(isFollowing)
-            [followOrEditBtn setSelected:YES];
+            [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
         else
-            [followOrEditBtn setSelected:NO];
+            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+
 
     }
 }

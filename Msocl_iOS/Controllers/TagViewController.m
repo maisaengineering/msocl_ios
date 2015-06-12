@@ -45,9 +45,6 @@
 {
     [super viewDidLoad];
     
-    [followOrEditBtn setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
-
-    
     
     followOrEditBtn.hidden = YES;
 
@@ -84,28 +81,16 @@
     [nameLabel setTextAlignment:NSTextAlignmentCenter];
     [animatedTopView addSubview:nameLabel];
     nameLabel.text = tagName;
-    nameLabel.textColor = [UIColor whiteColor];
-    nameLabel.font = [UIFont fontWithName:@"Ubuntu" size:17];
+    nameLabel.textColor = [UIColor darkGrayColor];
+    nameLabel.font = [UIFont fontWithName:@"SanFranciscoText-Regular" size:16];
     
-    CGSize size = [tagName sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:24]}];
     
     CGRect frame ;
-    frame.origin.x = (320-size.width)/2;
-    frame.size.width = size.width;
+    frame.origin.x = 0;
+    frame.size.width = 320;
     frame.origin.y = 140;
     frame.size.height = 26;
     nameLabel.frame = frame;
-    nameLabel.layer.borderColor = [UIColor whiteColor].CGColor;
-    nameLabel.layer.borderWidth = 1.5f;
-    nameLabel.layer.cornerRadius = 5;
-    nameLabel.layer.masksToBounds = YES;
-    nameLabel.backgroundColor = [UIColor clearColor];
-
-    
-    smallProfileImageVw.layer.borderColor = [UIColor whiteColor].CGColor;
-    smallProfileImageVw.layer.borderWidth = 3.0f;
-
-    
 
   NSArray *tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     NSArray *array = [tagsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",tagName]];
@@ -124,13 +109,12 @@
 */
     profileImageVw.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
-    
+    __weak ProfilePhotoUtils *weakPhoto = photoUtils;
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf1.image = [image resizedImageByMagick:@"110x80#"];
+         weakSelf1.image = [weakPhoto squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)];
          
      }failure:nil];
-    followOrEditBtn.hidden = YES;
     
 }
 -(IBAction)addClicked:(id)sender
@@ -217,7 +201,7 @@
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = modelManager.accessToken;
             NSString *command;
-            if(!followOrEditBtn.selected)
+            if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
                 command = @"follow";
             else
                 command = @"unfollow";
@@ -237,7 +221,10 @@
 -(void) followingGroupSuccessFull:(NSDictionary *)recievedDict
 {
     [appdelegate showOrhideIndicator:NO];
-    followOrEditBtn.selected = !followOrEditBtn.selected;
+    if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
+       [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+    else
+    [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
 }
 -(void) followingGroupFailed
 {
@@ -281,14 +268,9 @@
     
         followOrEditBtn.hidden = NO;
         if(isFollowing)
-        {
-            [followOrEditBtn setSelected:YES];
-            
-        }
+            [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
         else
-        {
-            [followOrEditBtn setSelected:YES];
-        }
+            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
     
     }
 }

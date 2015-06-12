@@ -43,7 +43,7 @@
     [rightButton addTarget:self action:@selector(resetClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
     [rightButton setTitle:@"Reset" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [rightButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:15]];
+    [rightButton.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:15]];
     rightButton.frame = CGRectMake(0 ,0,50,30);
     rightButton.layer.borderColor = [UIColor whiteColor].CGColor;
     rightButton.layer.borderWidth = 1.5;
@@ -55,7 +55,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButton;
 
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:12.0];
+    UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:12.0];
     
     txt_oldPassword.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Current password"

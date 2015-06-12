@@ -35,7 +35,7 @@
     webServices.delegate = self;
     
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:14];
+    UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14];
     
     txt_password.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Password"

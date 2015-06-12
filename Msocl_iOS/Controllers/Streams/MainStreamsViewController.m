@@ -55,7 +55,7 @@
     
     
     UILabel *line = [[UILabel alloc] initWithFrame: CGRectMake(0, 94.5, 320, 0.5)];
-    line.font =[UIFont fontWithName:@"Ubuntu-Light" size:10];
+    line.font =[UIFont fontWithName:@"SanFranciscoText-Light" size:10];
     [line setTextAlignment:NSTextAlignmentLeft];
     line.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
     [self.view addSubview:line];
@@ -88,12 +88,12 @@
     [txfSearchField setBackgroundColor:[UIColor clearColor]];
     [txfSearchField setBorderStyle:UITextBorderStyleNone];
     txfSearchField.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0];
-    txfSearchField.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
+    txfSearchField.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:16];
     txfSearchField.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"search..."
                                     attributes:@{
                                                  NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0],
-                                                 NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-LightItalic" size:16]
+                                                 NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-LightItalic" size:16]
                                                  }
      ];
     mostRecentButton = [UIButton buttonWithType:UIButtonTypeCustom];

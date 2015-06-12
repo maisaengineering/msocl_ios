@@ -93,7 +93,7 @@
     [path addClip];
     [fooImage drawInRect:imageRect];
     
-    CGContextSetStrokeColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
+    CGContextSetStrokeColorWithColor(ctx, [[UIColor lightGrayColor] CGColor]);
     [path setLineWidth:value];
     [path stroke];
     

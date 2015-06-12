@@ -56,7 +56,7 @@
     [AFOpenGLManager beginOpenGLLoad];
     
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:14.0];
+    UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14.0];
     
     txt_password.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Password"

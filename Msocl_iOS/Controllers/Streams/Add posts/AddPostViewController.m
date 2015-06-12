@@ -86,7 +86,7 @@
     [postButton setFrame:CGRectMake(237, 5, 50, 31)];
     [postButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [postButton setTitle:@"Post as" forState:UIControlStateNormal];
-    [postButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];
+    [postButton.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
     [postButton setBackgroundImage:[UIImage imageNamed:@"btn-postas.png"] forState:UIControlStateNormal];
 
 
@@ -115,14 +115,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     
@@ -217,7 +217,7 @@
     [scrollView addSubview:imageView];
 
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 140)];
-    textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:14];
+    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     textView.delegate = self;
     textView.autocorrectionType = UITextAutocorrectionTypeNo;
     [scrollView addSubview:textView];
@@ -228,7 +228,7 @@
     [placeholderLabel setNumberOfLines:0];
     placeholderLabel.text = @"Write description";
     [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
-    [placeholderLabel setFont:[UIFont fontWithName:@"Ubuntu-LightItalic" size:14]];
+    [placeholderLabel setFont:[UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14]];
     [placeholderLabel setTextColor:[UIColor lightGrayColor]];
     [textView addSubview:placeholderLabel];
 
@@ -249,14 +249,14 @@
     UIButton *donebtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [donebtn setFrame:CGRectMake(250, 0, 70, 40)];
     [donebtn setTitle:@"Done" forState:UIControlStateNormal];
-    [donebtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:15]];
+    [donebtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Medium" size:15]];
     [donebtn addTarget:self action:@selector(doneClick:) forControlEvents:UIControlEventTouchUpInside];
     [inputView addSubview:donebtn];
     
     
     
     UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 200, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"Ubuntu" size:15]];
+    [selectTagslabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
     [selectTagslabel setTextColor:[UIColor colorWithRed:77/255.0 green:77/255.0 blue:77/255.0 alpha:1.0]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
@@ -300,7 +300,7 @@
     [postButton setTitle:@"Save" forState:UIControlStateNormal];
     [postButton removeTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
     [postButton addTarget:self action:@selector(editPost) forControlEvents:UIControlEventTouchUpInside];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -333,7 +333,7 @@
             }];
             
             NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
-            [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
+            [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
 
             
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
@@ -348,7 +348,7 @@
     }while (1);
 
     textView.attributedText = attributedString;
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
     selectedtagsArray = [postDetailsObject.tags mutableCopy];
     [collectionView reloadData];
 
@@ -619,31 +619,31 @@
     if(textView.text.length > textView.selectedRange.location)
     {
         NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
-        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
+        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
         
         if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location];
         [attributedString insertAttributedString:attrStringWithImage atIndex:selectedrange.location+1];
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location+2];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location+2];
         
     }
     else
     {
         NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
-        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
+        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
         
         if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
         [attributedString appendAttributedString:attrStringWithImage];
         
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
         
     }
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
 
     [placeholderLabel removeFromSuperview];
     textView.attributedText = attributedString;
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
 
     
     uploadingImages ++;
@@ -864,7 +864,7 @@
     label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [label setText:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [label setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
     [label setTextColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
     [cell addSubview:label];
     
@@ -970,7 +970,7 @@
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
 {
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
     [textView setInputAccessoryView:inputView];
     [placeholderLabel removeFromSuperview];
     return YES;
@@ -983,7 +983,7 @@
 }
 - (void)textViewDidChange:(UITextView *)textView1
 {
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
 
     if(![textView1 hasText])
     {
@@ -1121,7 +1121,7 @@
         [postAsLabel setText:@"Post as anonymous"];
         [postAsLabel setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
+        [postAsLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:16]];
         [popView addSubview:postAsLabel];
         
         UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 5, 30, 30)];
@@ -1143,7 +1143,7 @@
         [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
         [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+        [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
         [popView addSubview:postAsLabel1];
         
         UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
@@ -1163,14 +1163,14 @@
         {
             range.location = 0;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                     range:range];
         }
         if(parentFnameInitial.length > 1)
         {
             range.location = 1;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                     range:range];
         }
         
@@ -1231,14 +1231,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     

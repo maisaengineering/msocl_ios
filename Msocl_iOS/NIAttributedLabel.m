@@ -194,7 +194,7 @@ CGSize NISizeOfAttributedStringConstrainedToSize(NSAttributedString* attributedS
 
 - (void)_configureDefaults {
   self.verticalTextAlignment = NIVerticalTextAlignmentTop;
-  self.linkColor = NITintColorForViewWithFallback(self, [UIColor blueColor]);
+  self.linkColor = [UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0];
   self.dataDetectorTypes = NSTextCheckingTypeLink;
   self.highlightedLinkBackgroundColor = [UIColor colorWithWhite:0.5f alpha:0.5f];
 }
@@ -1278,7 +1278,7 @@ CGSize NISizeOfAttributedStringConstrainedToSize(NSAttributedString* attributedS
         CGPoint lineOrigin = lineOrigins[lineIndex];
         lineOrigin.y -= rect.origin.y; // adjust for verticalTextAlignment
         lineOrigin.y -= y;
-        if(self.font == [UIFont fontWithName:@"Ubuntu-Light" size:14])
+        if(self.font == [UIFont fontWithName:@"SanFranciscoText-Light" size:14])
         {
             if(lineIndex > 0)
             {

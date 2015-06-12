@@ -85,6 +85,8 @@
         UIImageView *profileImage = (UIImageView *)[cell viewWithTag:1];
             __weak UIImageView *weakSelf = profileImage;
         
+        for(UIView *view in [profileImage subviews])
+            [view removeFromSuperview];
         NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
         if( [sharedModel.userProfile.fname length] >0)
             [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
@@ -99,14 +101,14 @@
         {
             range.location = 0;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:20]}
                                     range:range];
         }
         if(parentFnameInitial.length > 1)
         {
             range.location = 1;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu-Light" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:20]}
                                     range:range];
         }
         
@@ -128,7 +130,7 @@
              }failure:nil];
         [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
         [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];
-        [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
+        [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:16]];
 
         return cell;
 
@@ -136,7 +138,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
+    cell.textLabel.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:16];
 
     switch (indexPath.row)
     {

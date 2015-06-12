@@ -50,7 +50,7 @@
     [titleName setBackgroundColor:[UIColor clearColor]];
     titleName.textColor = [UIColor whiteColor];
     titleName.text = @"EDIT COMMENT";
-    titleName.font =[UIFont fontWithName:@"Ubuntu" size:18];
+    titleName.font =[UIFont fontWithName:@"SanFranciscoText-Regular" size:18];
     titleName.textAlignment = NSTextAlignmentRight;
     [self.navigationController.navigationBar addSubview:titleName];
     
@@ -72,7 +72,7 @@
     [commentBtn setFrame:CGRectMake(203, 4.5, 84, 31)];
     [commentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [commentBtn setTitle:@"Comment as" forState:UIControlStateNormal];
-    [commentBtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];
+    [commentBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
     [commentBtn setBackgroundImage:[UIImage imageNamed:@"btn-Cmntas.png"] forState:UIControlStateNormal];
 
     
@@ -95,7 +95,7 @@
     [postAsLabel1 setText:[NSString stringWithFormat:@"Comment as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
     [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
     [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-    [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+    [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [popView addSubview:postAsLabel1];
     
     UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 4, 24, 24)];
@@ -114,14 +114,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                 range:range];
     }
     
@@ -153,7 +153,7 @@
     [self.view addSubview:imageView];
     
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,24,292, 100)];
-    textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:13];
+    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:13];
     textView.delegate = self;
     [self.view addSubview:textView];
 
@@ -206,7 +206,7 @@
             [postAsLabel1 setText:[NSString stringWithFormat:@"Comment as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
             [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
             [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+            [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
             [popView addSubview:postAsLabel1];
             
             UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 4, 24, 24)];
@@ -228,14 +228,14 @@
             {
                 range.location = 0;
                 range.length = 1;
-                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                         range:range];
             }
             if(parentFnameInitial.length > 1)
             {
                 range.location = 1;
                 range.length = 1;
-                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                         range:range];
             }
             
@@ -269,7 +269,7 @@
             [postAsLabel setText:@"Comment as anonymous"];
             [postAsLabel setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+            [postAsLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
             [popView addSubview:postAsLabel];
             
             UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 4, 32, 24)];
@@ -319,14 +319,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:13]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:13]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:13]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:13]}
                                 range:range];
     }
     

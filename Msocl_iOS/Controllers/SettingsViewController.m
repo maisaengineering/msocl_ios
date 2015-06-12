@@ -23,6 +23,7 @@
     Webservices *webServices;
 
     NSDictionary *notifiResoonseDict;
+    AppDelegate *appdelegate;
 }
 @synthesize scrollView;
 @synthesize changePasswordBtn;
@@ -32,7 +33,7 @@
     
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
-
+    appdelegate = [[UIApplication sharedApplication] delegate];
     
     
     self.title = @"SETTINGS";
@@ -53,6 +54,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    [appdelegate showOrhideIndicator:YES];
     [self getOptionsForExternalSignIn];
 }
 
@@ -71,12 +73,13 @@
 }
 -(void)externalSigninOptionsSuccessFull:(NSDictionary *)recievedDict
 {
+    [appdelegate showOrhideIndicator:NO];
     notifiResoonseDict = recievedDict;
     
 }
 -(void)externalSigninOptionsFailed
 {
-    
+    [appdelegate showOrhideIndicator:NO];
 }
 
 
