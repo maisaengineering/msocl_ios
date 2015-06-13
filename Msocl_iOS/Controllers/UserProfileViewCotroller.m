@@ -204,17 +204,58 @@
     recievedDict = [recievedDict objectForKey:@"body"];
     nameLabel.text = [recievedDict objectForKey:@"full_name"];
     
+    for(UIView *viw in [profileImageVw subviews])
+    {
+        [viw removeFromSuperview];
+    }
+    
+    NSArray *nameArray = [[recievedDict objectForKey:@"full_name"] componentsSeparatedByString:@" "];
+    
+    NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+    if( [[nameArray firstObject] length] >0)
+        [parentFnameInitial appendString:[[[nameArray firstObject] substringToIndex:1] uppercaseString]];
+    if( [[nameArray lastObject] length] >0)
+        [parentFnameInitial appendString:[[[nameArray lastObject] substringToIndex:1] uppercaseString]];
+    
+    NSMutableAttributedString *attributedText =
+    [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                           attributes:nil];
+    NSRange range;
+    if(parentFnameInitial.length > 0)
+    {
+        range.location = 0;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:32]}
+                                range:range];
+    }
+    if(parentFnameInitial.length > 1)
+    {
+        range.location = 1;
+        range.length = 1;
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:32]}
+                                range:range];
+    }
+    
+    
+    //add initials
+    
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 93, 93)];
+    initial.attributedText = attributedText;
+    [initial setBackgroundColor:[UIColor clearColor]];
+    initial.textAlignment = NSTextAlignmentCenter;
+    [profileImageVw addSubview:initial];
+
+    
     __weak UIImageView *weakSelf = profileImageVw;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
+    
+    
     
     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
-         for(UIView *viw in [weakSelf subviews])
-         {
-             [viw removeFromSuperview];
-         }
-
+         
+         [initial removeFromSuperview];
          
      }failure:nil];
     
