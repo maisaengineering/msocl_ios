@@ -101,14 +101,14 @@
         {
             range.location = 0;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:20]}
                                     range:range];
         }
         if(parentFnameInitial.length > 1)
         {
             range.location = 1;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:20]}
                                     range:range];
         }
         
@@ -130,7 +130,7 @@
              }failure:nil];
         [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
         [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];
-        [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:16]];
+        [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16]];
 
         return cell;
 
@@ -138,7 +138,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:16];
+    cell.textLabel.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16];
 
     switch (indexPath.row)
     {

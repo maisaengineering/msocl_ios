@@ -30,6 +30,9 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SanFranciscoDisplay-Regular.otf</string>
+		<string>SanFranciscoDisplay-Medium.otf</string>
+		<string>SanFranciscoDisplay-Light.otf</string>
 		<string>SanFranciscoText-LightItalic.otf</string>
 		<string>Ubuntu-LI.ttf</string>
 		<string>SanFranciscoText-Medium.otf</string>

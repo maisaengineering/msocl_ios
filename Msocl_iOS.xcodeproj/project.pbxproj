@@ -31,6 +31,9 @@
 		7F2A59951AE2563E0089EDBB /* btn-google@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59921AE2563E0089EDBB /* btn-google@2x.png */; };
 		7F2A59961AE2563E0089EDBB /* btn-twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59931AE2563E0089EDBB /* btn-twitter@2x.png */; };
 		7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */; };
+		7F3A80711B2BF9A700C9F97D /* SanFranciscoDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F3A806E1B2BF9A700C9F97D /* SanFranciscoDisplay-Light.otf */; };
+		7F3A80721B2BF9A700C9F97D /* SanFranciscoDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F3A806F1B2BF9A700C9F97D /* SanFranciscoDisplay-Medium.otf */; };
+		7F3A80731B2BF9A700C9F97D /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7F3A80701B2BF9A700C9F97D /* SanFranciscoDisplay-Regular.otf */; };
 		7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */; };
 		7F4C88F91AF0B5BB008B769C /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88EF1AF0B5BB008B769C /* JTSImageInfo.m */; };
 		7F4C88FA1AF0B5BB008B769C /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F11AF0B5BB008B769C /* JTSSimpleImageDownloader.m */; };
@@ -288,6 +291,9 @@
 		7F2A59921AE2563E0089EDBB /* btn-google@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-google@2x.png"; sourceTree = "<group>"; };
 		7F2A59931AE2563E0089EDBB /* btn-twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-twitter@2x.png"; sourceTree = "<group>"; };
 		7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-textfield@2x.png"; sourceTree = "<group>"; };
+		7F3A806E1B2BF9A700C9F97D /* SanFranciscoDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Light.otf"; sourceTree = "<group>"; };
+		7F3A806F1B2BF9A700C9F97D /* SanFranciscoDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Medium.otf"; sourceTree = "<group>"; };
+		7F3A80701B2BF9A700C9F97D /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
 		7F4C88EC1AF0B5BB008B769C /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
 		7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
 		7F4C88EE1AF0B5BB008B769C /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
@@ -830,6 +836,9 @@
 				7FA89E241B2AF1470019BFBC /* SanFranciscoText-LightItalic.otf */,
 				7FA89E251B2AF1470019BFBC /* SanFranciscoText-Medium.otf */,
 				7FA89E261B2AF1470019BFBC /* SanFranciscoText-Regular.otf */,
+				7F3A806E1B2BF9A700C9F97D /* SanFranciscoDisplay-Light.otf */,
+				7F3A806F1B2BF9A700C9F97D /* SanFranciscoDisplay-Medium.otf */,
+				7F3A80701B2BF9A700C9F97D /* SanFranciscoDisplay-Regular.otf */,
 			);
 			name = font;
 			sourceTree = "<group>";
@@ -1384,6 +1393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F7E96F11AF4FF4F00995667 /* Typo Grotesk Thin Demo.otf in Resources */,
+				7F3A80731B2BF9A700C9F97D /* SanFranciscoDisplay-Regular.otf in Resources */,
 				7F7E96F61AF508C900995667 /* Ubuntu-M.ttf in Resources */,
 				7F2A59961AE2563E0089EDBB /* btn-twitter@2x.png in Resources */,
 				7F826FA41B08A4D6009455E9 /* comment-ana@2x.png in Resources */,
@@ -1432,6 +1442,7 @@
 				7F826FB11B08AB93009455E9 /* btn-post-dropdown@2x.png in Resources */,
 				7F8999231AD2B1F6007E2917 /* tour_2@2x.png in Resources */,
 				7FB2FECF1B0777470001CEA6 /* icon-favorite@2x.png in Resources */,
+				7F3A80711B2BF9A700C9F97D /* SanFranciscoDisplay-Light.otf in Resources */,
 				7F8891001B15FF28009C8CC8 /* cd-2@3x.png in Resources */,
 				7F2A59951AE2563E0089EDBB /* btn-google@2x.png in Resources */,
 				7F76B7CD1B1077330045F9D7 /* icon-close@2x.png in Resources */,
@@ -1479,6 +1490,7 @@
 				7F826FA11B08A0CF009455E9 /* icon-like-postview@2x.png in Resources */,
 				7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */,
 				7F714F351AE79A2B00C69BF4 /* comment-textfield@2x.png in Resources */,
+				7F3A80721B2BF9A700C9F97D /* SanFranciscoDisplay-Medium.otf in Resources */,
 				7F76B7CF1B1077630045F9D7 /* back@2x.png in Resources */,
 				7F94E5B91B0E11C80070DE80 /* setting-strip-selected@2x.png in Resources */,
 				7F76EF8A1AECBE2400770101 /* icon-unsubscribe@2x.png in Resources */,
