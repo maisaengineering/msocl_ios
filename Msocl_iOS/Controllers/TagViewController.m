@@ -51,13 +51,13 @@
     followOrEditBtn.hidden = YES;
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 198, 320, Deviceheight-180-64)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 198, 320, Deviceheight-198-64)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
     streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view addSubview:streamDisplay];
     
-    originalPosition = CGRectMake(0, 180, 320, Deviceheight-180-64);
+    originalPosition = CGRectMake(0, 198, 320, Deviceheight-198-64);
 
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
@@ -397,7 +397,7 @@
     
     // originalPosition = streamView.frame;
     [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        animatedTopView.frame = CGRectMake(0, -178, screenWidth, 178);
+        animatedTopView.frame = CGRectMake(0, -198, screenWidth, 198);
         streamDisplay.frame = CGRectMake(0, 0, 320, screenHeight-64);
         streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, screenHeight-64);
         
@@ -417,7 +417,7 @@
     
     [UIView animateWithDuration:0.5f
                      animations:^{
-                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, 178);
+                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, 198);
                          streamDisplay.frame = originalPosition;
                          streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, originalPosition.size.height);
                          
