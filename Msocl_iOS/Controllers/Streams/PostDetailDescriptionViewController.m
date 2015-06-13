@@ -802,6 +802,11 @@
                              
                              textView.attributedText = attributedString;
                              [textView setNeedsDisplay];
+                             CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
+                             float height = contentSize.height >21?contentSize.height:21;
+                             
+                             textView.frame =  CGRectMake(10, yPosition, 300, height);
+
 
                          }
                      }
