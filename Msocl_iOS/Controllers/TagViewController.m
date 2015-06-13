@@ -112,7 +112,7 @@
     __weak ProfilePhotoUtils *weakPhoto = photoUtils;
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf1.image = [weakPhoto squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)];
+         weakSelf1.image = [weakPhoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
      }failure:nil];
     
@@ -438,10 +438,11 @@
      }failure:nil];
     */
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
+    __weak ProfilePhotoUtils *weakphoto = photoUtils;
   
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf1.image = [image resizedImageByMagick:@"110x80#"];
+         weakSelf1.image = [weakphoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
      }failure:nil];
     

@@ -54,8 +54,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [appdelegate showOrhideIndicator:YES];
-    [self getOptionsForExternalSignIn];
+    //[appdelegate showOrhideIndicator:YES];
+    //[self getOptionsForExternalSignIn];
 }
 
 #pragma mark -

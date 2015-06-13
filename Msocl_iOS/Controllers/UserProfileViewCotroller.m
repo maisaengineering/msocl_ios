@@ -135,7 +135,6 @@
          }failure:nil];
     
     if([modelManager.userProfile.uid isEqualToString:profileId])
-
     {
         followOrEditBtn.hidden = YES;
     }
@@ -147,10 +146,12 @@
 {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
+   
     if([modelManager.userProfile.uid isEqualToString:profileId])
     {
         
-        
+        followOrEditBtn.hidden = YES;
+
         nameLabel.text = [NSString stringWithFormat:@"%@ %@",modelManager.userProfile.fname,modelManager.userProfile.lname];
         __weak UIImageView *weakSelf = profileImageVw;
         __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
