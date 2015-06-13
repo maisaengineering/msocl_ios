@@ -15,6 +15,7 @@
 #import "AppDelegate.h"
 #import "UpdateUserDetailsViewController.h"
 #import "TagViewController.h"
+#import "LoginViewController.h"
 @implementation UserProfileViewCotroller
 {
     StreamDisplayView *streamDisplay;
@@ -139,7 +140,7 @@
         followOrEditBtn.hidden = YES;
     }
     [self callUserProfile];
-    
+    followOrEditBtn.hidden = YES;
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -382,6 +383,7 @@
     }
     else
     {
+        [self gotoLoginScreen];
     }
 
 }
@@ -396,6 +398,36 @@
 -(void) followingUserFailed
 {
     [appdelegate showOrhideIndicator:NO];
+}
+
+-(void)gotoLoginScreen
+{
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+    
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+    
+    
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+        
+    }
+                     completion:^(BOOL finished){
+                         [login.view removeFromSuperview];
+                         
+                         [self.navigationController pushViewController:login animated:NO];
+                     }
+     ];
+    
+    
+    
 }
 #pragma mark -
 #pragma mark Call backs from stream display
@@ -414,7 +446,8 @@
     
     if(![modelManager.userProfile.uid isEqualToString:profileId])
     {
-        
+        followOrEditBtn.hidden = NO;
+
         if(isFollowing)
             [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
         else

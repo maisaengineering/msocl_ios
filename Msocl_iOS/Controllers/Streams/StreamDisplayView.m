@@ -704,12 +704,12 @@
             
             [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"icon-profile-register.pngg"] scaledToSize:CGSizeMake(22,22)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
              {
-                 if([request.URL.absoluteString rangeOfString:@"anonymous"].location != NSNotFound )
+                 if(request.URL.absoluteString != nil && [request.URL.absoluteString rangeOfString:@"anonymous"].location != NSNotFound )
                  {
                      weakSelf.image = image;
                  }
                  else
-                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(22, 22)] withRadious:1];
+                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(22, 22)] withRadious:0];
                  
              }failure:nil];
             
