@@ -439,7 +439,7 @@
      }failure:nil];
     */
     
-    [followingCount setText:[NSString stringWithFormat:@"Following: %@",[tagDetails objectForKey:@"followers_count"]]];
+    [followingCount setText:[NSString stringWithFormat:@"Followers: %@",[tagDetails objectForKey:@"followers_count"]]];
     [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[tagDetails objectForKey:@"posts_count"]]];
 
     __weak UIImageView *weakSelf1 = smallProfileImageVw;

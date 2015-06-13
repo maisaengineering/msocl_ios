@@ -247,7 +247,7 @@
     recievedDict = [recievedDict objectForKey:@"body"];
     nameLabel.text = [recievedDict objectForKey:@"full_name"];
     
-    [followingCount setText:[NSString stringWithFormat:@"Following: %@",[recievedDict objectForKey:@"followers_count"]]];
+    [followingCount setText:[NSString stringWithFormat:@"Followers: %@",[recievedDict objectForKey:@"followers_count"]]];
     [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[recievedDict objectForKey:@"posts_count"]]];
     for(UIView *viw in [profileImageVw subviews])
     {
