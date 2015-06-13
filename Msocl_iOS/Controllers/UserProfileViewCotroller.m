@@ -43,22 +43,24 @@
 @synthesize profileImageVw;
 @synthesize aboutLabel;
 @synthesize animatedTopView;
+@synthesize postsCount;
+@synthesize followingCount;
+@synthesize lineImageVw;
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-
+    [self setupanimateView];
     
-    aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 180, 320, 30)];
+    aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 146, 320, 30)];
     aboutLabel.font =[UIFont fontWithName:@"SanFranciscoText-Light" size:12];
     [aboutLabel setTextAlignment:NSTextAlignmentCenter];
-    [aboutLabel setBackgroundColor:[UIColor whiteColor]];
+    [aboutLabel setBackgroundColor:[UIColor clearColor]];
     aboutLabel.textColor = [UIColor colorWithRed:(68/255.f) green:(68/255.f) blue:(68/255.f) alpha:1];
-    aboutLabel.backgroundColor = [UIColor whiteColor];
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 180, 320, Deviceheight-180-64)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 198, 320, Deviceheight-198-64)];
     streamDisplay.delegate = self;
     streamDisplay.isUserProfilePosts = YES;
     streamDisplay.userProfileId = profileId;
@@ -66,7 +68,7 @@
     
 
     
-    originalPosition = CGRectMake(0, 180, 320, Deviceheight-180-64);
+    originalPosition = CGRectMake(0, 198, 320, Deviceheight-198-64);
 
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
@@ -139,7 +141,7 @@
         followOrEditBtn.hidden = YES;
     }
     [self callUserProfile];
-    followOrEditBtn.hidden = YES;
+    //followOrEditBtn.hidden = YES;
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -170,6 +172,47 @@
 
     }
     [self refreshWall];
+}
+-(void)setupanimateView
+{
+    animatedTopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 198)];
+    animatedTopView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:animatedTopView];
+
+    profileImageVw = [[UIImageView alloc] initWithFrame:CGRectMake(114, 21, 93, 93)];
+    [animatedTopView addSubview:profileImageVw];
+    
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 30)];
+    [nameLabel setTextColor:[UIColor darkGrayColor]];
+    [nameLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:17]];
+    [nameLabel setTextAlignment:NSTextAlignmentCenter];
+    [animatedTopView addSubview:nameLabel];
+
+    followOrEditBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [followOrEditBtn setFrame:CGRectMake(0, 149, 320, 18)];
+    [followOrEditBtn addTarget:self action:@selector(followOrEditClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [followOrEditBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]];
+    [followOrEditBtn setTitleColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [animatedTopView addSubview:followOrEditBtn];
+    
+    postsCount = [[UILabel alloc] initWithFrame:CGRectMake(20, 168, 130, 20)];
+    [postsCount setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [postsCount setText:@"Posts: 0"];
+    [postsCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
+    [postsCount setTextAlignment:NSTextAlignmentRight];
+    [animatedTopView addSubview:postsCount];
+    
+    followingCount = [[UILabel alloc] initWithFrame:CGRectMake(170, 168, 130, 20)];
+    [followingCount setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+     [followingCount setText:@"Followers: 0"];
+    [followingCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
+    [followingCount setTextAlignment:NSTextAlignmentLeft];
+    [animatedTopView addSubview:followingCount];
+    
+    lineImageVw = [[UIImageView alloc] initWithFrame:CGRectMake(0, 197, 320, 1)];
+    [lineImageVw setBackgroundColor:[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0]];
+    [animatedTopView addSubview:lineImageVw];
+    
 }
 -(void)backClicked
 {
@@ -204,6 +247,8 @@
     recievedDict = [recievedDict objectForKey:@"body"];
     nameLabel.text = [recievedDict objectForKey:@"full_name"];
     
+    [followingCount setText:[NSString stringWithFormat:@"Following: %@",[recievedDict objectForKey:@"followers_count"]]];
+    [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[recievedDict objectForKey:@"posts_count"]]];
     for(UIView *viw in [profileImageVw subviews])
     {
         [viw removeFromSuperview];
@@ -268,17 +313,34 @@
         frame.size.height = size.height;
         aboutLabel.text = [recievedDict objectForKey:@"summary"];
         aboutLabel.frame = frame;
-        
+        [aboutLabel setTextColor:[UIColor colorWithRed:49/255.0 green:49/255.0 blue:49/255.0 alpha:1]];
         
         CGRect frameTop = animatedTopView.frame;
         frameTop.size.height += size.height;
         animatedTopView.frame = frameTop;
         [animatedTopView addSubview:aboutLabel];
+        
+        frame =  followOrEditBtn.frame;
+        frame.origin.y += size.height;
+        followOrEditBtn.frame = frame;
+        
+        frame =  followingCount.frame;
+        frame.origin.y += size.height;
+        followingCount.frame = frame;
+        
+        frame =  postsCount.frame;
+        frame.origin.y += size.height;
+        postsCount.frame = frame;
+        
+        frame =  lineImageVw.frame;
+        frame.origin.y += size.height;
+        lineImageVw.frame = frame;
+        
+        
         originalPosition = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
 
       streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
     
-        
     }
 
 }
@@ -432,9 +494,19 @@
 -(void) followingUserSuccessFull:(NSDictionary *)recievedDict
 {
     if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
+    {
+        int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue]+1;
+        followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
+
         [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+    }
     else
+    {
+        int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue] - 1;
+        followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
+
         [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+    }
     [appdelegate showOrhideIndicator:NO];
 }
 -(void) followingUserFailed
@@ -535,7 +607,7 @@
         [streamDisplay.streamTableView reloadData];
     
 }
--(void)tagImage:(NSString *)url
+-(void)tagImage:(NSDictionary *)url
 {
     
 }

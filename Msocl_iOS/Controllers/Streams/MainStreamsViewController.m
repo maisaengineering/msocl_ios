@@ -971,7 +971,7 @@
 {
     
 }
--(void)tagImage:(NSString *)url
+-(void)tagImage:(NSDictionary *)url
 {
     
 }

@@ -247,7 +247,7 @@
 
     
     self.tagId = [[recievedDict objectForKey:@"tag"] objectForKey:@"uid"];
-    [self.delegate tagImage:[[recievedDict objectForKey:@"tag"] objectForKey:@"image"]];
+    [self.delegate tagImage:[recievedDict objectForKey:@"tag"]];
     [refreshControl endRefreshing];
     
     self.timeStamp = [recievedDict objectForKey:@"last_modified"];

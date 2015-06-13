@@ -40,6 +40,8 @@
 @synthesize profileImageVw;
 @synthesize smallProfileImageVw;
 @synthesize animatedTopView;
+@synthesize followingCount;
+@synthesize postsCount;
 
 -(void)viewDidLoad
 {
@@ -49,7 +51,7 @@
     followOrEditBtn.hidden = YES;
 
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 195, 320, Deviceheight-180-64)];
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 198, 320, Deviceheight-180-64)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
     streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
@@ -77,20 +79,8 @@
     photoUtils = [ProfilePhotoUtils alloc];
     
     
-    nameLabel = [[UILabel alloc] init];
-    [nameLabel setTextAlignment:NSTextAlignmentCenter];
-    [animatedTopView addSubview:nameLabel];
+  
     nameLabel.text = tagName;
-    nameLabel.textColor = [UIColor darkGrayColor];
-    nameLabel.font = [UIFont fontWithName:@"SanFranciscoText-Regular" size:16];
-    
-    
-    CGRect frame ;
-    frame.origin.x = 0;
-    frame.size.width = 320;
-    frame.origin.y = 140;
-    frame.size.height = 26;
-    nameLabel.frame = frame;
 
   NSArray *tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     NSArray *array = [tagsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",tagName]];
@@ -229,9 +219,20 @@
 {
     [appdelegate showOrhideIndicator:NO];
     if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
-       [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+    {
+        [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+        
+        int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue]+1;
+        followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
+    }
     else
-    [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+    {
+        int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue] - 1;
+        followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
+
+        [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+
+    }
 }
 -(void) followingGroupFailed
 {
@@ -427,7 +428,7 @@
     
 }
 
--(void)tagImage:(NSString *)url
+-(void)tagImage:(NSDictionary *)tagDetails
 {
  /*   __weak TagViewController *weakSelf2 = self;
     __weak UIImageView *weakSelf = profileImageVw;
@@ -437,16 +438,20 @@
          weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
      }failure:nil];
     */
+    
+    [followingCount setText:[NSString stringWithFormat:@"Following: %@",[tagDetails objectForKey:@"followers_count"]]];
+    [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[tagDetails objectForKey:@"posts_count"]]];
+
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
     __weak ProfilePhotoUtils *weakphoto = photoUtils;
   
-    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[tagDetails objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf1.image = [weakphoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
      }failure:nil];
     
-
+    
 }
 
 @end
