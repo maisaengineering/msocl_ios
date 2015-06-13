@@ -473,7 +473,7 @@
             AccessToken* token = modelManager.accessToken;
             NSString *command;
 
-            if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"un follow"])
+            if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"un-follow"])
                 command = @"unfollow";
             else
                 command = @"follow";
@@ -498,7 +498,7 @@
         int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue]+1;
         followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
 
-        [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+        [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
     }
     else
     {
@@ -563,7 +563,7 @@
         followOrEditBtn.hidden = NO;
 
         if(isFollowing)
-            [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+            [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
         else
             [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
 

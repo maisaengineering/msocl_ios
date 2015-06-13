@@ -220,7 +220,7 @@
     [appdelegate showOrhideIndicator:NO];
     if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
     {
-        [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+        [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
         
         int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue]+1;
         followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
@@ -276,7 +276,7 @@
     
         followOrEditBtn.hidden = NO;
         if(isFollowing)
-            [followOrEditBtn setTitle:@"un follow" forState:UIControlStateNormal];
+            [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
         else
             [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
     
