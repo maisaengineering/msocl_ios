@@ -39,7 +39,7 @@
     UIImageView *postAnonymous;
     UIView *addPopUpView;
     UIImageView *dropDown;
-
+    
 }
 @synthesize scrollView;
 @synthesize postDetailsObject;
@@ -57,19 +57,19 @@
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
-
+    
     
     photoUtils = [ProfilePhotoUtils alloc];
     uploadingImages = 0;
     if(selectedtagsArray.count == 0)
-    selectedtagsArray = [[NSMutableArray alloc] init];
+        selectedtagsArray = [[NSMutableArray alloc] init];
     tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     
     
     
     popover = [DXPopover popover];
-
-   
+    
+    
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -86,17 +86,17 @@
     [postButton setFrame:CGRectMake(237, 5, 50, 31)];
     [postButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [postButton setTitle:@"Post as" forState:UIControlStateNormal];
-    [postButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];
+    [postButton.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
     [postButton setBackgroundImage:[UIImage imageNamed:@"btn-postas.png"] forState:UIControlStateNormal];
-
-
+    
+    
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
     [anonymousButton setFrame:CGRectMake(287, 5, 30, 31)];
     
     postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 2.5, 22, 22)];
-
+    
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
     ModelManager *sharedModel = [ModelManager sharedModel];
@@ -115,14 +115,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     
@@ -135,7 +135,7 @@
     initial.textAlignment = NSTextAlignmentCenter;
     [postAnonymous addSubview:initial];
     
-
+    
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
@@ -146,12 +146,12 @@
     
     dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(302, 24, 10, 9)];
     [dropDown setImage:[UIImage imageNamed:@"btn-post-dropdown.png"]];
-
+    
     
     [self.navigationController.navigationBar addSubview:postButton];
     [self.navigationController.navigationBar addSubview:anonymousButton];
     [self.navigationController.navigationBar addSubview:dropDown];
-
+    
     
     imagesIdDict = [[NSMutableDictionary alloc] init];
     
@@ -176,15 +176,15 @@
         [self setDetails];
     }
     if(selectedtagsArray.count > 0)
-    [collectionView reloadData];
-
+        [collectionView reloadData];
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     [self check];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
+    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -192,7 +192,7 @@
     
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
-
+    
 }
 -(void)backClicked
 {
@@ -202,7 +202,7 @@
     [anonymousButton removeFromSuperview];
     [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
-
+    
 }
 -(void)postDetailsScroll
 {
@@ -210,14 +210,14 @@
     scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
     scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:scrollView];
-
+    
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 300, 188)];
     [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
     [scrollView addSubview:imageView];
-
+    
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 140)];
-    textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:14];
+    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     textView.delegate = self;
     textView.autocorrectionType = UITextAutocorrectionTypeNo;
     [scrollView addSubview:textView];
@@ -228,10 +228,10 @@
     [placeholderLabel setNumberOfLines:0];
     placeholderLabel.text = @"Write description";
     [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
-    [placeholderLabel setFont:[UIFont fontWithName:@"Ubuntu-LightItalic" size:14]];
+    [placeholderLabel setFont:[UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14]];
     [placeholderLabel setTextColor:[UIColor lightGrayColor]];
     [textView addSubview:placeholderLabel];
-
+    
     
     inputView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     [inputView setBackgroundColor:[UIColor colorWithRed:0.56f
@@ -244,19 +244,19 @@
     [addPhotoBtn setImage:[UIImage imageNamed:@"icon-camera-add.png"] forState:UIControlStateNormal];
     [addPhotoBtn addTarget:self action:@selector(AddPhoto) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:addPhotoBtn];
-
+    
     
     UIButton *donebtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [donebtn setFrame:CGRectMake(250, 0, 70, 40)];
     [donebtn setTitle:@"Done" forState:UIControlStateNormal];
-    [donebtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Medium" size:15]];
+    [donebtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Medium" size:15]];
     [donebtn addTarget:self action:@selector(doneClick:) forControlEvents:UIControlEventTouchUpInside];
     [inputView addSubview:donebtn];
     
     
     
     UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 200, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"Ubuntu" size:15]];
+    [selectTagslabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
     [selectTagslabel setTextColor:[UIColor colorWithRed:77/255.0 green:77/255.0 blue:77/255.0 alpha:1.0]];
     [selectTagslabel setText:@"Select tags"];
     [scrollView addSubview:selectTagslabel];
@@ -264,7 +264,7 @@
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 7;
     layout.minimumLineSpacing = 7;
-
+    
     collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 300, height - selectTagslabel.frame.origin.y-selectTagslabel.frame.size.height - 15) collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.scrollEnabled = YES;
@@ -272,7 +272,7 @@
     [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [collectionView setBackgroundColor:[UIColor clearColor]];
     [scrollView addSubview:collectionView];
-
+    
     
 }
 -(void)setDetails
@@ -282,12 +282,12 @@
     [deleteButton setImage:[UIImage imageNamed:@"icon-delete-post.png"] forState:UIControlStateNormal];
     [deleteButton addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:deleteButton];
-
+    
     if(postDetailsObject.anonymous)
     {
         isPrivate = YES;
         postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
-
+        
         
     }
     else
@@ -300,7 +300,7 @@
     [postButton setTitle:@"Save" forState:UIControlStateNormal];
     [postButton removeTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
     [postButton addTarget:self action:@selector(editPost) forControlEvents:UIControlEventTouchUpInside];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -323,7 +323,7 @@
             image.accessibilityIdentifier = identifier;
             textAttachment.image = image;
             [imagesIdDict setObject:[attributedString.string substringWithRange:matchRange] forKey:identifier];
-
+            
             SDWebImageManager *manager = [SDWebImageManager sharedManager];
             [manager downloadImageWithURL:[NSURL URLWithString:[postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]]] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                 image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
@@ -333,25 +333,25 @@
             }];
             
             NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
-            [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
-
+            [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
+            
             
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
             
         }
-
+        
         else
         {
             break;
         }
         
     }while (1);
-
+    
     textView.attributedText = attributedString;
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
     selectedtagsArray = [postDetailsObject.tags mutableCopy];
     [collectionView reloadData];
-
+    
 }
 
 -(void)deleteButtonClicked
@@ -371,7 +371,7 @@
             //Invalidate the timer
             if([[self  timerHomepage] isValid])
                 [[self  timerHomepage] invalidate];
-
+            
             // Delete
             [appdelegate showOrhideIndicator:YES];
             AccessToken* token = [[ModelManager sharedModel] accessToken];
@@ -458,7 +458,7 @@
                     else
                     {
                         ShowAlert(@"Error", @"This device doesn't have a camera.", @"OK");
-
+                        
                     }
                     [textView resignFirstResponder];
                     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
@@ -470,16 +470,16 @@
                     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
                     {
                         imagePicker = [[UIImagePickerController alloc]init];
-
+                        
                         imagePicker.sourceType =  UIImagePickerControllerSourceTypeSavedPhotosAlbum;
                         imagePicker.delegate = self;
                         photoFromCamera = FALSE;
-
+                        
                     }
                     else
                     {
                         ShowAlert(@"Error", @"This device doesn't support photo libraries.", @"OK");
-
+                        
                     }
                     [textView resignFirstResponder];
                     [actionSheet dismissWithClickedButtonIndex:buttonIndex animated:YES];
@@ -497,7 +497,7 @@
         }
             break;
             
-       //For Privacy
+            //For Privacy
         case 2:
         {
             switch (buttonIndex)
@@ -519,7 +519,7 @@
             }
         }
             break;
-
+            
         default:
             break;
     }
@@ -610,41 +610,41 @@
     NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
     image.accessibilityIdentifier = identifier;
     textAttachment.image = image;
-
-  //  textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage scale:1 orientation:UIImageOrientationUp];
-   
+    
+    //  textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage scale:1 orientation:UIImageOrientationUp];
     
     
-   NSRange selectedrange = textView.selectedRange;
+    
+    NSRange selectedrange = textView.selectedRange;
     if(textView.text.length > textView.selectedRange.location)
     {
         NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
-        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
+        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
         
         if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location];
+            [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location];
         [attributedString insertAttributedString:attrStringWithImage atIndex:selectedrange.location+1];
-        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location+2];
+        [attributedString insertAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}] atIndex:selectedrange.location+2];
         
     }
     else
     {
         NSMutableAttributedString *attrStringWithImage = [[NSAttributedString attributedStringWithAttachment:textAttachment] mutableCopy];
-        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
+        [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
         
         if(attributedString.length >0 && ([attributedString.string characterAtIndex:attributedString.string.length-1] != '\n'))
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
+            [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
         [attributedString appendAttributedString:attrStringWithImage];
         
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
         
     }
     [attributedString addAttributes:@{NSFontAttributeName:textView.font} range:NSMakeRange(0, attributedString.string.length)];
-
+    
     [placeholderLabel removeFromSuperview];
     textView.attributedText = attributedString;
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
-
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    
     
     uploadingImages ++;
     
@@ -796,8 +796,8 @@
     
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-
-
+    
+    
 }
 -(void)uploadImageSccess:(NSDictionary *)notifiDict
 {
@@ -810,7 +810,7 @@
         if(postDetailsObject != nil)
             [self callEditPostApi];
         else
-        [self callPostApi];
+            [self callPostApi];
     }
     
 }
@@ -820,10 +820,10 @@
     if(uploadingImages == 0 && isPostClicked)
     {
         isPostClicked = NO;
-            if(postDetailsObject != nil)
-                [self callEditPostApi];
-            else
-                [self callPostApi];
+        if(postDetailsObject != nil)
+            [self callEditPostApi];
+        else
+            [self callPostApi];
     }
 }
 
@@ -832,11 +832,11 @@
 #pragma mark -
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     
-        return tagsArray.count;
+    return tagsArray.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     CGSize retval;
     retval.height= 95; retval.width = 95; return retval;
 }
@@ -849,7 +849,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
     __weak UIImageView *weakSelf = imageView;
-
+    
     [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"tag-placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
@@ -864,7 +864,7 @@
     label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [label setText:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [label setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
     [label setTextColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
     [cell addSubview:label];
     
@@ -885,7 +885,7 @@
 {
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
-
+    
     {
         NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
         NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"addTag"]];
@@ -970,7 +970,7 @@
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
 {
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
     [textView setInputAccessoryView:inputView];
     [placeholderLabel removeFromSuperview];
     return YES;
@@ -983,8 +983,8 @@
 }
 - (void)textViewDidChange:(UITextView *)textView1
 {
-    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
-
+    textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
+    
     if(![textView1 hasText])
     {
         [textView1 addSubview:placeholderLabel];
@@ -1017,26 +1017,26 @@
         [viw removeFromSuperview];
     }
     
-
+    
     [popover dismiss];
     postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
- isPrivate = YES;
-    /*
-    if(textView.text.length == 0)
-    {
-        ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
-        return;
-    }
-    if([tagsArray count] == 0)
-    {
-            ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
-            return;
-    }
     isPrivate = YES;
-    if(postDetailsObject != nil)
-        [self editPost];
-    else
-    [self createPost];
+    /*
+     if(textView.text.length == 0)
+     {
+     ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
+     return;
+     }
+     if([tagsArray count] == 0)
+     {
+     ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
+     return;
+     }
+     isPrivate = YES;
+     if(postDetailsObject != nil)
+     [self editPost];
+     else
+     [self createPost];
      */
 }
 -(void)anonymousPostClicked:(id)sender
@@ -1044,66 +1044,66 @@
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
-
+    
     {
         NSMutableArray *timedReminderArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"];
         NSArray *array = [timedReminderArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"context = %@",@"anonymousPost"]];
         homeContext = [[array firstObject] mutableCopy];
         if([[homeContext objectForKey:@"graphics"] count] >0 )
         {
-        subContext = [[homeContext objectForKey:@"graphics"] firstObject];
-        
-        NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
-        long int index = [userDefaultsArray indexOfObject:homeContext];
-        NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
-        [graphicsArrray removeObject:subContext];
-        [homeContext setObject:graphicsArrray forKey:@"graphics"];
-        [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
-        
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:userDefaultsArray forKey:@"PageGuidePopUpImages"];
-        
-        
-        ////////////Saving already viewed uids in userdefaults
-        NSMutableArray *visitedRemainders =  [[userDefaults objectForKey:@"time_reminder_visits"] mutableCopy];
-        if(visitedRemainders.count >0 )
-        {
-            NSArray *contextArray  = [visitedRemainders filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"reminder_uid = %@",[homeContext objectForKey:@"uid"]]];
-            if(contextArray.count >0)
+            subContext = [[homeContext objectForKey:@"graphics"] firstObject];
+            
+            NSMutableArray *userDefaultsArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"PageGuidePopUpImages"] mutableCopy];
+            long int index = [userDefaultsArray indexOfObject:homeContext];
+            NSMutableArray *graphicsArrray =  [[homeContext objectForKey:@"graphics"] mutableCopy];
+            [graphicsArrray removeObject:subContext];
+            [homeContext setObject:graphicsArrray forKey:@"graphics"];
+            [userDefaultsArray replaceObjectAtIndex:index withObject:homeContext];
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:userDefaultsArray forKey:@"PageGuidePopUpImages"];
+            
+            
+            ////////////Saving already viewed uids in userdefaults
+            NSMutableArray *visitedRemainders =  [[userDefaults objectForKey:@"time_reminder_visits"] mutableCopy];
+            if(visitedRemainders.count >0 )
             {
-                NSMutableDictionary *contextDict = [[contextArray firstObject] mutableCopy];
-                long int index = [visitedRemainders indexOfObject:contextDict];
-                NSMutableArray *graphicsArray = [[contextDict objectForKey:@"graphic_uids"] mutableCopy];
-                if(![graphicsArray containsObject:[subContext objectForKey:@"uid"]])
+                NSArray *contextArray  = [visitedRemainders filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"reminder_uid = %@",[homeContext objectForKey:@"uid"]]];
+                if(contextArray.count >0)
                 {
-                [graphicsArray addObject:[subContext objectForKey:@"uid"]];
-                [contextDict setObject:graphicsArray forKey:@"graphic_uids"];
-                [visitedRemainders replaceObjectAtIndex:index withObject:contextDict];
-                [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                    NSMutableDictionary *contextDict = [[contextArray firstObject] mutableCopy];
+                    long int index = [visitedRemainders indexOfObject:contextDict];
+                    NSMutableArray *graphicsArray = [[contextDict objectForKey:@"graphic_uids"] mutableCopy];
+                    if(![graphicsArray containsObject:[subContext objectForKey:@"uid"]])
+                    {
+                        [graphicsArray addObject:[subContext objectForKey:@"uid"]];
+                        [contextDict setObject:graphicsArray forKey:@"graphic_uids"];
+                        [visitedRemainders replaceObjectAtIndex:index withObject:contextDict];
+                        [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                    }
+                    
                 }
+                else
+                {
+                    [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+                    [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                    
+                }
+                
                 
             }
             else
             {
-                [visitedRemainders addObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
-                [userDefaults setObject:visitedRemainders forKey:@"time_reminder_visits"];
+                NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
+                [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
                 
             }
             
+            [userDefaults synchronize];
             
-        }
-        else
-        {
-            NSArray *visited_Remainders = [NSArray arrayWithObject:@{@"reminder_uid":[homeContext objectForKey:@"uid"],@"graphic_uids":[NSArray arrayWithObject:[subContext objectForKey:@"uid"]]}];
-            [userDefaults setObject:visited_Remainders forKey:@"time_reminder_visits"];
             
-        }
-        
-        [userDefaults synchronize];
-        
-        
-        [self check];
-        
+            [self check];
+            
         }
     }
     
@@ -1121,7 +1121,7 @@
         [postAsLabel setText:@"Post as anonymous"];
         [postAsLabel setTextAlignment:NSTextAlignmentCenter];
         [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
+        [postAsLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:16]];
         [popView addSubview:postAsLabel];
         
         UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 5, 30, 30)];
@@ -1132,18 +1132,18 @@
         postBtnAnonymous.frame = CGRectMake(0, 0, 300, 40);
         [postBtnAnonymous addTarget:self action:@selector(postAsAnonymous) forControlEvents:UIControlEventTouchUpInside];
         [popView addSubview:postBtnAnonymous];
-
+        
     }
     else
     {
         ModelManager *sharedModel = [ModelManager sharedModel];
-
+        
         
         UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
         [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
         [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-        [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+        [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
         [popView addSubview:postAsLabel1];
         
         UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
@@ -1163,14 +1163,14 @@
         {
             range.location = 0;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                     range:range];
         }
         if(parentFnameInitial.length > 1)
         {
             range.location = 1;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                     range:range];
         }
         
@@ -1182,11 +1182,11 @@
         [initial setBackgroundColor:[UIColor clearColor]];
         initial.textAlignment = NSTextAlignmentCenter;
         [userImage addSubview:initial];
-
+        
         
         __weak UIImageView *weakSelf1 = userImage;
         __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
-
+        
         [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
              weakSelf1.image = [weakphotoUtils1 makeRoundWithBoarder:[weakphotoUtils1 squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
@@ -1201,12 +1201,12 @@
         postBtn.frame = CGRectMake(0, 0, 300, 40);
         [postBtn addTarget:self action:@selector(postClicked) forControlEvents:UIControlEventTouchUpInside];
         [popView addSubview:postBtn];
-
+        
     }
     
-
+    
     [popover showAtView:btn withContentView:popView];
-
+    
 }
 -(void)postClicked
 {
@@ -1231,14 +1231,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:12]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
                                 range:range];
     }
     
@@ -1250,7 +1250,7 @@
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
     [postAnonymous addSubview:initial];
-
+    
     
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
@@ -1276,7 +1276,7 @@
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
-
+    
     
     [appdelegate showOrhideIndicator:YES];
     isPostClicked = YES;
@@ -1302,19 +1302,19 @@
     
     //Tags
     if([selectedtagsArray count] > 0)
-    [postDetails setObject:selectedtagsArray forKey:@"tags_array"];
+        [postDetails setObject:selectedtagsArray forKey:@"tags_array"];
     
     //Text
     NSString *formatedDesc = [self formatStringForServer:textView.attributedText];
     [postDetails setObject:formatedDesc forKey:@"content"];
-
+    
     //Image Ids
     if([[imagesIdDict allValues] count] > 0)
-    [postDetails setObject:[imagesIdDict allValues] forKey:@"img_keys"];
+        [postDetails setObject:[imagesIdDict allValues] forKey:@"img_keys"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
- 
+    
     NSString *command = @"create";
     NSDictionary* postData = @{@"access_token": token.access_token,
                                @"command": command,
@@ -1361,11 +1361,11 @@
         ShowAlert(PROJECT_NAME, @"Please select atleast one tag", @"OK");
         return;
     }
-
+    
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
-
+    
     
     [appdelegate showOrhideIndicator:YES];
     isPostClicked = YES;
@@ -1374,7 +1374,7 @@
     {
         [self callEditPostApi];
     }
-
+    
 }
 -(void)callEditPostApi
 {
@@ -1422,7 +1422,7 @@
     [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
     [self.delegate PostEdited:postDetails];
-
+    
 }
 -(void) updatePostFailed
 {
@@ -1529,7 +1529,7 @@
 -(void)displayPromptForNewKidWhenStreamDataEmpty
 {
     [textView resignFirstResponder];
-
+    
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;

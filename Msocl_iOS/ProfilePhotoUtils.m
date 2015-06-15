@@ -89,11 +89,11 @@
     CGRect imageRect = CGRectMake(0, 0, fooImage.size.width, fooImage.size.height);
     
     UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:imageRect];
-
+    
     [path addClip];
     [fooImage drawInRect:imageRect];
     
-    CGContextSetStrokeColorWithColor(ctx, [[UIColor whiteColor] CGColor]);
+    CGContextSetStrokeColorWithColor(ctx, [[UIColor lightGrayColor] CGColor]);
     [path setLineWidth:value];
     [path stroke];
     
@@ -198,12 +198,12 @@
 - (UIView*)GrabInitials :(int)diameter :(NSString *)firstName :(NSString *)lastName
 {
     UIView *circleView = [[UIView alloc] init];
-
+    
     int fontSize = 12;
-
+    
     if (diameter == 43)
     {
-       fontSize = 22;
+        fontSize = 22;
     }
     else if (diameter == 53)
     {
@@ -218,7 +218,7 @@
         fontSize = 40;
     }
     
-
+    
     
     NSString *firstInitial = [[firstName substringToIndex:1] uppercaseString];
     
@@ -261,7 +261,7 @@
     
     ALAssetsLibrary * assetLibrary1 = [[ALAssetsLibrary alloc] init];
     [self setAssetLibrary:assetLibrary1];
-
+    
     //saving images to the KidsLink photo lib
     __weak ALAssetsLibrary *lib = assetLibrary;
     [assetLibrary addAssetsGroupAlbumWithName:@"KidsLink" resultBlock:^(ALAssetsGroup *group) {
@@ -328,7 +328,7 @@
     UIGraphicsEndImageContext();
     
     return [self makeRoundedCornersWithBorder:newImage withRadious:radious];
-
+    
     
     return newImage;
 }

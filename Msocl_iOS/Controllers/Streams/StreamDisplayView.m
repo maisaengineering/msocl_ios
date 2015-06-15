@@ -75,7 +75,7 @@
     [self setBackgroundColor:[UIColor clearColor]];
     sharedModel   = [ModelManager sharedModel];
     
-  
+    
     
     storiesArray = [[NSMutableArray alloc] init];
     streamTableView = [[UITableView alloc] initWithFrame:self.bounds];
@@ -108,7 +108,7 @@
             PostDetails *postObject = [[PostDetails alloc] initWithDictionary:postDict];
             [arrayOfpostDetailsObjects addObject:postObject];
         }
-
+        
         storiesArray = arrayOfpostDetailsObjects;
     }
     else if(isMostRecent &&  [[NSUserDefaults standardUserDefaults] objectForKey:@"mostRecentStreamArray"] != nil)
@@ -128,7 +128,7 @@
         storiesArray = arrayOfpostDetailsObjects;
         
     }
-
+    
     
 }
 -(void)handleRefresh:(id)sender
@@ -162,7 +162,7 @@
             [body setValue:self.postCount forKeyPath:@"post_count"];
             [body setValue:self.etag forKey:@"etag"];
             [body setValue:step forKeyPath:@"step"];
-
+            
             [body setValue:searchString forKeyPath:@"text"];
             if(isFollowing)
                 [body setValue:[NSNumber numberWithBool:YES] forKeyPath:@"favourites"];
@@ -172,7 +172,7 @@
             
             NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
             [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-
+            
         }
         else
         {
@@ -207,7 +207,7 @@
             
             NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
             [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-
+            
         }
         
     }
@@ -244,37 +244,37 @@
         
     }
     
-
+    
     
     self.tagId = [[recievedDict objectForKey:@"tag"] objectForKey:@"uid"];
-    [self.delegate tagImage:[[recievedDict objectForKey:@"tag"] objectForKey:@"image"]];
+    [self.delegate tagImage:[recievedDict objectForKey:@"tag"]];
     [refreshControl endRefreshing];
     
     self.timeStamp = [recievedDict objectForKey:@"last_modified"];
     self.postCount = [recievedDict objectForKey:@"post_count"];
     self.etag = [recievedDict objectForKey:@"etag"];
-
+    
     [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
-
+    
     [streamTableView reloadData];
-
+    
     if(isMostRecent)
     {
-    if(posts.count > 0)
-    {
-        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
-        [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"mostRecentStreamArray"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+        if(posts.count > 0)
+        {
+            NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
+            [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"mostRecentStreamArray"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }
     else if(isFollowing)
     {
-    if(posts.count > 0)
-    {
-        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
-        [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"favStreamArray"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
+        if(posts.count > 0)
+        {
+            NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:posts];
+            [[NSUserDefaults standardUserDefaults] setObject:encodedObject forKey:@"favStreamArray"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
     }
     
     
@@ -296,32 +296,41 @@
     height += descrHeight;
     
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
-        height += 32+5;
+        height += 32+8;
+    else
+        height += 3;
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
         return height + 30;
     }
     else
     {
-    return height;
+        return height;
     }
 }
 -(CGFloat)cellHeight:(PostDetails *)postDetailsObject
 {
     //This default image height + 5 pixels up and 5 pixels down margin
     
+    
+    NIAttributedLabel *textView = [NIAttributedLabel new];
+    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+    textView.numberOfLines = 0;
+    
     //Calculating content height
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14]}];
-        UITextView *textView = [UITextView new];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]}];
+    
     textView.attributedText = attributedString;
     
     
     CGSize contentSize = [textView sizeThatFits:CGSizeMake(230, CGFLOAT_MAX)];
     
-    if(contentSize.height > 65)
-        contentSize.height = 65;
     
-    return contentSize.height;
+    
+    if(contentSize.height > 53)
+        contentSize.height = 53;
+    
+    return contentSize.height+5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -365,7 +374,7 @@
     UIView *backGround  = [[UIView alloc] initWithFrame:CGRectMake(10, 16, 300, size.height-16)];
     backGround.backgroundColor = [UIColor whiteColor];
     [cell.contentView addSubview:backGround];
-
+    
     
     //Profile Image
     UIImageView *profileImage  = [[UIImageView alloc] initWithFrame:CGRectMake(17, yPosition, 40, 40)];
@@ -373,12 +382,12 @@
     {
         
         __weak UIImageView *weakSelf = profileImage;
-
+        
         NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
-            if([postDetailsObject.owner valueForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"fname"] length] >0)
-                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"fname"] substringToIndex:1] uppercaseString]];
-            if([postDetailsObject.owner valueForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"lname"] length]>0)
-                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
+        if([postDetailsObject.owner valueForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"fname"] length] >0)
+            [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"fname"] substringToIndex:1] uppercaseString]];
+        if([postDetailsObject.owner valueForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"lname"] length]>0)
+            [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
         
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -388,14 +397,14 @@
         {
             range.location = 0;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:16]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]}
                                     range:range];
         }
         if(parentFnameInitial.length > 1)
         {
             range.location = 1;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:16]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]}
                                     range:range];
         }
         
@@ -407,25 +416,25 @@
         [initial setBackgroundColor:[UIColor clearColor]];
         initial.textAlignment = NSTextAlignmentCenter;
         [profileImage addSubview:initial];
-
         
-    [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-     {
-         weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(40, 40)] withRadious:0];
-         [initial removeFromSuperview];
-         
-     }failure:nil];
+        
+        [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[postDetailsObject.owner objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(40, 40)] withRadious:0];
+             [initial removeFromSuperview];
+             
+         }failure:nil];
     }
     else
     {
         
-            __weak UIImageView *weakSelf = profileImage;
-            
-            [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-             {
-                 weakSelf.image = image;
-                 
-             }failure:nil];
+        __weak UIImageView *weakSelf = profileImage;
+        
+        [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"]]] placeholderImage:[UIImage imageNamed:@"icon-profile-register.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             weakSelf.image = image;
+             
+         }failure:nil];
         
     }
     
@@ -443,13 +452,13 @@
         frame.size.height -= 30;
         backGround.frame = frame;
         
-         yPosition += 30;
+        yPosition += 30;
     }
     backGround.layer.borderColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0].CGColor;
     backGround.layer.borderWidth = 1.0f;
     backGround.layer.cornerRadius = 5;
     backGround.layer.masksToBounds = YES;
-
+    
     //Profile name
     if(!postDetailsObject.anonymous)
     {
@@ -460,18 +469,18 @@
             [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
         else
             [name setText:@""];
-    name.textAlignment = NSTextAlignmentLeft;
-    [name setFont:[UIFont fontWithName:@"Ubuntu" size:15]];
-    [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
-    [cell.contentView addSubview:name];
+        name.textAlignment = NSTextAlignmentLeft;
+        [name setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
+        [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+        [cell.contentView addSubview:name];
     }
     else
     {
         
         UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition, 110, 30)];
-            [name setText:@"anonymous"];
+        [name setText:@"anonymous"];
         name.textAlignment = NSTextAlignmentLeft;
-        [name setFont:[UIFont fontWithName:@"Ubuntu" size:15]];
+        [name setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
         [name setTextColor:[UIColor grayColor]];
         [cell.contentView addSubview:name];
     }
@@ -481,14 +490,14 @@
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
     [profileButton setFrame:CGRectMake(60, yPosition, 150, 18)];
     [cell.contentView addSubview:profileButton];
-
+    
     UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
     //    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
     profileButton1.tag = indexPath.row;
     [profileButton1 setFrame:profileImage.frame];
     [profileButton1 addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:profileButton1];
-
+    
     
     
     UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(242, yPosition+8, 13, 13)];
@@ -513,9 +522,9 @@
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
     [heartCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [heartCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:8]];
+    [heartCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:8]];
     [cell.contentView addSubview:heartCount];
-
+    
     UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(173, yPosition+7.5, 22, 13)];
     [viewsCntImage setImage:[UIImage imageNamed:@"icon-view-count.png"]];
     [cell.contentView addSubview:viewsCntImage];
@@ -525,9 +534,9 @@
     [viewsCount setTextAlignment:NSTextAlignmentLeft];
     [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.viewsCount]];
     [viewsCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [viewsCount setFont:[UIFont fontWithName:@"Ubuntu-Light" size:8]];
+    [viewsCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:8]];
     [cell.contentView addSubview:viewsCount];
-
+    
     
     [self addDescription:cell withDetails:postDetailsObject :indexPath];
     
@@ -536,177 +545,178 @@
 {
     float yPosition = 43;
     
-    //Description
-    //Description
-    UITextView *textView = [[UITextView alloc] init];
+    NIAttributedLabel *textView = [NIAttributedLabel new];
     
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
     
-    textView.editable = NO;
-    textView.scrollEnabled = NO;
+    
+    textView.numberOfLines = 0;
+    textView.delegate = self;
+    textView.autoDetectLinks = YES;
     textView.attributedText = attributedString;
-    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]};
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
-    [textView setDataDetectorTypes:UIDataDetectorTypeLink];
-    [textView addGestureRecognizer:tapRecognizer];
-    textView.selectable = YES;
-    textView.backgroundColor = [UIColor clearColor];
-    textView.tag = indexPath.row;
+    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     [cell.contentView addSubview:textView];
     
-
+    
     CGSize contentSize = [textView sizeThatFits:CGSizeMake(230, CGFLOAT_MAX)];
-
+    
     
     if((isMostRecent || isFollowing) && indexPath.row == 0)
-
+        
     {
-        if(contentSize .height > 65)
+        if(contentSize .height > 53)
         {
-            textView.frame = CGRectMake(60, yPosition+30, 230, 65);
+            textView.frame = CGRectMake(61, yPosition+30, 230, 53);
             
         }
         else
-            textView.frame = CGRectMake(60, yPosition+30, 230, contentSize.height);
-
+            textView.frame = CGRectMake(61, yPosition+30, 230, contentSize.height);
+        
     }
     else
     {
-        if(contentSize .height > 65)
+        if(contentSize .height > 53)
         {
-            textView.frame = CGRectMake(60, yPosition, 230, 65);
+            textView.frame = CGRectMake(61, yPosition, 230, 53);
             
         }
         else
-            textView.frame = CGRectMake(60, yPosition, 230, contentSize.height);
-
+            textView.frame = CGRectMake(61, yPosition, 230, contentSize.height);
+        
     }
     
-    yPosition += textView.frame.size.height;
+    yPosition += textView.frame.size.height+5;
     UIImageView *postImage;
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
     {
-        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(65, yPosition-3, 32, 32)];
+        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(65, yPosition, 32, 32)];
         UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"placeHolder_wall.png"] scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
-      
+        
         __weak UIImageView *weakSelf = postImage;
-
+        
         [postImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.postImage]] placeholderImage:image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
              weakSelf.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(32, 32)] withRadious:3.0];
              
          }failure:nil];
         
-        yPosition += 32+5;
+        yPosition += 32+8;
         
         [cell.contentView addSubview:postImage];
     }
+    else
+        yPosition += 3;
     
     UIImageView *lineImage  =[[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition, 300, 1)];
     lineImage.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
     [cell.contentView addSubview:lineImage];
     
     
-   /* STTweetLabel *tweetLabel;
-    if([postDetailsObject.tags count] > 0)
+    /* STTweetLabel *tweetLabel;
+     if([postDetailsObject.tags count] > 0)
+     {
+     tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(15, yPosition, 290 , 30)];
+     NSMutableArray *tagarray = [[NSMutableArray alloc] init];
+     for(NSString *tag in postDetailsObject.tags)
+     [tagarray addObject:[NSString stringWithFormat:@"%@",tag]];
+     [tweetLabel setText:[tagarray componentsJoinedByString:@" "]];
+     tweetLabel.textAlignment = NSTextAlignmentCenter;
+     [cell.contentView addSubview:tweetLabel];
+     
+     
+     [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+     [self.delegate tagCicked:string];
+     
+     }];
+     
+     
+     yPosition += 30;
+     }
+     */
+    
+    UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(15, yPosition, 290, 30)];
+    [cell.contentView addSubview:tagsView];
+    NSArray *tagsArray = postDetailsObject.tags;
+    int xPosition =0;
+    for(int i=0; i <tagsArray.count ;i++)
     {
-        tweetLabel = [[STTweetLabel alloc] initWithFrame:CGRectMake(15, yPosition, 290 , 30)];
-        NSMutableArray *tagarray = [[NSMutableArray alloc] init];
-        for(NSString *tag in postDetailsObject.tags)
-            [tagarray addObject:[NSString stringWithFormat:@"%@",tag]];
-        [tweetLabel setText:[tagarray componentsJoinedByString:@" "]];
-        tweetLabel.textAlignment = NSTextAlignmentCenter;
-        [cell.contentView addSubview:tweetLabel];
+        NSString *tagNameStr = tagsArray[i];
+        CGSize size = [tagNameStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
         
+        if(size.width + xPosition >= 290)
+            break;
         
-        [tweetLabel setDetectionBlock:^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
-            [self.delegate tagCicked:string];
-            
-        }];
-
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
+        btn.layer.borderColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0].CGColor;
+        btn.layer.borderWidth = 1.0f;
+        btn.layer.cornerRadius = 5;
+        btn.layer.masksToBounds = YES;
+        [btn setTitle:tagNameStr forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:10]];
+        [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [tagsView addSubview:btn];
+        btn.frame = CGRectMake(xPosition, 6, size.width, 20);
         
-        yPosition += 30;
+        xPosition += btn.frame.size.width + 3;
     }
-    */
-    
-        UIView *tagsView = [[UIView alloc] initWithFrame:CGRectMake(15, yPosition, 290, 30)];
-        [cell.contentView addSubview:tagsView];
-        NSArray *tagsArray = postDetailsObject.tags;
-        int xPosition =0;
-        for(int i=0; i <tagsArray.count ;i++)
-        {
-            NSString *tagNameStr = tagsArray[i];
-            CGSize size = [tagNameStr sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]}];
-            
-            if(size.width + xPosition >= 290)
-               break;
-            
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            btn.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
-            btn.layer.borderColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0].CGColor;
-            btn.layer.borderWidth = 1.0f;
-            btn.layer.cornerRadius = 5;
-            btn.layer.masksToBounds = YES;
-            [btn setTitle:tagNameStr forState:UIControlStateNormal];
-            [btn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:10]];
-            [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
-            [tagsView addSubview:btn];
-            btn.frame = CGRectMake(xPosition, 6, size.width, 20);
-            
-            xPosition += btn.frame.size.width + 3;
-        }
-        if(xPosition < 290)
-        {
-             CGRect frame = tagsView.frame;
-            frame.size.width = xPosition-3;
-            frame.origin.x = (320 - frame.size.width)/2.0;
-            tagsView.frame = frame;
-            
-        }
-        yPosition += 30;
-    
-
-    
-        NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
-    
-        UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(15, yPosition, 290, 30)];
-        [cell.contentView addSubview:commentersView];
+    if(xPosition < 290)
+    {
+        CGRect frame = tagsView.frame;
+        frame.size.width = xPosition-3;
+        frame.origin.x = (320 - frame.size.width)/2.0;
+        tagsView.frame = frame;
         
-        long int x = 0;
-        
-        if(commenters.count < 6)
+    }
+    yPosition += 30;
+    
+    
+    
+    NSMutableArray *commenters = [NSMutableArray arrayWithArray:postDetailsObject.commenters];
+    
+    UIView *commentersView = [[UIView alloc] initWithFrame:CGRectMake(15, yPosition, 290, 30)];
+    [cell.contentView addSubview:commentersView];
+    
+    long int x = 0;
+    
+    if(commenters.count < 6)
         x = (290 - (22*(commenters.count+1) + 3*(commenters.count) ))/2;
-        else
+    else
         x = (290 - (22*(7) + 3*6 ))/2;
-        for(int i = 0; i < commenters.count; i++)
-            //for(id dict in array)
+    for(int i = 0; i < commenters.count; i++)
+        //for(id dict in array)
+    {
+        if(i >= 6 || i == commenters.count)
         {
-            if(i >= 6 || i == commenters.count)
-            {
-                break;
-            }
-
-            NSString *url = [commenters objectAtIndex:i];
-            UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 22, 22)];
-            [commentersView addSubview:imagVw];
-            
-            __weak UIImageView *weakSelf = imagVw;
-            
-            
-            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"icon-profile-register.pngg"] scaledToSize:CGSizeMake(22,22)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-             {
-                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(22, 22)] withRadious:0];
-                 
-             }failure:nil];
-            
-
-            x+= 22 + 3;
-            
+            break;
         }
+        
+        NSString *url = [commenters objectAtIndex:i];
+        UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 22, 22)];
+        [commentersView addSubview:imagVw];
+        
+        __weak UIImageView *weakSelf = imagVw;
+        
+        
+        [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"icon-profile-register.pngg"] scaledToSize:CGSizeMake(22,22)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             if(request.URL.absoluteString != nil && [request.URL.absoluteString rangeOfString:@"anonymous"].location != NSNotFound )
+             {
+                 weakSelf.image = image;
+             }
+             else
+                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(22, 22)] withRadious:0];
+             
+         }failure:nil];
+        
+        
+        x+= 22 + 3;
+        
+    }
     UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 22, 26)];
     [imagVw setImage:[UIImage imageNamed:@"comment_Count.png"]];
     [commentersView addSubview:imagVw];
@@ -716,11 +726,11 @@
         UILabel *tag = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 22 , 22)];
         [tag setText:[NSString stringWithFormat:@"%i",postDetailsObject.commentCount]];
         [tag setTextColor:[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1.0]];
-        [tag setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+        [tag setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
         [tag setTextAlignment:NSTextAlignmentCenter];
         [imagVw addSubview:tag];
     }
-
+    
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
         CGRect frame =  lineImage.frame;
@@ -728,18 +738,18 @@
         lineImage.frame = frame;
         
         
-         frame =  tagsView.frame;
+        frame =  tagsView.frame;
         frame.origin.y += 30;
         tagsView.frame = frame;
         
-         frame =  commentersView.frame;
+        frame =  commentersView.frame;
         frame.origin.y += 30;
         commentersView.frame = frame;
         
         frame =  postImage.frame;
         frame.origin.y += 30;
         postImage.frame = frame;
-    
+        
     }
 }
 
@@ -777,8 +787,16 @@
 {
     UIButton *btn = sender;
     [self.delegate tagCicked:[btn titleForState:UIControlStateNormal]];
-
+    
 }
+
+- (void)attributedLabel:(NIAttributedLabel *)attributedLabel didSelectTextCheckingResult:(NSTextCheckingResult *)result atPoint:(CGPoint)point {
+    if (result.resultType == NSTextCheckingTypeLink) {
+        [[UIApplication sharedApplication] openURL:result.URL];
+    }
+}
+
+
 - (void)tappedTextView:(UITapGestureRecognizer *)tapGesture {
     if (tapGesture.state != UIGestureRecognizerStateEnded) {
         return;
@@ -798,24 +816,24 @@
     }
     else
     {
-
+        
         [self.delegate tableDidSelect:(int)textView.tag];
     }
     
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.delegate tableScrolledForTopView:scrollView.contentOffset.y];
+    
+    if (lastContentOffset > scrollView.contentOffset.y)
     {
-        [self.delegate tableScrolledForTopView:scrollView.contentOffset.y];
-
-        if (lastContentOffset > scrollView.contentOffset.y)
-            {
-            }
-            else if (lastContentOffset < scrollView.contentOffset.y)
-            {
-                [self.delegate tableScrolled:scrollView.contentOffset.y];
-            }
-            lastContentOffset = scrollView.contentOffset.y;
-
-        
     }
+    else if (lastContentOffset < scrollView.contentOffset.y)
+    {
+        [self.delegate tableScrolled:scrollView.contentOffset.y];
+    }
+    lastContentOffset = scrollView.contentOffset.y;
+    
+    
+}
 @end

@@ -32,7 +32,7 @@
     float upstart;
     float downstart;
     CGRect originalPosition;
-
+    
 }
 @synthesize tagName;
 @synthesize followOrEditBtn;
@@ -40,26 +40,25 @@
 @synthesize profileImageVw;
 @synthesize smallProfileImageVw;
 @synthesize animatedTopView;
+@synthesize followingCount;
+@synthesize postsCount;
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [followOrEditBtn setImage:[UIImage imageNamed:@"icon-favorite.png"] forState:UIControlStateSelected];
-
-    
     
     followOrEditBtn.hidden = YES;
-
     
-    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 195, 320, Deviceheight-180-64)];
+    
+    streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 198, 320, Deviceheight-198-64)];
     streamDisplay.delegate = self;
     streamDisplay.isTag = YES;
     streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
     [self.view addSubview:streamDisplay];
     
-    originalPosition = CGRectMake(0, 180, 320, Deviceheight-180-64);
-
+    originalPosition = CGRectMake(0, 198, 320, Deviceheight-198-64);
+    
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -69,7 +68,7 @@
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
-
+    
     
     appdelegate = [[UIApplication sharedApplication] delegate];
     
@@ -80,57 +79,32 @@
     photoUtils = [ProfilePhotoUtils alloc];
     
     
-    nameLabel = [[UILabel alloc] init];
-    [nameLabel setTextAlignment:NSTextAlignmentCenter];
-    [animatedTopView addSubview:nameLabel];
+    
     nameLabel.text = tagName;
-    nameLabel.textColor = [UIColor whiteColor];
-    nameLabel.font = [UIFont fontWithName:@"Ubuntu" size:17];
     
-    CGSize size = [tagName sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:24]}];
-    
-    CGRect frame ;
-    frame.origin.x = (320-size.width)/2;
-    frame.size.width = size.width;
-    frame.origin.y = 140;
-    frame.size.height = 26;
-    nameLabel.frame = frame;
-    nameLabel.layer.borderColor = [UIColor whiteColor].CGColor;
-    nameLabel.layer.borderWidth = 1.5f;
-    nameLabel.layer.cornerRadius = 5;
-    nameLabel.layer.masksToBounds = YES;
-    nameLabel.backgroundColor = [UIColor clearColor];
-
-    
-    smallProfileImageVw.layer.borderColor = [UIColor whiteColor].CGColor;
-    smallProfileImageVw.layer.borderWidth = 3.0f;
-
-    
-
-  NSArray *tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
+    NSArray *tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     NSArray *array = [tagsArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"name = %@",tagName]];
-
-    NSDictionary *dict = [array lastObject];
-  /* __weak UIImageView *weakSelf = profileImageVw;
-    __weak TagViewController *weakSelf2 = self;
-    profileImageVw.tintColor = [UIColor redColor];
-
     
-    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    NSDictionary *dict = [array lastObject];
+    /* __weak UIImageView *weakSelf = profileImageVw;
+     __weak TagViewController *weakSelf2 = self;
+     profileImageVw.tintColor = [UIColor redColor];
+     
+     
+     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
-         
+     weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
+     
      }failure:nil];
-*/
+     */
     profileImageVw.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
-    
+    __weak ProfilePhotoUtils *weakPhoto = photoUtils;
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf1.image = [image resizedImageByMagick:@"110x80#"];
+         weakSelf1.image = [weakPhoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
      }failure:nil];
-    followOrEditBtn.hidden = YES;
     
 }
 -(IBAction)addClicked:(id)sender
@@ -139,33 +113,39 @@
         [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];
     else
     {
-        
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-        
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        CGFloat screenWidth = screenRect.size.width;
-        CGFloat screenHeight = screenRect.size.height;
-        
-        login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
-        
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
-        
-        
-        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
-            
-        }
-                         completion:^(BOOL finished){
-                             [login.view removeFromSuperview];
-                             
-                             [self.navigationController pushViewController:login animated:NO];
-                         }
-         ];
-        
-        
+        [self gotoLoginScreen];
+    }
+}
+
+
+-(void)gotoLoginScreen
+{
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+    
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+    
+    
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
         
     }
+                     completion:^(BOOL finished){
+                         [login.view removeFromSuperview];
+                         
+                         [self.navigationController pushViewController:login animated:NO];
+                     }
+     ];
+    
+    
+    
 }
 
 
@@ -214,35 +194,50 @@
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-            [appdelegate showOrhideIndicator:YES];
-            AccessToken* token = modelManager.accessToken;
-            NSString *command;
-            if(!followOrEditBtn.selected)
-                command = @"follow";
-            else
-                command = @"unfollow";
-            NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
-            NSDictionary *userInfo = @{@"command": @"followGroup"};
-            NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,streamDisplay.tagId
-                                     ];
-            [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
-            
+        [appdelegate showOrhideIndicator:YES];
+        AccessToken* token = modelManager.accessToken;
+        NSString *command;
+        if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
+            command = @"follow";
+        else
+            command = @"unfollow";
+        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
+        NSDictionary *userInfo = @{@"command": @"followGroup"};
+        NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,streamDisplay.tagId
+                                 ];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+        
         
     }
     else
     {
+        [self gotoLoginScreen];
     }
     
 }
 -(void) followingGroupSuccessFull:(NSDictionary *)recievedDict
 {
     [appdelegate showOrhideIndicator:NO];
-    followOrEditBtn.selected = !followOrEditBtn.selected;
+    if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
+    {
+        [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
+        
+        int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue]+1;
+        followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
+    }
+    else
+    {
+        int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue] - 1;
+        followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
+        
+        [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+        
+    }
 }
 -(void) followingGroupFailed
 {
     [appdelegate showOrhideIndicator:NO];
-
+    
 }
 
 #pragma mark -
@@ -251,8 +246,8 @@
 {
     selectedIndex = index;
     PostDetails *postObject;
-        postObject = [streamDisplay.storiesArray objectAtIndex:selectedIndex];
-
+    postObject = [streamDisplay.storiesArray objectAtIndex:selectedIndex];
+    
     if([[postObject.owner objectForKey:@"uid"] isEqualToString:modelManager.userProfile.uid])
     {
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -262,7 +257,7 @@
     }
     else
         [self performSegueWithIdentifier: @"UserProfile" sender: self];
-
+    
     [self performSegueWithIdentifier: @"UserProfile" sender: self];
 }
 - (void)tagCicked:(NSString *)tag
@@ -271,25 +266,20 @@
     TagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"TagViewController"];
     tagView.tagName = tag;
     [self.navigationController pushViewController:tagView animated:YES];
-
+    
 }
 - (void)recievedData:(BOOL)isFollowing
 {
     
     if([streamDisplay.tagId length] > 0)
     {
-    
+        
         followOrEditBtn.hidden = NO;
         if(isFollowing)
-        {
-            [followOrEditBtn setSelected:YES];
-            
-        }
+            [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
         else
-        {
-            [followOrEditBtn setSelected:YES];
-        }
-    
+            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+        
     }
 }
 - (void)tableDidSelect:(int)index
@@ -311,14 +301,14 @@
         destViewController.postObjectFromWall = selectedPost;
     }
     else if ([segue.identifier isEqualToString:@"AddPostsSegue"])
-        {
-            AddPostViewController *destViewController = segue.destinationViewController;
-            destViewController.selectedtagsArray = [NSMutableArray arrayWithObject:tagName];
-        }
+    {
+        AddPostViewController *destViewController = segue.destinationViewController;
+        destViewController.selectedtagsArray = [NSMutableArray arrayWithObject:tagName];
+    }
     else if ([segue.identifier isEqualToString:@"UserProfile"])
     {
         PostDetails *postObject;
-
+        
         postObject = [streamDisplay.storiesArray objectAtIndex:selectedIndex];
         
         UserProfileViewCotroller *destViewController = segue.destinationViewController;
@@ -326,7 +316,7 @@
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
     }
-
+    
 }
 -(void) PostEditedFromPostDetails:(PostDetails *)postDetails
 {
@@ -407,7 +397,7 @@
     
     // originalPosition = streamView.frame;
     [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        animatedTopView.frame = CGRectMake(0, -178, screenWidth, 178);
+        animatedTopView.frame = CGRectMake(0, -198, screenWidth, 198);
         streamDisplay.frame = CGRectMake(0, 0, 320, screenHeight-64);
         streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, screenHeight-64);
         
@@ -427,7 +417,7 @@
     
     [UIView animateWithDuration:0.5f
                      animations:^{
-                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, 178);
+                         animatedTopView.frame = CGRectMake(0, 0, screenWidth, 198);
                          streamDisplay.frame = originalPosition;
                          streamDisplay.streamTableView.frame = CGRectMake(0, 0, 320, originalPosition.size.height);
                          
@@ -438,25 +428,30 @@
     
 }
 
--(void)tagImage:(NSString *)url
+-(void)tagImage:(NSDictionary *)tagDetails
 {
- /*   __weak TagViewController *weakSelf2 = self;
-    __weak UIImageView *weakSelf = profileImageVw;
-    
-    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    /*   __weak TagViewController *weakSelf2 = self;
+     __weak UIImageView *weakSelf = profileImageVw;
+     
+     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
+     weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
      }failure:nil];
-    */
+     */
+    
+    [followingCount setText:[NSString stringWithFormat:@"Followers: %@",[tagDetails objectForKey:@"followers_count"]]];
+    [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[tagDetails objectForKey:@"posts_count"]]];
+    
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
-  
-    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    __weak ProfilePhotoUtils *weakphoto = photoUtils;
+    
+    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[tagDetails objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf1.image = [image resizedImageByMagick:@"110x80#"];
+         weakSelf1.image = [weakphoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
      }failure:nil];
     
-
+    
 }
 
 @end

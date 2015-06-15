@@ -29,7 +29,7 @@
     BOOL isAnonymous;
     UILabel *titleName;
     UIImageView *dropDown;
-
+    
 }
 @synthesize commentDetails;
 -(void)viewDidLoad
@@ -46,11 +46,11 @@
     
     self.title = @"";
     
-   titleName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
     [titleName setBackgroundColor:[UIColor clearColor]];
     titleName.textColor = [UIColor whiteColor];
     titleName.text = @"EDIT COMMENT";
-    titleName.font =[UIFont fontWithName:@"Ubuntu" size:18];
+    titleName.font =[UIFont fontWithName:@"SanFranciscoText-Regular" size:18];
     titleName.textAlignment = NSTextAlignmentRight;
     [self.navigationController.navigationBar addSubview:titleName];
     
@@ -64,7 +64,7 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
     
-
+    
     
     
     commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,9 +72,9 @@
     [commentBtn setFrame:CGRectMake(203, 4.5, 84, 31)];
     [commentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [commentBtn setTitle:@"Comment as" forState:UIControlStateNormal];
-    [commentBtn.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:13]];
+    [commentBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
     [commentBtn setBackgroundImage:[UIImage imageNamed:@"btn-Cmntas.png"] forState:UIControlStateNormal];
-
+    
     
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
@@ -85,7 +85,7 @@
     
     dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(302, 24, 10, 9)];
     [dropDown setImage:[UIImage imageNamed:@"btn-post-dropdown.png"]];
-
+    
     
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -95,7 +95,7 @@
     [postAsLabel1 setText:[NSString stringWithFormat:@"Comment as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
     [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
     [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-    [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+    [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [popView addSubview:postAsLabel1];
     
     UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 4, 24, 24)];
@@ -114,14 +114,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                 range:range];
     }
     
@@ -133,8 +133,8 @@
     initial.textAlignment = NSTextAlignmentCenter;
     [userImage addSubview:initial];
     
-
-
+    
+    
     
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-56.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
@@ -147,19 +147,19 @@
     [self.navigationController.navigationBar addSubview:commentBtn];
     [self.navigationController.navigationBar addSubview:anonymousButton];
     [self.navigationController.navigationBar addSubview:dropDown];
-
+    
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 20, 300, 108)];
     [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
     [self.view addSubview:imageView];
     
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,24,292, 100)];
-    textView.font = [UIFont fontWithName:@"Ubuntu-Light" size:13];
+    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:13];
     textView.delegate = self;
     [self.view addSubview:textView];
-
+    
     self.view.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1.0];
     [self setDetails];
-
+    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -174,7 +174,7 @@
         postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
         isAnonymous = YES;
     }
-
+    
 }
 -(void)backClicked
 {
@@ -206,7 +206,7 @@
             [postAsLabel1 setText:[NSString stringWithFormat:@"Comment as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
             [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
             [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel1 setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+            [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
             [popView addSubview:postAsLabel1];
             
             UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 4, 24, 24)];
@@ -228,14 +228,14 @@
             {
                 range.location = 0;
                 range.length = 1;
-                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:14]}
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                         range:range];
             }
             if(parentFnameInitial.length > 1)
             {
                 range.location = 1;
                 range.length = 1;
-                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:14]}
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}
                                         range:range];
             }
             
@@ -247,7 +247,7 @@
             [initial setBackgroundColor:[UIColor clearColor]];
             initial.textAlignment = NSTextAlignmentCenter;
             [userImage addSubview:initial];
-
+            
             
             [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-56.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
              {
@@ -269,7 +269,7 @@
             [postAsLabel setText:@"Comment as anonymous"];
             [postAsLabel setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
-            [postAsLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:14]];
+            [postAsLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
             [popView addSubview:postAsLabel];
             
             UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 4, 32, 24)];
@@ -286,7 +286,7 @@
         
         [popover showAtView:btn withContentView:popView];
     }
-   
+    
 }
 -(void)commentAsAnonymous
 {
@@ -294,7 +294,7 @@
     {
         [viw removeFromSuperview];
     }
-
+    
     [popover dismiss];
     isAnonymous = YES;
     postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
@@ -319,14 +319,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:13]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:13]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:13]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:13]}
                                 range:range];
     }
     
@@ -338,7 +338,7 @@
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
     [postAnonymous addSubview:initial];
-
+    
     
     [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-56.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
@@ -374,7 +374,7 @@
     [anonymousButton removeFromSuperview];
     [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
-
+    
 }
 -(void) commentFailed
 {

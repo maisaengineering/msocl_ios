@@ -38,24 +38,24 @@
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
-
+    
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [rightButton addTarget:self action:@selector(resetClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
     [rightButton setTitle:@"Reset" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [rightButton.titleLabel setFont:[UIFont fontWithName:@"Ubuntu-Light" size:15]];
+    [rightButton.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:15]];
     rightButton.frame = CGRectMake(0 ,0,50,30);
     rightButton.layer.borderColor = [UIColor whiteColor].CGColor;
     rightButton.layer.borderWidth = 1.5;
     rightButton.layer.cornerRadius = 5; // this value vary as per your desire
     rightButton.clipsToBounds = YES;
-
+    
     
     UIBarButtonItem *rightBarButton = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightBarButton;
-
+    
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:12.0];
+    UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:12.0];
     
     txt_oldPassword.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Current password"
@@ -64,7 +64,7 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
-
+    
     txt_Password.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"New password"
                                     attributes:@{
@@ -72,7 +72,7 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
-
+    
     txt_confirmPassword.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Confirm new password"
                                     attributes:@{
@@ -80,9 +80,9 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
-
     
-
+    
+    
 }
 -(void)resetClicked
 {
@@ -98,7 +98,7 @@
         ShowAlert(PROJECT_NAME,@"Password should be at least 6 characters", @"OK");
         return;
     }
-
+    
     else if(![txt_confirmPassword.text isEqualToString:txt_Password.text])
     {
         ShowAlert(PROJECT_NAME,@"Password and Confirm Password are not matching", @"OK");
@@ -122,19 +122,19 @@
         
         [webservice callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     }
-
     
-
+    
+    
 }
 -(void)changePasswordSuccessFull:(NSDictionary *)recievedDict
 {
-        [appdelegate showOrhideIndicator:NO];
+    [appdelegate showOrhideIndicator:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)changePasswordFailed
 {
-        ShowAlert(PROJECT_NAME,@"Please enter valid current password", @"OK");
-        [appdelegate showOrhideIndicator:NO];
+    ShowAlert(PROJECT_NAME,@"Please enter valid current password", @"OK");
+    [appdelegate showOrhideIndicator:NO];
 }
 -(void)backClicked
 {

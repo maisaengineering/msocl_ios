@@ -25,7 +25,7 @@
     Webservices *webServices;
     UIImage *selectedImage;
     ModelManager *sharedModel;
-
+    
 }
 @synthesize txt_firstName;
 @synthesize txt_emailAddress;
@@ -66,7 +66,7 @@
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
-
+    
     
     UIColor *color = [UIColor lightGrayColor];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
@@ -132,7 +132,7 @@
                                                              bundle: nil];
     UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManageTagsViewController"];
     [self.navigationController pushViewController:vc animated:YES];
-
+    
 }
 -(void)setDetails
 {
@@ -140,7 +140,7 @@
     [txt_lastname setText:sharedModel.userProfile.lname];
     [txt_emailAddress setText:sharedModel.userProfile.email];
     [txt_blog setText:sharedModel.userProfile.blog];
-
+    
     
     __weak UIImageView *weakSelf = profileImage;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -159,14 +159,14 @@
     {
         range.location = 0;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu" size:35]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:35]}
                                 range:range];
     }
     if(parentFnameInitial.length > 1)
     {
         range.location = 1;
         range.length = 1;
-        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu" size:35]}
+        [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:35]}
                                 range:range];
     }
     
@@ -178,7 +178,7 @@
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
     [profileImage addSubview:initial];
-
+    
     
     [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
@@ -216,7 +216,7 @@
     {
         ShowAlert(PROJECT_NAME,@"Please enter first name", @"OK");
         return;
-
+        
     }
     else
     {
@@ -233,11 +233,11 @@
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
     [postDetails setObject:txt_blog.text forKey:@"summary"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
-
+    
     if(txt_Password.text.length > 0)
-         [postDetails setObject:txt_Password.text forKey:@"password"];
+        [postDetails setObject:txt_Password.text forKey:@"password"];
     if(imageId.length > 0)
-    [postDetails setObject:imageId forKey:@"key"];
+        [postDetails setObject:imageId forKey:@"key"];
     
     AccessToken* token = sharedModel.accessToken;
     
@@ -257,7 +257,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
     
     [sharedModel setUserDetails:responseDict];
-
+    
     [appdelegate showOrhideIndicator:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }

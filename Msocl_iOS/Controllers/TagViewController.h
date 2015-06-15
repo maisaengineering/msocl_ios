@@ -19,8 +19,11 @@
 @property (nonatomic, strong) IBOutlet UIView *animatedTopView;
 
 
-@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *nameLabel;
 @property (nonatomic, strong) IBOutlet UIButton *followOrEditBtn;
+@property (nonatomic, strong) IBOutlet UILabel *postsCount;
+@property (nonatomic, strong) IBOutlet UILabel *followingCount;
+
 
 -(IBAction)followOrEditClicked:(id)sender;
 

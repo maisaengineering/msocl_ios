@@ -36,14 +36,14 @@
     [super viewDidLoad];
     
     self.tableView.separatorColor = [UIColor lightGrayColor];
-
+    
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     sharedModel = [ModelManager sharedModel];
     photoUtils = [ProfilePhotoUtils alloc];
-   appdelegate = [[UIApplication sharedApplication] delegate];
+    appdelegate = [[UIApplication sharedApplication] delegate];
     self.tableView.tableFooterView = [[UIView alloc] init];
-
+    
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -83,11 +83,10 @@
         cell.backgroundColor = [UIColor clearColor];
         
         UIImageView *profileImage = (UIImageView *)[cell viewWithTag:1];
-            __weak UIImageView *weakSelf = profileImage;
+        __weak UIImageView *weakSelf = profileImage;
         
-        for (UIView *view in [profileImage subviews])
-             [view removeFromSuperview];
-        
+        for(UIView *view in [profileImage subviews])
+            [view removeFromSuperview];
         NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
         if( [sharedModel.userProfile.fname length] >0)
             [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
@@ -102,14 +101,14 @@
         {
             range.location = 0;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"Ubuntu-Light" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:20]}
                                     range:range];
         }
         if(parentFnameInitial.length > 1)
         {
             range.location = 1;
             range.length = 1;
-            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"ubuntu-Light" size:20]}
+            [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:20]}
                                     range:range];
         }
         
@@ -121,26 +120,26 @@
         [initial setBackgroundColor:[UIColor clearColor]];
         initial.textAlignment = NSTextAlignmentCenter;
         [profileImage addSubview:initial];
-
         
-            [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-             {
-                 weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(35, 35)] withRadious:0];
-                 [initial removeFromSuperview];
-                 
-             }failure:nil];
+        
+        [profileImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+         {
+             weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(35, 35)] withRadious:0];
+             [initial removeFromSuperview];
+             
+         }failure:nil];
         [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
         [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];
-        [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"Ubuntu-Light" size:16]];
-
+        [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16]];
+        
         return cell;
-
+        
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont fontWithName:@"Ubuntu-Light" size:16];
-
+    cell.textLabel.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16];
+    
     switch (indexPath.row)
     {
         case 1:
@@ -153,24 +152,24 @@
             cell.imageView.image = [UIImage imageNamed:@"icon-createpost.png"];
             break;
             
-
+            
         case 3:
             cell.textLabel.text = @"Settings";
             cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
             break;
-
+            
         case 4:
             cell.textLabel.text = @"Manage Tags";
             cell.imageView.image = [UIImage imageNamed:@"icon-menu-mtags.png"];
             break;
-
-
+            
+            
         case 5:
             cell.textLabel.text = @"About";
             cell.imageView.image = [UIImage imageNamed:@"icon-menu-about.png"];
             break;
-
-
+            
+            
         case 6:
             cell.textLabel.text = @"Logout";
             cell.imageView.image = [UIImage imageNamed:@"menu-logout.png"];
@@ -197,9 +196,9 @@
             destViewController.name = [NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname];
             destViewController.profileId = sharedModel.userProfile.uid;
             [[SlideNavigationController sharedInstance] pushViewController:destViewController animated:YES];
-
+            
         }
-
+            
             break;
             
         case 1:
@@ -216,7 +215,7 @@
                                                                      bundle: nil];
             
             UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"AddPostViewController"];
-
+            
             [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
         }
             break;
@@ -240,10 +239,10 @@
                                                                      bundle: nil];
             UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"ManageTagsViewController"];
             [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
-
+            
         }
             break;
-
+            
         case 5:
         {
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
@@ -254,20 +253,20 @@
             [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
         }
             break;
-
+            
             
         case 6:
             [self logOut];
             break;
-
             
-            default:
+            
+        default:
             break;
     }
     
-//    [[SlideNavigationController sharedInstance] popToRootAndSwitchToViewController:vc
-//                                                             withSlideOutAnimation:self.slideOutAnimationEnabled
-//                                                                     andCompletion:nil];
+    //    [[SlideNavigationController sharedInstance] popToRootAndSwitchToViewController:vc
+    //                                                             withSlideOutAnimation:self.slideOutAnimationEnabled
+    //                                                                     andCompletion:nil];
     [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -344,7 +343,7 @@
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     if([[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] != nil)
-    [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
+        [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
     [postDetails setObject:@"iOS" forKey:@"platform"];
     
     AccessToken* token = sharedModel.accessToken;
@@ -393,7 +392,7 @@
     {
         [[NSNotificationCenter defaultCenter]postNotificationName:RELOAD_ON_LOG_OUT object:nil];
     }
-        
+    
 }
 
 - (void)fetchingTokensFailedWithError

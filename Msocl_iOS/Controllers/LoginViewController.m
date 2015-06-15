@@ -35,7 +35,7 @@
     webServices.delegate = self;
     
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:14];
+    UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14];
     
     txt_password.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Password"
@@ -51,7 +51,7 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
- 
+    
     [self preferredStatusBarStyle];
     
     // To dismiss the keyboard when user taps on anywhere in the page.
@@ -67,14 +67,15 @@
         loginWith.hidden = YES;
     else
         loginWith.hidden = NO;
-   
+    if([externalSignInOptions count] > 0)
+    {
         float x = 16+(288-(3 - [externalSignInOptions count])*92 - (3 - [externalSignInOptions count]-1)*6)/2 ;
         
-    if([externalSignInOptions containsObject:@"facebook"])
-    {
-        [facebookButton setHidden:YES];
-    }
-    else
+        if([externalSignInOptions containsObject:@"facebook"])
+        {
+            [facebookButton setHidden:YES];
+        }
+        else
         {
             [facebookButton setHidden:NO];
             CGRect frame = facebookButton.frame;
@@ -95,12 +96,12 @@
             twitterButton.frame = frame;
             x+=98;
         }
-
         
-    if([externalSignInOptions containsObject:@"google"])
-    {
-        [googleButton setHidden:YES];
-    }
+        
+        if([externalSignInOptions containsObject:@"google"])
+        {
+            [googleButton setHidden:YES];
+        }
         else
         {
             [googleButton setHidden:NO];
@@ -109,6 +110,7 @@
             googleButton.frame = frame;
             x+=98;
         }
+    }
 }
 - (void)tapGestureUpdated:(UIGestureRecognizer *)recognizer
 {
@@ -178,7 +180,7 @@
     [postDetails setObject:txt_username.text forKey:@"email"];
     [postDetails setObject:txt_password.text forKey:@"password"];
     if([[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] != nil)
-    [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
+        [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
     [postDetails setObject:@"iOS" forKey:@"platform"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
@@ -198,7 +200,7 @@
     [appdelegate showOrhideIndicator:NO];
     
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
-
+    
     [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
     
     NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];
@@ -206,7 +208,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:tokenDict forKey:@"tokens"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
-
+    
     
     [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:responseDict];
@@ -226,7 +228,7 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     FogotPasswordViewController *forgetPassVC = [mainStoryboard instantiateViewControllerWithIdentifier:@"FogotPasswordViewController"];
     [self.navigationController pushViewController:forgetPassVC animated:NO];
-
+    
 }
 
 -(IBAction)registerClicked:(id)sender
@@ -235,7 +237,7 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SignUpViewController *signUP = [mainStoryboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
     [self.navigationController pushViewController:signUP animated:YES];
-
+    
 }
 
 - (IBAction)facebookButtonClikced:(id)sender

@@ -22,8 +22,8 @@
     Webservices *webServices;
     NSMutableArray *selectedTags;
     ProfilePhotoUtils  *photoUtils;
- UIView *addPopUpView;
-
+    UIView *addPopUpView;
+    
 }
 @synthesize collectionView;
 @synthesize timerHomepage;
@@ -37,14 +37,14 @@
     self.title = @"MANAGE TAGS";
     
     sharedModel = [ModelManager sharedModel];
-
+    
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     
     photoUtils = [ProfilePhotoUtils alloc];
     
     selectedTags = [[NSMutableArray alloc] init];
-
+    
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -66,7 +66,7 @@
     [collectionView setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:collectionView];
     
-
+    
     
     [self getAllGroups];
 }
@@ -146,7 +146,7 @@
     label.backgroundColor = [UIColor colorWithRed:218/255.0 green:218/255.0 blue:218/255.0 alpha:1.0];
     [label setText:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
-    [label setFont:[UIFont fontWithName:@"Ubuntu-Light" size:12]];
+    [label setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
     [label setTextColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
     [cell addSubview:label];
     
@@ -171,7 +171,7 @@
         NSMutableArray *groups =  [[[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"] mutableCopy];
         NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
         NSArray *array = [groups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uid = %@",[dict objectForKey:@"uid"]]];
-
+        
         if(array.count == 0)
         {
             [groups addObject:dict];

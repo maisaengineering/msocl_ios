@@ -56,7 +56,7 @@
     [AFOpenGLManager beginOpenGLLoad];
     
     UIColor *color = [UIColor lightGrayColor];
-    UIFont *font = [UIFont fontWithName:@"Ubuntu-LightItalic" size:14.0];
+    UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14.0];
     
     txt_password.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Password"
@@ -86,8 +86,8 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
-
-
+    
+    
     txt_emailAddress.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"Email"
                                     attributes:@{
@@ -95,7 +95,7 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
-
+    
     
 }
 -(IBAction)backClickes:(id)sender
@@ -117,7 +117,7 @@
     WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
     webViewController.loadUrl = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@t&c/",APP_BASE_URL]];
     [self.navigationController pushViewController: webViewController animated:YES];
-
+    
 }
 -(IBAction)checkBox_Clicked:(id)sender
 {
@@ -131,7 +131,7 @@
 {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:YES];
-
+    
 }
 
 #pragma mark -
@@ -158,7 +158,7 @@
     {
         ShowAlert(PROJECT_NAME,@"Please read and agree to our terms & conditions", @"OK");
         return;
-
+        
     }
     else
     {
@@ -194,9 +194,9 @@
     [postDetails setObject:txt_password.text forKey:@"password"];
     [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
     if(imageId.length > 0)
-    [postDetails setObject:imageId forKey:@"key"];
+        [postDetails setObject:imageId forKey:@"key"];
     if([[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] != nil)
-    [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
+        [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
     [postDetails setObject:@"iOS" forKey:@"platform"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
@@ -215,7 +215,7 @@
 -(void)signUpSccessfull:(NSDictionary *)responseDict
 {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
-
+    
     [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
     
     NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];

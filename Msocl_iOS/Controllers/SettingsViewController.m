@@ -21,8 +21,9 @@
 {
     UITableView *tableView;
     Webservices *webServices;
-    AppDelegate *appdelegate;
+    
     NSDictionary *notifiResoonseDict;
+    AppDelegate *appdelegate;
 }
 @synthesize scrollView;
 @synthesize changePasswordBtn;
@@ -32,9 +33,9 @@
     
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
-
-    
     appdelegate = [[UIApplication sharedApplication] delegate];
+    
+    
     self.title = @"SETTINGS";
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
@@ -48,11 +49,12 @@
     
     
     
-
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
+    [appdelegate showOrhideIndicator:YES];
     [self getOptionsForExternalSignIn];
 }
 
@@ -60,7 +62,6 @@
 #pragma mark Call to Disable External Sign in
 -(void)getOptionsForExternalSignIn
 {
-    [appdelegate showOrhideIndicator:YES];
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     NSString *command = @"appConfig";
@@ -94,7 +95,7 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
     [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
-
+    
 }
 -(IBAction)PushNotifiClicked:(id)sender
 {
@@ -102,7 +103,7 @@
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PushNotiSettingsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"PushNotiSettingsViewController"];
-        login.notifiResoonseDict = notifiResoonseDict;
+    login.notifiResoonseDict = notifiResoonseDict;
     [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
     
     
@@ -110,11 +111,11 @@
 -(IBAction)emailNotifiClicked:(id)sender
 {
     
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        EmailViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"EmailViewController"];
-        login.notifiResoonseDict = notifiResoonseDict;
-        [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
-        
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    EmailViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"EmailViewController"];
+    login.notifiResoonseDict = notifiResoonseDict;
+    [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
+    
     
 }
 

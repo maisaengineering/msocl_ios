@@ -17,7 +17,7 @@
 - (void)recievedData:(BOOL)isFollowing;
 - (void)tagCicked:(NSString *)tagName;
 - (void)tableScrolled:(float)y;
--(void)tagImage:(NSString *)url;
+-(void)tagImage:(NSDictionary *)url;
 -(void)tableScrolledForTopView:(float)y;
 
 @end
