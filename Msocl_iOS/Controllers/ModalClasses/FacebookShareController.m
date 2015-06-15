@@ -30,6 +30,16 @@
              
              if (state == FBSessionStateOpen)
              {
+                 
+                 NSMutableDictionary* params1 = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                 imageURL, @"link",
+                                                 nil];
+                 
+                FBRequest *request = [FBRequest requestWithGraphPath:@"me/links" parameters:params1 HTTPMethod:@"POST"];
+                 FBRequestConnection *fb = [[FBRequestConnection alloc] init];
+                 [fb addRequest:request completionHandler:nil];
+                 [fb start];
+                 return ;
                  // instantiate a Facebook Open Graph object
                  NSMutableDictionary<FBOpenGraphObject> *object = [FBGraphObject openGraphObjectForPost];
                  object.provisionedForPost = YES;
