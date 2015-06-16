@@ -12,13 +12,13 @@
 #import <AviarySDK/AviarySDK.h>
 #import "Webservices.h"
 #import "PostDetails.h"
-
+#import "FacebookShareController.h"
 @protocol EditPostProtocol<NSObject>
 -(void) PostEdited:(PostDetails *)postDetails;
 -(void)PostDeletedFromEditPostDetails;
 @end
 
-@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
+@interface AddPostViewController : UIViewController<UITextViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,webServiceProtocol, AVYPhotoEditorControllerDelegate, UIPopoverControllerDelegate,UICollectionViewDelegate, UICollectionViewDataSource,FacebookPostedConfirmationDelegate>
 {
     UIImagePickerController *imagePicker;
 

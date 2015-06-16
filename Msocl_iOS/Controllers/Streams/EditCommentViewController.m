@@ -272,7 +272,7 @@
             [postAsLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
             [popView addSubview:postAsLabel];
             
-            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 4, 32, 24)];
+            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 5, 30, 30)];
             [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
             [popView addSubview:anonymusImage];
             

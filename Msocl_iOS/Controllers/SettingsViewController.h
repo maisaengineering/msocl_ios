@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UIButton *changePasswordBtn;
+-(IBAction)thirdrdPartyClicked:(id)sender;
 -(IBAction)profileClicked:(id)sender;
 -(IBAction)PushNotifiClicked:(id)sender;
 -(IBAction)emailNotifiClicked:(id)sender;

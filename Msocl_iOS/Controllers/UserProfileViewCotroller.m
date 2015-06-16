@@ -390,6 +390,36 @@
         streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
         
     }
+    if(![modelManager.userProfile.uid isEqualToString:profileId])
+    {
+        followOrEditBtn.hidden = NO;
+        
+        if([[recievedDict objectForKey:@"follow"] boolValue])
+            [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
+        else
+            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+        
+    }
+    else
+    {
+       CGRect frame =  followingCount.frame;
+        frame.origin.y -= followOrEditBtn.frame.size.height;
+        followingCount.frame = frame;
+        
+        frame =  postsCount.frame;
+        frame.origin.y -= followOrEditBtn.frame.size.height;
+        postsCount.frame = frame;
+        
+        frame =  lineImageVw.frame;
+        frame.origin.y -= followOrEditBtn.frame.size.height;
+        lineImageVw.frame = frame;
+        
+        originalPosition = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
+        
+        streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
+
+    }
+
 }
 -(void) profileDetailsFailed
 {

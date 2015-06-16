@@ -85,7 +85,6 @@
 		7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */; };
 		7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */; };
 		7F714F351AE79A2B00C69BF4 /* comment-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */; };
-		7F714F361AE79A2B00C69BF4 /* icon-anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2E1AE79A2B00C69BF4 /* icon-anamous@2x.png */; };
 		7F714F371AE79A2B00C69BF4 /* icon-more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2F1AE79A2B00C69BF4 /* icon-more@2x.png */; };
 		7F714F381AE79A2B00C69BF4 /* icon-upvote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */; };
 		7F714F451AE7D25300C69BF4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F714F441AE7D25300C69BF4 /* SettingsViewController.m */; };
@@ -242,6 +241,8 @@
 		7FB913591B2ECE9E0064D230 /* SanFranciscoDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB913521B2ECE9E0064D230 /* SanFranciscoDisplay-Medium.otf */; };
 		7FB9135A1B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB913531B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf */; };
 		7FB9135C1B2ED5710064D230 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9135B1B2ED5710064D230 /* Main.storyboard */; };
+		7FE2F9C51B301A060020E115 /* icon-anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */; };
+		7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */; };
 		7FE62B6C1B14792700CFE9AA /* icon-view-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE62B6B1B14792700CFE9AA /* icon-view-count@2x.png */; };
 		7FE62B701B14A3D700CFE9AA /* comment-btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE62B6F1B14A3D700CFE9AA /* comment-btn@2x.png */; };
 		7FE62B721B14A48800CFE9AA /* btn-postas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE62B711B14A48800CFE9AA /* btn-postas@2x.png */; };
@@ -383,7 +384,6 @@
 		7F5F18F21ADE9E7D00C5B4EC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-textfield@2x.png"; sourceTree = "<group>"; };
-		7F714F2E1AE79A2B00C69BF4 /* icon-anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-anamous@2x.png"; sourceTree = "<group>"; };
 		7F714F2F1AE79A2B00C69BF4 /* icon-more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-more@2x.png"; sourceTree = "<group>"; };
 		7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote@2x.png"; sourceTree = "<group>"; };
 		7F714F431AE7D25300C69BF4 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -604,6 +604,9 @@
 		7FB913521B2ECE9E0064D230 /* SanFranciscoDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Medium.otf"; sourceTree = "<group>"; };
 		7FB913531B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
 		7FB9135B1B2ED5710064D230 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-anamous@2x.png"; sourceTree = "<group>"; };
+		7FE2F9C61B3020030020E115 /* ShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSettingsViewController.h; sourceTree = "<group>"; };
+		7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSettingsViewController.m; sourceTree = "<group>"; };
 		7FE62B6B1B14792700CFE9AA /* icon-view-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-view-count@2x.png"; sourceTree = "<group>"; };
 		7FE62B6F1B14A3D700CFE9AA /* comment-btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-btn@2x.png"; sourceTree = "<group>"; };
 		7FE62B711B14A48800CFE9AA /* btn-postas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-postas@2x.png"; sourceTree = "<group>"; };
@@ -1060,6 +1063,8 @@
 				7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */,
 				7F07C4B51B2571BE00627F4F /* EmailViewController.h */,
 				7F07C4B61B2571BE00627F4F /* EmailViewController.m */,
+				7FE2F9C61B3020030020E115 /* ShareSettingsViewController.h */,
+				7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */,
 				7F714F461AE7D2B700C69BF4 /* ChangePasswordViewController.h */,
 				7F714F471AE7D2B700C69BF4 /* ChangePasswordViewController.m */,
 				7F5941B91AF3891E001F79BD /* ManageTagsViewController.h */,
@@ -1112,6 +1117,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */,
 				7FA34A801B295C0C0081EC79 /* icon-share@2x.png */,
 				7F952F641B26E53B00810014 /* slider-circle@2x.png */,
 				7F952F601B26E0F600810014 /* slider-gray@2x.png */,
@@ -1189,7 +1195,6 @@
 				7F76EF841AECBE2400770101 /* icon-unsubscribe@2x.png */,
 				7F599E3A1AE6809300DED294 /* icon-heart-list@2x.png */,
 				7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */,
-				7F714F2E1AE79A2B00C69BF4 /* icon-anamous@2x.png */,
 				7F714F2F1AE79A2B00C69BF4 /* icon-more@2x.png */,
 				7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */,
 				7F0AB8E91AE27280009219B2 /* menu-notifications@2x.png */,
@@ -1494,6 +1499,7 @@
 				7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */,
 				7F714F351AE79A2B00C69BF4 /* comment-textfield@2x.png in Resources */,
 				7F76B7CF1B1077630045F9D7 /* back@2x.png in Resources */,
+				7FE2F9C51B301A060020E115 /* icon-anamous@2x.png in Resources */,
 				7FB913561B2ECE9E0064D230 /* SanFranciscoText-Medium.otf in Resources */,
 				7F94E5B91B0E11C80070DE80 /* setting-strip-selected@2x.png in Resources */,
 				7F76EF8A1AECBE2400770101 /* icon-unsubscribe@2x.png in Resources */,
@@ -1510,7 +1516,6 @@
 				7FB9135C1B2ED5710064D230 /* Main.storyboard in Resources */,
 				7F952F631B26E0F600810014 /* slider-red@2x.png in Resources */,
 				7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */,
-				7F714F361AE79A2B00C69BF4 /* icon-anamous@2x.png in Resources */,
 				7FB913541B2ECE9E0064D230 /* SanFranciscoText-Light.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1563,6 +1568,7 @@
 				7F5F18EA1ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				7F83BC5D1AD14CEF008DFD8B /* AFURLConnectionOperation.m in Sources */,
 				7F5941B41AF388D4001F79BD /* AddPostViewController.m in Sources */,
+				7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */,
 				7F83BC591AD14CEF008DFD8B /* AFHTTPRequestOperationManager.m in Sources */,
 				7F83BC5B1AD14CEF008DFD8B /* AFNetworkReachabilityManager.m in Sources */,
 				7F5DEFB21AD7C50A00F2C60A /* SDWebImageCompat.m in Sources */,
@@ -1735,16 +1741,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					arm64,
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1759,9 +1761,12 @@
 					"$(PROJECT_DIR)/Msocl_iOS/Flurry",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1770,16 +1775,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					arm64,
-					armv7s,
-				);
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -1794,9 +1795,12 @@
 					"$(PROJECT_DIR)/Msocl_iOS/Flurry",
 					"$(PROJECT_DIR)",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-Objc",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5ecaa844-80d6-4448-90e1-e90c7ee74f82";
+				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

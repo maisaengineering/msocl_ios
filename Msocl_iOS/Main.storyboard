@@ -18,6 +18,9 @@
             <string>SanFranciscoText-Light</string>
             <string>SanFranciscoText-Light</string>
             <string>SanFranciscoText-Light</string>
+            <string>SanFranciscoText-Light</string>
+            <string>SanFranciscoText-Light</string>
+            <string>SanFranciscoText-Light</string>
         </mutableArray>
         <mutableArray key="SanFranciscoText-LightItalic.otf">
             <string>SanFranciscoText-LightItalic</string>
@@ -25,6 +28,9 @@
             <string>SanFranciscoText-LightItalic</string>
         </mutableArray>
         <mutableArray key="SanFranciscoText-Medium.otf">
+            <string>SanFranciscoText-Medium</string>
+            <string>SanFranciscoText-Medium</string>
+            <string>SanFranciscoText-Medium</string>
             <string>SanFranciscoText-Medium</string>
             <string>SanFranciscoText-Medium</string>
             <string>SanFranciscoText-Medium</string>
@@ -742,6 +748,23 @@
                                         <rect key="frame" x="0.0" y="139" width="320" height="1"/>
                                         <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5V-Dx-eZe">
+                                        <rect key="frame" x="19" y="141" width="293" height="46"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="16"/>
+                                        <state key="normal" title="Sharing">
+                                            <color key="titleColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" backgroundImage="setting-strip-selected.png"/>
+                                        <connections>
+                                            <action selector="thirdrdPartyClicked:" destination="zEq-YT-i0r" eventType="touchUpInside" id="PCz-am-jRf"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QpH-hn-1u6">
+                                        <rect key="frame" x="0.0" y="186" width="320" height="1"/>
+                                        <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </scrollView>
@@ -967,7 +990,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Subscribe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qzp-zt-ozi">
                                 <rect key="frame" x="5" y="26" width="89" height="28"/>
                                 <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="16"/>
-                                <color key="textColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="drk-hd-cA9">
@@ -991,6 +1014,78 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="74F-oI-Ej6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2200" y="1383"/>
+        </scene>
+        <!--Share Settings View Controller-->
+        <scene sceneID="OCh-hw-Psn">
+            <objects>
+                <viewController storyboardIdentifier="ShareSettingsViewController" id="1qI-iS-kpc" customClass="ShareSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DiJ-Dw-DIm"/>
+                        <viewControllerLayoutGuide type="bottom" id="efU-47-E1J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CsQ-N7-kx6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enable Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPn-EM-kWp">
+                                <rect key="frame" x="11" y="23" width="121" height="28"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6MS-Qk-M9M">
+                                <rect key="frame" x="248" y="20" width="51" height="31"/>
+                                <color key="onTintColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="switchChanged:" destination="1qI-iS-kpc" eventType="touchUpInside" id="Kbf-f6-2UX"/>
+                                </connections>
+                            </switch>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QN2-yA-5PI">
+                                <rect key="frame" x="0.0" y="61" width="320" height="1"/>
+                                <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minValue="1" maxValue="3" translatesAutoresizingMaskIntoConstraints="NO" id="d1t-St-0PC">
+                                <rect key="frame" x="10" y="140" width="300" height="31"/>
+                                <color key="minimumTrackTintColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="1qI-iS-kpc" eventType="touchUpInside" id="92c-3T-VTj"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="POST/COMMENT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVT-eF-CnM">
+                                <rect key="frame" x="16" y="167" width="100" height="28"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Medium" family="San Francisco Text" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="LIKE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ODT-Ub-0M4">
+                                <rect key="frame" x="113" y="167" width="100" height="28"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Medium" family="San Francisco Text" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="EVERYTHING" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FzA-fG-AYF">
+                                <rect key="frame" x="216" y="167" width="100" height="28"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Medium" family="San Francisco Text" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SHARE when I:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LBz-Kt-e7B">
+                                <rect key="frame" x="11" y="114" width="121" height="28"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="fbSwitchCntrl" destination="6MS-Qk-M9M" id="I4X-nM-liI"/>
+                        <outlet property="slider" destination="d1t-St-0PC" id="SPc-eZ-jdD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nCJ-rp-KKN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2553" y="1383"/>
         </scene>
         <!--M SOCIAL-->
         <scene sceneID="6Eo-hb-mqL">
@@ -1055,7 +1150,7 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Blog" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Xb-BT-8eQ">
                                         <rect key="frame" x="17" y="233" width="240" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <outlet property="delegate" destination="QhP-9v-hjI" id="8GA-U2-et5"/>
                                         </connections>

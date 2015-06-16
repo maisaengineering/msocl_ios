@@ -13,6 +13,7 @@
 #import "UpdateUserDetailsViewController.h"
 #import "PushNotiSettingsViewController.h"
 #import "EmailViewController.h"
+#import "ShareSettingsViewController.h"
 #import "ModelManager.h"
 #import "StringConstants.h"
 #import "AppDelegate.h"
@@ -99,8 +100,6 @@
 }
 -(IBAction)PushNotifiClicked:(id)sender
 {
-    
-    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     PushNotiSettingsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"PushNotiSettingsViewController"];
     login.notifiResoonseDict = notifiResoonseDict;
@@ -118,7 +117,13 @@
     
     
 }
+-(IBAction)thirdrdPartyClicked:(id)sender
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ShareSettingsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"ShareSettingsViewController"];
+    [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
 
+}
 
 @end
 

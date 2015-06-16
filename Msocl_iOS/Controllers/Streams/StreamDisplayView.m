@@ -252,7 +252,7 @@
     self.postCount = [recievedDict objectForKey:@"post_count"];
     self.etag = [recievedDict objectForKey:@"etag"];
     
-    [self.delegate recievedData:[[recievedDict objectForKey:@"follow"] boolValue]];
+    [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
     
     [streamTableView reloadData];
     

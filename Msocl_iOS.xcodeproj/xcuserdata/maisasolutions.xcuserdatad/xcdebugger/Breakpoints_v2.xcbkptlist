@@ -148,22 +148,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/TagViewController.m"
-            timestampString = "456129315.200762"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "-profileDetailsSuccessFull:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/TagViewController.m"
             timestampString = "456134648.647811"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -179,13 +163,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
+            timestampString = "456142817.873863"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "574"
+            endingLineNumber = "574"
+            landmarkName = "-setupHighResContextForPhotoEditor:withImage:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/UserProfileViewCotroller.m"
-            timestampString = "456134688.882752"
+            timestampString = "456145676.473913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "607"
-            endingLineNumber = "607"
-            landmarkName = "-recievedData:"
+            startingLineNumber = "537"
+            endingLineNumber = "537"
+            landmarkName = "-followOrEditClicked:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -195,29 +195,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/SettingsViewController.m"
-            timestampString = "456136502.190333"
+            filePath = "Msocl_iOS/Controllers/UserProfileViewCotroller.m"
+            timestampString = "456145303.210304"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "-externalSigninOptionsSuccessFull:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/SettingsViewController.m"
-            timestampString = "456136502.903644"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "-externalSigninOptionsFailed"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "-profileDetailsSuccessFull:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

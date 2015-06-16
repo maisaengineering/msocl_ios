@@ -267,11 +267,12 @@
     return UIStatusBarStyleLightContent;
 }
 
--(void)sharetoFB
+-(void)shareOptions
 {
     UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", nil];
     [shareActionSheet showInView:self.view];
 }
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
@@ -290,6 +291,7 @@
 
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
+
 -(void)backClicked
 {
     if([storiesArray count] >0)
@@ -351,7 +353,7 @@
     }
     
     shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton addTarget:self action:@selector(sharetoFB) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [shareButton addTarget:self action:@selector(shareOptions) forControlEvents:UIControlEventTouchUpInside]; //adding action
     [shareButton setImage:[UIImage imageNamed:@"icon-share.png"] forState:UIControlStateNormal];
     shareButton.frame = CGRectMake(280 ,7,30,30);
     [self.navigationController.navigationBar addSubview:shareButton];
@@ -1105,7 +1107,7 @@
             [postAsLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:16]];
             [popView addSubview:postAsLabel];
             
-            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 8, 32, 24)];
+            UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 5, 30, 30)];
             [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
             [popView addSubview:anonymusImage];
             
@@ -1235,6 +1237,16 @@
     [streamTableView reloadData];
     self.txt_comment.text = @"";
     [self.txt_comment addSubview:placeholderLabel];
+    
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"share"];
+    if(dict != nil)
+    {
+        if([[dict objectForKey:@"fb"] boolValue])
+        {
+            [self shareToFB];
+        }
+    }
+
 }
 -(void) commentFailed
 {
@@ -1555,6 +1567,19 @@
 -(void) heartingSuccessFull:(NSDictionary *)recievedDict
 {
     [appDelegate showOrhideIndicator:NO];
+    PostDetails *postDetails = [storiesArray lastObject];
+    if(postDetails.upvoted)
+    {
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"share"];
+    if(dict != nil)
+    {
+        int value = [[dict objectForKey:@"sliderValue"] intValue];
+        if([[dict objectForKey:@"fb"] boolValue] && value >= 2)
+        {
+            [self shareToFB];
+        }
+    }
+    }
 }
 -(void) heartingFailed
 {
@@ -1731,11 +1756,7 @@
         NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if([title isEqualToString:@"Share on Facebook"])
         {
-            PostDetails *post = [storiesArray lastObject];
-
-            FacebookShareController *fbc = [[FacebookShareController alloc] init];
-        fbc.postedConfirmationDelegate = self;
-        [fbc PostToFacebookViaAPI:post.url:@"":@"":@"story"];
+            [self shareToFB];
         }
 
     }
@@ -1783,6 +1804,19 @@
     [storiesArray replaceObjectAtIndex:0 withObject:postDetails];
     [streamTableView reloadData];
     [appDelegate showOrhideIndicator:NO];
+    if([[recievedDict objectForKey:@"upvoted"] boolValue])
+    {
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"share"];
+    if(dict != nil)
+    {
+        int value = [[dict objectForKey:@"sliderValue"] intValue];
+        if([[dict objectForKey:@"fb"] boolValue] && value >= 2)
+        {
+            [self shareToFB];
+        }
+    }
+    }
+    
 }
 -(void) commentUpVoteFailed
 {
@@ -2113,5 +2147,14 @@
     
     
 }
+#pragma mark -
+#pragma mark Share Methods
+-(void)shareToFB
+{
+    PostDetails *post = [storiesArray lastObject];
+    FacebookShareController *fbc = [[FacebookShareController alloc] init];
+    fbc.postedConfirmationDelegate = self;
+    [fbc PostToFacebookViaAPI:post.url:@"":@"":@"story"];
 
+}
 @end

@@ -17,6 +17,7 @@
 #import "SDWebImageManager.h"
 #import "UIImageView+AFNetworking.h"
 #import "PhotoCollectionViewCell.h"
+#import "FacebookShareController.h"
 
 @implementation AddPostViewController
 {
@@ -1328,6 +1329,15 @@
 }
 -(void)postCreationSccessfull:(NSDictionary *)notificationDict
 {
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"share"];
+    if(dict != nil)
+    {
+        if([[dict objectForKey:@"fb"] boolValue])
+        {
+            [self shareToFB:[notificationDict objectForKey:@"url"]];
+        }
+    }
+    
     [appdelegate showOrhideIndicator:NO];
     isPostClicked = NO;
     postButton.enabled = YES;
@@ -1337,6 +1347,8 @@
     [postAnonymous removeFromSuperview];
     [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
+    
+   
 }
 -(void)postCreationFailed
 {
@@ -1655,6 +1667,15 @@
     
     [self check];
     
+    
+}
+#pragma mark -
+#pragma mark Share Methods
+-(void)shareToFB:(NSString *)url
+{
+    FacebookShareController *fbc = [[FacebookShareController alloc] init];
+    fbc.postedConfirmationDelegate = self;
+    [fbc PostToFacebookViaAPI:url:@"":@"":@"story"];
     
 }
 
