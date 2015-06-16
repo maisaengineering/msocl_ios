@@ -30,22 +30,23 @@
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
 
+    slider.continuous = NO;
+//    UIImage *minImage = [[UIImage imageNamed:@"slider-red.png"]
+//                         resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+//    UIImage *maxImage = [[UIImage imageNamed:@"slider-gray.png"]
+//                         resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+//    UIImage *thumbImage = [[UIImage imageNamed:@"slider-circle.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     
-    UIImage *minImage = [[UIImage imageNamed:@"slider-red.png"]
-                         resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    UIImage *maxImage = [[UIImage imageNamed:@"slider-gray.png"]
-                         resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-  //  UIImage *thumbImage = [UIImage imageNamed:@"slider-circle.png"];
-    
-    [[UISlider appearance] setMaximumTrackImage:maxImage
-                                       forState:UIControlStateNormal];
-    [[UISlider appearance] setMinimumTrackImage:minImage
-                                       forState:UIControlStateNormal];
+//    [[UISlider appearance] setMaximumTrackImage:maxImage
+//                                       forState:UIControlStateNormal];
+//    [[UISlider appearance] setMinimumTrackImage:minImage
+//                                       forState:UIControlStateNormal];
 //    [[UISlider appearance] setThumbImage:thumbImage
 //                                forState:UIControlStateNormal];
     
 //    [slider setMinimumTrackImage:[UIImage imageNamed:@"slider-red.png"] forState:UIControlStateNormal];
 //    [slider setMaximumTrackImage:[UIImage imageNamed:@"slider-gray.png"] forState:UIControlStateNormal];
+    
     
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -81,8 +82,8 @@
         // Almost 100% of the time - Adjust:
         
         [slider setValue:roundValue];
-        [self callApi];
     }
+    [self callApi];
 
 }
 
@@ -90,7 +91,7 @@
 -(void)callApi
 {
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    [postDetails setObject:[NSNumber numberWithInt:slider.value + 1] forKey:@"apnNotify"];
+    [postDetails setObject:[NSNumber numberWithInt:slider.value] forKey:@"apnNotify"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
