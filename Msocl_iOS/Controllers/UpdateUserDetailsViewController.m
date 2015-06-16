@@ -34,6 +34,7 @@
 @synthesize txt_postal_code;
 @synthesize txt_phno;
 @synthesize txt_blog;
+@synthesize txt_aboutMe;
 @synthesize txt_Password;
 @synthesize lineImage;
 -(void)viewDidLoad
@@ -94,6 +95,13 @@
                                                  }
      ];
     txt_blog.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"Blog"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    txt_aboutMe.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"About Me"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
@@ -140,6 +148,7 @@
     [txt_lastname setText:sharedModel.userProfile.lname];
     [txt_emailAddress setText:sharedModel.userProfile.email];
     [txt_blog setText:sharedModel.userProfile.blog];
+    [txt_aboutMe setText:sharedModel.userProfile.aboutMe];
     
     
     __weak UIImageView *weakSelf = profileImage;
@@ -204,6 +213,12 @@
 }
 #pragma mark -
 #pragma mark Signup Methods
+- (BOOL) validateUrl: (NSString *) candidate {
+    NSString *urlRegEx =
+    @"(http|https)://((\\w)*|([0-9]*)|([-|_])*)+([\\.|/]((\\w)*|([0-9]*)|([-|_])*))+";
+    NSPredicate *urlTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", urlRegEx];
+    return [urlTest evaluateWithObject:candidate];
+}
 -(IBAction)signupClicked:(id)sender
 {
     [self resignKeyBoards];
@@ -215,6 +230,12 @@
     else if(txt_firstName.text.length == 0)
     {
         ShowAlert(PROJECT_NAME,@"Please enter first name", @"OK");
+        return;
+        
+    }
+    else if(txt_blog.text.length > 0 && [self validateUrl:txt_blog.text])
+    {
+        ShowAlert(PROJECT_NAME,@"Please provide a valid blog url", @"OK");
         return;
         
     }
@@ -231,7 +252,8 @@
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
-    [postDetails setObject:txt_blog.text forKey:@"summary"];
+    [postDetails setObject:txt_blog.text forKey:@"blog"];
+    [postDetails setObject:txt_aboutMe.text forKey:@"summary"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
     
     if(txt_Password.text.length > 0)

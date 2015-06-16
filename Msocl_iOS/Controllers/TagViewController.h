@@ -23,6 +23,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *followOrEditBtn;
 @property (nonatomic, strong) IBOutlet UILabel *postsCount;
 @property (nonatomic, strong) IBOutlet UILabel *followingCount;
+@property (nonatomic, strong) NSString *tagId;
 
 
 -(IBAction)followOrEditClicked:(id)sender;

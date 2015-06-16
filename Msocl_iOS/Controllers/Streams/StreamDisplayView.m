@@ -246,15 +246,13 @@
     
     
     
-    self.tagId = [[recievedDict objectForKey:@"tag"] objectForKey:@"uid"];
-    [self.delegate tagImage:[recievedDict objectForKey:@"tag"]];
     [refreshControl endRefreshing];
     
     self.timeStamp = [recievedDict objectForKey:@"last_modified"];
     self.postCount = [recievedDict objectForKey:@"post_count"];
     self.etag = [recievedDict objectForKey:@"etag"];
     
-    [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
+    [self.delegate recievedData:[[recievedDict objectForKey:@"follow"] boolValue]];
     
     [streamTableView reloadData];
     

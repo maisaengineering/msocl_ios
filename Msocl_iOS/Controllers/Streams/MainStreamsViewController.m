@@ -280,14 +280,7 @@
         postObject = [mostRecent.storiesArray objectAtIndex:selectedIndex];
     else
         postObject = [following.storiesArray objectAtIndex:selectedIndex];
-    if([[postObject.owner objectForKey:@"uid"] isEqualToString:modelManager.userProfile.uid])
-    {
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
-        [[SlideNavigationController sharedInstance] pushViewController:login animated:NO];
-        
-    }
-    else
+  
         [self performSegueWithIdentifier: @"UserProfile" sender: self];
 }
 - (void)recievedData:(BOOL)isFollowing

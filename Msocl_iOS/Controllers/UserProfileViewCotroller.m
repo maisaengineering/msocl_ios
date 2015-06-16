@@ -46,6 +46,7 @@
 @synthesize postsCount;
 @synthesize followingCount;
 @synthesize lineImageVw;
+@synthesize linkButton;
 
 -(void)viewDidLoad
 {
@@ -58,7 +59,14 @@
     [aboutLabel setTextAlignment:NSTextAlignmentCenter];
     [aboutLabel setBackgroundColor:[UIColor clearColor]];
     aboutLabel.textColor = [UIColor colorWithRed:(68/255.f) green:(68/255.f) blue:(68/255.f) alpha:1];
-    
+
+
+    linkButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [linkButton setFrame:CGRectMake(0, 164, 320, 18)];
+    [linkButton addTarget:self action:@selector(linkClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [linkButton.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
+    [linkButton setTitleColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+
     
     streamDisplay = [[StreamDisplayView alloc] initWithFrame:CGRectMake(0, 198, 320, Deviceheight-198-64)];
     streamDisplay.delegate = self;
@@ -219,7 +227,12 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+-(void)linkClicked:(id)sender
+{
+    DebugLog(@"%@",linkButton.titleLabel.text);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:linkButton.titleLabel.text]];
 
+}
 -(void)refreshWall
 {
     if(!isShowPostCalled)
@@ -309,6 +322,7 @@
         CGSize size = [[recievedDict objectForKey:@"summary"] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]}];
         if(size.height < 21)
             size.height = 21;
+        
         CGRect frame =  aboutLabel.frame;
         frame.size.height = size.height;
         aboutLabel.text = [recievedDict objectForKey:@"summary"];
@@ -342,7 +356,40 @@
         streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
         
     }
-    
+    if([recievedDict objectForKey:@"blog"] != nil)
+    {
+        
+        CGRect frame =  linkButton.frame;
+        [linkButton setTitle:[recievedDict objectForKey:@"blog"] forState:UIControlStateNormal] ;
+        
+        CGRect frameTop = animatedTopView.frame;
+        frameTop.size.height += 18;
+        animatedTopView.frame = frameTop;
+        [animatedTopView addSubview:linkButton];
+        
+        float height = 18;
+        
+        frame =  followOrEditBtn.frame;
+        frame.origin.y += height;
+        followOrEditBtn.frame = frame;
+        
+        frame =  followingCount.frame;
+        frame.origin.y += height;
+        followingCount.frame = frame;
+        
+        frame =  postsCount.frame;
+        frame.origin.y += height;
+        postsCount.frame = frame;
+        
+        frame =  lineImageVw.frame;
+        frame.origin.y += height;
+        lineImageVw.frame = frame;
+        
+        originalPosition = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
+        
+        streamDisplay.frame = CGRectMake(0, frame.origin.y+frame.size.height, 320, Deviceheight-frame.size.height-frame.origin.y-64);
+        
+    }
 }
 -(void) profileDetailsFailed
 {

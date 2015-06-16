@@ -49,6 +49,8 @@
     UIImageView *iconImage;
     UIButton *editButton;
     UIButton *shareButton;
+    CGRect keyboardFrameBeginRect;
+    CGRect originalPostion;
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -91,6 +93,7 @@
     [streamTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.view addSubview:streamTableView];
 
+    originalPostion = streamTableView.frame;
     
     storiesArray = [[NSMutableArray alloc] init];
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
@@ -211,17 +214,20 @@
     
         popover = [DXPopover popover];
     
-    
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
     
 }
+
 -(void)viewWillAppear:(BOOL)animated
 {
     
     [self.navigationController setNavigationBarHidden:NO];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+
+    
     DebugLog(@"postID:%@",postID);
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -247,7 +253,15 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
 }
-
+- (void)keyboardDidShow:(NSNotification*)notification
+{
+    NSDictionary* keyboardInfo = [notification userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
+     keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];
+    CGRect frame = streamTableView.frame;
+    frame.size.height -= keyboardFrameBeginRect.size.height;
+    streamTableView.frame = frame;
+}
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
@@ -272,6 +286,8 @@
 
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 -(void)backClicked
@@ -295,6 +311,7 @@
 -(void)doneClick:(id)sender
 {
     [self.txt_comment resignFirstResponder];
+    streamTableView.frame = originalPostion;
 }
 
 -(void)editClicked
@@ -1201,6 +1218,7 @@
     NSString *urlAsString = [NSString stringWithFormat:@"%@comments",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     [self.txt_comment resignFirstResponder];
+    streamTableView.frame = originalPostion;
 
 }
 -(void) commentSuccessful:(NSDictionary *)recievedDict
@@ -1978,6 +1996,8 @@
 /// Display the pop up
 -(void)displayPromptForNewKidWhenStreamDataEmpty
 {
+
+    streamTableView.frame = originalPostion;
     
     [self.txt_comment resignFirstResponder];
 

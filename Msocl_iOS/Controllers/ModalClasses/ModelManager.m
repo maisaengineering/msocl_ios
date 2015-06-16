@@ -55,6 +55,9 @@
                     userProfile.image = [detailsDict objectForKey:key];
                 }
                 else if ([key isEqualToString:@"summary"]) {
+                    userProfile.aboutMe = [detailsDict objectForKey:key];
+                }
+                else if ([key isEqualToString:@"blog"]) {
                     userProfile.blog = [detailsDict objectForKey:key];
                 }
                 else if ([key isEqualToString:@"email"]) {

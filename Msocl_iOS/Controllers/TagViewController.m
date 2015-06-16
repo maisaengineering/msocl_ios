@@ -106,6 +106,8 @@
          
      }failure:nil];
     
+    [self callTagDetails];
+
 }
 -(IBAction)addClicked:(id)sender
 {
@@ -117,6 +119,49 @@
     }
 }
 
+#pragma mark -
+#pragma mark Tag Details
+-(void)callTagDetails
+{
+    AccessToken* token = modelManager.accessToken;
+    NSString *command;
+    command = @"show";
+    NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":@{@"name":tagName}};
+    NSDictionary *userInfo = @{@"command": @"ProfileDetails"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@groups",BASE_URL];
+    
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    
+}
+-(void)profileDetailsSuccessFull:(NSDictionary *)recievedDict
+{
+    recievedDict = [recievedDict objectForKey:@"body"];
+
+    followOrEditBtn.hidden = NO;
+    if([recievedDict objectForKey:@"follow"])
+        [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
+    else
+        [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+    
+    self.tagId = [recievedDict objectForKey:@"uid"];
+    [followingCount setText:[NSString stringWithFormat:@"Followers: %@",[recievedDict objectForKey:@"followers_count"]]];
+    [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[recievedDict objectForKey:@"posts_count"]]];
+    
+    __weak UIImageView *weakSelf1 = smallProfileImageVw;
+    __weak ProfilePhotoUtils *weakphoto = photoUtils;
+    
+    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+     {
+         weakSelf1.image = [weakphoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
+         
+     }failure:nil];
+
+}
+
+-(void) profileDetailsFailed
+{
+        
+}
 
 -(void)gotoLoginScreen
 {
@@ -203,7 +248,7 @@
             command = @"unfollow";
         NSDictionary* postData = @{@"command": command,@"access_token": token.access_token};
         NSDictionary *userInfo = @{@"command": @"followGroup"};
-        NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,streamDisplay.tagId
+        NSString *urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,self.tagId
                                  ];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
         
@@ -248,15 +293,6 @@
     PostDetails *postObject;
     postObject = [streamDisplay.storiesArray objectAtIndex:selectedIndex];
     
-    if([[postObject.owner objectForKey:@"uid"] isEqualToString:modelManager.userProfile.uid])
-    {
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
-        [self.navigationController pushViewController:login animated:NO];
-        
-    }
-    else
-        [self performSegueWithIdentifier: @"UserProfile" sender: self];
     
     [self performSegueWithIdentifier: @"UserProfile" sender: self];
 }
@@ -271,16 +307,6 @@
 - (void)recievedData:(BOOL)isFollowing
 {
     
-    if([streamDisplay.tagId length] > 0)
-    {
-        
-        followOrEditBtn.hidden = NO;
-        if(isFollowing)
-            [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
-        else
-            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
-        
-    }
 }
 - (void)tableDidSelect:(int)index
 {
