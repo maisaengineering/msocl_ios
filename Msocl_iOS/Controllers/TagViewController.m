@@ -138,7 +138,7 @@
     recievedDict = [recievedDict objectForKey:@"body"];
 
     followOrEditBtn.hidden = NO;
-    if([recievedDict objectForKey:@"follow"])
+    if([[recievedDict objectForKey:@"follow"] boolValue])
         [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
     else
         [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];

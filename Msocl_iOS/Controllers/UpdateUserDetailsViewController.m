@@ -233,7 +233,7 @@
         return;
         
     }
-    else if(txt_blog.text.length > 0 && [self validateUrl:txt_blog.text])
+    else if(txt_blog.text.length > 0 && ![self validateUrl:txt_blog.text])
     {
         ShowAlert(PROJECT_NAME,@"Please provide a valid blog url", @"OK");
         return;

@@ -402,7 +402,16 @@
     }
     else
     {
-       CGRect frame =  followingCount.frame;
+        CGRect frame;
+        
+        if([recievedDict objectForKey:@"summary"] == nil)
+        {
+        frame =  linkButton.frame;
+        frame.origin.y -= linkButton.frame.size.height;
+        linkButton.frame = frame;
+        }
+        
+        frame =  followingCount.frame;
         frame.origin.y -= followOrEditBtn.frame.size.height;
         followingCount.frame = frame;
         

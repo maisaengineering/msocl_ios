@@ -29,15 +29,15 @@
 			<string>com.maisasolutions.msocl</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>miossamepinch</string>
-				<string>fb1649226515293024</string>
+				<string>samepinchapp</string>
+				<string>fb1646195582278585</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>5</string>
 	<key>FacebookAppID</key>
-	<string>1649226515293024</string>
+	<string>1646195582278585</string>
 	<key>LSApplicationCategoryType</key>
 	<string>status</string>
 	<key>LSRequiresIPhoneOS</key>
