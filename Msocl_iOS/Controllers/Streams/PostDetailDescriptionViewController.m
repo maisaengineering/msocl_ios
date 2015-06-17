@@ -362,7 +362,7 @@
     
     shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [shareButton addTarget:self action:@selector(shareOptions) forControlEvents:UIControlEventTouchUpInside]; //adding action
-    [shareButton setImage:[UIImage imageNamed:@"icon-share.png"] forState:UIControlStateNormal];
+    [shareButton setImage:[UIImage imageNamed:@"iconshare.png"] forState:UIControlStateNormal];
     shareButton.frame = CGRectMake(280 ,7,30,30);
     [self.navigationController.navigationBar addSubview:shareButton];
     

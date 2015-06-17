@@ -403,7 +403,7 @@
 -(void)finishedEditingImage:(UIImage *)image
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    profileImage.image = [photoUtils makeRoundKidPhoto:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(50, 50)]];
+    profileImage.image = [photoUtils makeRoundKidPhoto:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(100, 100)]];
     selectedImage = image;
     [self UploadImage:image];
 }

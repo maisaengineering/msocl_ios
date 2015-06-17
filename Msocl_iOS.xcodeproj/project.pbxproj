@@ -223,6 +223,7 @@
 		7F952F621B26E0F600810014 /* slider-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F601B26E0F600810014 /* slider-gray@2x.png */; };
 		7F952F631B26E0F600810014 /* slider-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F611B26E0F600810014 /* slider-red@2x.png */; };
 		7F952F651B26E53B00810014 /* slider-circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F641B26E53B00810014 /* slider-circle@2x.png */; };
+		7F981DFE1B317EBD008215DA /* iconshare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F981DFD1B317EBD008215DA /* iconshare@2x.png */; };
 		7FA34A811B295C0C0081EC79 /* icon-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA34A801B295C0C0081EC79 /* icon-share@2x.png */; };
 		7FA89E1F1B2AD3C90019BFBC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */; };
 		7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */; };
@@ -585,6 +586,7 @@
 		7F952F601B26E0F600810014 /* slider-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-gray@2x.png"; sourceTree = "<group>"; };
 		7F952F611B26E0F600810014 /* slider-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-red@2x.png"; sourceTree = "<group>"; };
 		7F952F641B26E53B00810014 /* slider-circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-circle@2x.png"; sourceTree = "<group>"; };
+		7F981DFD1B317EBD008215DA /* iconshare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconshare@2x.png"; sourceTree = "<group>"; };
 		7FA34A801B295C0C0081EC79 /* icon-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-share@2x.png"; sourceTree = "<group>"; };
 		7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		7FA8FF2C1B25628D006F751A /* PushNotiSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotiSettingsViewController.h; sourceTree = "<group>"; };
@@ -1117,6 +1119,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F981DFD1B317EBD008215DA /* iconshare@2x.png */,
 				7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */,
 				7FA34A801B295C0C0081EC79 /* icon-share@2x.png */,
 				7F952F641B26E53B00810014 /* slider-circle@2x.png */,
@@ -1507,6 +1510,7 @@
 				7F8871E61B131B850043CE58 /* circle-186@2x.png in Resources */,
 				7F8999251AD2B1F6007E2917 /* tour_4@2x.png in Resources */,
 				7F8891111B162459009C8CC8 /* header-icon-samepinch@2x.png in Resources */,
+				7F981DFE1B317EBD008215DA /* iconshare@2x.png in Resources */,
 				7F76EF871AECBE2400770101 /* icon-favorite-disable@2x.png in Resources */,
 				7F8891021B15FF28009C8CC8 /* cd-4@3x.png in Resources */,
 				7F8999261AD2B1F6007E2917 /* tour_5@2x.png in Resources */,
