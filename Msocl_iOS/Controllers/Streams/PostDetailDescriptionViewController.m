@@ -250,6 +250,14 @@
         isImageClicked = NO;
         [self callShowPostApi];
     }
+    if([storiesArray count] > 0)
+    {
+    PostDetails *post = [storiesArray lastObject];
+        if([post.can containsObject:@"edit"])
+            [self.navigationController.navigationBar addSubview:editButton];
+        [self.navigationController.navigationBar addSubview:shareButton];
+        
+    }
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
 }
