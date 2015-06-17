@@ -37,14 +37,14 @@
 #define DEVICE_UUID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
 //API URLS
-#define kBASE_URL               @"https://samepinch.herokuapp.com/"
-#define BASE_URL                @"https://samepinch.herokuapp.com/api/"
+#define kBASE_URL               @"https://posts.samepinch.co/"
+#define BASE_URL                @"https://posts.samepinch.co/api/"
 
 #define APP_BASE_URL @"http://www.samepinch.co/"
 
 // OAUTH URL
-#define OAUTH_URL                @"https://samepinch.herokuapp.com/users/auth/"
-#define OAUTH_URL2                @"https://samepinch.herokuapp.com/users/auth/"
+#define OAUTH_URL                @"https://posts.samepinch.co/users/auth/"
+#define OAUTH_URL2                @"https://posts.samepinch.co/users/auth/"
 
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."

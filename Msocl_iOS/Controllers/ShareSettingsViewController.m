@@ -80,21 +80,28 @@
             [FBSession openActiveSessionWithPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES
                                              completionHandler:
              ^(FBSession *session, FBSessionState state, NSError *error) {
+                 if (!error)
+                 {
+                     NSMutableDictionary *dict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"share"] mutableCopy];
+                     if(dict != nil)
+                     {
+                         [dict setObject:[NSNumber numberWithBool:fbSwitchCntrl.isOn] forKey:@"fb"];
+                         [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"share"];
+                     }
+                     else
+                     {
+                         [[NSUserDefaults standardUserDefaults] setObject:@{@"fb":[NSNumber numberWithBool:fbSwitchCntrl.isOn], @"sliderValue":[NSNumber numberWithInt:slider.value]} forKey:@"share"];
+                     }
+                     
+                     [[NSUserDefaults standardUserDefaults] synchronize];
+
+                 }
+                 else
+                     fbSwitchCntrl.on = NO;
+                 
              }];
         }
         
-        NSMutableDictionary *dict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"share"] mutableCopy];
-        if(dict != nil)
-        {
-            [dict setObject:[NSNumber numberWithBool:fbSwitchCntrl.isOn] forKey:@"fb"];
-            [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"share"];
-        }
-        else
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:@{@"fb":[NSNumber numberWithBool:fbSwitchCntrl.isOn], @"sliderValue":[NSNumber numberWithInt:slider.value]} forKey:@"share"];
-        }
-        
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
