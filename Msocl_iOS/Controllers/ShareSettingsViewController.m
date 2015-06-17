@@ -18,6 +18,9 @@
 - (void)viewDidLoad {
     
     slider.continuous = NO;
+    self.title = @"SETTINGS";
+
+    
     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"share"];
     if(dict != nil)
     {
