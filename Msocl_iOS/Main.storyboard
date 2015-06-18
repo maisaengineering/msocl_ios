@@ -308,8 +308,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="M SOCAIL" id="9Qn-K6-gx0"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="facebookButton" destination="biR-Wm-q8u" id="IDT-Hj-R1t"/>
                         <outlet property="googleButton" destination="XDL-7B-QES" id="uSi-4y-Lx9"/>
@@ -489,7 +487,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="M SOCIAL" id="aia-LJ-syC"/>
-                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="checkBox" destination="cf3-pQ-hzY" id="zCS-fs-S68"/>
                         <outlet property="profileImage" destination="9vN-ph-kEP" id="eYS-DM-vS1"/>
@@ -752,7 +749,7 @@
                                         <rect key="frame" x="19" y="141" width="293" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="16"/>
-                                        <state key="normal" title="Sharing">
+                                        <state key="normal" title="Auto Sharing">
                                             <color key="titleColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1069,8 +1066,8 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SHARE when I:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LBz-Kt-e7B">
-                                <rect key="frame" x="11" y="114" width="121" height="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Auto SHARE when I:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LBz-Kt-e7B">
+                                <rect key="frame" x="11" y="114" width="141" height="28"/>
                                 <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="16"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -1394,7 +1391,7 @@
         <segue reference="Ngw-Gf-AxF"/>
         <segue reference="dLo-Yv-fr4"/>
         <segue reference="m3S-0J-NjW"/>
-        <segue reference="M8x-x6-6lY"/>
         <segue reference="fCv-1J-IEX"/>
+        <segue reference="iax-nE-auz"/>
     </inferredMetricsTieBreakers>
 </document>

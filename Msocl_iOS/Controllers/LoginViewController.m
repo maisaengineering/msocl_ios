@@ -34,6 +34,9 @@
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     
+    [self preferredStatusBarStyle];
+
+    
     UIColor *color = [UIColor lightGrayColor];
     UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14];
     
@@ -52,7 +55,7 @@
                                                  }
      ];
     
-    [self preferredStatusBarStyle];
+    
     
     // To dismiss the keyboard when user taps on anywhere in the page.
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureUpdated:)];
@@ -111,13 +114,18 @@
         }
     
 }
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
+}
+- (BOOL)prefersStatusBarHidden {
+    return NO;
+}
+
 - (void)tapGestureUpdated:(UIGestureRecognizer *)recognizer
 {
     [txt_username resignFirstResponder];
     [txt_password resignFirstResponder];
-}
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {

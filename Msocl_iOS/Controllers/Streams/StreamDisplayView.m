@@ -294,7 +294,7 @@
     height += descrHeight;
     
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
-        height += 80+8;
+        height += 100+8;
     else
         height += 3;
     if((isMostRecent || isFollowing) && indexPath.row == 0)
@@ -590,14 +590,14 @@
     UIImageView *postImage;
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
     {
-        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(128, yPosition, 80, 80)];
+        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(128, yPosition, 100, 100)];
         UIImage  *image = [UIImage sd_animatedGIFNamed:@"grey-dots"];
         
         __weak UIImageView *weakSelf = postImage;
         
         [postImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.postImage]] placeholderImage:image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(80, 80)] withRadious:3.0];
+             weakSelf.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(100, 100)] withRadious:10.0];
 
              CATransition *transition = [CATransition animation];
              transition.duration = 1.0f;
@@ -608,7 +608,7 @@
              
          }failure:nil];
         
-        yPosition += 80+8;
+        yPosition += 100+8;
         
         [cell.contentView addSubview:postImage];
     }

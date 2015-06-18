@@ -341,14 +341,14 @@
     
     postsCount = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 130, 20)];
     [postsCount setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
-    [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[recievedDict objectForKey:@"posts_count"]]];
+    [postsCount setText:[NSString stringWithFormat:@"posts: %@",[recievedDict objectForKey:@"posts_count"]]];
     [postsCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [postsCount setTextAlignment:NSTextAlignmentRight];
     [animatedTopView addSubview:postsCount];
     
     followingCount = [[UILabel alloc] initWithFrame:CGRectMake(170, y, 130, 20)];
     [followingCount setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
-    [followingCount setText:[NSString stringWithFormat:@"Followers: %@",[recievedDict objectForKey:@"followers_count"]]];
+    [followingCount setText:[NSString stringWithFormat:@"followers: %@",[recievedDict objectForKey:@"followers_count"]]];
     [followingCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [followingCount setTextAlignment:NSTextAlignmentLeft];
     [animatedTopView addSubview:followingCount];

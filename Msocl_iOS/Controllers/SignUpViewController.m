@@ -44,6 +44,9 @@
     webServices.delegate = self;
     imageId = @"";
     //Aviary
+    [UIApplication sharedApplication].statusBarHidden = NO;
+
+    
     // Aviary iOS 7 Start
     ALAssetsLibrary * assetLibrary1 = [[ALAssetsLibrary alloc] init];
     [self setAssetLibrary:assetLibrary1];
@@ -123,9 +126,6 @@
 {
     UIButton *button = sender;
     button.selected = !button.selected;
-}
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -521,7 +521,10 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
+}
+- (BOOL)prefersStatusBarHidden {
+    return NO;
 }
 
 #pragma mark- Photo upload Methods
