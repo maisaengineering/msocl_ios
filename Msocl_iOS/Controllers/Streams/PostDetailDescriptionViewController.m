@@ -27,6 +27,7 @@
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
 #import "UserProfileViewCotroller.h"
+#import "UIImage+GIF.h"
 
 @implementation PostDetailDescriptionViewController
 {
@@ -362,8 +363,8 @@
     
     shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [shareButton addTarget:self action:@selector(shareOptions) forControlEvents:UIControlEventTouchUpInside]; //adding action
-    [shareButton setImage:[UIImage imageNamed:@"iconshare.png"] forState:UIControlStateNormal];
-    shareButton.frame = CGRectMake(280 ,7,30,30);
+    [shareButton setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
+    shareButton.frame = CGRectMake(280 ,3,30,30);
     [self.navigationController.navigationBar addSubview:shareButton];
     
     [storiesArray removeAllObjects];
@@ -782,17 +783,18 @@
 }
 -(void)addDescription:(UITableViewCell *)cell withDetails:(PostDetails *)postDetailsObject :(NSIndexPath *)indexPath
 {
-    float yPosition = 40;
+    __block float yPosition = 45;
     
     //Start of Description Text
     
     
     
     //Description
-    UITextView *textView = [[UITextView alloc] init];
     
-    
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
+    NSString *str = [postDetailsObject.content stringByReplacingOccurrencesOfString:@"\n::" withString:@"::"];
+    str = [str stringByReplacingOccurrencesOfString:@"::\n" withString:@"::"];
+
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -805,58 +807,14 @@
             NSTextCheckingResult *match =  [myArray firstObject];
             NSRange matchRange = [match rangeAtIndex:1];
             
-            NSString *url = [postDetailsObject.images objectForKey:[attributedString.string substringWithRange:matchRange]];
-            UIImage  *image = [[UIImage imageNamed:@"placeHolder_show.png"] resizedImageByMagick:@"300x150#"];
+            UIImage  *image = [UIImage sd_animatedGIFNamed:@"grey-dots"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             image.accessibilityIdentifier = [postDetailsObject.large_images objectForKey:[attributedString.string substringWithRange:matchRange]];
             textAttachment.image = image;
-            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:2]}];
+            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] init];
             [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
             
             [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
-
-            
-            SDWebImageManager *manager = [SDWebImageManager sharedManager];
-            [manager downloadImageWithURL:[NSURL URLWithString:url] options:SDWebImageRetryFailed progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-                
-                __block UIImage *image1 = image;
-
-                [attributedString enumerateAttributesInRange:NSMakeRange(0, attributedString.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:
-                 ^(NSDictionary *attributes, NSRange attrRange, BOOL *stop)
-                 {
-                     
-                     NSMutableDictionary *mutableAttributes = [NSMutableDictionary dictionaryWithDictionary:attributes];
-                     
-                     NSTextAttachment *textAttachment1 = [mutableAttributes objectForKey:@"NSAttachment"];
-                     if(textAttachment != nil)
-                     {
-                         NSString *identifier = textAttachment1.image.accessibilityIdentifier;
-                        if (identifier!= nil && [[imageURL absoluteString] rangeOfString:identifier].location != NSNotFound)
-                         {
-                             image1 = [image1 resizedImageByMagick:@"300x150#"];
-                             image1.accessibilityIdentifier = textAttachment1.image.accessibilityIdentifier;
-                             textAttachment.image = image1;
-                             NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:2]}];
-                             [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-                             
-                             [attributedString replaceCharactersInRange:attrRange withAttributedString:attrStringWithImage];
-                             
-                             textView.attributedText = attributedString;
-                             [textView setNeedsDisplay];
-                             
-                             CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
-                             float height = contentSize.height >21?contentSize.height:21;
-                             
-                             textView.frame =  CGRectMake(10, yPosition, 300, height);
-
-                         }
-                     }
-                     
-                 }];
-                
-                
-            }];
-            
         }
         else
         {
@@ -865,29 +823,68 @@
         
     }while (1);
     //This regex captures all items between []
-    textView.attributedText = attributedString;
-
-    CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
-
-    textView.editable = NO;
-    textView.scrollEnabled = NO;
-    textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]};
-    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedTextView:)];
-    [textView setDataDetectorTypes:UIDataDetectorTypeLink];
-    [textView addGestureRecognizer:tapRecognizer];
-    textView.selectable = YES;
-    [cell.contentView addSubview:textView];
     
-    
-    float height = contentSize.height >21?contentSize.height:21;
-    
-    textView.frame =  CGRectMake(10, yPosition, 300, height);
+    [attributedString enumerateAttributesInRange:NSMakeRange(0, attributedString.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:
+     ^(NSDictionary *attributes, NSRange attrRange, BOOL *stop)
+     {
+         
+         NSMutableDictionary *mutableAttributes = [NSMutableDictionary dictionaryWithDictionary:attributes];
+         
+         NSTextAttachment *textAttachment1 = [mutableAttributes objectForKey:@"NSAttachment"];
+         if(textAttachment1 != nil)
+         {
+             NSString *identifier = textAttachment1.image.accessibilityIdentifier;
+             if (identifier!= nil)
+             {
+                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition+5, 300, 150)];
+                 __weak UIImageView *weakImageView  = imageView;
+                 UIImage *placeHolder  = [UIImage sd_animatedGIFNamed:@"grey-dots"];
+                 placeHolder.accessibilityIdentifier = identifier;
+                 
+                 UITapGestureRecognizer *oneTouch=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedTextView:)];
+                 [oneTouch setNumberOfTouchesRequired:1];
+                 [imageView addGestureRecognizer:oneTouch];
+                 imageView.userInteractionEnabled = YES;
+                 [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:identifier]] placeholderImage:placeHolder success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                     image = [image resizedImageByMagick:@"300x150#"];
+                     image.accessibilityIdentifier = identifier;
+                     weakImageView.image  = image;
+                     
+                     CATransition *transition = [CATransition animation];
+                     transition.duration = 1.0f;
+                     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                     transition.type = kCATransitionFade;
+                     
+                     [weakImageView.layer addAnimation:transition forKey:nil];
+                     
+
+                     
+                 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                     
+                 }];
+                 [cell.contentView addSubview:imageView];
+                 yPosition += 150+10;
+                 
+             }
+         }
+         else
+         {
+             NIAttributedLabel *textView = [NIAttributedLabel new];
+             textView.numberOfLines = 0;
+             textView.delegate = self;
+             textView.autoDetectLinks = YES;
+             textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+             textView.text = [attributedString.string substringWithRange:attrRange];
+             CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
+             textView.frame = CGRectMake(10, yPosition, 300, contentSize.height);
+             [cell.contentView addSubview:textView];
+             yPosition += contentSize.height;
+
+         }
+         
+     }];
 
     
-        yPosition += height;
-
-    
-
     
     //Tags
 
@@ -1274,43 +1271,50 @@
     CGFloat height = 5;
     
     //Calculating content height
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(85/255.f) green:(85/255.f) blue:(85/255.f) alpha:1]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
     
-    do{
-        
-        NSArray *myArray = [regex matchesInString:attributedString.string options:0 range:NSMakeRange(0, [attributedString.string length])] ;
+    float height1 = 0;
+    
+    NSString *str = [postDetailsObject.content stringByReplacingOccurrencesOfString:@"\n::" withString:@"::"];
+    str = [str stringByReplacingOccurrencesOfString:@"::\n" withString:@"::"];
+        NSArray *myArray = [regex matchesInString:str options:0 range:NSMakeRange(0, [str length])] ;
+    
         if(myArray.count > 0)
         {
-            NSTextCheckingResult *match =  [myArray firstObject];
-            UIImage  *image = [[UIImage imageNamed:@"placeHolder_show.png"] resizedImageByMagick:@"300x150#"];
-            NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
-            textAttachment.image = image;
+            NSString *modifiedString = [regex stringByReplacingMatchesInString:str options:0 range:NSMakeRange(0, [str length]) withTemplate:@"@:@:"];
+            NSArray *stringarray = [modifiedString componentsSeparatedByString:@"@:@:"];
             
-            NSMutableAttributedString *attrStringWithImage = [[NSMutableAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:2]}];
-            [attrStringWithImage appendAttributedString:[NSAttributedString attributedStringWithAttachment:textAttachment]];
-            [attributedString replaceCharactersInRange:match.range withAttributedString:attrStringWithImage];
+            for(NSString *str in stringarray)
+            {
+                if(str.length > 0)
+                {
+                NIAttributedLabel *textView = [NIAttributedLabel new];
+                textView.numberOfLines = 0;
+                textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+                textView.text = str;
+                CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
+                height1 += contentSize.height;
+                }
+            }
+            
+            height1 += myArray.count * 150 + myArray.count*10;
+            
         }
         else
         {
-            break;
+
+            NIAttributedLabel *textView = [NIAttributedLabel new];
+            textView.numberOfLines = 0;
+            textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+            textView.text = str;
+            CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
+            height1 = contentSize.height ;
+
         }
-        
-    }while (1);
-    //This regex captures all items between []
-    UITextView *textView = [UITextView new];
-    textView.attributedText = attributedString;
-
     
-    CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
-    
-    
-    float height1 = contentSize.height >21?contentSize.height:21;
-
-
-    height = 40 + height1;
+    height = 45 + height1;
 
     
     NSArray *tagsArray = postDetailsObject.tags;
@@ -1939,34 +1943,9 @@
         return;
     }
     
-    UITextView *textView = (UITextView *)tapGesture.view;
-    CGPoint tapLocation = [tapGesture locationInView:textView];
-    UITextPosition *textPosition = [textView closestPositionToPoint:tapLocation];
-    NSDictionary *attributes = [textView textStylingAtPosition:textPosition inDirection:UITextStorageDirectionForward];
-
-    NSURL *url = attributes[NSLinkAttributeName];
-    
-    if (url) {
-        
-        [[UIApplication sharedApplication] openURL:url];
-        return;
-    }
-    
-    NSTextContainer *textContainer = textView.textContainer;
-    NSLayoutManager *layoutManager = textView.layoutManager;
-    
-    CGPoint point = [tapGesture locationInView:textView];
-    point.x -= textView.textContainerInset.left;
-    point.y -= textView.textContainerInset.top;
-    
-    NSUInteger characterIndex = [layoutManager characterIndexForPoint:point inTextContainer:textContainer fractionOfDistanceBetweenInsertionPoints:nil];
-    
-    
-   NSTextAttachment * _textAttachment = [textView.attributedText attribute:NSAttachmentAttributeName atIndex:characterIndex effectiveRange:nil];
-    if (_textAttachment)
-    {
+    UIImageView *imgView = (UIImageView *)tapGesture.view;
         JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
-        imageInfo.imageURL = [NSURL URLWithString:_textAttachment.image.accessibilityIdentifier];
+        imageInfo.imageURL = [NSURL URLWithString:imgView.image.accessibilityIdentifier];
 
         JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
                                                initWithImageInfo:imageInfo
@@ -1977,9 +1956,6 @@
         [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
         isImageClicked = YES;
         return;
-    }
-    _textAttachment = nil;
-
 }
 - (void)attributedLabel:(NIAttributedLabel *)attributedLabel didSelectTextCheckingResult:(NSTextCheckingResult *)result atPoint:(CGPoint)point {
     if (result.resultType == NSTextCheckingTypeLink) {

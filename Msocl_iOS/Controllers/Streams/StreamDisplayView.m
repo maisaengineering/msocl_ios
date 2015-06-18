@@ -17,7 +17,7 @@
 #import "SDWebImageManager.h"
 #import "STTweetLabel.h"
 #import "UIImage+ResizeMagick.h"
-
+#import "UIImage+GIF.h"
 
 @implementation StreamDisplayView
 {
@@ -294,7 +294,7 @@
     height += descrHeight;
     
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
-        height += 64+8;
+        height += 80+8;
     else
         height += 3;
     if((isMostRecent || isFollowing) && indexPath.row == 0)
@@ -590,18 +590,25 @@
     UIImageView *postImage;
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
     {
-        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(128, yPosition, 64, 64)];
-        UIImage  *image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"placeHolder_wall.png"] scaledToSize:CGSizeMake(64, 64)] withRadious:3.0];
+        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(128, yPosition, 80, 80)];
+        UIImage  *image = [UIImage sd_animatedGIFNamed:@"grey-dots"];
         
         __weak UIImageView *weakSelf = postImage;
         
         [postImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.postImage]] placeholderImage:image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(64, 64)] withRadious:3.0];
+             weakSelf.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(80, 80)] withRadious:3.0];
+
+             CATransition *transition = [CATransition animation];
+             transition.duration = 1.0f;
+             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+             transition.type = kCATransitionFade;
+             [weakSelf.layer addAnimation:transition forKey:nil];
+
              
          }failure:nil];
         
-        yPosition += 64+8;
+        yPosition += 80+8;
         
         [cell.contentView addSubview:postImage];
     }

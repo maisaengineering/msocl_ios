@@ -18,6 +18,7 @@
 #import "ModelManager.h"
 #import "PostDetailDescriptionViewController.h"
 #import "UserProfileViewCotroller.h"
+#import "UIImage+GIF.h"
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
 @end
@@ -35,6 +36,11 @@
      */
     
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 17, 10)];
+    [imageView setImage:[UIImage sd_animatedGIFNamed:@"loading-bar"]];
+    indicator.customView = imageView;
+    indicator.mode = MBProgressHUDModeCustomView;
     
     //set the nav bar appearance for the entire application
     

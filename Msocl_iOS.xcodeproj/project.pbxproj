@@ -223,7 +223,6 @@
 		7F952F621B26E0F600810014 /* slider-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F601B26E0F600810014 /* slider-gray@2x.png */; };
 		7F952F631B26E0F600810014 /* slider-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F611B26E0F600810014 /* slider-red@2x.png */; };
 		7F952F651B26E53B00810014 /* slider-circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F952F641B26E53B00810014 /* slider-circle@2x.png */; };
-		7F981DFE1B317EBD008215DA /* iconshare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F981DFD1B317EBD008215DA /* iconshare@2x.png */; };
 		7FA34A811B295C0C0081EC79 /* icon-share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FA34A801B295C0C0081EC79 /* icon-share@2x.png */; };
 		7FA89E1F1B2AD3C90019BFBC /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */; };
 		7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA8FF2D1B25628D006F751A /* PushNotiSettingsViewController.m */; };
@@ -242,6 +241,9 @@
 		7FB913591B2ECE9E0064D230 /* SanFranciscoDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB913521B2ECE9E0064D230 /* SanFranciscoDisplay-Medium.otf */; };
 		7FB9135A1B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB913531B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf */; };
 		7FB9135C1B2ED5710064D230 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9135B1B2ED5710064D230 /* Main.storyboard */; };
+		7FD4EDA81B328599001B8C80 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDA71B328599001B8C80 /* share@2x.png */; };
+		7FD4EDAA1B328C31001B8C80 /* grey-dots.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDA91B328C30001B8C80 /* grey-dots.gif */; };
+		7FD4EDAC1B3298C6001B8C80 /* loading-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */; };
 		7FE2F9C51B301A060020E115 /* icon-anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */; };
 		7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */; };
 		7FE62B6C1B14792700CFE9AA /* icon-view-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE62B6B1B14792700CFE9AA /* icon-view-count@2x.png */; };
@@ -586,7 +588,6 @@
 		7F952F601B26E0F600810014 /* slider-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-gray@2x.png"; sourceTree = "<group>"; };
 		7F952F611B26E0F600810014 /* slider-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-red@2x.png"; sourceTree = "<group>"; };
 		7F952F641B26E53B00810014 /* slider-circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-circle@2x.png"; sourceTree = "<group>"; };
-		7F981DFD1B317EBD008215DA /* iconshare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconshare@2x.png"; sourceTree = "<group>"; };
 		7FA34A801B295C0C0081EC79 /* icon-share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-share@2x.png"; sourceTree = "<group>"; };
 		7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		7FA8FF2C1B25628D006F751A /* PushNotiSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotiSettingsViewController.h; sourceTree = "<group>"; };
@@ -606,6 +607,9 @@
 		7FB913521B2ECE9E0064D230 /* SanFranciscoDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Medium.otf"; sourceTree = "<group>"; };
 		7FB913531B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
 		7FB9135B1B2ED5710064D230 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		7FD4EDA71B328599001B8C80 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
+		7FD4EDA91B328C30001B8C80 /* grey-dots.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "grey-dots.gif"; sourceTree = "<group>"; };
+		7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loading-bar.gif"; sourceTree = "<group>"; };
 		7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-anamous@2x.png"; sourceTree = "<group>"; };
 		7FE2F9C61B3020030020E115 /* ShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSettingsViewController.h; sourceTree = "<group>"; };
 		7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSettingsViewController.m; sourceTree = "<group>"; };
@@ -1119,7 +1123,9 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7F981DFD1B317EBD008215DA /* iconshare@2x.png */,
+				7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */,
+				7FD4EDA91B328C30001B8C80 /* grey-dots.gif */,
+				7FD4EDA71B328599001B8C80 /* share@2x.png */,
 				7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */,
 				7FA34A801B295C0C0081EC79 /* icon-share@2x.png */,
 				7F952F641B26E53B00810014 /* slider-circle@2x.png */,
@@ -1422,6 +1428,7 @@
 				7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */,
 				7F5941CD1AF3B337001F79BD /* menu-settings@2x.png in Resources */,
 				7F5941D71AF3C586001F79BD /* semi-transparent@2x.png in Resources */,
+				7FD4EDAC1B3298C6001B8C80 /* loading-bar.gif in Resources */,
 				7F0AB8F01AE27280009219B2 /* menu-profile@2x.png in Resources */,
 				7F8890F91B15F310009C8CC8 /* cd-3@2x.png in Resources */,
 				7FB2FED11B077A910001CEA6 /* comment_Count@2x.png in Resources */,
@@ -1505,12 +1512,13 @@
 				7FE2F9C51B301A060020E115 /* icon-anamous@2x.png in Resources */,
 				7FB913561B2ECE9E0064D230 /* SanFranciscoText-Medium.otf in Resources */,
 				7F94E5B91B0E11C80070DE80 /* setting-strip-selected@2x.png in Resources */,
+				7FD4EDA81B328599001B8C80 /* share@2x.png in Resources */,
 				7F76EF8A1AECBE2400770101 /* icon-unsubscribe@2x.png in Resources */,
 				7F88910E1B162399009C8CC8 /* icon-login@2x.png in Resources */,
 				7F8871E61B131B850043CE58 /* circle-186@2x.png in Resources */,
 				7F8999251AD2B1F6007E2917 /* tour_4@2x.png in Resources */,
 				7F8891111B162459009C8CC8 /* header-icon-samepinch@2x.png in Resources */,
-				7F981DFE1B317EBD008215DA /* iconshare@2x.png in Resources */,
+				7FD4EDAA1B328C31001B8C80 /* grey-dots.gif in Resources */,
 				7F76EF871AECBE2400770101 /* icon-favorite-disable@2x.png in Resources */,
 				7F8891021B15FF28009C8CC8 /* cd-4@3x.png in Resources */,
 				7F8999261AD2B1F6007E2917 /* tour_5@2x.png in Resources */,
