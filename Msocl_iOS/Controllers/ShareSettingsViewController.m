@@ -44,6 +44,10 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+- (IBAction)valueWillChange:(id)sender
+{
+    
+}
 
 - (IBAction)sliderValueChanged:(id)sender
 {
@@ -78,6 +82,7 @@
     {
         if(fbSwitchCntrl.isOn)
         {
+            fbSwitchCntrl.on = NO;
             NSArray *permissions = [NSArray arrayWithObjects:@"publish_actions", nil];
             
             [FBSession openActiveSessionWithPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES
@@ -97,12 +102,25 @@
                      }
                      
                      [[NSUserDefaults standardUserDefaults] synchronize];
+                     fbSwitchCntrl.on = YES;
 
                  }
                  else
                      fbSwitchCntrl.on = NO;
                  
              }];
+        }
+        else
+        {
+            NSMutableDictionary *dict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"share"] mutableCopy];
+            if(dict != nil)
+            {
+                [dict setObject:[NSNumber numberWithBool:fbSwitchCntrl.isOn] forKey:@"fb"];
+                [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"share"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+
+            }
+
         }
         
     }

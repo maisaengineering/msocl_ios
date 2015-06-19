@@ -99,8 +99,14 @@
      */
     profileImageVw.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
-    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
+         CATransition *transition = [CATransition animation];
+         transition.duration = 1.0;
+         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+         transition.type = kCATransitionFade;
+         [weakSelf1.layer addAnimation:transition forKey:nil];
+
          weakSelf1.image = [image resizedImageByMagick:@"320x198#"];
          
      }failure:nil];
@@ -148,9 +154,16 @@
     
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
     
-    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"image"]]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
+         
          weakSelf1.image = [image resizedImageByMagick:@"320x198#"];
+         CATransition *transition = [CATransition animation];
+         transition.duration = 1.0;
+         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+         transition.type = kCATransitionFade;
+         [weakSelf1.layer addAnimation:transition forKey:nil];
+
          
      }failure:nil];
 

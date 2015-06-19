@@ -218,7 +218,13 @@
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
-    
+    editButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
+    editButton.frame = CGRectMake(250 ,7,30,30);
+    [self.navigationController.navigationBar addSubview:editButton];
+
+    [editButton setHidden:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -352,12 +358,7 @@
     PostDetails *postObject = [postArray lastObject];
     if([postObject.can containsObject:@"edit"])
     {
-        editButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
-        [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
-        editButton.frame = CGRectMake(250 ,7,30,30);
-        [self.navigationController.navigationBar addSubview:editButton];
-
+        [editButton setHidden:NO];
     }
     
     shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareOptions)];

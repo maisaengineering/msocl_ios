@@ -29,6 +29,6 @@
 
 -(void)resetFavoritesFromWall;
 -(void)setUpTimer;
--(IBAction)addClicked:(id)sender;
+-(void)addClicked:(id)sender;
 -(void)RecentOrFollowignClicked:(id)sender;
 @end

@@ -147,7 +147,7 @@
     [label setText:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"name"]];
     [label setTextAlignment:NSTextAlignmentCenter];
     [label setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
-    [label setTextColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
+    [label setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
     [cell addSubview:label];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -158,7 +158,7 @@
     if([selectedTags containsObject:[managedTagsArray objectAtIndex:indexPath.row]])
     {
         [button setImage:[UIImage imageNamed:@"tag-tick.png"] forState:UIControlStateNormal];
-        [label setBackgroundColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0]];
+        [label setBackgroundColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
         [label setTextColor:[UIColor colorWithRed:224/255.0 green:224/255.0 blue:224/255.0 alpha:1.0]];
     }
     return cell;

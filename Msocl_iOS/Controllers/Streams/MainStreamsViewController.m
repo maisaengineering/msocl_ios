@@ -112,7 +112,10 @@
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
-    
+   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClicked:)];
+    addButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
+    self.navigationItem.rightBarButtonItem= addButton;
+
 }
 -(void)viewWillAppear:(BOOL)animated
 {

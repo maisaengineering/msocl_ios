@@ -138,13 +138,6 @@
    // [profileImageVw addSubview:initial];
     
     
-    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photo]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-     {
-         weakSelf.image = [image resizedImageByMagick:@"320x198#"];
-         [initial removeFromSuperview];
-         
-     }failure:nil];
-    
     if([modelManager.userProfile.uid isEqualToString:profileId])
     {
         followOrEditBtn.hidden = YES;
@@ -166,9 +159,15 @@
         nameLabel.text = [NSString stringWithFormat:@"%@ %@",modelManager.userProfile.fname,modelManager.userProfile.lname];
         __weak UIImageView *weakSelf = profileImageVw;
         
-        [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:modelManager.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+        [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:modelManager.userProfile.image]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
              weakSelf.image = [image resizedImageByMagick:@"320x198#"];
+             CATransition *transition = [CATransition animation];
+             transition.duration = 1.0;
+             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+             transition.type = kCATransitionFade;
+             [weakSelf.layer addAnimation:transition forKey:nil];
+
              for(UIView *viw in [weakSelf subviews])
              {
                  [viw removeFromSuperview];
@@ -190,11 +189,6 @@
     profileImageVw = [[UIImageView alloc] initWithFrame:animatedTopView.bounds];
     [animatedTopView addSubview:profileImageVw];
     
-    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 30)];
-    [nameLabel setTextColor:[UIColor darkGrayColor]];
-    [nameLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:17]];
-    [nameLabel setTextAlignment:NSTextAlignmentCenter];
-    [animatedTopView addSubview:nameLabel];
 }
 -(void)backClicked
 {
@@ -232,7 +226,8 @@
 -(void)profileDetailsSuccessFull:(NSDictionary *)recievedDict
 {
     recievedDict = [recievedDict objectForKey:@"body"];
-    nameLabel.text = [recievedDict objectForKey:@"full_name"];
+    
+    
     
     for(UIView *viw in [profileImageVw subviews])
     {
@@ -279,17 +274,36 @@
     __weak UIImageView *weakSelf = profileImageVw;
     
     
-    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.image = [image resizedImageByMagick:@"320x198#"];
-         
          [initial removeFromSuperview];
+
+         CATransition *transition = [CATransition animation];
+         transition.duration = 1.0;
+         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault];
+         transition.type = kCATransitionFade;
+         [weakSelf.layer addAnimation:transition forKey:nil];
+
          
      }failure:nil];
     
     float y = 146;
     
+    lineImageVw = [[UIImageView alloc] init];
+    [lineImageVw setBackgroundColor:[UIColor blackColor]];
+    [lineImageVw setAlpha:0.7];
+    [animatedTopView addSubview:lineImageVw];
     
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 30)];
+    [nameLabel setTextColor:[UIColor whiteColor]];
+    [nameLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:17]];
+    [nameLabel setTextAlignment:NSTextAlignmentCenter];
+    [animatedTopView addSubview:nameLabel];
+    
+    nameLabel.text = [recievedDict objectForKey:@"full_name"];
+
+
     if([recievedDict objectForKey:@"summary"] != nil)
     {
         CGSize size = [[recievedDict objectForKey:@"summary"] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]}];
@@ -300,7 +314,7 @@
         frame.size.height = size.height;
         aboutLabel.text = [recievedDict objectForKey:@"summary"];
         aboutLabel.frame = frame;
-        [aboutLabel setTextColor:[UIColor colorWithRed:49/255.0 green:49/255.0 blue:49/255.0 alpha:1]];
+        [aboutLabel setTextColor:[UIColor whiteColor]];
         
         [animatedTopView addSubview:aboutLabel];
         
@@ -338,30 +352,27 @@
     }
     
     postsCount = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 130, 20)];
-    [postsCount setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [postsCount setTextColor:[UIColor whiteColor]];
     [postsCount setText:[NSString stringWithFormat:@"posts: %@",[recievedDict objectForKey:@"posts_count"]]];
     [postsCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [postsCount setTextAlignment:NSTextAlignmentRight];
     [animatedTopView addSubview:postsCount];
     
     followingCount = [[UILabel alloc] initWithFrame:CGRectMake(170, y, 130, 20)];
-    [followingCount setTextColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0]];
+    [followingCount setTextColor:[UIColor whiteColor]];
     [followingCount setText:[NSString stringWithFormat:@"followers: %@",[recievedDict objectForKey:@"followers_count"]]];
     [followingCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [followingCount setTextAlignment:NSTextAlignmentLeft];
     [animatedTopView addSubview:followingCount];
     
-    y += 20;
-    lineImageVw = [[UIImageView alloc] initWithFrame:CGRectMake(0, y, 320, 1)];
-    [lineImageVw setBackgroundColor:[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0]];
-    [animatedTopView addSubview:lineImageVw];
+    y += 21;
     
     CGRect frameTop = animatedTopView.frame;
-    frameTop.size.height = y+1;
+    frameTop.size.height = y;
     animatedTopView.frame = frameTop;
-    
+    lineImageVw.frame = CGRectMake(0, 117, 320, y -117);
     profileImageVw.frame = animatedTopView.bounds;
-    y += 1;
+   
     originalPosition = CGRectMake(0, y, 320, Deviceheight-y-64);
     
     streamDisplay.frame = CGRectMake(0, y, 320, Deviceheight-y-64);

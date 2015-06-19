@@ -167,13 +167,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="SAME PINCH" id="60h-W4-ai0">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="XTs-Qb-feY">
-                            <connections>
-                                <action selector="addClicked:" destination="pTI-2x-fJr" id="JX4-M8-usB"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="SAME PINCH" id="60h-W4-ai0"/>
                     <connections>
                         <segue destination="TdL-Fm-sQV" kind="push" identifier="AddPostsSegue" id="qU5-jb-Cet"/>
                         <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="TSv-V5-Dr2"/>
@@ -749,7 +743,7 @@
                                         <rect key="frame" x="19" y="141" width="293" height="46"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="16"/>
-                                        <state key="normal" title="Auto Sharing">
+                                        <state key="normal" title="Edit Sharing">
                                             <color key="titleColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1034,7 +1028,8 @@
                                 <rect key="frame" x="248" y="20" width="51" height="31"/>
                                 <color key="onTintColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <action selector="switchChanged:" destination="1qI-iS-kpc" eventType="touchUpInside" id="Kbf-f6-2UX"/>
+                                    <action selector="switchChanged:" destination="1qI-iS-kpc" eventType="valueChanged" id="jo0-JO-7Ja"/>
+                                    <action selector="valueWillChange:" destination="1qI-iS-kpc" eventType="touchUpInside" id="uT6-2l-qYE"/>
                                 </connections>
                             </switch>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QN2-yA-5PI">
@@ -1252,22 +1247,26 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cq4-gy-Eq5">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="198"/>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LQm-gS-iSS">
+                                        <rect key="frame" x="0.0" y="123" width="320" height="75"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlN-87-Ghs">
                                         <rect key="frame" x="0.0" y="123" width="320" height="20"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Followers: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqV-pp-etl">
                                         <rect key="frame" x="170" y="169" width="130" height="20"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Posts: 0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tU2-0A-azs">
                                         <rect key="frame" x="20" y="169" width="130" height="20"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Light" family="San Francisco Text" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oz5-Tk-Y79">
@@ -1389,9 +1388,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="dLo-Yv-fr4"/>
-        <segue reference="m3S-0J-NjW"/>
-        <segue reference="fCv-1J-IEX"/>
-        <segue reference="iax-nE-auz"/>
+        <segue reference="TSv-V5-Dr2"/>
+        <segue reference="hMW-K8-sV6"/>
+        <segue reference="qU5-jb-Cet"/>
+        <segue reference="Wlp-Jd-hhp"/>
     </inferredMetricsTieBreakers>
 </document>

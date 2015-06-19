@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -11,7 +13,7 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>com.maisasolutions.msocl</string>
+	<string>co.samepinch.prod</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -38,6 +40,8 @@
 	<string>7</string>
 	<key>FacebookAppID</key>
 	<string>1636478616583615</string>
+	<key>FacebookDisplayName</key>
+	<string>SamePinch</string>
 	<key>LSApplicationCategoryType</key>
 	<string>status</string>
 	<key>LSRequiresIPhoneOS</key>
