@@ -663,7 +663,7 @@
         [btn setTitle:tagNameStr forState:UIControlStateNormal];
         [btn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:10]];
         [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
         [tagsView addSubview:btn];
         btn.frame = CGRectMake(xPosition, 6, size.width, 20);
         

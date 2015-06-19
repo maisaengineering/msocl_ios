@@ -49,7 +49,7 @@
     UIView *inputView;
     UIImageView *iconImage;
     UIButton *editButton;
-    UIButton *shareButton;
+    UIBarButtonItem *shareButton;
     CGRect keyboardFrameBeginRect;
     CGRect originalPostion;
 }
@@ -256,7 +256,6 @@
     PostDetails *post = [storiesArray lastObject];
         if([post.can containsObject:@"edit"])
             [self.navigationController.navigationBar addSubview:editButton];
-        [self.navigationController.navigationBar addSubview:shareButton];
         
     }
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -288,7 +287,7 @@
     
     [iconImage removeFromSuperview];
     [editButton removeFromSuperview];
-    [shareButton removeFromSuperview];
+   
     
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
@@ -361,11 +360,9 @@
 
     }
     
-    shareButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [shareButton addTarget:self action:@selector(shareOptions) forControlEvents:UIControlEventTouchUpInside]; //adding action
-    [shareButton setImage:[UIImage imageNamed:@"share.png"] forState:UIControlStateNormal];
-    shareButton.frame = CGRectMake(280 ,3,30,30);
-    [self.navigationController.navigationBar addSubview:shareButton];
+    shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareOptions)];
+    shareButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
+    self.navigationItem.rightBarButtonItem= shareButton;
     
     [storiesArray removeAllObjects];
     [storiesArray addObjectsFromArray:postArray];
@@ -914,7 +911,7 @@
         [btn setTitle:tagNameStr forState:UIControlStateNormal];
         [btn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:10]];
         [btn addTarget:self action:@selector(tagClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitleColor:[UIColor colorWithRed:136/255.0 green:136/255.0 blue:136/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
         [tagsView addSubview:btn];
         btn.frame = CGRectMake(xPosition, y, size.width, 20);
         

@@ -45,7 +45,7 @@
     imageId = @"";
     //Aviary
     [UIApplication sharedApplication].statusBarHidden = NO;
-
+[self setNeedsStatusBarAppearanceUpdate];
     
     // Aviary iOS 7 Start
     ALAssetsLibrary * assetLibrary1 = [[ALAssetsLibrary alloc] init];
@@ -129,11 +129,16 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:YES];
     
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [super viewWillDisappear:YES];
+}
 #pragma mark -
 #pragma mark Signup Methods
 -(IBAction)signupClicked:(id)sender

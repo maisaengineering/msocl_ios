@@ -30,12 +30,13 @@
 {
     [super viewDidLoad];
     
+
+    
     appdelegate = [[UIApplication sharedApplication] delegate];
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     
-    [self preferredStatusBarStyle];
-
+    [self setNeedsStatusBarAppearanceUpdate];
     
     UIColor *color = [UIColor lightGrayColor];
     UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14];
@@ -130,8 +131,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES];
-}
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [super viewWillAppear:YES];
 
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [super viewWillDisappear:YES];
+}
 -(IBAction)closeClicked:(id)sender
 {
     [self resignKeyBoards];

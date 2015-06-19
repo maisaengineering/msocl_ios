@@ -99,10 +99,9 @@
      */
     profileImageVw.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
-    __weak ProfilePhotoUtils *weakPhoto = photoUtils;
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf1.image = [weakPhoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
+         weakSelf1.image = [image resizedImageByMagick:@"320x198#"];
          
      }failure:nil];
     
@@ -148,11 +147,10 @@
     [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[recievedDict objectForKey:@"posts_count"]]];
     
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
-    __weak ProfilePhotoUtils *weakphoto = photoUtils;
     
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf1.image = [weakphoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
+         weakSelf1.image = [image resizedImageByMagick:@"320x198#"];
          
      }failure:nil];
 
@@ -464,18 +462,6 @@
      weakSelf.image = [weakSelf2 grayishImage:[image resizedImageByMagick:@"320x195#"]];
      }failure:nil];
      */
-    
-    [followingCount setText:[NSString stringWithFormat:@"Followers: %@",[tagDetails objectForKey:@"followers_count"]]];
-    [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[tagDetails objectForKey:@"posts_count"]]];
-    
-    __weak UIImageView *weakSelf1 = smallProfileImageVw;
-    __weak ProfilePhotoUtils *weakphoto = photoUtils;
-    
-    [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[tagDetails objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"placeHolder_show.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-     {
-         weakSelf1.image = [weakphoto squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
-         
-     }failure:nil];
     
     
 }

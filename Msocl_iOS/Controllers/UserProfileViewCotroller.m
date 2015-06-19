@@ -16,6 +16,7 @@
 #import "UpdateUserDetailsViewController.h"
 #import "TagViewController.h"
 #import "LoginViewController.h"
+#import "UIImage+ResizeMagick.h"
 @implementation UserProfileViewCotroller
 {
     StreamDisplayView *streamDisplay;
@@ -134,12 +135,12 @@
     initial.attributedText = attributedText;
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
-    [profileImageVw addSubview:initial];
+   // [profileImageVw addSubview:initial];
     
     
     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:photo]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
+         weakSelf.image = [image resizedImageByMagick:@"320x198#"];
          [initial removeFromSuperview];
          
      }failure:nil];
@@ -164,11 +165,10 @@
         
         nameLabel.text = [NSString stringWithFormat:@"%@ %@",modelManager.userProfile.fname,modelManager.userProfile.lname];
         __weak UIImageView *weakSelf = profileImageVw;
-        __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
         
         [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:modelManager.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
+             weakSelf.image = [image resizedImageByMagick:@"320x198#"];
              for(UIView *viw in [weakSelf subviews])
              {
                  [viw removeFromSuperview];
@@ -187,7 +187,7 @@
     animatedTopView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:animatedTopView];
     
-    profileImageVw = [[UIImageView alloc] initWithFrame:CGRectMake(114, 21, 93, 93)];
+    profileImageVw = [[UIImageView alloc] initWithFrame:animatedTopView.bounds];
     [animatedTopView addSubview:profileImageVw];
     
     nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 30)];
@@ -273,17 +273,15 @@
     initial.attributedText = attributedText;
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
-    [profileImageVw addSubview:initial];
+    //[profileImageVw addSubview:initial];
     
     
     __weak UIImageView *weakSelf = profileImageVw;
-    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
-    
     
     
     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:[UIImage imageNamed:@"circle-186.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(93, 93)] withRadious:0];
+         weakSelf.image = [image resizedImageByMagick:@"320x198#"];
          
          [initial removeFromSuperview];
          
@@ -361,7 +359,8 @@
     CGRect frameTop = animatedTopView.frame;
     frameTop.size.height = y+1;
     animatedTopView.frame = frameTop;
-
+    
+    profileImageVw.frame = animatedTopView.bounds;
     y += 1;
     originalPosition = CGRectMake(0, y, 320, Deviceheight-y-64);
     
