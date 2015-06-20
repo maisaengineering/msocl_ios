@@ -90,6 +90,8 @@
              ^(FBSession *session, FBSessionState state, NSError *error) {
                  if (!error)
                  {
+                     fbSwitchCntrl.on = YES;
+
                      NSMutableDictionary *dict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"share"] mutableCopy];
                      if(dict != nil)
                      {
@@ -102,7 +104,6 @@
                      }
                      
                      [[NSUserDefaults standardUserDefaults] synchronize];
-                     fbSwitchCntrl.on = YES;
 
                  }
                  else

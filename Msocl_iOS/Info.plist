@@ -13,10 +13,12 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>co.samepinch.prod</string>
+	<string>com.maisasolutions.msocl</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+	<string>SamePinch</string>
+	<key>Bundle display name</key>
 	<string>SamePinch</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
@@ -32,14 +34,14 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>samepinchapp</string>
-				<string>fb1636478616583615</string>
+				<string>fb1646195582278585</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 	<key>FacebookAppID</key>
-	<string>1636478616583615</string>
+	<string>1646195582278585</string>
 	<key>FacebookDisplayName</key>
 	<string>SamePinch</string>
 	<key>LSApplicationCategoryType</key>

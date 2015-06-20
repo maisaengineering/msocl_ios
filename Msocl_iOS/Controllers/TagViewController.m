@@ -112,9 +112,14 @@
      }failure:nil];
     
     [self callTagDetails];
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClicked:)];
+    addButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
+    self.navigationItem.rightBarButtonItem= addButton;
+
 
 }
--(IBAction)addClicked:(id)sender
+-(void)addClicked:(id)sender
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         [self performSegueWithIdentifier: @"AddPostsSegue" sender: self];

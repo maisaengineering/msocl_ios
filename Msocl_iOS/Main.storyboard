@@ -1290,13 +1290,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="TAG VIEW" id="NsE-NG-ANl">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="TRj-sO-i3u">
-                            <connections>
-                                <action selector="addClicked:" destination="rfw-mt-SzH" id="vEV-Zd-Zwe"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="TAG VIEW" id="NsE-NG-ANl"/>
                     <connections>
                         <outlet property="animatedTopView" destination="tJO-K4-NNs" id="K8D-mX-zLd"/>
                         <outlet property="followOrEditBtn" destination="oz5-Tk-Y79" id="qQd-2l-Bhm"/>
@@ -1388,9 +1382,9 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="TSv-V5-Dr2"/>
-        <segue reference="hMW-K8-sV6"/>
-        <segue reference="qU5-jb-Cet"/>
         <segue reference="Wlp-Jd-hhp"/>
+        <segue reference="dLo-Yv-fr4"/>
+        <segue reference="M8x-x6-6lY"/>
+        <segue reference="fCv-1J-IEX"/>
     </inferredMetricsTieBreakers>
 </document>
