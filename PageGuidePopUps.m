@@ -373,8 +373,8 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     if([[recievedDict objectForKey:@"disableLogins"] count] > 0)
     [[NSUserDefaults standardUserDefaults] setObject:[recievedDict objectForKey:@"disableLogins"] forKey:@"externalSignInOptions"];
 
-    if([[recievedDict objectForKey:@"noExLogins"] count] > 0)
-        [[NSUserDefaults standardUserDefaults] setObject:[recievedDict objectForKey:@"noExLogins"] forKey:@"externalSignInOptions"];
+//    if([[recievedDict objectForKey:@"noExLogins"] count] > 0)
+//        [[NSUserDefaults standardUserDefaults] setObject:[recievedDict objectForKey:@"noExLogins"] forKey:@"externalSignInOptions"];
 
 }
 -(void)externalSigninOptionsFailed
