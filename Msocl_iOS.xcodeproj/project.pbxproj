@@ -617,7 +617,7 @@
 		7FE2F9C61B3020030020E115 /* ShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSettingsViewController.h; sourceTree = "<group>"; };
 		7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSettingsViewController.m; sourceTree = "<group>"; };
 		7FE62B6B1B14792700CFE9AA /* icon-view-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-view-count@2x.png"; sourceTree = "<group>"; };
-		7FF5CBFB1ACE9E60004F4F9B /* SamePinch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SamePinch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7FF5CBFB1ACE9E60004F4F9B /* Msocl_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Msocl_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FF5CBFF1ACE9E60004F4F9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7FF5CC001ACE9E61004F4F9B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7FF5CC021ACE9E61004F4F9B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1275,7 +1275,7 @@
 		7FF5CBFC1ACE9E60004F4F9B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7FF5CBFB1ACE9E60004F4F9B /* SamePinch.app */,
+				7FF5CBFB1ACE9E60004F4F9B /* Msocl_iOS.app */,
 				7FF5CC141ACE9E61004F4F9B /* Msocl_iOSTests.xctest */,
 			);
 			name = Products;
@@ -1341,7 +1341,7 @@
 			);
 			name = Msocl_iOS;
 			productName = Msocl_iOS;
-			productReference = 7FF5CBFB1ACE9E60004F4F9B /* SamePinch.app */;
+			productReference = 7FF5CBFB1ACE9E60004F4F9B /* Msocl_iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7FF5CC131ACE9E61004F4F9B /* Msocl_iOSTests */ = {
@@ -1777,7 +1777,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_NAME = SamePinch;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1811,7 +1812,8 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_NAME = SamePinch;
+				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
