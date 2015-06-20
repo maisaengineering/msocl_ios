@@ -960,7 +960,7 @@
     {
     UIButton *flagButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [flagButton setImage:[UIImage imageNamed:@"icon-flag.png"] forState:UIControlStateNormal];
-    [flagButton setFrame:CGRectMake(240, yPosition+6, 29, 28)];
+    [flagButton setFrame:CGRectMake(240, yPosition+6, 28, 28)];
     [flagButton setTag:[indexPath row]];
     [flagButton addTarget:self action:@selector(flagButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:flagButton];

@@ -85,6 +85,7 @@
 		7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18ED1ADE9B8700C5B4EC /* icon-edit-scroll@2x.png */; };
 		7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */; };
 		7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */; };
+		7F70D1D41B356C0A00533C44 /* icon-flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F70D1D31B356C0A00533C44 /* icon-flag@2x.png */; };
 		7F714F351AE79A2B00C69BF4 /* comment-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */; };
 		7F714F381AE79A2B00C69BF4 /* icon-upvote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */; };
 		7F714F451AE7D25300C69BF4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F714F441AE7D25300C69BF4 /* SettingsViewController.m */; };
@@ -204,7 +205,6 @@
 		7F8D14121B3442E2002730FC /* icon-close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D13FE1B3442E2002730FC /* icon-close@2x.png */; };
 		7F8D14131B3442E2002730FC /* icon-edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D13FF1B3442E2002730FC /* icon-edit@2x.png */; };
 		7F8D14141B3442E2002730FC /* icon-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D14001B3442E2002730FC /* icon-favorite@2x.png */; };
-		7F8D14151B3442E2002730FC /* icon-flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D14011B3442E2002730FC /* icon-flag@2x.png */; };
 		7F8D14161B3442E2002730FC /* icon-like-postview-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D14021B3442E2002730FC /* icon-like-postview-active@2x.png */; };
 		7F8D14171B3442E2002730FC /* icon-more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D14031B3442E2002730FC /* icon-more@2x.png */; };
 		7F8D14181B3442E2002730FC /* menu-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D14041B3442E2002730FC /* menu-button@2x.png */; };
@@ -387,6 +387,7 @@
 		7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-scroll@2x.png"; sourceTree = "<group>"; };
 		7F5F18F21ADE9E7D00C5B4EC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		7F70D1D31B356C0A00533C44 /* icon-flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@2x.png"; sourceTree = "<group>"; };
 		7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-textfield@2x.png"; sourceTree = "<group>"; };
 		7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote@2x.png"; sourceTree = "<group>"; };
 		7F714F431AE7D25300C69BF4 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -558,7 +559,6 @@
 		7F8D13FE1B3442E2002730FC /* icon-close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-close@2x.png"; sourceTree = "<group>"; };
 		7F8D13FF1B3442E2002730FC /* icon-edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-edit@2x.png"; sourceTree = "<group>"; };
 		7F8D14001B3442E2002730FC /* icon-favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-favorite@2x.png"; sourceTree = "<group>"; };
-		7F8D14011B3442E2002730FC /* icon-flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@2x.png"; sourceTree = "<group>"; };
 		7F8D14021B3442E2002730FC /* icon-like-postview-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-like-postview-active@2x.png"; sourceTree = "<group>"; };
 		7F8D14031B3442E2002730FC /* icon-more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-more@2x.png"; sourceTree = "<group>"; };
 		7F8D14041B3442E2002730FC /* menu-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-button@2x.png"; sourceTree = "<group>"; };
@@ -1123,6 +1123,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F70D1D31B356C0A00533C44 /* icon-flag@2x.png */,
 				7F8D13F51B3442E2002730FC /* btn-post-ana@2x.png */,
 				7F8D13F61B3442E2002730FC /* btn-post-dropdown@2x.png */,
 				7F8D13F71B3442E2002730FC /* btn-postas@2x.png */,
@@ -1135,7 +1136,6 @@
 				7F8D13FE1B3442E2002730FC /* icon-close@2x.png */,
 				7F8D13FF1B3442E2002730FC /* icon-edit@2x.png */,
 				7F8D14001B3442E2002730FC /* icon-favorite@2x.png */,
-				7F8D14011B3442E2002730FC /* icon-flag@2x.png */,
 				7F8D14021B3442E2002730FC /* icon-like-postview-active@2x.png */,
 				7F8D14031B3442E2002730FC /* icon-more@2x.png */,
 				7F8D14041B3442E2002730FC /* menu-button@2x.png */,
@@ -1416,6 +1416,7 @@
 				7F2A59961AE2563E0089EDBB /* btn-twitter@2x.png in Resources */,
 				7F8999221AD2B1F6007E2917 /* tour_1@2x.png in Resources */,
 				7F5941C31AF3AA53001F79BD /* tag-cover-strip@2x.png in Resources */,
+				7F70D1D41B356C0A00533C44 /* icon-flag@2x.png in Resources */,
 				7F8891121B162459009C8CC8 /* header-icon-samepinch@3x.png in Resources */,
 				7FB2FECD1B076B2C0001CEA6 /* icon-search@2x.png in Resources */,
 				7F88A78E1AF610B200C87B45 /* Ubuntu-LI.ttf in Resources */,
@@ -1424,7 +1425,6 @@
 				7F5941C51AF3AD55001F79BD /* tag-placeholder@2x.png in Resources */,
 				7F88910A1B161904009C8CC8 /* tour_0@2x.png in Resources */,
 				7F8871E51B131B850043CE58 /* circle-80@2x.png in Resources */,
-				7F8D14151B3442E2002730FC /* icon-flag@2x.png in Resources */,
 				7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */,
 				7F5941CD1AF3B337001F79BD /* menu-settings@2x.png in Resources */,
 				7F5941D71AF3C586001F79BD /* semi-transparent@2x.png in Resources */,
