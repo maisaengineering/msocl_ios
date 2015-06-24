@@ -73,7 +73,7 @@
     [commentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [commentBtn setTitle:@"Comment as" forState:UIControlStateNormal];
     [commentBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
-    [commentBtn setBackgroundImage:[UIImage imageNamed:@"btn-Cmntas.png"] forState:UIControlStateNormal];
+    [commentBtn setBackgroundImage:[UIImage imageNamed:@"comment-btn.png"] forState:UIControlStateNormal];
     
     
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];

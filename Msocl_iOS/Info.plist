@@ -11,7 +11,7 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>co.samepinch.prod</string>
+	<string>com.maisasolutions.msocl</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -26,20 +26,39 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>co.samepinch.prod</string>
+			<string>com.maisasolutions.msocl</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>samepinchapp</string>
-				<string>fb1636478616583615</string>
+				<string>fb1646195582278585</string>
 			</array>
 		</dict>
 	</array>
-	<key>FacebookAppID</key>
-	<string>1636478616583615</string>
-	<key>FacebookDisplayName</key>
-	<string>SamePinch</string>
 	<key>CFBundleVersion</key>
 	<string>3</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>460f5411e92ae785766d9b982518758b087211dd</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>60XdWzliiPSYvn5lqzyBIWnQK</string>
+					<key>consumerSecret</key>
+					<string>v0KC81TWk8wKP1IOyrtqFN8BZupHqpWJTM2jNHzfhDak12vTcO</string>
+				</dict>
+				<key>KitName</key>
+				<string>Twitter</string>
+			</dict>
+		</array>
+	</dict>
+	<key>FacebookAppID</key>
+	<string>1646195582278585</string>
+	<key>FacebookDisplayName</key>
+	<string>SamePinch</string>
 	<key>LSApplicationCategoryType</key>
 	<string>status</string>
 	<key>LSRequiresIPhoneOS</key>

@@ -283,7 +283,7 @@
 
 -(void)shareOptions
 {
-    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", nil];
+    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook",@"Share by Email",@"Share by SMS", nil];
     [shareActionSheet showInView:self.view];
 }
 
@@ -1768,6 +1768,14 @@
         {
             [self shareToFB];
         }
+        else if([title isEqualToString:@"Share by Email"])
+        {
+            [self shareMailComposerSheet];
+        }
+        else if([title isEqualToString:@"Share by SMS"])
+        {
+            [self showSMS];
+        }
 
     }
 }
@@ -1859,6 +1867,76 @@
 #
 #pragma mark - 
 #pragma mark Flag Methods
+- (void)showSMS
+{
+    
+    if(![MFMessageComposeViewController canSendText])
+    {
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    PostDetails *post = [storiesArray lastObject];
+    [appDelegate showOrhideIndicator:YES];
+    
+    NSString *message =  post.url;
+    
+    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+    messageController.messageComposeDelegate = self;
+    [messageController setBody:message];
+    
+    // Present message view controller on screen
+    [self presentViewController:messageController animated:YES completion:^{ [appDelegate showOrhideIndicator:NO];}];
+}
+
+//This method is called when a button is clicked in the native send SMS popup
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result)
+    {
+        case MessageComposeResultCancelled:
+        {
+        }
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            break;
+        }
+            
+        case MessageComposeResultSent:
+        {
+            //calling sms confirmation api
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)shareMailComposerSheet
+{
+    if([MFMailComposeViewController canSendMail])
+    {
+        [appDelegate showOrhideIndicator:YES];
+
+        PostDetails *post = [storiesArray lastObject];
+
+        NSString *body = post.url;
+        
+        mailComposer= [[MFMailComposeViewController alloc] init];
+        [mailComposer setMailComposeDelegate:self];
+        [mailComposer setMessageBody:body isHTML:NO];
+        mailComposer.navigationBar.barStyle = UIBarStyleBlackOpaque;
+        
+        //        [self presentModalViewController:mailComposer animated:TRUE];
+        [self presentViewController:mailComposer animated:TRUE completion:^{    [appDelegate showOrhideIndicator:NO];
+}];
+    }
+}
 
 -(void)sendInappropriateEmail: (NSDictionary *) dict
 {

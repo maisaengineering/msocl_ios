@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7FF5CBFA1ACE9E60004F4F9B"
-               BuildableName = "SamePinch.app"
+               BuildableName = "Msocl_iOS.app"
                BlueprintName = "Msocl_iOS"
                ReferencedContainer = "container:Msocl_iOS.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7FF5CBFA1ACE9E60004F4F9B"
-            BuildableName = "SamePinch.app"
+            BuildableName = "Msocl_iOS.app"
             BlueprintName = "Msocl_iOS"
             ReferencedContainer = "container:Msocl_iOS.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7FF5CBFA1ACE9E60004F4F9B"
-            BuildableName = "SamePinch.app"
+            BuildableName = "Msocl_iOS.app"
             BlueprintName = "Msocl_iOS"
             ReferencedContainer = "container:Msocl_iOS.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7FF5CBFA1ACE9E60004F4F9B"
-            BuildableName = "SamePinch.app"
+            BuildableName = "Msocl_iOS.app"
             BlueprintName = "Msocl_iOS"
             ReferencedContainer = "container:Msocl_iOS.xcodeproj">
          </BuildableReference>
