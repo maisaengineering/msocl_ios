@@ -454,6 +454,8 @@
 -(void)finishedEditingImage:(UIImage *)image
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    for(UIView *view in [profileImage subviews])
+        [view removeFromSuperview];
     profileImage.image = [photoUtils makeRoundKidPhoto:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(100, 100)]];
     selectedImage = image;
     [self UploadImage:image];
