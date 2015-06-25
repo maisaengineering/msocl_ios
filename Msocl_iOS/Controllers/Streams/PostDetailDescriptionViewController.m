@@ -996,6 +996,8 @@
                                                                   instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
         destViewController.photo = [postObject.owner objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
+        destViewController.imageUrl = [postObject.owner objectForKey:@"photo"];
+
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
         [self.navigationController pushViewController:destViewController animated:YES];
 
@@ -1016,6 +1018,8 @@
                                                                                    instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
         destViewController.photo = [[commentDict objectForKey:@"commenter"] objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[[commentDict objectForKey:@"commenter"] objectForKey:@"fname"],[[commentDict objectForKey:@"commenter"] objectForKey:@"lname"]];
+        destViewController.imageUrl = [[commentDict objectForKey:@"commenter"] objectForKey:@"photo"];
+
         destViewController.profileId = [[commentDict objectForKey:@"commenter"] objectForKey:@"uid"];
         [self.navigationController pushViewController:destViewController animated:YES];
         

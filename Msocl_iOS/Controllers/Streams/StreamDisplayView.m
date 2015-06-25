@@ -590,7 +590,7 @@
     UIImageView *postImage;
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
     {
-        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(128, yPosition, 100, 100)];
+        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(110, yPosition, 100, 100)];
         UIImage  *image = [UIImage sd_animatedGIFNamed:@"grey-dots"];
         
         __weak UIImageView *weakSelf = postImage;

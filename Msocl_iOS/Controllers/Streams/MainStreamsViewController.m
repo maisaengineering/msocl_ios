@@ -339,6 +339,7 @@
         UserProfileViewCotroller *destViewController = segue.destinationViewController;
         destViewController.photo = [postObject.owner objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
+        destViewController.imageUrl = [postObject.owner objectForKey:@"photo"];
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
     }
     else if ([segue.identifier isEqualToString:@"TagView"])

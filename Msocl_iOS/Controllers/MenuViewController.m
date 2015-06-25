@@ -194,6 +194,8 @@
                                                                                        instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
             destViewController.photo = sharedModel.userProfile.image;
             destViewController.name = [NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname];
+            destViewController.imageUrl = sharedModel.userProfile.image;
+
             destViewController.profileId = sharedModel.userProfile.uid;
             [[SlideNavigationController sharedInstance] pushViewController:destViewController animated:YES];
             

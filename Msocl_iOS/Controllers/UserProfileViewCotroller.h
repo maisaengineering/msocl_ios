@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSString *profileId;
 @property (nonatomic, strong) NSString *photo;
+@property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong)  UIImageView *profileImageVw;
 @property (nonatomic, strong)  UIImageView *lineImageVw;
