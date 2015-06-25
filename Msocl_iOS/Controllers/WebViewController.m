@@ -42,6 +42,7 @@
     self.navigationItem.leftBarButtonItem = barButton;
     
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320 , Deviceheight-64)];
+    webView.scalesPageToFit = YES;
     NSURL *url;
 
     if(loadUrl == nil)
