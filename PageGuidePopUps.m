@@ -373,6 +373,8 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 
     if([[recievedDict objectForKey:@"noExLogins"] count] > 0)
         [[NSUserDefaults standardUserDefaults] setObject:[recievedDict objectForKey:@"noExLogins"] forKey:@"externalSignInOptions"];
+    else
+        [[NSUserDefaults standardUserDefaults] setObject:[[NSArray alloc] init] forKey:@"externalSignInOptions"];
 
 }
 -(void)externalSigninOptionsFailed
