@@ -17,6 +17,7 @@
 #import "ProfilePhotoUtils.h"
 #import "UserProfileViewCotroller.h"
 #import "UpdateUserDetailsViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 @implementation MenuViewController
 {
     ModelManager *sharedModel;
@@ -387,6 +388,14 @@
 #pragma mark-
 - (void)didReceiveTokens:(NSArray *)tokens
 {
+    //invalidate current facebook session
+    [FBSession.activeSession closeAndClearTokenInformation];
+    [FBSession.activeSession close];
+    [FBSession setActiveSession:nil];
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"share"];
+
+    
     [appdelegate showOrhideIndicator:NO];
     sharedModel.accessToken = [tokens objectAtIndex:0];
     
