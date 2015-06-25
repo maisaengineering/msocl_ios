@@ -43,8 +43,8 @@
 #define APP_BASE_URL @"http://www.samepinch.co/"
 
 // OAUTH URL
-#define OAUTH_URL                @"https://samepinch.herokuapp.com/users/auth/"
-#define OAUTH_URL2                @"https://samepinch.herokuapp.com/users/auth/"
+#define OAUTH_URL                @"https://posts.samepinch.co/users/auth/"
+#define OAUTH_URL2                @"https://posts.samepinch.co/users/auth/"
 
 //CONTROLLER TEXT
 #define LOADING                 @"Loading..."
