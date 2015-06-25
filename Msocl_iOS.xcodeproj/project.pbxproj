@@ -55,10 +55,6 @@
 		7F5934241B3A642B001B5A94 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934111B3A642B001B5A94 /* search@2x.png */; };
 		7F5934251B3A642B001B5A94 /* setting-strip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934121B3A642B001B5A94 /* setting-strip@2x.png */; };
 		7F5934261B3A642B001B5A94 /* tag-tick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934131B3A642B001B5A94 /* tag-tick@2x.png */; };
-		7F59342C1B3A7325001B5A94 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5934281B3A7325001B5A94 /* Fabric.framework */; };
-		7F59342D1B3A7325001B5A94 /* TwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5934291B3A7325001B5A94 /* TwitterKit.framework */; };
-		7F59342E1B3A7325001B5A94 /* TwitterKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7F59342A1B3A7325001B5A94 /* TwitterKitResources.bundle */; };
-		7F59342F1B3A7325001B5A94 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F59342B1B3A7325001B5A94 /* TwitterCore.framework */; };
 		7F5941B41AF388D4001F79BD /* AddPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5941B31AF388D4001F79BD /* AddPostViewController.m */; };
 		7F5941B61AF388EC001F79BD /* StreamDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5941B51AF388EC001F79BD /* StreamDisplayView.m */; };
 		7F5941B81AF38903001F79BD /* PostDetailDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5941B71AF38903001F79BD /* PostDetailDescriptionViewController.m */; };
@@ -331,10 +327,6 @@
 		7F5934111B3A642B001B5A94 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		7F5934121B3A642B001B5A94 /* setting-strip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting-strip@2x.png"; sourceTree = "<group>"; };
 		7F5934131B3A642B001B5A94 /* tag-tick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tag-tick@2x.png"; sourceTree = "<group>"; };
-		7F5934281B3A7325001B5A94 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		7F5934291B3A7325001B5A94 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
-		7F59342A1B3A7325001B5A94 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
-		7F59342B1B3A7325001B5A94 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
 		7F5941B31AF388D4001F79BD /* AddPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPostViewController.m; sourceTree = "<group>"; };
 		7F5941B51AF388EC001F79BD /* StreamDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamDisplayView.m; sourceTree = "<group>"; };
 		7F5941B71AF38903001F79BD /* PostDetailDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDetailDescriptionViewController.m; sourceTree = "<group>"; };
@@ -649,7 +641,6 @@
 				253C89491AD8048E002477A8 /* CoreLocation.framework in Frameworks */,
 				7F8998F91AD25DCB007E2917 /* CoreGraphics.framework in Frameworks */,
 				253C89471AD8047A002477A8 /* CFNetwork.framework in Frameworks */,
-				7F59342F1B3A7325001B5A94 /* TwitterCore.framework in Frameworks */,
 				253C89451AD80473002477A8 /* AudioToolbox.framework in Frameworks */,
 				25214C361AD6C3A20084BAC4 /* SystemConfiguration.framework in Frameworks */,
 				7F8999091AD25E66007E2917 /* StoreKit.framework in Frameworks */,
@@ -658,12 +649,10 @@
 				25214C341AD6C23C0084BAC4 /* libFlurry_6.3.0.a in Frameworks */,
 				7F8999031AD25E4F007E2917 /* libsqlite3.0.dylib in Frameworks */,
 				7F8999011AD25E41007E2917 /* CoreData.framework in Frameworks */,
-				7F59342D1B3A7325001B5A94 /* TwitterKit.framework in Frameworks */,
 				7F8998FF1AD25E39007E2917 /* Accelerate.framework in Frameworks */,
 				7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */,
 				7F8998FD1AD25DF2007E2917 /* OpenGLES.framework in Frameworks */,
 				7FA89E1F1B2AD3C90019BFBC /* FacebookSDK.framework in Frameworks */,
-				7F59342C1B3A7325001B5A94 /* Fabric.framework in Frameworks */,
 				7F8998FB1AD25DDA007E2917 /* CoreText.framework in Frameworks */,
 				7F8998F71AD25DC5007E2917 /* QuartzCore.framework in Frameworks */,
 				7F8998F51AD25DAC007E2917 /* Foundation.framework in Frameworks */,
@@ -1276,10 +1265,6 @@
 		7FF5CBF21ACE9E60004F4F9B = {
 			isa = PBXGroup;
 			children = (
-				7F5934281B3A7325001B5A94 /* Fabric.framework */,
-				7F5934291B3A7325001B5A94 /* TwitterKit.framework */,
-				7F59342A1B3A7325001B5A94 /* TwitterKitResources.bundle */,
-				7F59342B1B3A7325001B5A94 /* TwitterCore.framework */,
 				7FF5CBFD1ACE9E60004F4F9B /* Msocl_iOS */,
 				7FF5CC171ACE9E61004F4F9B /* Msocl_iOSTests */,
 				7FF5CBFC1ACE9E60004F4F9B /* Products */,
@@ -1349,7 +1334,6 @@
 				7FF5CBF71ACE9E60004F4F9B /* Sources */,
 				7FF5CBF81ACE9E60004F4F9B /* Frameworks */,
 				7FF5CBF91ACE9E60004F4F9B /* Resources */,
-				7F5934271B3A72AC001B5A94 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1490,7 +1474,6 @@
 				7F5934201B3A642B001B5A94 /* icon-like-postview-active@2x.png in Resources */,
 				7F88910C1B161904009C8CC8 /* tour0-4@2x.png in Resources */,
 				7F82DD141B05FA1A001564A0 /* icon-createpost@2x.png in Resources */,
-				7F59342E1B3A7325001B5A94 /* TwitterKitResources.bundle in Resources */,
 				7F5934241B3A642B001B5A94 /* search@2x.png in Resources */,
 				7F5934141B3A642B001B5A94 /* btn-post-ana@2x.png in Resources */,
 				7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */,
@@ -1557,22 +1540,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7F5934271B3A72AC001B5A94 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 460f5411e92ae785766d9b982518758b087211dd e7400b478ce093ca6bf1fd1a67164405194e45e96e6a91c28b07507ef017a014";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7FF5CBF71ACE9E60004F4F9B /* Sources */ = {

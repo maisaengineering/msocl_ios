@@ -32,6 +32,7 @@
     float upstart;
     float downstart;
     CGRect originalPosition;
+    NSDictionary *tagDict;
     
 }
 @synthesize tagName;
@@ -147,6 +148,7 @@
 {
     recievedDict = [recievedDict objectForKey:@"body"];
 
+    tagDict = @{@"name":[recievedDict objectForKey:@"name"],@"uid":[recievedDict objectForKey:@"uid"],@"image":[recievedDict objectForKey:@"image"]};
     followOrEditBtn.hidden = NO;
     if([[recievedDict objectForKey:@"follow"] boolValue])
         [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
@@ -281,6 +283,16 @@
     [appdelegate showOrhideIndicator:NO];
     if([[followOrEditBtn titleForState:UIControlStateNormal] isEqualToString:@"follow"])
     {
+        NSMutableArray *groups =  [[[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"] mutableCopy];
+        NSArray *array = [groups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uid = %@",self.tagId]];
+        
+        if(array.count == 0)
+        {
+            [groups addObject:tagDict];
+            [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
+        }
+
+        
         [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
         
         int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue]+1;
@@ -288,6 +300,16 @@
     }
     else
     {
+        NSMutableArray *groups =  [[[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"] mutableCopy];
+        NSArray *array = [groups filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uid = %@",self.tagId]];
+        
+        if(array.count != 0)
+        {
+            [groups removeObject:tagDict];
+            [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
+        }
+
+        
         int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue] - 1;
         followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
         
