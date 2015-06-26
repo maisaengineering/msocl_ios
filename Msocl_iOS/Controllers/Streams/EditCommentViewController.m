@@ -98,7 +98,6 @@
     [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [popView addSubview:postAsLabel1];
     
-    UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 4, 24, 24)];
     
     NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
     if( [sharedModel.userProfile.fname length] >0)
@@ -127,11 +126,11 @@
     
     
     //add initials
-    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 24, 24)];
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
     initial.attributedText = attributedText;
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
-    [userImage addSubview:initial];
+    [postAnonymous addSubview:initial];
     
     
     
@@ -333,7 +332,7 @@
     
     //add initials
     
-    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
+    UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
     initial.attributedText = attributedText;
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
