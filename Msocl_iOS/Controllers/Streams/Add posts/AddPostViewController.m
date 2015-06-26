@@ -40,6 +40,7 @@
     UIImageView *postAnonymous;
     UIView *addPopUpView;
     UIImageView *dropDown;
+    NSMutableDictionary *editImageDict;
     
 }
 @synthesize scrollView;
@@ -155,7 +156,7 @@
     
     
     imagesIdDict = [[NSMutableDictionary alloc] init];
-    
+    editImageDict = [[NSMutableDictionary alloc] init];
     [self postDetailsScroll];
     
     
@@ -351,6 +352,7 @@
     textView.attributedText = attributedString;
     textView.typingAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]};
     selectedtagsArray = [postDetailsObject.tags mutableCopy];
+    editImageDict = [imagesIdDict mutableCopy];
     [collectionView reloadData];
     
 }
@@ -997,7 +999,31 @@
     }
     
 }
+- (BOOL)textView:(UITextView *)textView1 shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    NSMutableAttributedString *newAttrString = [textView1.attributedText mutableCopy];
+    
+    [newAttrString beginEditing];
+    
+    [newAttrString enumerateAttributesInRange:NSMakeRange(0, newAttrString.length) options:NSAttributedStringEnumerationLongestEffectiveRangeNotRequired usingBlock:
+     ^(NSDictionary *attributes, NSRange attrRange, BOOL *stop)
+     {
+         NSMutableDictionary *mutableAttributes = [NSMutableDictionary dictionaryWithDictionary:attributes];
+         
+         NSTextAttachment *textAttachment = [mutableAttributes objectForKey:@"NSAttachment"];
+         if(textAttachment != nil && attrRange.location == range.location && attrRange.length == range.length)
+         {
+             NSString *identifier = textAttachment.image.accessibilityIdentifier;
+             [imagesIdDict removeObjectForKey:identifier];
+         }
+         
+     }];
+    
+    [newAttrString endEditing];
 
+    return YES;
+}
 -(void)textChangedCustomEvent
 {
     [placeholderLabel removeFromSuperview];
@@ -1407,9 +1433,19 @@
     NSString *formatedDesc = [self formatStringForServer:textView.attributedText];
     [postDetails setObject:formatedDesc forKey:@"content"];
     
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for(NSString *str in [imagesIdDict allValues] )
+    {
+        if(![[editImageDict allValues] containsObject:str])
+            [array addObject:str];
+    }
+
+    
     //Image Ids
-    if([[imagesIdDict allValues] count] > 0)
-        [postDetails setObject:[imagesIdDict allValues] forKey:@"img_keys"];
+    if([array count] > 0)
+    {
+        [postDetails setObject:array forKey:@"img_keys"];
+    }
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
