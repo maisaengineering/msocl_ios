@@ -1199,6 +1199,7 @@
                     <navigationItem key="navigationItem" title="M SOCIAL" id="Pe4-wm-Y5D"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="changePWDButton" destination="NaO-Wi-0Jt" id="8bG-Wb-VTj"/>
                         <outlet property="profileImage" destination="Mm5-RI-Lrl" id="okK-fi-eYF"/>
                         <outlet property="txt_aboutMe" destination="PC8-hO-03a" id="BGe-4e-04e"/>
                         <outlet property="txt_blog" destination="6Xb-BT-8eQ" id="0fe-v9-68R"/>

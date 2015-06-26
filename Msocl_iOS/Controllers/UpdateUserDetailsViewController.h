@@ -30,6 +30,7 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_blog;
 @property (nonatomic, strong) IBOutlet UITextField *txt_aboutMe;
 @property (nonatomic, strong) IBOutlet UIImageView *lineImage;
+@property (nonatomic, strong) IBOutlet UIButton *changePWDButton;
 
 
 -(IBAction)closeClicked:(id)sender;

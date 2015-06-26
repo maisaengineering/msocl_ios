@@ -37,6 +37,7 @@
 @synthesize txt_aboutMe;
 @synthesize txt_Password;
 @synthesize lineImage;
+@synthesize changePWDButton;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -118,6 +119,7 @@
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"externalSignIn"])
     {
+        changePWDButton.hidden = YES;
         txt_Password.hidden = YES;
         lineImage.hidden = YES;
     }
