@@ -484,7 +484,7 @@
     CGSize expectedLabelSize;
     
         UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(16, 8, 28, 28)];
-        [imagVw setImage:[UIImage imageNamed:@"icon-profile-register.png"]];
+        [imagVw setImage:[UIImage imageNamed:@"circle-56.png"]];
     if(![[commentDict objectForKey:@"anonymous"] boolValue])
     {
     __weak UIImageView *weakSelf = imagVw;
@@ -493,10 +493,10 @@
         //NSString *nickname = [dict valueForKey:@"commented_by"];
         
         NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
-        if([commentDict valueForKey:@"fname"] != (id)[NSNull null] && [[commentDict valueForKey:@"fname"] length] >0)
-            [parentFnameInitial appendString:[[[commentDict valueForKey:@"fname"] substringToIndex:1] uppercaseString]];
-        if([commentDict valueForKey:@"lname"] != (id)[NSNull null] && [[commentDict  valueForKey:@"lname"] length]>0)
-            [parentFnameInitial appendString:[[[commentDict valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
+        if([[commentDict objectForKey:@"commenter" ] valueForKey:@"fname"] != (id)[NSNull null] && [[[commentDict objectForKey:@"commenter" ] valueForKey:@"fname"] length] >0)
+            [parentFnameInitial appendString:[[[[commentDict objectForKey:@"commenter" ] valueForKey:@"fname"] substringToIndex:1] uppercaseString]];
+        if([[commentDict objectForKey:@"commenter" ] valueForKey:@"lname"] != (id)[NSNull null] && [[[commentDict objectForKey:@"commenter" ]  valueForKey:@"lname"] length]>0)
+            [parentFnameInitial appendString:[[[[commentDict objectForKey:@"commenter" ] valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
         
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
