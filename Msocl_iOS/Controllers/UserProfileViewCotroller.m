@@ -159,7 +159,7 @@
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
     
-    if([modelManager.userProfile.uid isEqualToString:profileId])
+   /* if([modelManager.userProfile.uid isEqualToString:profileId])
     {
         
         followOrEditBtn.hidden = YES;
@@ -186,6 +186,7 @@
         
         
     }
+    */
     [self refreshWall];
 }
 -(void)setupanimateView
