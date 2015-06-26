@@ -149,7 +149,6 @@
     {
         followOrEditBtn.hidden = YES;
     }
-    [self callUserProfile];
     //followOrEditBtn.hidden = YES;
     
 
@@ -158,7 +157,8 @@
 {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
-    
+    [self callUserProfile];
+
    /* if([modelManager.userProfile.uid isEqualToString:profileId])
     {
         

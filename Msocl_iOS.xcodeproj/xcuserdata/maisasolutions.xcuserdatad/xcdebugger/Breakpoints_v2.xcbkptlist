@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/EditCommentViewController.m"
-            timestampString = "456991998.083597"
+            timestampString = "456997211.742183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "-commentFailed"
             landmarkType = "5">
          </BreakpointContent>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/TagViewController.m"
-            timestampString = "456900982.984206"
+            timestampString = "456995428.481988"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "-followingGroupSuccessFull:"
             landmarkType = "5">
          </BreakpointContent>
@@ -371,13 +371,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/UserProfileViewCotroller.m"
-            timestampString = "456987358.817738"
+            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
+            timestampString = "456997304.088122"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "1294"
+            endingLineNumber = "1294"
+            landmarkName = "-callPostApi"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -387,13 +387,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/Streams/EditCommentViewController.m"
-            timestampString = "456991998.083597"
+            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
+            timestampString = "456997311.585913"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "804"
+            endingLineNumber = "804"
+            landmarkName = "-uploadImageSccess:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
+            timestampString = "456997314.583033"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "819"
+            endingLineNumber = "819"
+            landmarkName = "-uploadImageFailed"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
+            timestampString = "456997316.969508"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "776"
+            endingLineNumber = "776"
+            landmarkName = "-UploadImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -170,6 +170,11 @@
     textView.text = [commentDetails objectForKey:@"text"];
     if([[commentDetails objectForKey:@"anonymous"] boolValue])
     {
+        for(UIView *viw in [postAnonymous subviews])
+        {
+            [viw removeFromSuperview];
+        }
+
         postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
         isAnonymous = YES;
     }
