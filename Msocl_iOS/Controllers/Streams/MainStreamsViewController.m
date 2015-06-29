@@ -244,7 +244,7 @@
         [searchBar removeFromSuperview];
     }
     
-    if(!isShowPostCalled)
+   /* if(!isShowPostCalled)
     {
         if(!mostRecent.hidden)
         {
@@ -269,7 +269,13 @@
         else
             [following.streamTableView reloadData];
         
+    }*/
+    if(!mostRecent.hidden)
+    {
+        [mostRecent.streamTableView reloadData];
     }
+    else
+        [following.streamTableView reloadData];
     isShowPostCalled = NO;
 }
 #pragma mark -
