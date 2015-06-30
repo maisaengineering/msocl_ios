@@ -158,7 +158,7 @@
     
     [self.navigationController.navigationBar addSubview:iconImage];
     [self refreshWall];
-    [self setUpTimer];
+    [self performSelector:@selector(setUpTimer) withObject:nil afterDelay:1.0];
     [self.navigationController.navigationBar addSubview:searchButton];
     
     
@@ -244,7 +244,7 @@
         [searchBar removeFromSuperview];
     }
     
-   /* if(!isShowPostCalled)
+    if(!isShowPostCalled)
     {
         if(!mostRecent.hidden)
         {
@@ -269,13 +269,15 @@
         else
             [following.streamTableView reloadData];
         
-    }*/
-    if(!mostRecent.hidden)
+    }
+   
+   /* if(!mostRecent.hidden)
     {
         [mostRecent.streamTableView reloadData];
     }
     else
         [following.streamTableView reloadData];
+    */
     isShowPostCalled = NO;
 }
 #pragma mark -
@@ -854,7 +856,7 @@
     NSDictionary *dict = responseObject;
     NSMutableArray *storiesArray1 = [[dict objectForKey:@"posts"] mutableCopy];
     
-    if(!mostRecent.hidden)
+    if(!mostRecent.hidden && !mostRecent.bProcessing)
     {
         if (appDelegate.isAppFromBackground == YES)
         {
@@ -869,6 +871,7 @@
                 {
                     [mostRecent resetData];
                     mostRecent.etag = [dict objectForKey:@"etag"];
+                    mostRecent.postCount = [dict objectForKey:@"post_count"];
                     mostRecent.timeStamp = [dict objectForKey:@"last_modified"];
                     mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
                     [mostRecent.streamTableView setContentOffset:CGPointZero animated:YES];
@@ -882,15 +885,16 @@
             if(storiesArray1!= nil && storiesArray1.count > 0)
             {
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
                 NSDate *oldTimeStamp = [dateFormatter dateFromString:mostRecent.timeStamp];
                 NSDate *newTimeStamp = [dateFormatter dateFromString:[dict objectForKey:@"last_modified"]];
-                if ( ([dict objectForKey:@"etag"] != nil && [[dict objectForKey:@"etag"] length] >0 && ![mostRecent.etag isEqualToString:[dict objectForKey:@"etag"]]) || [newTimeStamp compare:oldTimeStamp] == NSOrderedDescending)
+                if ( ([dict objectForKey:@"etag"] != nil && [[dict objectForKey:@"etag"] length] >0 && ![mostRecent.etag isEqualToString:[dict objectForKey:@"etag"]]) || [newTimeStamp compare:oldTimeStamp] == NSOrderedDescending )
                 {
                     
                     [mostRecent resetData];
                     mostRecent.timeStamp = [dict objectForKey:@"last_modified"];
                     mostRecent.etag = [dict objectForKey:@"etag"];
+                    mostRecent.postCount = [dict objectForKey:@"post_count"];
                     mostRecent.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
                     [mostRecent.streamTableView reloadData];
                 }
@@ -921,7 +925,7 @@
     }
     
     
-    if(!following.hidden)
+    if(!following.hidden && !following.bProcessing)
     {
         if (appDelegate.isAppFromBackground == YES)
         {
@@ -937,6 +941,8 @@
                     [following resetData];
                     following.etag = [dict objectForKey:@"etag"];
                     following.timeStamp = [dict objectForKey:@"last_modified"];
+                    following.postCount = [dict objectForKey:@"post_count"];
+
                     following.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
                     [following.streamTableView setContentOffset:CGPointZero animated:YES];
                     [following.streamTableView reloadData];
@@ -958,6 +964,7 @@
                     [following resetData];
                     following.timeStamp = [dict objectForKey:@"last_modified"];
                     following.etag = [dict objectForKey:@"etag"];
+                    following.postCount = [dict objectForKey:@"post_count"];
                     following.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
                     [following.streamTableView reloadData];
                 }

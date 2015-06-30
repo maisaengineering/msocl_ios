@@ -30,7 +30,7 @@
     
     Webservices *webServices;
     
-    BOOL bProcessing;
+    
     BOOL isDragging;
     float lastContentOffset;
     
@@ -49,6 +49,7 @@
 @synthesize tagId;
 @synthesize isSearching;
 @synthesize searchString;
+@synthesize bProcessing;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -228,9 +229,8 @@
         
         if([storiesArray count] > 0)
         {
-            
             [storiesArray addObjectsFromArray:postArray];
-            
+           
         }
         else
         {
@@ -254,7 +254,7 @@
     
     [self.delegate recievedData:[[recievedDict objectForKey:@"follows"] boolValue]];
     
-    [streamTableView reloadData];
+  //  [streamTableView reloadData];
     
     if(isMostRecent)
     {
@@ -775,8 +775,6 @@
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
     
-    if((indexPath.row == storiesArray.count - 2) && storiesArray.count > 5)
-        [self callStreamsApi:@"next"];
 }
 
 -(void)profileButtonClicked:(id)sender
@@ -839,6 +837,19 @@
     }
     lastContentOffset = scrollView.contentOffset.y;
     
+    CGPoint offset = scrollView.contentOffset;
+    CGRect bounds = scrollView.bounds;
+    CGSize size = scrollView.contentSize;
+    UIEdgeInsets inset = scrollView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
     
+    float reload_distance = -100;
+    if(y > h + reload_distance)
+    {
+        if(!bProcessing)
+        [self callStreamsApi:@"next"];
+
+    }
 }
 @end

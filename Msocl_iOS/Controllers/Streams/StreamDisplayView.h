@@ -33,6 +33,7 @@
 @property (nonatomic, assign) BOOL isFollowing;
 @property (nonatomic, assign) BOOL isUserProfilePosts;
 @property (nonatomic, assign) BOOL isTag;
+@property (nonatomic, assign) BOOL bProcessing;
 @property (nonatomic, assign) BOOL isSearching;
 @property (nonatomic, strong) NSString *searchString;
 @property (nonatomic, strong) NSString *userProfileId;
