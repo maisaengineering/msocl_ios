@@ -306,7 +306,7 @@
         
         if(array.count != 0)
         {
-            [groups removeObject:tagDict];
+            [groups removeObject:[array firstObject]];
             [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
         }
 

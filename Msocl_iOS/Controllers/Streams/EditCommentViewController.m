@@ -175,7 +175,7 @@
             [viw removeFromSuperview];
         }
 
-        postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
+        postAnonymous.image = [UIImage imageNamed:@"anamous.png"];
         isAnonymous = YES;
     }
     
@@ -277,7 +277,7 @@
             [popView addSubview:postAsLabel];
             
             UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(220, 4, 24, 24)];
-            [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
+            [anonymusImage setImage:[UIImage imageNamed:@"anamous.png"]];
             [popView addSubview:anonymusImage];
             
             UIButton *postBtnAnonymous = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -301,7 +301,7 @@
     
     [popover dismiss];
     isAnonymous = YES;
-    postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
+    postAnonymous.image = [UIImage imageNamed:@"anamous.png"];
 }
 -(void)commentClicked:(id)sender
 {

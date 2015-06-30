@@ -288,7 +288,7 @@
     if(postDetailsObject.anonymous)
     {
         isPrivate = YES;
-        postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
+        postAnonymous.image = [UIImage imageNamed:@"anamous.png"];
         
         
     }
@@ -1046,7 +1046,7 @@
     
     
     [popover dismiss];
-    postAnonymous.image = [UIImage imageNamed:@"icon-anamous.png"];
+    postAnonymous.image = [UIImage imageNamed:@"anamous.png"];
     isPrivate = YES;
     /*
      if(textView.text.length == 0)
@@ -1152,7 +1152,7 @@
         [popView addSubview:postAsLabel];
         
         UIImageView *anonymusImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 5, 30, 30)];
-        [anonymusImage setImage:[UIImage imageNamed:@"icon-anamous.png"]];
+        [anonymusImage setImage:[UIImage imageNamed:@"anamous.png"]];
         [popView addSubview:anonymusImage];
         
         UIButton *postBtnAnonymous = [UIButton buttonWithType:UIButtonTypeCustom];

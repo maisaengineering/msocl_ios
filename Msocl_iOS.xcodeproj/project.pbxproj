@@ -36,6 +36,7 @@
 		7F4C88FB1AF0B5BB008B769C /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F31AF0B5BB008B769C /* JTSAnimatedGIFUtility.m */; };
 		7F4C88FC1AF0B5BB008B769C /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */; };
 		7F4C88FD1AF0B5BB008B769C /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */; };
+		7F5267F61B42B25A00BD73D9 /* anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5267F51B42B25A00BD73D9 /* anamous@2x.png */; };
 		7F5934141B3A642B001B5A94 /* btn-post-ana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */; };
 		7F5934151B3A642B001B5A94 /* btn-post-dropdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934021B3A642B001B5A94 /* btn-post-dropdown@2x.png */; };
 		7F5934161B3A642B001B5A94 /* btn-postas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934031B3A642B001B5A94 /* btn-postas@2x.png */; };
@@ -247,7 +248,6 @@
 		7FB9135C1B2ED5710064D230 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FB9135B1B2ED5710064D230 /* Main.storyboard */; };
 		7FD4EDAA1B328C31001B8C80 /* grey-dots.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDA91B328C30001B8C80 /* grey-dots.gif */; };
 		7FD4EDAC1B3298C6001B8C80 /* loading-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */; };
-		7FE2F9C51B301A060020E115 /* icon-anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */; };
 		7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */; };
 		7FE62B6C1B14792700CFE9AA /* icon-view-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE62B6B1B14792700CFE9AA /* icon-view-count@2x.png */; };
 		7FF5CC011ACE9E61004F4F9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF5CC001ACE9E61004F4F9B /* main.m */; };
@@ -308,6 +308,7 @@
 		7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
 		7F4C88F61AF0B5BB008B769C /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
 		7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
+		7F5267F51B42B25A00BD73D9 /* anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anamous@2x.png"; sourceTree = "<group>"; };
 		7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-post-ana@2x.png"; sourceTree = "<group>"; };
 		7F5934021B3A642B001B5A94 /* btn-post-dropdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-post-dropdown@2x.png"; sourceTree = "<group>"; };
 		7F5934031B3A642B001B5A94 /* btn-postas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-postas@2x.png"; sourceTree = "<group>"; };
@@ -613,7 +614,6 @@
 		7FB9135B1B2ED5710064D230 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7FD4EDA91B328C30001B8C80 /* grey-dots.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "grey-dots.gif"; sourceTree = "<group>"; };
 		7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loading-bar.gif"; sourceTree = "<group>"; };
-		7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-anamous@2x.png"; sourceTree = "<group>"; };
 		7FE2F9C61B3020030020E115 /* ShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSettingsViewController.h; sourceTree = "<group>"; };
 		7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareSettingsViewController.m; sourceTree = "<group>"; };
 		7FE62B6B1B14792700CFE9AA /* icon-view-count@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-view-count@2x.png"; sourceTree = "<group>"; };
@@ -1123,6 +1123,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F5267F51B42B25A00BD73D9 /* anamous@2x.png */,
 				7F70D1D31B356C0A00533C44 /* icon-flag@2x.png */,
 				7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */,
 				7F5934021B3A642B001B5A94 /* btn-post-dropdown@2x.png */,
@@ -1146,7 +1147,6 @@
 				7F5BD87A1B32FDEC00FFD21D /* share@2x.png */,
 				7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */,
 				7FD4EDA91B328C30001B8C80 /* grey-dots.gif */,
-				7FE2F9C41B301A060020E115 /* icon-anamous@2x.png */,
 				7FA34A801B295C0C0081EC79 /* icon-share@2x.png */,
 				7F952F641B26E53B00810014 /* slider-circle@2x.png */,
 				7F952F601B26E0F600810014 /* slider-gray@2x.png */,
@@ -1444,6 +1444,7 @@
 				7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */,
 				7F5941CB1AF3B337001F79BD /* menu-home@2x.png in Resources */,
 				7F826FB51B08B5A6009455E9 /* icon-delete-post@2x.png in Resources */,
+				7F5267F61B42B25A00BD73D9 /* anamous@2x.png in Resources */,
 				7F83BC7E1AD17844008DFD8B /* Images.xcassets in Resources */,
 				7F7E55BC1AD3D992007070EF /* AviarySDKResources.bundle in Resources */,
 				7F8890FF1B15FF28009C8CC8 /* cd-1@3x.png in Resources */,
@@ -1508,7 +1509,6 @@
 				7F8999281AD2B1F6007E2917 /* tour_7@2x.png in Resources */,
 				7F714F351AE79A2B00C69BF4 /* comment-textfield@2x.png in Resources */,
 				7F76B7CF1B1077630045F9D7 /* back@2x.png in Resources */,
-				7FE2F9C51B301A060020E115 /* icon-anamous@2x.png in Resources */,
 				7FB913561B2ECE9E0064D230 /* SanFranciscoText-Medium.otf in Resources */,
 				7F94E5B91B0E11C80070DE80 /* setting-strip-selected@2x.png in Resources */,
 				7F76EF8A1AECBE2400770101 /* icon-unsubscribe@2x.png in Resources */,
