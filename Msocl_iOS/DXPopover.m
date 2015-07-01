@@ -192,7 +192,7 @@
 
 - (void)showAtView:(UIView *)atView withContentView:(UIView *)contentView
 {
-    [self showAtView:atView withContentView:contentView inView:[UIApplication sharedApplication].keyWindow];
+    [self showAtView:atView withContentView:contentView inView:contentView.window];
 }
 
 - (void)show

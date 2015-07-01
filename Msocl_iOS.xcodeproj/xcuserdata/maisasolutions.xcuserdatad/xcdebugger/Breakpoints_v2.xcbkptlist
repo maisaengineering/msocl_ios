@@ -247,22 +247,6 @@
             timestampString = "457004245.660202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1320"
-            endingLineNumber = "1320"
-            landmarkName = "-callPostApi"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
-            timestampString = "457004245.660202"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
             startingLineNumber = "806"
             endingLineNumber = "806"
             landmarkName = "-uploadImageSccess:"
@@ -410,6 +394,22 @@
             startingLineNumber = "309"
             endingLineNumber = "309"
             landmarkName = "-followingGroupSuccessFull:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShareExtention/ShareViewController.m"
+            timestampString = "457438590.387534"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "-preferredStatusBarStyle"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
