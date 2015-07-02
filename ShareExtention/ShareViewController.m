@@ -15,13 +15,15 @@
 #import "ProfilePhotoUtils.h"
 #import "ModelManager.h"
 #include <CoreFoundation/CoreFoundation.h>
-
+#import "UIImageView+WebCache.h"
+#import "SDWebImageManager.h"
 @interface ShareViewController ()
 
 @end
 
 @implementation ShareViewController
 {
+    
     UITextView *textView;
     BOOL isPostClicked;
     ProfilePhotoUtils  *photoUtils;
@@ -40,6 +42,9 @@
     UIImageView *dropDown;
     NSMutableDictionary *editImageDict;
     UIImageView *iconImage;
+    SDWebImageManager *manager;
+    NSDictionary *tokenDict;
+    NSDictionary *userDict;
 }
 @synthesize scrollView;
 @synthesize selectedtagsArray;
@@ -52,6 +57,9 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+   
+    
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor whiteColor], NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"SanFranciscoDisplay-Regular" size:18], NSFontAttributeName, nil]];
@@ -68,9 +76,16 @@
     uploadingImages = 0;
     if(selectedtagsArray.count == 0)
         selectedtagsArray = [[NSMutableArray alloc] init];
-    tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     
     
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    tagsArray = [myDefaults objectForKey:@"Groups"];
+
+    tokenDict = [myDefaults objectForKey:@"tokens"];
+    userDict = [myDefaults objectForKey:@"userprofile"];
+
     
     popover = [DXPopover popover];
     
@@ -98,13 +113,12 @@
     
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
-    ModelManager *sharedModel = [ModelManager sharedModel];
     
     NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
-    if( [sharedModel.userProfile.fname length] >0)
-        [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
-    if( [sharedModel.userProfile.lname length] >0)
-        [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+    if( [[userDict objectForKey:@"fname"] length] >0)
+        [parentFnameInitial appendString:[[[userDict objectForKey:@"fname"] substringToIndex:1] uppercaseString]];
+    if( [[userDict objectForKey:@"lname"] length] >0)
+        [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
     
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -134,13 +148,32 @@
     initial.textAlignment = NSTextAlignmentCenter;
     [postAnonymous addSubview:initial];
     
-//    
-//    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-//     {
-//         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
-//         [initial  removeFromSuperview];
-//         
-//     }failure:nil];
+    postAnonymous.image = [UIImage imageNamed:@"circle-80.png"];
+    
+    UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+    if (thumb == nil)
+    {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^(void)
+                       {
+                           NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[userDict objectForKey:@"photo"]]];
+                           UIImage* image = [[UIImage alloc] initWithData:imageData];
+                           if (image) {
+                               
+
+                               weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
+                               [initial  removeFromSuperview];
+                               [photoUtils saveImageToCacheWithOutCompression:[userDict objectForKey:@"photo"] :weakSelf.image];
+                           }
+                       });
+    }
+    else
+    {
+        weakSelf.image = thumb;
+        [initial  removeFromSuperview];
+    }
+
+    
     [anonymousButton addSubview:postAnonymous];
     
     dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(302, 24, 10, 9)];
@@ -166,6 +199,29 @@
     [self setData];
     [self setNeedsStatusBarAppearanceUpdate];
 
+}
+-(void)viewDidAppear:(BOOL)animated
+{
+    if(tokenDict == nil)
+    {
+        if ([UIAlertController class]) {
+            UIAlertController *alertController =[UIAlertController alertControllerWithTitle:PROJECT_NAME message:@"Please login to main app" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction
+                                       actionWithTitle:NSLocalizedString(@"OK", @"OK action")
+                                       style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction *action)
+                                       {
+                                           [self.extensionContext cancelRequestWithError:nil];
+                                           NSLog(@"OK action");
+                                       }];
+            
+            [alertController addAction:okAction];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        }
+        
+    }
 }
 -(void)postDetailsScroll
 {
@@ -311,14 +367,31 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
     __weak UIImageView *weakSelf = imageView;
     
-//    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"tag-placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-//     {
-//         weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
-//         
-//     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){
-//         
-//     }];
+    imageView.image = [UIImage imageNamed:@"tag-placeholder.png"];
     
+    UIImage *thumb = [photoUtils getImageFromCache:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]];
+    if (thumb == nil)
+    {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^(void)
+                       {
+                           NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]]];
+                           UIImage* image = [[UIImage alloc] initWithData:imageData];
+                           if (image) {
+                               weakSelf.image = image;
+                               [photoUtils saveImageToCacheWithOutCompression:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"] :image];
+
+                           }
+                       });
+    }
+    else
+    {
+        weakSelf.image = thumb;
+    }
+
+    
+    
+
     [cell addSubview:imageView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 75, 95, 20)];
@@ -493,11 +566,10 @@
     }
     else
     {
-        ModelManager *sharedModel = [ModelManager sharedModel];
         
         
         UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-        [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
+        [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@ %@",[userDict objectForKey:@"fname"],[userDict objectForKey:@"lname"]]];
         [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
@@ -507,10 +579,10 @@
         
         
         NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
-        if( [sharedModel.userProfile.fname length] >0)
-            [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
-        if( [sharedModel.userProfile.lname length] >0)
-            [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+        if( [[userDict objectForKey:@"fname"] length] >0)
+            [parentFnameInitial appendString:[[[userDict objectForKey:@"fname"] substringToIndex:1] uppercaseString]];
+        if( [[userDict objectForKey:@"lname"] length] >0)
+            [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
         
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -544,12 +616,29 @@
         __weak UIImageView *weakSelf1 = userImage;
         __weak ProfilePhotoUtils *weakphotoUtils1 = photoUtils;
         
-//        [userImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-//         {
-//             weakSelf1.image = [weakphotoUtils1 makeRoundWithBoarder:[weakphotoUtils1 squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
-//             [initial removeFromSuperview];
-//             
-//         }failure:nil];
+        postAnonymous.image = [UIImage imageNamed:@"circle-80.png"];
+        
+        UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+        if (thumb == nil)
+        {
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+            dispatch_async(queue, ^(void)
+                           {
+                               NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[userDict objectForKey:@"photo"]]];
+                               UIImage* image = [[UIImage alloc] initWithData:imageData];
+                               if (image) {
+                                   weakSelf1.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
+                                   [initial  removeFromSuperview];
+                                   [photoUtils saveImageToCacheWithOutCompression:[userDict objectForKey:@"photo"] :weakSelf1.image];
+                                   
+                               }
+                           });
+        }
+        else
+        {
+            weakSelf1.image = thumb;
+            [initial  removeFromSuperview];
+        }
         
         
         [popView addSubview:userImage];
@@ -562,7 +651,8 @@
     }
     
     
-    [popover showAtView:btn withContentView:popView];
+   // [popover showAtView:btn withContentView:popView];
+    [popover showAtView:btn withContentView:popView inView:self.navigationController.view];
     
 }
 -(void)postClicked
@@ -572,13 +662,12 @@
     
     __weak UIImageView *weakSelf = postAnonymous;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
-    ModelManager *sharedModel = [ModelManager sharedModel];
     
     NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
-    if( [sharedModel.userProfile.fname length] >0)
-        [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
-    if( [sharedModel.userProfile.lname length] >0)
-        [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+    if( [[userDict objectForKey:@"fname"] length] >0)
+        [parentFnameInitial appendString:[[[userDict objectForKey:@"fname"] substringToIndex:1] uppercaseString]];
+    if( [[userDict objectForKey:@"lname"] length] >0)
+        [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
     
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -609,12 +698,32 @@
     [postAnonymous addSubview:initial];
     
     
-//    [postAnonymous setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:sharedModel.userProfile.image]] placeholderImage:[UIImage imageNamed:@"circle-80.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
-//     {
-//         weakSelf.image = [weakphotoUtils makeRoundWithBoarder:[weakphotoUtils squareImageWithImage:image scaledToSize:CGSizeMake(18, 18)] withRadious:0];
-//         [initial removeFromSuperview];
-//         
-//     }failure:nil];
+    postAnonymous.image = [UIImage imageNamed:@"circle-80.png"];
+    manager = [SDWebImageManager sharedManager];
+    UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+    if (thumb == nil)
+    {
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+        dispatch_async(queue, ^(void)
+                       {
+                           NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[userDict objectForKey:@"photo"]]];
+                           UIImage* image = [[UIImage alloc] initWithData:imageData];
+                           if (image) {
+                               {
+                                   weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(24, 24)] withRadious:0];
+                                   [initial  removeFromSuperview];
+                                   [photoUtils saveImageToCacheWithOutCompression:[userDict objectForKey:@"photo"] :weakSelf.image];
+                                   
+                               }                           }
+                       });
+    }
+    else
+    {
+        weakSelf.image = thumb;
+        [initial  removeFromSuperview];
+    }
+
+
     isPrivate = NO;
     
 }
@@ -689,18 +798,49 @@
     if([[imagesIdDict allValues] count] > 0)
         [postDetails setObject:[imagesIdDict allValues] forKey:@"img_keys"];
     
-    ModelManager *sharedModel = [ModelManager sharedModel];
-    AccessToken* token = sharedModel.accessToken;
-    
     NSString *command = @"create";
-    NSDictionary* postData = @{@"access_token": token.access_token,
+    NSDictionary* postData = @{@"access_token": [tokenDict objectForKey:@"access_token"],
                                @"command": command,
                                @"body": postDetails};
-    NSDictionary *userInfo = @{@"command": @"createPost"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
     
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:postData options:0  error:nil];
+    
+    //convert data to string
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    DebugLog(@"----Request-URL: %@",urlAsString);
+    
+    NSURL *url = [[NSURL alloc] initWithString:urlAsString];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    NSData *requestData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[NSString stringWithFormat:@"and unique name"]];
+    sessionConfiguration.sharedContainerIdentifier=@"group.com.maisasolutions.msocl";
+    // config.HTTPMaximumConnectionsPerHost = 1;
+    
+    
+   NSURLSession *session = [NSURLSession  sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    
+    NSURLSessionDataTask  *uploadTask = [session dataTaskWithRequest:request];
+    [uploadTask resume];
     
 }
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response
+ completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
+    
+    [self.extensionContext cancelRequestWithError:nil];;
+
+}
+
 -(void)postCreationSccessfull:(NSDictionary *)notificationDict
 {
     

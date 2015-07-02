@@ -222,8 +222,15 @@
     [tokenDict setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];
     [[NSUserDefaults standardUserDefaults] setObject:tokenDict forKey:@"tokens"];
     
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:responseDict forKey:@"userprofile"];
+    [myDefaults setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];
+    [myDefaults setObject:tokenDict forKey:@"tokens"];
+    [myDefaults synchronize];
     
     [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:responseDict];

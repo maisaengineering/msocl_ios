@@ -207,7 +207,6 @@
 		7F8999031AD25E4F007E2917 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8999021AD25E4F007E2917 /* libsqlite3.0.dylib */; };
 		7F8999051AD25E57007E2917 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8999041AD25E57007E2917 /* libz.1.2.5.dylib */; };
 		7F8999071AD25E5E007E2917 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8999061AD25E5E007E2917 /* MessageUI.framework */; };
-		7F8999091AD25E66007E2917 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8999081AD25E66007E2917 /* StoreKit.framework */; };
 		7F8999131AD2649E007E2917 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8999121AD2649E007E2917 /* Base64.m */; };
 		7F8999221AD2B1F6007E2917 /* tour_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F89991A1AD2B1F6007E2917 /* tour_1@2x.png */; };
 		7F8999231AD2B1F6007E2917 /* tour_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F89991B1AD2B1F6007E2917 /* tour_2@2x.png */; };
@@ -225,6 +224,18 @@
 		7F8D80D91AEFC1AD00D3F052 /* profile-register@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D80D41AEFC1AD00D3F052 /* profile-register@2x.png */; };
 		7F8D80DD1AEFC55000D3F052 /* yoga-img@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8D80DC1AEFC55000D3F052 /* yoga-img@2x.png */; };
 		7F8D80E31AEFC89B00D3F052 /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80E21AEFC89B00D3F052 /* PhotoCollectionViewCell.m */; };
+		7F8F88121B45451400284F4A /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF911AD7C50A00F2C60A /* NSData+ImageContentType.m */; };
+		7F8F88131B45451400284F4A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF931AD7C50A00F2C60A /* SDImageCache.m */; };
+		7F8F88141B45451400284F4A /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF951AD7C50A00F2C60A /* SDWebImageCompat.m */; };
+		7F8F88151B45451400284F4A /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF971AD7C50A00F2C60A /* SDWebImageDecoder.m */; };
+		7F8F88161B45451400284F4A /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF991AD7C50A00F2C60A /* SDWebImageDownloader.m */; };
+		7F8F88171B45451400284F4A /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF9B1AD7C50A00F2C60A /* SDWebImageDownloaderOperation.m */; };
+		7F8F88181B45451400284F4A /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEF9D1AD7C50A00F2C60A /* SDWebImageManager.m */; };
+		7F8F88191B45451400284F4A /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5DEFA01AD7C50A00F2C60A /* SDWebImagePrefetcher.m */; };
+		7F8F881A1B45485B00284F4A /* circle-80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F8871E21B131B850043CE58 /* circle-80@2x.png */; };
+		7F8F881B1B45486800284F4A /* tag-placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5941C41AF3AD55001F79BD /* tag-placeholder@2x.png */; };
+		7F8F881C1B4550D000284F4A /* btn-post-ana@3x.png in Sources */ = {isa = PBXBuildFile; fileRef = 7FC48DC51B43F2D800E31F91 /* btn-post-ana@3x.png */; };
+		7F8F881D1B4550D000284F4A /* btn-post-ana@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = 7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */; };
 		7F916D4D1AF2012C00103CAF /* NIAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D481AF2012C00103CAF /* NIAttributedLabel.m */; };
 		7F916D4E1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D4B1AF2012C00103CAF /* NSMutableAttributedString+NimbusKitAttributedLabel.m */; };
 		7F916D511AF2169400103CAF /* EditCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F916D501AF2169400103CAF /* EditCommentViewController.m */; };
@@ -264,18 +275,11 @@
 		7FD4EDAC1B3298C6001B8C80 /* loading-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */; };
 		7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */; };
 		7FE62B6C1B14792700CFE9AA /* icon-view-count@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FE62B6B1B14792700CFE9AA /* icon-view-count@2x.png */; };
-		7FEC6DAD1B43BE8C00A29BCF /* StringConstants.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE811AD6AAF700EA6D1F /* StringConstants.h */; };
-		7FEC6DB01B43BEA300A29BCF /* ProfilePhotoUtils.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE591AD6544400EA6D1F /* ProfilePhotoUtils.h */; };
 		7FEC6DB11B43BEA300A29BCF /* ProfilePhotoUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE5A1AD6544400EA6D1F /* ProfilePhotoUtils.m */; };
-		7FEC6DB21B43BEB600A29BCF /* PhotoCollectionViewCell.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80E11AEFC89B00D3F052 /* PhotoCollectionViewCell.h */; };
 		7FEC6DB31B43BEB600A29BCF /* PhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8D80E21AEFC89B00D3F052 /* PhotoCollectionViewCell.m */; };
-		7FEC6DB41B43BEC000A29BCF /* ModelManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE7D1AD6AAF700EA6D1F /* ModelManager.h */; };
 		7FEC6DB51B43BEC000A29BCF /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE7E1AD6AAF700EA6D1F /* ModelManager.m */; };
-		7FEC6DB61B43BECD00A29BCF /* DXPopover.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F2178B51AE51862003D8A33 /* DXPopover.h */; };
 		7FEC6DB71B43BECD00A29BCF /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2178B61AE51862003D8A33 /* DXPopover.m */; };
-		7FEC6DB81B43C01E00A29BCF /* AccessToken.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE7B1AD6AAF700EA6D1F /* AccessToken.h */; };
 		7FEC6DB91B43C01E00A29BCF /* AccessToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE7C1AD6AAF700EA6D1F /* AccessToken.m */; };
-		7FEC6DBA1B43C02600A29BCF /* UserProfile.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE821AD6AAF700EA6D1F /* UserProfile.h */; };
 		7FEC6DBB1B43C02600A29BCF /* UserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F80DE831AD6AAF700EA6D1F /* UserProfile.m */; };
 		7FEC6DC21B43C51800A29BCF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F83BC7D1AD17844008DFD8B /* Images.xcassets */; };
 		7FEC6DC31B43C52900A29BCF /* btn-postas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934031B3A642B001B5A94 /* btn-postas@2x.png */; };
@@ -631,7 +635,6 @@
 		7F8999021AD25E4F007E2917 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		7F8999041AD25E57007E2917 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		7F8999061AD25E5E007E2917 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		7F8999081AD25E66007E2917 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7F8999111AD2649E007E2917 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		7F8999121AD2649E007E2917 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		7F89991A1AD2B1F6007E2917 /* tour_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tour_1@2x.png"; sourceTree = "<group>"; };
@@ -733,7 +736,6 @@
 				253C89471AD8047A002477A8 /* CFNetwork.framework in Frameworks */,
 				253C89451AD80473002477A8 /* AudioToolbox.framework in Frameworks */,
 				25214C361AD6C3A20084BAC4 /* SystemConfiguration.framework in Frameworks */,
-				7F8999091AD25E66007E2917 /* StoreKit.framework in Frameworks */,
 				7F8999071AD25E5E007E2917 /* MessageUI.framework in Frameworks */,
 				7F8999051AD25E57007E2917 /* libz.1.2.5.dylib in Frameworks */,
 				25214C341AD6C23C0084BAC4 /* libFlurry_6.3.0.a in Frameworks */,
@@ -1054,6 +1056,7 @@
 		7F83BC221AD13BD1008DFD8B /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				7F83BC311AD14CD9008DFD8B /* AFNetworking */,
 				7F916D461AF2011900103CAF /* NIAttributedLabel */,
 				7F4C88EB1AF0B56E008B769C /* ZoomImage */,
 				7F8D80AE1AEF5C6E00D3F052 /* AvoidKeyboard */,
@@ -1064,7 +1067,6 @@
 				25214C311AD6C23C0084BAC4 /* Flurry */,
 				7F7E55B81AD3D992007070EF /* AviarySDK */,
 				7F8999101AD26489007E2917 /* Base64 */,
-				7F83BC311AD14CD9008DFD8B /* AFNetworking */,
 				7F83BC2D1AD14AC0008DFD8B /* Reachability */,
 				7F83BC231AD13BFF008DFD8B /* MBProgressHUD */,
 			);
@@ -1205,7 +1207,6 @@
 				253C89461AD8047A002477A8 /* CFNetwork.framework */,
 				253C89441AD80473002477A8 /* AudioToolbox.framework */,
 				25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */,
-				7F8999081AD25E66007E2917 /* StoreKit.framework */,
 				7F8999061AD25E5E007E2917 /* MessageUI.framework */,
 				7F8999041AD25E57007E2917 /* libz.1.2.5.dylib */,
 				7F8999021AD25E4F007E2917 /* libsqlite3.0.dylib */,
@@ -1527,6 +1528,9 @@
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
 						};
 					};
 					7FF5CC131ACE9E61004F4F9B = {
@@ -1560,6 +1564,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F8F881B1B45486800284F4A /* tag-placeholder@2x.png in Resources */,
+				7F8F881A1B45485B00284F4A /* circle-80@2x.png in Resources */,
 				7FC48DD11B43F42700E31F91 /* header-icon-samepinch@2x.png in Resources */,
 				7FC48DD21B43F42700E31F91 /* header-icon-samepinch@3x.png in Resources */,
 				7FEC6DD41B43C5A000A29BCF /* Typo Grotesk Demo.otf in Resources */,
@@ -1735,19 +1741,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7FEC6DBA1B43C02600A29BCF /* UserProfile.h in Sources */,
+				7F8F881C1B4550D000284F4A /* btn-post-ana@3x.png in Sources */,
+				7F8F881D1B4550D000284F4A /* btn-post-ana@2x.png in Sources */,
+				7F8F88121B45451400284F4A /* NSData+ImageContentType.m in Sources */,
+				7F8F88131B45451400284F4A /* SDImageCache.m in Sources */,
+				7F8F88141B45451400284F4A /* SDWebImageCompat.m in Sources */,
+				7F8F88151B45451400284F4A /* SDWebImageDecoder.m in Sources */,
+				7F8F88161B45451400284F4A /* SDWebImageDownloader.m in Sources */,
+				7F8F88171B45451400284F4A /* SDWebImageDownloaderOperation.m in Sources */,
+				7F8F88181B45451400284F4A /* SDWebImageManager.m in Sources */,
+				7F8F88191B45451400284F4A /* SDWebImagePrefetcher.m in Sources */,
 				7FEC6DBB1B43C02600A29BCF /* UserProfile.m in Sources */,
-				7FEC6DB81B43C01E00A29BCF /* AccessToken.h in Sources */,
 				7FEC6DB91B43C01E00A29BCF /* AccessToken.m in Sources */,
-				7FEC6DB61B43BECD00A29BCF /* DXPopover.h in Sources */,
 				7FEC6DB71B43BECD00A29BCF /* DXPopover.m in Sources */,
-				7FEC6DB41B43BEC000A29BCF /* ModelManager.h in Sources */,
 				7FEC6DB51B43BEC000A29BCF /* ModelManager.m in Sources */,
-				7FEC6DB21B43BEB600A29BCF /* PhotoCollectionViewCell.h in Sources */,
 				7FEC6DB31B43BEB600A29BCF /* PhotoCollectionViewCell.m in Sources */,
-				7FEC6DB01B43BEA300A29BCF /* ProfilePhotoUtils.h in Sources */,
 				7FEC6DB11B43BEA300A29BCF /* ProfilePhotoUtils.m in Sources */,
-				7FEC6DAD1B43BE8C00A29BCF /* StringConstants.h in Sources */,
 				7F6BEAD31B43AD0B0052FF32 /* ShareViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1892,15 +1901,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = AF_APP_EXTENSIONS;
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1913,11 +1924,17 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = AF_APP_EXTENSIONS;
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1939,8 +1956,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1960,7 +1977,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "d387d0c4-4a25-4c08-aec6-0182458b12d1";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1982,8 +1999,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1996,7 +2013,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "d387d0c4-4a25-4c08-aec6-0182458b12d1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2010,8 +2027,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2032,7 +2049,7 @@
 				);
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "d387d0c4-4a25-4c08-aec6-0182458b12d1";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2045,8 +2062,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2067,7 +2084,7 @@
 				);
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "d387d0c4-4a25-4c08-aec6-0182458b12d1";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

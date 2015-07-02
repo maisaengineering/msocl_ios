@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Social/Social.h>
 
-@interface ShareViewController : UIViewController<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface ShareViewController : UIViewController<UITextViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,NSURLSessionDelegate>
 
 -(void)cancelClick:(id)sender;
 @property (nonatomic , strong) UIScrollView *scrollView;

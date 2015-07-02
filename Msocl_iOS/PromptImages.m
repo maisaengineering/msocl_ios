@@ -100,7 +100,11 @@ static PromptImages *romptImagesObject = nil;
 {
     [[NSUserDefaults standardUserDefaults] setObject:[responseDict objectForKey:@"groups"] forKey:@"Groups"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:[responseDict objectForKey:@"groups"] forKey:@"Groups"];
+    [myDefaults synchronize];
 }
 -(void)fetchingGroupsFailedWithError
 {

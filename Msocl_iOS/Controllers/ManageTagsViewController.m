@@ -176,6 +176,11 @@
         {
             [groups addObject:dict];
             [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
+            NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                          initWithSuiteName:@"group.com.maisasolutions.msocl"];
+            [myDefaults setObject:groups forKey:@"Groups"];
+            [myDefaults synchronize];
+
         }
         
         AccessToken* token = sharedModel.accessToken;
@@ -202,6 +207,11 @@
         NSDictionary *dict = [managedTagsArray objectAtIndex:indexPath.row];
         [groups removeObject:dict];
         [[NSUserDefaults standardUserDefaults] setObject:groups forKey:@"Groups"];
+        NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                      initWithSuiteName:@"group.com.maisasolutions.msocl"];
+        [myDefaults setObject:groups forKey:@"Groups"];
+        [myDefaults synchronize];
+
         AccessToken* token = sharedModel.accessToken;
         
         NSDictionary* postData = @{@"command": @"unfollow",@"access_token": token.access_token};
