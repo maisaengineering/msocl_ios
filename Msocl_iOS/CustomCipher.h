@@ -11,5 +11,5 @@
 @interface CustomCipher : NSObject
 
 +(NSString *) encrypt:(NSString *)stringToEncrypt;
-
++(NSString *) decrypt:(NSString *)stringToEncrypt;
 @end

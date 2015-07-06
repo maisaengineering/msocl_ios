@@ -1626,7 +1626,7 @@
     // MARK:Got it button
     UIButton *gotItButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [gotItButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    gotItButton.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
+    gotItButton.frame = CGRectMake(110, 432, 100, 40);
     gotItButton.tag = 1;
     [addPopUpView addSubview:gotItButton];
     

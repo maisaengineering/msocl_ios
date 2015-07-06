@@ -28,7 +28,7 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_password;
 @property (nonatomic, strong) IBOutlet UITextField *txt_confirmPassword;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImage;
-@property (nonatomic, strong) IBOutlet UITextField *txt_postal_code;
+@property (nonatomic, strong) IBOutlet UITextField *txt_handle;
 @property (nonatomic, strong) IBOutlet UITextField *txt_phno;
 
 @property (nonatomic, strong) IBOutlet UIButton *checkBox;

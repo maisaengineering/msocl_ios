@@ -28,6 +28,7 @@
 @synthesize can;
 @synthesize viewsCount;
 @synthesize url;
+@synthesize pinchHandle;
 -(id)initWithDictionary:(NSDictionary *)response{
     
     if (self=[super init]) {

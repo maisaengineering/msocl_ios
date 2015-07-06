@@ -32,7 +32,7 @@
 @synthesize txt_emailAddress;
 @synthesize txt_lastname;
 @synthesize profileImage;
-@synthesize txt_postal_code;
+@synthesize txt_handle;
 @synthesize txt_phno;
 @synthesize checkBox;
 -(void)viewDidLoad
@@ -144,19 +144,25 @@
 -(IBAction)signupClicked:(id)sender
 {
     [self resignKeyBoards];
-    if( txt_password.text.length == 0 || txt_lastname.text.length == 0 || txt_firstName.text.length == 0|| txt_emailAddress.text.length == 0|| txt_confirmPassword.text.length == 0)
+    if(txt_emailAddress.text.length == 0)
     {
-        ShowAlert(PROJECT_NAME,@"All fields are required", @"OK");
+        ShowAlert(PROJECT_NAME,@"Please enter email", @"OK");
         return;
     }
+    else if(txt_handle.text.length == 0 )
+    {
+        ShowAlert(PROJECT_NAME,@"Please enter handle", @"OK");
+        return;
+    }
+    else if(txt_password.text.length == 0)
+    {
+        ShowAlert(PROJECT_NAME,@"Please enter password", @"OK");
+        return;
+    }
+    
     else if(txt_password.text.length < 6)
     {
         ShowAlert(PROJECT_NAME,@"Password should be at least 6 characters", @"OK");
-        return;
-    }
-    else if(![txt_confirmPassword.text isEqualToString:txt_password.text])
-    {
-        ShowAlert(PROJECT_NAME,@"Password and Confirm password do not match", @"OK");
         return;
     }
     else if(!checkBox.selected)
@@ -196,8 +202,8 @@
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
+    [postDetails setObject:txt_handle.text forKey:@"pinch_handle"];
     [postDetails setObject:txt_password.text forKey:@"password"];
-    [postDetails setObject:txt_confirmPassword.text forKey:@"password_confirmation"];
     if(imageId.length > 0)
         [postDetails setObject:imageId forKey:@"key"];
     if([[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] != nil)
@@ -606,5 +612,38 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return NO;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if(textField == txt_handle && textField.text.length > 0)
+    {
+        [self checkAvailability];
+    }
+}
+-(void)checkAvailability
+{
+    NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+    [postDetails setObject:txt_handle.text forKey:@"handle"];
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSString *command = @"SignUp";
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": @"create",
+                               @"body": postDetails};
+    NSDictionary *userInfo = @{@"command": @"handle"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+
+}
+-(void)handleSuccessFull:(NSDictionary *)recievedDict
+{
+    txt_handle.placeholder = @"Handle not avialable";
+}
+-(void)handleFailed
+{
+    
 }
 @end

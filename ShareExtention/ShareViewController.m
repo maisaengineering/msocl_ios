@@ -24,7 +24,6 @@
 @implementation ShareViewController
 {
     
-    UITextView *textView;
     BOOL isPostClicked;
     ProfilePhotoUtils  *photoUtils;
     NSMutableDictionary *imagesIdDict;
@@ -49,6 +48,7 @@
 @synthesize scrollView;
 @synthesize selectedtagsArray;
 @synthesize collectionView;
+@synthesize textView;
 
 - (BOOL)isContentValid {
     // Do validation of contentText and/or NSExtensionContext attachments here
@@ -198,6 +198,7 @@
     [self.navigationController.navigationBar addSubview:iconImage];
     [self setData];
     [self setNeedsStatusBarAppearanceUpdate];
+    
 
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -226,20 +227,6 @@
 -(void)postDetailsScroll
 {
     int height = Deviceheight;
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
-    scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
-    [self.view addSubview:scrollView];
-    
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 300, 188)];
-    [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
-    [scrollView addSubview:imageView];
-    
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 140)];
-    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
-    textView.delegate = self;
-    textView.autocorrectionType = UITextAutocorrectionTypeNo;
-    [scrollView addSubview:textView];
     
     inputView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
     [inputView setBackgroundColor:[UIColor colorWithRed:0.56f
@@ -255,24 +242,17 @@
     [inputView addSubview:donebtn];
     
     
-    
-    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 200, 20)];
-    [selectTagslabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
-    [selectTagslabel setTextColor:[UIColor colorWithRed:77/255.0 green:77/255.0 blue:77/255.0 alpha:1.0]];
-    [selectTagslabel setText:@"Select tags"];
-    [scrollView addSubview:selectTagslabel];
-    
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 7;
     layout.minimumLineSpacing = 7;
     
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, 300, height - selectTagslabel.frame.origin.y-selectTagslabel.frame.size.height - 15) collectionViewLayout:layout];
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 289+20+10, 300, height - 280-20 - 15) collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.scrollEnabled = YES;
     collectionView.dataSource = self;
     [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [collectionView setBackgroundColor:[UIColor clearColor]];
-    [scrollView addSubview:collectionView];
+    [self.view addSubview:collectionView];
     
     
 }
@@ -298,9 +278,13 @@
                      sharedImage = (UIImage*)item;
                  }
                  
+                 //It used to identify the attched image when sending to srever
+                 NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
+                 sharedImage.accessibilityIdentifier = identifier;
+                 [self UploadImage:sharedImage];
+
                  NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
                  
-                 NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
                  sharedImage = [photoUtils imageWithImage:sharedImage scaledToSize:CGSizeMake(32, 32) withRadious:3.0];
                  sharedImage.accessibilityIdentifier = identifier;
                  textAttachment.image = sharedImage;
@@ -308,16 +292,23 @@
                  [attrStringWithImage addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]} range:NSMakeRange(0, attrStringWithImage.string.length)];
                  [attrString appendAttributedString:attrStringWithImage];
                  
-                 [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
-                 textView.attributedText = attrString;
-                 
-                 [textView setNeedsDisplay];
+                 [attrString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n\n" attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:5],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}]];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     textView.attributedText = attrString;
+                 });
+
+                 [imagesIdDict setObject:@"" forKey:identifier];
+                 uploadingImages ++;
+
              }];
         }
         else if ([itemProvider hasItemConformingToTypeIdentifier:@"public.url"]) {
             [itemProvider loadItemForTypeIdentifier:@"public.url" options:nil completionHandler:^(NSURL *url, NSError *error) {
-                textView.attributedText = [[NSAttributedString alloc] initWithString:url.absoluteString attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
-                                 [textView setNeedsDisplay];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    textView.attributedText = [[NSAttributedString alloc] initWithString:url.absoluteString attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:(113/255.f) green:(113/255.f) blue:(113/255.f) alpha:1]}];
+                });
             }];
         }
 
@@ -771,6 +762,9 @@
     {
         [self callPostApi];
     }
+    
+    [self.extensionContext cancelRequestWithError:nil];
+
 }
 
 #pragma mark Create Post
@@ -833,14 +827,16 @@
     NSURLSessionDataTask  *uploadTask = [session dataTaskWithRequest:request];
     [uploadTask resume];
     
+    
+    
 }
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response
- completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
+ completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler
+{
     
-    [self.extensionContext cancelRequestWithError:nil];;
-
+//    if([[response.URL absoluteString] containsString:@"api/posts"])
+//    [self.extensionContext cancelRequestWithError:nil];
 }
-
 -(void)postCreationSccessfull:(NSDictionary *)notificationDict
 {
     
@@ -891,4 +887,84 @@
     
 }
 
+#pragma mark- Image upload Methods
+#pragma mark-
+-(void)UploadImage:(UIImage *)imageOrg
+{
+    NSData *imageData = UIImageJPEGRepresentation(imageOrg, 0.7);
+    NSString *fileExtension = @"JPEG";
+    NSString *imageExtension = fileExtension;
+    imageExtension = [imageExtension uppercaseString];
+    NSString *stringImageName = [NSString stringWithFormat:@"temp.%@",imageExtension];
+    NSString *stringContentType = [NSString stringWithFormat:@"image/%@",[imageExtension lowercaseString]];
+    NSString *stringContent = [imageData base64EncodedString];
+    
+    NSMutableDictionary *newImageDetails  = [NSMutableDictionary dictionary];
+    [newImageDetails setValue:stringImageName     forKey:@"name"];
+    [newImageDetails setValue:stringContentType   forKey:@"content_type"];
+    [newImageDetails setValue:stringContent       forKey:@"content"];
+    
+    
+    //build an info object and convert to json
+    NSDictionary* postData = @{@"access_token": [tokenDict objectForKey:@"access_token"],
+                               @"command": @"s3upload",
+                               @"body": newImageDetails};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:postData options:0  error:nil];
+    
+    //convert data to string
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+    NSURL *url = [[NSURL alloc] initWithString:urlAsString];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    NSData *requestData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+    
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfiguration.sharedContainerIdentifier=@"group.com.maisasolutions.msocl";
+    // config.HTTPMaximumConnectionsPerHost = 1;
+    __block NSString *identfier = imageOrg.accessibilityIdentifier;
+    
+    NSURLSession *session = [NSURLSession  sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                                          
+    {
+        if(error == nil){
+            uploadingImages--;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:NSJSONReadingMutableContainers
+                                                                   error:nil];
+            responseDict = [responseDict objectForKey:@"body"];
+            [imagesIdDict setObject:[responseDict objectForKey:@"key"] forKey:identfier];
+            if(uploadingImages == 0 && isPostClicked)
+            {
+                isPostClicked = NO;
+                    [self callPostApi];
+            }
+            
+        }
+        else{
+            uploadingImages--;
+            if(uploadingImages == 0 && isPostClicked)
+            {
+                isPostClicked = NO;
+                    [self callPostApi];
+            }
+        }
+        
+    }];
+    
+    [postDataTask resume];
+
+}
 @end

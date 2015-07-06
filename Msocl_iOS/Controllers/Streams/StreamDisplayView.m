@@ -297,6 +297,10 @@
         height += 100+8;
     else
         height += 3;
+    if(postDetailsObject.pinchHandle != nil && postDetailsObject.pinchHandle.length > 0)
+    {
+        height += 20;
+    }
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
         return height + 30;
@@ -483,6 +487,16 @@
         [cell.contentView addSubview:name];
     }
     
+    if(postDetailsObject.pinchHandle != nil && postDetailsObject.pinchHandle.length > 0)
+    {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setTitle:postDetailsObject.pinchHandle forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:10]];
+        [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [cell.contentView addSubview:btn];
+        btn.frame = CGRectMake(60, yPosition+20, 110, 20);
+    }
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];

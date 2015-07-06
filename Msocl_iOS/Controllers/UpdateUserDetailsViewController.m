@@ -128,6 +128,17 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
+    [self.navigationController setNavigationBarHidden:NO];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [self.navigationController setNavigationBarHidden:NO];
     
 }

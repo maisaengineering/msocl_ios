@@ -186,6 +186,10 @@
     {
         [self connectionSuccessPushNotification:responseDict];
     }
+    else if([command isEqualToString:@"handle"])
+    {
+        [self connectionSuccessHandle:responseDict];
+    }
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -310,6 +314,10 @@
     else if([command isEqualToString:@"apnNotify"])
     {
         [self.delegate pushNotificationFailed];
+    }
+    else if([command isEqualToString:@"handle"])
+    {
+        [self.delegate handleFailed];
     }
 }
 #pragma mark -
@@ -860,6 +868,22 @@
     else
     {
         [self.delegate pushNotificationFailed];
+        
+    }
+}
+
+-(void)connectionSuccessHandle:(NSDictionary *)respDict
+{
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate handleSuccessFull:respDict];
+    }
+    
+    else
+    {
+        [self.delegate handleFailed];
         
     }
 }

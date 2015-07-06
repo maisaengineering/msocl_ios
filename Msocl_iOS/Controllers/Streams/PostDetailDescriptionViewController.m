@@ -1748,11 +1748,11 @@
         NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
         NSString *itemDate = [commentDict objectForKey:@"createdAt"];
         NSString *itemId = [commentDict objectForKey:@"uid"];
-        NSString *emailId = [NSString stringWithFormat:@"%@ %@", itemDate, itemId];
+        NSString *emailId = [NSString stringWithFormat:@"%@", itemId];
         NSString *emailIdBase64 = [emailId base64EncodedString];
-        NSString *emailIdCipher = [CustomCipher encrypt:emailIdBase64];
+        //NSString *emailIdCipher = [CustomCipher encrypt:emailIdBase64];
         
-        NSString *bodyText = [NSString stringWithFormat:@"Dear Same Pinch,\r\n\r\nPlease review the content for a comment dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdCipher];
+        NSString *bodyText = [NSString stringWithFormat:@"Dear Same Pinch,\r\n\r\nPlease review the content for a comment dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdBase64];
         
         NSMutableDictionary *emailData = [[NSMutableDictionary alloc] init];
         [emailData setValue:@"Inappropriate content" forKey:@"subject"];

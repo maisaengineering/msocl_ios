@@ -72,6 +72,8 @@
 -(void) emailNotificationFailed;
 -(void) pushNotificationSuccessFull:(NSDictionary *)recievedDict;
 -(void) pushNotificationFailed;
+-(void) handleSuccessFull:(NSDictionary *)recievedDict;
+-(void) handleFailed;
 
 
 @end

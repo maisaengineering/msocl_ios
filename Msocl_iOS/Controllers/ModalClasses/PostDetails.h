@@ -14,6 +14,7 @@
 @property (nonatomic,strong) NSString *uid;
 @property (nonatomic,strong) NSString *time;
 @property (nonatomic,strong) NSString *content;
+@property (nonatomic,strong) NSString *pinchHandle;
 @property (nonatomic, strong) NSString * postImage;
 @property (nonatomic,strong) NSMutableDictionary *images;
 @property (nonatomic,strong) NSMutableDictionary *large_images;
@@ -30,6 +31,7 @@
 @property (nonatomic, strong) NSMutableArray *can;
 @property (nonatomic, assign) BOOL upvoted;
 @property (nonatomic, assign) BOOL flagged;
+
 
 
 - (id)initWithDictionary:(NSDictionary*)response;

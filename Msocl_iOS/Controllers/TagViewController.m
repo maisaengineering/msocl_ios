@@ -160,6 +160,8 @@
     
     __weak UIImageView *weakSelf1 = smallProfileImageVw;
     
+    
+    
     [smallProfileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"image"]]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          

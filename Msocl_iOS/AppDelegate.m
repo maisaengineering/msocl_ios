@@ -19,6 +19,8 @@
 #import "PostDetailDescriptionViewController.h"
 #import "UserProfileViewCotroller.h"
 #import "UIImage+GIF.h"
+#import "Base64.h"
+#import "CustomCipher.h"
 @interface AppDelegate ()<MBProgressHUDDelegate>
 
 @end
@@ -90,8 +92,6 @@
         }
     }
 
-    
-    DebugLog(@"in %s",__func__);
     return YES;
 }
 
