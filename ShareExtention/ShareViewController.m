@@ -59,7 +59,7 @@
     [super viewDidLoad];
     
    
-    
+   
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                            [UIColor whiteColor], NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"SanFranciscoDisplay-Regular" size:18], NSFontAttributeName, nil]];
@@ -150,7 +150,10 @@
     
     postAnonymous.image = [UIImage imageNamed:@"circle-80.png"];
     
-    UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+        if([userDict objectForKey:@"photo"] != nil)
+        {
+            UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+
     if (thumb == nil)
     {
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
@@ -172,7 +175,7 @@
         weakSelf.image = thumb;
         [initial  removeFromSuperview];
     }
-
+        }
     
     [anonymousButton addSubview:postAnonymous];
     
@@ -196,10 +199,19 @@
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     [self.navigationController.navigationBar addSubview:iconImage];
+    if(tokenDict != nil)
     [self setData];
     [self setNeedsStatusBarAppearanceUpdate];
     
 
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        self.preferredContentSize= CGSizeMake(320,568);
+    }
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -360,7 +372,10 @@
     
     imageView.image = [UIImage imageNamed:@"tag-placeholder.png"];
     
-    UIImage *thumb = [photoUtils getImageFromCache:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]];
+        if([[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"] != nil)
+        {
+            UIImage *thumb = [photoUtils getImageFromCache:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]];
+
     if (thumb == nil)
     {
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
@@ -381,7 +396,7 @@
     }
 
     
-    
+        }
 
     [cell addSubview:imageView];
     
@@ -609,7 +624,10 @@
         
         postAnonymous.image = [UIImage imageNamed:@"circle-80.png"];
         
-        UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+            if([userDict objectForKey:@"photo"] != nil)
+            {
+                UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+
         if (thumb == nil)
         {
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
@@ -631,7 +649,7 @@
             [initial  removeFromSuperview];
         }
         
-        
+            }
         [popView addSubview:userImage];
         
         UIButton *postBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -691,7 +709,10 @@
     
     postAnonymous.image = [UIImage imageNamed:@"circle-80.png"];
     manager = [SDWebImageManager sharedManager];
-    UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+    if([userDict objectForKey:@"photo"] != nil)
+    {
+        UIImage *thumb = [photoUtils getImageFromCache:[userDict objectForKey:@"photo"]];
+
     if (thumb == nil)
     {
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
@@ -713,7 +734,7 @@
         weakSelf.image = thumb;
         [initial  removeFromSuperview];
     }
-
+    }
 
     isPrivate = NO;
     
