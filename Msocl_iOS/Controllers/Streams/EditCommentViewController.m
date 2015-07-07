@@ -288,7 +288,7 @@
         }
         
         
-        [popover showAtView:btn withContentView:popView];
+        [popover showAtView:btn withContentView:popView inView:self.navigationController.view];
     }
     
 }
