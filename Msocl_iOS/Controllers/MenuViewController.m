@@ -363,6 +363,13 @@
 {
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogedIn"];
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"externalSignIn"];
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults  removeObjectForKey:@"userprofile"];
+    [myDefaults removeObjectForKey:@"access_token"];
+    [myDefaults removeObjectForKey:@"tokens"];
+    [myDefaults synchronize];
+
     [self callAccessTokenApi];
 }
 -(void) signOutFailed

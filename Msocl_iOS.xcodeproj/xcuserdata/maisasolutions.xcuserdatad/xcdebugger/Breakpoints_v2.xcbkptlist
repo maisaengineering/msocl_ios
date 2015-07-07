@@ -19,13 +19,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShareExtention/ShareViewController.m"
-            timestampString = "457871183.790205"
+            filePath = "Msocl_iOS/Controllers/SignUpViewController.m"
+            timestampString = "457935241.739786"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "-signUpSccessfull:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/SignUpViewController.m"
+            timestampString = "457935242.578342"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "-signUpFailed"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

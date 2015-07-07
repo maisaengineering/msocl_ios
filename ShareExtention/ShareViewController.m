@@ -97,7 +97,7 @@
     
     postButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [postButton addTarget:self action:@selector(createPost) forControlEvents:UIControlEventTouchUpInside];
-    [postButton setFrame:CGRectMake(237, 5, 50, 31)];
+    [postButton setFrame:CGRectMake(Devicewidth-80-10, 5, 50, 31)];
     [postButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [postButton setTitle:@"Post as" forState:UIControlStateNormal];
     [postButton.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
@@ -107,7 +107,7 @@
     anonymousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [anonymousButton setImage:[UIImage imageNamed:@"btn-post-ana.png"] forState:UIControlStateNormal];
     [anonymousButton addTarget:self action:@selector(anonymousPostClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [anonymousButton setFrame:CGRectMake(287, 5, 30, 31)];
+    [anonymousButton setFrame:CGRectMake(Devicewidth-80-10+50, 5, 30, 31)];
     
     postAnonymous = [[UIImageView alloc] initWithFrame:CGRectMake(4, 2.5, 22, 22)];
     
@@ -179,7 +179,7 @@
     
     [anonymousButton addSubview:postAnonymous];
     
-    dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(302, 24, 10, 9)];
+    dropDown = [[UIImageView alloc] initWithFrame:CGRectMake(Devicewidth-80-10+50+15, 24, 10, 9)];
     [dropDown setImage:[UIImage imageNamed:@"btn-post-dropdown.png"]];
     
     
@@ -196,7 +196,7 @@
     if(selectedtagsArray.count > 0)
         [collectionView reloadData];
 
-    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake((Devicewidth-47)/2, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     [self.navigationController.navigationBar addSubview:iconImage];
     if(tokenDict != nil)
@@ -239,32 +239,54 @@
 -(void)postDetailsScroll
 {
     int height = Deviceheight;
+    int width = Devicewidth;
+    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
+    [self.view addSubview:scrollView];
     
-    inputView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, width-40, 188)];
+    [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
+    [scrollView addSubview:imageView];
+    
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(28,19,width-56, 140)];
+    textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+    textView.delegate = self;
+    textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    [scrollView addSubview:textView];
+    
+    inputView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, width, 40)];
     [inputView setBackgroundColor:[UIColor colorWithRed:0.56f
                                                   green:0.59f
                                                    blue:0.63f
                                                   alpha:1.0f]];
     
     UIButton *donebtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [donebtn setFrame:CGRectMake(250, 0, 70, 40)];
+    [donebtn setFrame:CGRectMake(width-70, 0, 70, 40)];
     [donebtn setTitle:@"Done" forState:UIControlStateNormal];
     [donebtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Medium" size:15]];
     [donebtn addTarget:self action:@selector(doneClick:) forControlEvents:UIControlEventTouchUpInside];
     [inputView addSubview:donebtn];
     
     
+    
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(20, imageView.frame.origin.y+imageView.frame.size.height+20, 200, 20)];
+    [selectTagslabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
+    [selectTagslabel setTextColor:[UIColor colorWithRed:77/255.0 green:77/255.0 blue:77/255.0 alpha:1.0]];
+    [selectTagslabel setText:@"Select tags"];
+    [scrollView addSubview:selectTagslabel];
+    
     UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 7;
     layout.minimumLineSpacing = 7;
     
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 289+20+10, 300, height - 280-20 - 15) collectionViewLayout:layout];
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(20, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, width-40, height - selectTagslabel.frame.origin.y-selectTagslabel.frame.size.height - 15) collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.scrollEnabled = YES;
     collectionView.dataSource = self;
     [collectionView registerClass:[PhotoCollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
     [collectionView setBackgroundColor:[UIColor clearColor]];
-    [self.view addSubview:collectionView];
+    [scrollView addSubview:collectionView];
     
     
 }

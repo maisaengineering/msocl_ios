@@ -284,6 +284,13 @@
 -(void)shareOptions
 {
     UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook",@"Share by Email",@"Share by SMS", nil];
+//    NSURL *whatsappURL = [NSURL URLWithString:@"whatsapp://send?text=Hello%2C%20World!"];
+//    
+//    if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
+//        
+//        [shareActionSheet addButtonWithTitle:@"Share on WhatsApp"];
+//    }
+
     [shareActionSheet showInView:self.view];
 }
 
@@ -1780,6 +1787,15 @@
         {
             [self showSMS];
         }
+        else if([title isEqualToString:@"Share on WhatsApp"])
+        {
+            PostDetails *post = [storiesArray lastObject];
+            NSURL *whatsappURL = [NSURL URLWithString:[NSString stringWithFormat:@"whatsapp://send?text=%@",post.url]];
+            if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
+                [[UIApplication sharedApplication] openURL: whatsappURL];
+            }
+        }
+        
 
     }
 }

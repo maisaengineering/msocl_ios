@@ -14,7 +14,7 @@
 -(void)cancelClick:(id)sender;
 @property (nonatomic , strong)  NSMutableArray *selectedtagsArray;
 
-@property (strong, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic)  UITextView *textView;
 @property (strong, nonatomic)  UICollectionView *collectionView;
 @property (strong, nonatomic)  UIScrollView *scrollView;
 
