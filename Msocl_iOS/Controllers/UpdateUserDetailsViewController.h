@@ -31,6 +31,8 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_aboutMe;
 @property (nonatomic, strong) IBOutlet UIImageView *lineImage;
 @property (nonatomic, strong) IBOutlet UIButton *changePWDButton;
+@property (nonatomic, strong) IBOutlet UIButton *upadteButton;
+
 @property (nonatomic, strong) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 
 

@@ -41,8 +41,8 @@
     
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 17, 10)];
-    [imageView setImage:[UIImage sd_animatedGIFNamed:@"loading-bar"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [imageView setImage:[UIImage sd_animatedGIFNamed:@"Preloader_2"]];
     indicator.customView = imageView;
     indicator.mode = MBProgressHUDModeCustomView;
     

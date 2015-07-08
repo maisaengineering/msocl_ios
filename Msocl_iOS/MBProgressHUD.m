@@ -632,10 +632,14 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     if (self.color) {
         CGContextSetFillColorWithColor(context, self.color.CGColor);
     } else {
-        CGContextSetGrayFillColor(context, 0.0f, self.opacity);
+        CGContextSetRGBFillColor(context, 235/255.0, 235/255.0, 235/255.0, 1.0);
     }
 
-	
+    CGContextAddRect(context, self.frame);
+    CGContextSetStrokeColorWithColor(context , [UIColor lightGrayColor].CGColor);
+    CGContextStrokePath(context);
+
+    
 	// Center HUD
 	CGRect allRect = self.bounds;
 	// Draw rounded HUD backgroud rect

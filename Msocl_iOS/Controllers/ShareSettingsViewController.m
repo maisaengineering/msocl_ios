@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     
     slider.continuous = NO;
-    self.title = @"SETTINGS";
+    self.title = @"EDIT SHARING";
 
     
     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"share"];

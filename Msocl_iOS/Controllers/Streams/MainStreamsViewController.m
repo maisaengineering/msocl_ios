@@ -106,7 +106,7 @@
     
     searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
-    [searchButton setFrame:CGRectMake(250, 11, 25, 25)];
+    [searchButton setFrame:CGRectMake(250, 9.5, 25, 25)];
     [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];

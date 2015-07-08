@@ -500,7 +500,7 @@
     {
         UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition+25, 200, 20)];
         [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
-        [handle setTextColor:[UIColor darkGrayColor]];
+        [handle setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
         [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
         [cell.contentView addSubview:handle];
         
@@ -631,7 +631,7 @@
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
     {
         postImage = [[UIImageView alloc] initWithFrame:CGRectMake(110, yPosition, 100, 100)];
-        UIImage  *image = [UIImage sd_animatedGIFNamed:@"grey-dots"];
+        UIImage  *image = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
         
         __weak UIImageView *weakSelf = postImage;
         

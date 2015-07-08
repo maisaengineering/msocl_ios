@@ -229,7 +229,7 @@
     editButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
     [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
-    editButton.frame = CGRectMake(250 ,7,30,30);
+    editButton.frame = CGRectMake(250 ,10,30,30);
     [self.navigationController.navigationBar addSubview:editButton];
 
     [editButton setHidden:YES];
@@ -749,7 +749,7 @@
     {
        UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition+22, 200, 20)];
         [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
-        [handle setTextColor:[UIColor darkGrayColor]];
+        [handle setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
         [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
         [cell.contentView addSubview:handle];
 
@@ -863,7 +863,7 @@
             NSTextCheckingResult *match =  [myArray firstObject];
             NSRange matchRange = [match rangeAtIndex:1];
             
-            UIImage  *image = [UIImage sd_animatedGIFNamed:@"grey-dots"];
+            UIImage  *image = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
             NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
             image.accessibilityIdentifier = [postDetailsObject.large_images objectForKey:[attributedString.string substringWithRange:matchRange]];
             textAttachment.image = image;
@@ -894,7 +894,7 @@
              {
                  UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition+5, 300, 150)];
                  __weak UIImageView *weakImageView  = imageView;
-                 UIImage *placeHolder  = [UIImage sd_animatedGIFNamed:@"grey-dots"];
+                 UIImage *placeHolder  = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
                  placeHolder.accessibilityIdentifier = identifier;
                  
                  UITapGestureRecognizer *oneTouch=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedTextView:)];

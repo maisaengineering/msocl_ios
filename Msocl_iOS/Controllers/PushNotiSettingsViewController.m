@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.title = @"SETTINGS";
+    self.title = @"EDIT PUSH NOTIFICATIONS";
     
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;

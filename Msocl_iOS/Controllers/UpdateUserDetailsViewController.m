@@ -38,6 +38,7 @@
 @synthesize txt_Password;
 @synthesize lineImage;
 @synthesize changePWDButton;
+@synthesize upadteButton;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,8 +49,8 @@
     sharedModel = [ModelManager sharedModel];
     imageId = @"";
     //Aviary
-    
-    self.scrollView.contentSize = CGSizeMake(320, 460);
+    self.scrollView.scrollEnabled  =YES;
+    self.scrollView.contentSize = CGSizeMake(320, 620);
     // Aviary iOS 7 Start
     ALAssetsLibrary * assetLibrary1 = [[ALAssetsLibrary alloc] init];
     [self setAssetLibrary:assetLibrary1];
@@ -61,7 +62,7 @@
     // Start the Aviary Editor OpenGL Load
     [AFOpenGLManager beginOpenGLLoad];
     
-    self.title = @"PROFILE";
+    self.title = @"EDIT MY PROFILE";
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -132,6 +133,9 @@
         changePWDButton.hidden = YES;
         txt_Password.hidden = YES;
         lineImage.hidden = YES;
+        CGRect frame = upadteButton.frame;
+        frame.origin.y = changePWDButton.frame.origin.y;
+        upadteButton.frame = frame;
     }
     
     [self setDetails];

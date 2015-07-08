@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"SETTINGS";
+    self.title = @"EDIT EMAIL NOTIFICATIONS";
     
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;

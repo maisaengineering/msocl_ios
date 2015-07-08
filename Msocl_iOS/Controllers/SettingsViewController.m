@@ -43,7 +43,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
     [button setImage:background forState:UIControlStateNormal];
-    button.frame = CGRectMake(0 ,0,13,17);
+    button.frame = CGRectMake(0 ,10,13,17);
     
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.navigationItem.leftBarButtonItem = barButton;
