@@ -109,6 +109,14 @@
     if( [sharedModel.userProfile.lname length] >0)
         [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [sharedModel.userProfile.handle length] >0)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+        if( [sharedModel.userProfile.handle length] >1)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+    }
+
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -1172,7 +1180,9 @@
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
         [popView addSubview:postAsLabel1];
-        
+        if(sharedModel.userProfile.fname.length < 1 && sharedModel.userProfile.lname.length < 1)
+            postAsLabel1.text = [NSString stringWithFormat:@"Post as %@",sharedModel.userProfile.handle];
+
         UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
         
         
@@ -1182,6 +1192,14 @@
         if( [sharedModel.userProfile.lname length] >0)
             [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
         
+        if(parentFnameInitial.length < 1)
+        {
+            if( [sharedModel.userProfile.handle length] >0)
+                [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+            if( [sharedModel.userProfile.handle length] >1)
+                [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+        }
+
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                                attributes:nil];
@@ -1250,6 +1268,16 @@
         [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
     if( [sharedModel.userProfile.lname length] >0)
         [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+    
+    if(parentFnameInitial.length < 1)
+    {
+        if( [sharedModel.userProfile.handle length] >0)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+        if( [sharedModel.userProfile.handle length] >1)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+    }
+    
+
     
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial

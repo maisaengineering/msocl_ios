@@ -63,6 +63,9 @@
                 else if ([key isEqualToString:@"email"]) {
                     userProfile.email = [detailsDict objectForKey:key];
                 }
+                else if ([key isEqualToString:@"pinch_handle"]) {
+                    userProfile.handle = [detailsDict objectForKey:key];
+                }
                 
             }
 }

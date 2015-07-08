@@ -152,6 +152,14 @@
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:recievedDict forKey:@"userprofile"];
+    [myDefaults setObject:[recievedDict objectForKey:@"access_token"] forKey:@"access_token"];
+    [myDefaults setObject:tokenDict forKey:@"tokens"];
+    [myDefaults synchronize];
+
+    
     [[[ModelManager sharedModel] accessToken] setAccess_token:[recievedDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:recievedDict];
     [[PromptImages sharedInstance] getAllGroups];

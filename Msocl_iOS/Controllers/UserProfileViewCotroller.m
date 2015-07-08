@@ -49,13 +49,14 @@
 @synthesize lineImageVw;
 @synthesize linkButton;
 @synthesize imageUrl;
+@synthesize handle;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
     [self setupanimateView];
     
-    aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 146, 320, 30)];
+    aboutLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 148, 320, 30)];
     aboutLabel.font =[UIFont fontWithName:@"SanFranciscoText-Light" size:12];
     [aboutLabel setTextAlignment:NSTextAlignmentCenter];
     [aboutLabel setBackgroundColor:[UIColor clearColor]];
@@ -100,8 +101,6 @@
     nameLabel.text = name;
     
     NSArray *nameArray = [name componentsSeparatedByString:@" "];
-    __weak UIImageView *weakSelf = profileImageVw;
-    __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
     
     NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
     if( [[nameArray firstObject] length] >0)
@@ -109,6 +108,16 @@
     if( [[nameArray lastObject] length] >0)
         [parentFnameInitial appendString:[[[nameArray lastObject] substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [handle length] >0)
+            [parentFnameInitial appendString:[[handle substringToIndex:1] uppercaseString]];
+        if( [handle length] >1)
+            [parentFnameInitial appendString:[[handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+        
+    }
+    
+
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -251,6 +260,15 @@
     if( [[nameArray lastObject] length] >0)
         [parentFnameInitial appendString:[[[nameArray lastObject] substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [[recievedDict objectForKey:@"pinch_handle"] length] >0)
+            [parentFnameInitial appendString:[[recievedDict objectForKey:@"pinch_handle"] uppercaseString]];
+        if( [[recievedDict objectForKey:@"pinch_handle"] length] >1)
+            [parentFnameInitial appendString:[[[[recievedDict objectForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString] uppercaseString]];
+        
+    }
+
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -306,13 +324,35 @@
     
     nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 30)];
     [nameLabel setTextColor:[UIColor whiteColor]];
-    [nameLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:17]];
+    [nameLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]];
     [nameLabel setTextAlignment:NSTextAlignmentCenter];
     [animatedTopView addSubview:nameLabel];
     
+    
     nameLabel.text = [recievedDict objectForKey:@"full_name"];
+    if(nameLabel.text.length > 0 && [[recievedDict objectForKey:@"pinch_handle"] length] > 0)
+    {
+        nameLabel.numberOfLines = 2;
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:nameLabel.text attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]}];
+        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n@%@",[recievedDict objectForKey:@"pinch_handle"]] attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}]];
 
+        nameLabel.attributedText = attributedString;
+        
+        CGSize size = [nameLabel sizeThatFits:CGSizeMake(320, 999)];
+        if(size.height > 30)
+        {
+            CGRect frame = nameLabel.frame;
+            size.width = 320;
+            frame.size = size;
+            nameLabel.frame = frame;
+        }
+    }
+    else if([[recievedDict objectForKey:@"pinch_handle"] length] > 0)
+    {
+        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"@%@",[recievedDict objectForKey:@"pinch_handle"]] attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}];
+        nameLabel.attributedText = attributedString;
 
+    }
     if([recievedDict objectForKey:@"summary"] != nil)
     {
         CGSize size = [[recievedDict objectForKey:@"summary"] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]}];

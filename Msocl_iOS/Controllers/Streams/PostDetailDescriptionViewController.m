@@ -154,6 +154,14 @@
     if( [sharedModel.userProfile.lname length] >0)
         [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [sharedModel.userProfile.handle length] >0)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+        if( [sharedModel.userProfile.handle length] >1)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+    }
+    
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -658,6 +666,15 @@
         if([postDetailsObject.owner valueForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"lname"] length]>0)
             [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
         
+        if(parentFnameInitial.length < 1)
+        {
+            if( [[postDetailsObject.owner valueForKey:@"pinch_handle"] length] >0)
+                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
+            if( [[postDetailsObject.owner valueForKey:@"pinch_handle"] length] >1)
+                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+            
+        }
+
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                                attributes:nil];
@@ -728,6 +745,31 @@
         [cell.contentView addSubview:name];
     }
     
+    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 )
+    {
+       UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition+22, 200, 20)];
+        [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
+        [handle setTextColor:[UIColor darkGrayColor]];
+        [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
+        [cell.contentView addSubview:handle];
+
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [cell.contentView addSubview:btn];
+        if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length])  || postDetailsObject.anonymous)
+        {
+            btn.frame = CGRectMake(42, yPosition+22, 200, 20);
+        }
+        else
+        {
+            btn.frame = CGRectMake(42, yPosition, 200, 28);
+            handle.frame = CGRectMake(42, yPosition, 200, 28);
+        }
+    }
+
+    
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
@@ -790,8 +832,17 @@
 {
     __block float yPosition = 45;
     
-    //Start of Description Text
+    UIImageView *lineImage  =[[UIImageView alloc] initWithFrame:CGRectMake(0, 39, 320, 1)];
+    lineImage.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
+    [cell.contentView addSubview:lineImage];
+
     
+    //Start of Description Text
+    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && (([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] >0) || postDetailsObject.anonymous))
+    {
+        yPosition += 15;
+        lineImage.frame = CGRectMake(0, 39+15, 320, 1);
+    }
     
     
     //Description
@@ -959,9 +1010,6 @@
            //yPosition += tagsSize.height+10;
     */
 
-    UIImageView *lineImage  =[[UIImageView alloc] initWithFrame:CGRectMake(0, 39, 320, 1)];
-    lineImage.backgroundColor = [UIColor colorWithRed:229/255.0 green:229/255.0 blue:229/255.0 alpha:1.0];
-    [cell.contentView addSubview:lineImage];
 
     if([postDetailsObject.can containsObject:@"flag"])
     {
@@ -1004,6 +1052,7 @@
         destViewController.photo = [postObject.owner objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
         destViewController.imageUrl = [postObject.owner objectForKey:@"photo"];
+        destViewController.handle = [postObject.owner objectForKey:@"pinch_handle"];
 
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
         [self.navigationController pushViewController:destViewController animated:YES];
@@ -1058,6 +1107,8 @@
             [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
             [popView addSubview:postAsLabel1];
             
+            if(sharedModel.userProfile.fname.length < 1 && sharedModel.userProfile.lname.length < 1)
+                postAsLabel1.text = [NSString stringWithFormat:@"Comment as %@",sharedModel.userProfile.handle];
             UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
             
             __weak UIImageView *weakSelf1 = userImage;
@@ -1068,6 +1119,16 @@
                 [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
             if( [sharedModel.userProfile.lname length] >0)
                 [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+            
+            if(parentFnameInitial.length < 1)
+            {
+                if( [sharedModel.userProfile.handle length] >0)
+                    [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+                if( [sharedModel.userProfile.handle length] >1)
+                    [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+                
+            }
+
             
             NSMutableAttributedString *attributedText =
             [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -1167,6 +1228,15 @@
         [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
     if( [sharedModel.userProfile.lname length] >0)
         [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
+    
+    if(parentFnameInitial.length < 1)
+    {
+        if( [sharedModel.userProfile.handle length] >0)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+        if( [sharedModel.userProfile.handle length] >1)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+    }
+    
     
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -1366,6 +1436,12 @@
         height += 40;
     }
     
+    
+    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && (([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0) || postDetailsObject.anonymous))
+    {
+        height += 20;
+    }
+
     //Tags height
     return height;
 }

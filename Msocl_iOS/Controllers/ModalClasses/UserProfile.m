@@ -16,5 +16,6 @@
 @synthesize post_code;
 @synthesize image;
 @synthesize blog;
+@synthesize handle;
 @synthesize aboutMe;
 @end

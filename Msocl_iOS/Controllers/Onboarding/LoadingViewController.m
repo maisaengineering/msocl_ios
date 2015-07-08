@@ -47,8 +47,18 @@
 
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-        [[ModelManager sharedModel] setDetailsFromUserDefaults];
+        
+        NSDictionary *tokenDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"];
+        NSDictionary *userDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"];
 
+        NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                      initWithSuiteName:@"group.com.maisasolutions.msocl"];
+        [myDefaults setObject:userDict forKey:@"userprofile"];
+        [myDefaults setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"access_token"] forKey:@"access_token"];
+        [myDefaults setObject:tokenDict forKey:@"tokens"];
+        [myDefaults synchronize];
+        
+        [[ModelManager sharedModel] setDetailsFromUserDefaults];
         [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
     }
     else

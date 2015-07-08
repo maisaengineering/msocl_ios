@@ -42,14 +42,14 @@
     UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14];
     
     txt_password.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Password"
+    [[NSAttributedString alloc] initWithString:@"password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_username.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Email"
+    [[NSAttributedString alloc] initWithString:@"email"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font

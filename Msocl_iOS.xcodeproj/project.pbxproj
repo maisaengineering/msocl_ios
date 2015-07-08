@@ -20,6 +20,7 @@
 		253C89531AD804C0002477A8 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89521AD804C0002477A8 /* Accounts.framework */; };
 		253C89551AD804C9002477A8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89541AD804C9002477A8 /* Social.framework */; };
 		25F51BBC1AD8F1F200369764 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25F51BBB1AD8F1F200369764 /* WebViewController.m */; };
+		7F06BC721B4CFE4C00D260F0 /* UITextField+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F06BC711B4CFE4C00D260F0 /* UITextField+Shake.m */; };
 		7F07C4B71B2571BE00627F4F /* EmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C4B61B2571BE00627F4F /* EmailViewController.m */; };
 		7F0AB8EF1AE27280009219B2 /* menu-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0AB8E91AE27280009219B2 /* menu-notifications@2x.png */; };
 		7F0AB8F01AE27280009219B2 /* menu-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0AB8EA1AE27280009219B2 /* menu-profile@2x.png */; };
@@ -426,6 +427,8 @@
 		253C89541AD804C9002477A8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		25F51BBA1AD8F1F200369764 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		25F51BBB1AD8F1F200369764 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		7F06BC701B4CFE4C00D260F0 /* UITextField+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITextField+Shake.h"; path = "Msocl_iOS/UITextField+Shake.h"; sourceTree = SOURCE_ROOT; };
+		7F06BC711B4CFE4C00D260F0 /* UITextField+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITextField+Shake.m"; path = "Msocl_iOS/UITextField+Shake.m"; sourceTree = SOURCE_ROOT; };
 		7F07C4B51B2571BE00627F4F /* EmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailViewController.h; sourceTree = "<group>"; };
 		7F07C4B61B2571BE00627F4F /* EmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailViewController.m; sourceTree = "<group>"; };
 		7F0AB8E91AE27280009219B2 /* menu-notifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-notifications@2x.png"; sourceTree = "<group>"; };
@@ -1062,6 +1065,8 @@
 				7F2178B61AE51862003D8A33 /* DXPopover.m */,
 				7F8D80B81AEF702400D3F052 /* UIImage+ResizeMagick.h */,
 				7F8D80B91AEF702400D3F052 /* UIImage+ResizeMagick.m */,
+				7F06BC701B4CFE4C00D260F0 /* UITextField+Shake.h */,
+				7F06BC711B4CFE4C00D260F0 /* UITextField+Shake.m */,
 			);
 			name = Utitlities;
 			path = Controllers/Utitlities;
@@ -1740,6 +1745,7 @@
 					};
 					7FF5CC131ACE9E61004F4F9B = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = 867QTRXZVS;
 						TestTargetID = 7FF5CBFA1ACE9E60004F4F9B;
 					};
 				};
@@ -2091,6 +2097,7 @@
 				7F5DEFBB1AD7C50A00F2C60A /* UIImage+WebP.m in Sources */,
 				7F5DEFB61AD7C50A00F2C60A /* SDWebImageManager.m in Sources */,
 				7F5DEFB11AD7C50A00F2C60A /* SDImageCache.m in Sources */,
+				7F06BC721B4CFE4C00D260F0 /* UITextField+Shake.m in Sources */,
 				7F83BC5C1AD14CEF008DFD8B /* AFSecurityPolicy.m in Sources */,
 				7F5DEFB71AD7C50A00F2C60A /* SDWebImagePrefetcher.m in Sources */,
 				7F86E5881ADBCFB00002493F /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */,
@@ -2176,18 +2183,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = AF_APP_EXTENSIONS;
 				INFOPLIST_FILE = ShareExtention/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "feb65c24-534d-477b-b767-2bc5caa8f853";
+				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2199,18 +2206,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = AF_APP_EXTENSIONS;
 				INFOPLIST_FILE = ShareExtention/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "feb65c24-534d-477b-b767-2bc5caa8f853";
+				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -2303,8 +2310,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2325,7 +2332,7 @@
 				);
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57aa3be4-6b52-4fed-a338-7662bdd627ad";
+				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2338,8 +2345,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2360,7 +2367,7 @@
 				);
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57aa3be4-6b52-4fed-a338-7662bdd627ad";
+				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -2369,7 +2376,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2381,7 +2389,7 @@
 				INFOPLIST_FILE = Msocl_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Msocl_iOS.app/Msocl_iOS";
 			};
 			name = Debug;
@@ -2390,7 +2398,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Praneeth Vaddi (B743WPNCL2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2398,7 +2407,7 @@
 				INFOPLIST_FILE = Msocl_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a6c3aa79-6071-420d-a644-fc11fdb71cfb";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Msocl_iOS.app/Msocl_iOS";
 			};
 			name = Release;

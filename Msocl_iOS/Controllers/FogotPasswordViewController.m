@@ -33,7 +33,7 @@
     UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:12.0];
     
     emialField.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Enter email"
+    [[NSAttributedString alloc] initWithString:@"email"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font

@@ -58,6 +58,7 @@
             <string>SanFranciscoText-Regular</string>
             <string>SanFranciscoText-Regular</string>
             <string>SanFranciscoText-Regular</string>
+            <string>SanFranciscoText-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -218,7 +219,7 @@
                                     <action selector="facebookButtonClikced:" destination="n8D-mp-AZb" eventType="touchUpInside" id="dkg-By-a93"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x6Y-dA-Emj">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x6Y-dA-Emj">
                                 <rect key="frame" x="17" y="154" width="274" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
@@ -227,7 +228,7 @@
                                     <outlet property="delegate" destination="n8D-mp-AZb" id="edS-ho-w2H"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8DF-tk-oX9">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8DF-tk-oX9">
                                 <rect key="frame" x="17" y="196" width="274" height="30"/>
                                 <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -348,24 +349,24 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Job-oo-Ky4" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGZ-36-8Wb">
-                                        <rect key="frame" x="18" y="346" width="123" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGZ-36-8Wb">
+                                        <rect key="frame" x="18" y="335" width="123" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <outlet property="delegate" destination="1A5-jJ-XHf" id="v8E-BL-JMV"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UhB-re-4Dz">
-                                        <rect key="frame" x="176" y="346" width="123" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UhB-re-4Dz">
+                                        <rect key="frame" x="176" y="335" width="123" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <outlet property="delegate" destination="1A5-jJ-XHf" id="Od1-QD-73r"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LeC-V7-lpj">
-                                        <rect key="frame" x="17" y="241" width="278" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LeC-V7-lpj">
+                                        <rect key="frame" x="17" y="230" width="278" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
@@ -373,7 +374,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="peE-m9-KYm">
-                                        <rect key="frame" x="110" y="133" width="100" height="100"/>
+                                        <rect key="frame" x="110" y="122" width="100" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -383,18 +384,18 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile-register.png" translatesAutoresizingMaskIntoConstraints="NO" id="9vN-ph-kEP">
-                                        <rect key="frame" x="110" y="133" width="100" height="100"/>
+                                        <rect key="frame" x="110" y="122" width="100" height="100"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P7m-3a-ZSz">
-                                        <rect key="frame" x="17" y="338" width="288" height="1"/>
+                                        <rect key="frame" x="17" y="327" width="288" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2pk-h6-BDQ">
-                                        <rect key="frame" x="16" y="270" width="288" height="1"/>
+                                        <rect key="frame" x="16" y="259" width="288" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Handle" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9lF-Zj-itH">
-                                        <rect key="frame" x="18" y="274" width="278" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my handle" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9lF-Zj-itH">
+                                        <rect key="frame" x="18" y="263" width="278" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
@@ -402,19 +403,19 @@
                                         </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yhl-Dn-INE">
-                                        <rect key="frame" x="17" y="305" width="288" height="1"/>
+                                        <rect key="frame" x="17" y="294" width="288" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LFU-bn-OeB">
-                                        <rect key="frame" x="17" y="375" width="130" height="1"/>
+                                        <rect key="frame" x="17" y="364" width="130" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9nR-Nw-OhK">
-                                        <rect key="frame" x="174" y="375" width="130" height="1"/>
+                                        <rect key="frame" x="174" y="364" width="130" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2S-Hk-x0r">
-                                        <rect key="frame" x="16" y="439" width="288" height="35"/>
+                                        <rect key="frame" x="16" y="424" width="288" height="35"/>
                                         <color key="backgroundColor" red="0.77254901960784317" green="0.12941176470588234" blue="0.15686274509803921" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="16"/>
                                         <state key="normal" title="REGISTER">
@@ -426,7 +427,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INB-iI-Rf6">
-                                        <rect key="frame" x="44" y="399" width="236" height="30"/>
+                                        <rect key="frame" x="44" y="386" width="236" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-LightItalic" family="San Francisco Text" pointSize="14"/>
                                         <state key="normal" title="I agree with the terms and conditions">
                                             <color key="titleColor" red="0.12549019610000001" green="0.12549019610000001" blue="0.12549019610000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -437,7 +438,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cf3-pQ-hzY">
-                                        <rect key="frame" x="17" y="399" width="30" height="30"/>
+                                        <rect key="frame" x="17" y="386" width="30" height="30"/>
                                         <state key="normal" image="checkbox_empty.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -447,10 +448,10 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon-login.png" translatesAutoresizingMaskIntoConstraints="NO" id="8hG-CR-z5C">
-                                        <rect key="frame" x="40" y="66" width="240" height="56"/>
+                                        <rect key="frame" x="40" y="55" width="240" height="56"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u8u-cN-ih1">
-                                        <rect key="frame" x="20" y="309" width="123" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u8u-cN-ih1">
+                                        <rect key="frame" x="20" y="298" width="278" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
@@ -483,6 +484,7 @@
                     <navigationItem key="navigationItem" title="M SOCIAL" id="aia-LJ-syC"/>
                     <connections>
                         <outlet property="checkBox" destination="cf3-pQ-hzY" id="zCS-fs-S68"/>
+                        <outlet property="lineImage" destination="yhl-Dn-INE" id="5Nx-DP-7mw"/>
                         <outlet property="profileImage" destination="9vN-ph-kEP" id="eYS-DM-vS1"/>
                         <outlet property="txt_emailAddress" destination="LeC-V7-lpj" id="JU4-Rb-Yrr"/>
                         <outlet property="txt_firstName" destination="tGZ-36-8Wb" id="tPQ-DZ-Fu0"/>
@@ -1094,23 +1096,23 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gb-HQ-B0G" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7VL-c4-ZVi">
-                                        <rect key="frame" x="17" y="144" width="123" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7VL-c4-ZVi">
+                                        <rect key="frame" x="17" y="323" width="123" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <outlet property="delegate" destination="QhP-9v-hjI" id="bWv-I8-CSK"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztU-e8-u5f">
-                                        <rect key="frame" x="176" y="144" width="123" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ztU-e8-u5f">
+                                        <rect key="frame" x="176" y="323" width="123" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <outlet property="delegate" destination="QhP-9v-hjI" id="AIR-Jt-RV3"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Change email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THy-ew-Fa3">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="change email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="THy-ew-Fa3">
                                         <rect key="frame" x="17" y="188" width="240" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -1132,14 +1134,26 @@
                                         <rect key="frame" x="114" y="43" width="93" height="93"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sgJ-Zi-KxD">
-                                        <rect key="frame" x="16" y="172" width="130" height="1"/>
+                                        <rect key="frame" x="16" y="351" width="130" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iUU-aj-cgj">
                                         <rect key="frame" x="16" y="217" width="288" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Blog" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Xb-BT-8eQ">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my handle" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2vM-r4-VfC">
+                                        <rect key="frame" x="18" y="143" width="240" height="30"/>
+                                        <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="QhP-9v-hjI" id="3S9-4J-1VO"/>
+                                        </connections>
+                                    </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TbS-92-t5g">
+                                        <rect key="frame" x="17" y="172" width="288" height="1"/>
+                                        <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="my blog" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Xb-BT-8eQ">
                                         <rect key="frame" x="17" y="233" width="240" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -1152,11 +1166,11 @@
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u1e-1a-nYS">
-                                        <rect key="frame" x="174" y="172" width="130" height="1"/>
+                                        <rect key="frame" x="174" y="351" width="130" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGT-Fn-0Vb">
-                                        <rect key="frame" x="16" y="380" width="288" height="35"/>
+                                        <rect key="frame" x="16" y="419" width="288" height="35"/>
                                         <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="16"/>
                                         <state key="normal" title="Update">
@@ -1168,7 +1182,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NaO-Wi-0Jt">
-                                        <rect key="frame" x="16" y="331" width="122" height="30"/>
+                                        <rect key="frame" x="16" y="373" width="122" height="30"/>
                                         <color key="backgroundColor" red="0.7725490196" green="0.12941176469999999" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-LightItalic" family="San Francisco Text" pointSize="13"/>
                                         <state key="normal" title="Change password">
@@ -1183,7 +1197,7 @@
                                         <rect key="frame" x="16" y="307" width="288" height="1"/>
                                         <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="About me" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PC8-hO-03a">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="about me" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PC8-hO-03a">
                                         <rect key="frame" x="16" y="278" width="240" height="30"/>
                                         <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -1201,10 +1215,12 @@
                     <connections>
                         <outlet property="changePWDButton" destination="NaO-Wi-0Jt" id="8bG-Wb-VTj"/>
                         <outlet property="profileImage" destination="Mm5-RI-Lrl" id="okK-fi-eYF"/>
+                        <outlet property="scrollView" destination="1gb-HQ-B0G" id="mWE-3a-nMN"/>
                         <outlet property="txt_aboutMe" destination="PC8-hO-03a" id="BGe-4e-04e"/>
                         <outlet property="txt_blog" destination="6Xb-BT-8eQ" id="0fe-v9-68R"/>
                         <outlet property="txt_emailAddress" destination="THy-ew-Fa3" id="mcH-M9-fSv"/>
                         <outlet property="txt_firstName" destination="7VL-c4-ZVi" id="whS-ab-1Ya"/>
+                        <outlet property="txt_handle" destination="2vM-r4-VfC" id="jZB-yx-NmA"/>
                         <outlet property="txt_lastname" destination="ztU-e8-u5f" id="fpy-w1-iYE"/>
                     </connections>
                 </viewController>
@@ -1382,10 +1398,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="Wlp-Jd-hhp"/>
+        <segue reference="iax-nE-auz"/>
         <segue reference="dLo-Yv-fr4"/>
-        <segue reference="M8x-x6-6lY"/>
+        <segue reference="m3S-0J-NjW"/>
         <segue reference="fCv-1J-IEX"/>
+        <segue reference="Ngw-Gf-AxF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -31,7 +31,7 @@
 @synthesize txt_emailAddress;
 @synthesize txt_lastname;
 @synthesize profileImage;
-@synthesize txt_postal_code;
+@synthesize txt_handle;
 @synthesize txt_phno;
 @synthesize txt_blog;
 @synthesize txt_aboutMe;
@@ -48,6 +48,8 @@
     sharedModel = [ModelManager sharedModel];
     imageId = @"";
     //Aviary
+    
+    self.scrollView.contentSize = CGSizeMake(320, 460);
     // Aviary iOS 7 Start
     ALAssetsLibrary * assetLibrary1 = [[ALAssetsLibrary alloc] init];
     [self setAssetLibrary:assetLibrary1];
@@ -74,14 +76,14 @@
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:12.0];
     
     txt_firstName.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"First name"
+    [[NSAttributedString alloc] initWithString:@"first name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_lastname.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Last name"
+    [[NSAttributedString alloc] initWithString:@"last name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
@@ -89,33 +91,41 @@
      ];
     
     txt_emailAddress.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Change email"
+    [[NSAttributedString alloc] initWithString:@"change email"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_blog.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Blog"
+    [[NSAttributedString alloc] initWithString:@"my blog"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_aboutMe.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"About Me"
+    [[NSAttributedString alloc] initWithString:@"about Me"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_Password.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Change password"
+    [[NSAttributedString alloc] initWithString:@"change password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
+    txt_Password.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"my handle"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"externalSignIn"])
     {
@@ -162,8 +172,8 @@
     [txt_emailAddress setText:sharedModel.userProfile.email];
     [txt_blog setText:sharedModel.userProfile.blog];
     [txt_aboutMe setText:sharedModel.userProfile.aboutMe];
-    
-    
+    [txt_handle setText:sharedModel.userProfile.handle];
+    txt_handle.userInteractionEnabled = NO;
     __weak UIImageView *weakSelf = profileImage;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
     
@@ -173,6 +183,15 @@
     if( [sharedModel.userProfile.lname length] >0)
         [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [sharedModel.userProfile.handle length] >0)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+        if( [sharedModel.userProfile.handle length] >1)
+            [parentFnameInitial appendString:[[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString] uppercaseString]];
+        
+    }
+
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -234,16 +253,15 @@
 -(IBAction)signupClicked:(id)sender
 {
     [self resignKeyBoards];
-    if(  txt_lastname.text.length == 0 )
+     if(txt_handle.text.length == 0 )
     {
-        ShowAlert(PROJECT_NAME,@"Please enter last name", @"OK");
+        ShowAlert(PROJECT_NAME,@"Please enter handle", @"OK");
         return;
     }
-    else if(txt_firstName.text.length == 0)
+    else if(txt_emailAddress.text.length == 0)
     {
-        ShowAlert(PROJECT_NAME,@"Please enter first name", @"OK");
+        ShowAlert(PROJECT_NAME,@"Please enter email", @"OK");
         return;
-        
     }
     else if(txt_blog.text.length > 0 && ![self validateUrl:txt_blog.text])
     {
@@ -267,7 +285,7 @@
     [postDetails setObject:txt_blog.text forKey:@"blog"];
     [postDetails setObject:txt_aboutMe.text forKey:@"summary"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
-    
+
     if(txt_Password.text.length > 0)
         [postDetails setObject:txt_Password.text forKey:@"password"];
     if(imageId.length > 0)

@@ -12,6 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ProfilePhotoUtils.h"
 #import "PhotoCollectionViewCell.h"
+#import "AppDelegate.h"
 @implementation ManageTagsViewController
 {
     UITableView *manageTagsTableView;
@@ -23,6 +24,7 @@
     NSMutableArray *selectedTags;
     ProfilePhotoUtils  *photoUtils;
     UIView *addPopUpView;
+    AppDelegate *appdelegate;
     
 }
 @synthesize collectionView;
@@ -44,7 +46,7 @@
     photoUtils = [ProfilePhotoUtils alloc];
     
     selectedTags = [[NSMutableArray alloc] init];
-    
+    appdelegate = [[UIApplication sharedApplication] delegate];
     UIImage *background = [UIImage imageNamed:@"icon-back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(backClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
@@ -88,6 +90,7 @@
 #pragma mark API calls
 -(void)getAllGroups
 {
+    [appdelegate showOrhideIndicator:YES];
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"command": @"all",@"access_token": token.access_token};
@@ -98,6 +101,7 @@
 }
 -(void)didReceiveGroups:(NSDictionary *)responseDict
 {
+    [appdelegate showOrhideIndicator:NO];
     managedTagsArray = [[responseDict objectForKey:@"favourites"] mutableCopy];
     [managedTagsArray addObjectsFromArray:[responseDict objectForKey:@"recommended"]];
     selectedTags = [[responseDict objectForKey:@"favourites"] mutableCopy];
@@ -107,7 +111,7 @@
 }
 -(void)fetchingGroupsFailedWithError
 {
-    
+    [appdelegate showOrhideIndicator:NO];
 }
 
 #pragma mark - UICollectionViewDataSource Methods

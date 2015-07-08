@@ -14,6 +14,7 @@
 #import "Base64.h"
 #import "PromptImages.h"
 #import "WebViewController.h"
+#import "UITextField+Shake.h"
 @implementation SignUpViewController
 {
     AppDelegate *appdelegate;
@@ -34,6 +35,7 @@
 @synthesize profileImage;
 @synthesize txt_handle;
 @synthesize txt_phno;
+@synthesize lineImage;
 @synthesize checkBox;
 -(void)viewDidLoad
 {
@@ -62,28 +64,28 @@
     UIFont *font = [UIFont fontWithName:@"SanFranciscoText-LightItalic" size:14.0];
     
     txt_password.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Password"
+    [[NSAttributedString alloc] initWithString:@"password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_firstName.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"First name"
+    [[NSAttributedString alloc] initWithString:@"first name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_lastname.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Last name"
+    [[NSAttributedString alloc] initWithString:@"last name"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
                                                  }
      ];
     txt_confirmPassword.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Confirm password"
+    [[NSAttributedString alloc] initWithString:@"confirm password"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
@@ -92,7 +94,14 @@
     
     
     txt_emailAddress.attributedPlaceholder =
-    [[NSAttributedString alloc] initWithString:@"Email"
+    [[NSAttributedString alloc] initWithString:@"email"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
+    txt_handle.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"my handle"
                                     attributes:@{
                                                  NSForegroundColorAttributeName: color,
                                                  NSFontAttributeName : font
@@ -173,16 +182,17 @@
     }
     else
     {
-        isSignupClicked = YES;
         [appdelegate showOrhideIndicator:YES];
         if(!isUploadingImage)
         {
             if([self validateEmailWithString:txt_emailAddress.text])
             {
+                isSignupClicked = YES;
                 [self doSignup];
             }
             else
             {
+                
                 [appdelegate showOrhideIndicator:NO];
                 ShowAlert(PROJECT_NAME,@"Please provide a valid email address", @"OK");
                 return;
@@ -235,6 +245,13 @@
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:responseDict forKey:@"userprofile"];
+    [myDefaults setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];
+    [myDefaults setObject:tokenDict forKey:@"tokens"];
+    [myDefaults synchronize];
+
     [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:responseDict];
     [[PromptImages sharedInstance] getAllGroups];
@@ -244,6 +261,12 @@
 }
 -(void)signUpFailed
 {
+    [txt_handle shake:10
+            withDelta:5
+                speed:0.05
+       shakeDirection:ShakeDirectionHorizontal];
+    lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
+
     [appdelegate showOrhideIndicator:NO];
     ShowAlert(@"Error", @"Signup Failed", @"OK");
 }
@@ -623,14 +646,14 @@
 -(void)checkAvailability
 {
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    [postDetails setObject:txt_handle.text forKey:@"handle"];
+    [postDetails setObject:txt_handle.text forKey:@"pinch_handle"];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
-    NSString *command = @"SignUp";
+    NSString *command = @"validatePinchHandle";
     NSDictionary* postData = @{@"access_token": token.access_token,
-                               @"command": @"create",
+                               @"command": command,
                                @"body": postDetails};
     NSDictionary *userInfo = @{@"command": @"handle"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
@@ -640,10 +663,16 @@
 }
 -(void)handleSuccessFull:(NSDictionary *)recievedDict
 {
-    txt_handle.placeholder = @"Handle not avialable";
+    lineImage.backgroundColor = [UIColor colorWithRed:231/255.0 green:231/255.0 blue:231/255.0 alpha:1.0];
+
 }
 -(void)handleFailed
 {
-    
+    [txt_handle shake:10
+            withDelta:5
+                speed:0.05
+       shakeDirection:ShakeDirectionHorizontal];
+    lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
+
 }
 @end

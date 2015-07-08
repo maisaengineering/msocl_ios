@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *photo;
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *handle;
 @property (nonatomic, strong)  UIImageView *profileImageVw;
 @property (nonatomic, strong)  UIImageView *lineImageVw;
 @property (nonatomic, strong)  UIView *animatedTopView;

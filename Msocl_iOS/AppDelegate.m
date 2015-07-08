@@ -22,7 +22,9 @@
 #import "Base64.h"
 #import "CustomCipher.h"
 @interface AppDelegate ()<MBProgressHUDDelegate>
-
+{
+    BOOL isPushCalled;
+}
 @end
 
 @implementation AppDelegate
@@ -88,7 +90,11 @@
         NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (dictionary != nil)
         {
-            [self performSelector:@selector(addMessageFromRemoteNotification:) withObject:dictionary afterDelay:0.5];
+            if(!isPushCalled)
+            {
+            isPushCalled = YES;
+                [self performSelector:@selector(addMessageFromRemoteNotification:) withObject:dictionary afterDelay:0.5];
+            }
         }
     }
 
@@ -119,7 +125,7 @@
 //However, if the notification is received while the app is active, it is up to the app to handle it. To do so, we can implement this method
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if ( application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground  )
+    if ( (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) && !isPushCalled )
     {
         [self addMessageFromRemoteNotification:userInfo];
     }
@@ -128,7 +134,7 @@
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo
 {
     DebugLog(@"in  has notifications %s",__func__);
-
+    isPushCalled = NO;
     NSString *postID = [userInfo valueForKey:@"post_uid"];
     NSString *userUid = [userInfo valueForKey:@"follower_uid"];
     

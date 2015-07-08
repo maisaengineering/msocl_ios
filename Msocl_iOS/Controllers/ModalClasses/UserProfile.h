@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSString *fname;
 @property (strong, nonatomic) NSString *lname;
+@property (strong, nonatomic) NSString *handle;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *post_code;
 @property (strong, nonatomic) NSString *blog;

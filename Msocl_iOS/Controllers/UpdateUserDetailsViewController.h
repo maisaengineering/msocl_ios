@@ -11,7 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AviarySDK/AviarySDK.h>
 #import "Webservices.h"
-
+#import "TPKeyboardAvoidingScrollView.h"
 @interface UpdateUserDetailsViewController : UIViewController<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, AVYPhotoEditorControllerDelegate,webServiceProtocol,
 UIPopoverControllerDelegate>
 {
@@ -24,13 +24,14 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UITextField *txt_lastname;
 @property (nonatomic, strong) IBOutlet UITextField *txt_emailAddress;
 @property (nonatomic, strong) IBOutlet UIImageView *profileImage;
-@property (nonatomic, strong) IBOutlet UITextField *txt_postal_code;
+@property (nonatomic, strong) IBOutlet UITextField *txt_handle;
 @property (nonatomic, strong) IBOutlet UITextField *txt_phno;
 @property (nonatomic, strong) IBOutlet UITextField *txt_Password;
 @property (nonatomic, strong) IBOutlet UITextField *txt_blog;
 @property (nonatomic, strong) IBOutlet UITextField *txt_aboutMe;
 @property (nonatomic, strong) IBOutlet UIImageView *lineImage;
 @property (nonatomic, strong) IBOutlet UIButton *changePWDButton;
+@property (nonatomic, strong) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 
 
 -(IBAction)closeClicked:(id)sender;

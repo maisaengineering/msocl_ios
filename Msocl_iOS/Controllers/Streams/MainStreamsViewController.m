@@ -347,6 +347,7 @@
         UserProfileViewCotroller *destViewController = segue.destinationViewController;
         destViewController.photo = [postObject.owner objectForKey:@"photo"];
         destViewController.name = [NSString stringWithFormat:@"%@ %@",[postObject.owner objectForKey:@"fname"],[postObject.owner objectForKey:@"lname"]];
+        destViewController.handle = [postObject.owner objectForKey:@"pinch_handle"];
         destViewController.imageUrl = [postObject.owner objectForKey:@"photo"];
         destViewController.profileId = [postObject.owner objectForKey:@"uid"];
     }

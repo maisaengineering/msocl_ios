@@ -93,11 +93,19 @@
             [parentFnameInitial appendString:[[sharedModel.userProfile.fname substringToIndex:1] uppercaseString]];
         if( [sharedModel.userProfile.lname length] >0)
             [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
-        
+        if(parentFnameInitial.length < 1)
+        {
+            if( [sharedModel.userProfile.handle length] >0)
+                [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+            if( [sharedModel.userProfile.handle length] >1)
+                [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+
+        }
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                                attributes:nil];
         NSRange range;
+        
         if(parentFnameInitial.length > 0)
         {
             range.location = 0;
@@ -129,7 +137,11 @@
              [initial removeFromSuperview];
              
          }failure:nil];
+        if(sharedModel.userProfile.fname.length >0 || sharedModel.userProfile.lname.length > 0)
         [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
+        else
+            [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"@%@",sharedModel.userProfile.handle]];
+        
         [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];
         [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16]];
         
@@ -196,7 +208,7 @@
             destViewController.photo = sharedModel.userProfile.image;
             destViewController.name = [NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname];
             destViewController.imageUrl = sharedModel.userProfile.image;
-
+            destViewController.handle = sharedModel.userProfile.handle;
             destViewController.profileId = sharedModel.userProfile.uid;
             [[SlideNavigationController sharedInstance] pushViewController:destViewController animated:YES];
             
