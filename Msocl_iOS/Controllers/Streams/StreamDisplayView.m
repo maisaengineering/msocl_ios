@@ -506,8 +506,8 @@
             }
             else
             {
-                handle.frame = CGRectMake(60, yPosition, 200, 30);
-                btn.frame = CGRectMake(60, yPosition, 200, 30);
+                handle.frame = CGRectMake(60, yPosition, 110, 30);
+                btn.frame = CGRectMake(60, yPosition, 110, 30);
             }
         }
     }
