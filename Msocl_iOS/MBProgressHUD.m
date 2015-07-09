@@ -632,6 +632,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     if (self.color) {
         CGContextSetFillColorWithColor(context, self.color.CGColor);
     } else {
+        
         CGContextSetRGBFillColor(context, 255/255.0, 255/255.0, 255/255.0, 1.0);
     }
 
@@ -644,54 +645,52 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	// Draw rounded HUD backgroud rect
 	CGRect boxRect = CGRectMake(round((allRect.size.width - size.width) / 2) + self.xOffset,
 								round((allRect.size.height - size.height) / 2) + self.yOffset, size.width, size.height);
-	float radius = self.cornerRadius;
-	CGContextBeginPath(context);
-	CGContextMoveToPoint(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect));
-	CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMinY(boxRect) + radius, radius, 3 * (float)M_PI / 2, 0, 0);
-	CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMaxY(boxRect) - radius, radius, 0, (float)M_PI / 2, 0);
-	CGContextAddArc(context, CGRectGetMinX(boxRect) + radius, CGRectGetMaxY(boxRect) - radius, radius, (float)M_PI / 2, (float)M_PI, 0);
-	CGContextAddArc(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect) + radius, radius, (float)M_PI, 3 * (float)M_PI / 2, 0);
-	CGContextClosePath(context);
-	CGContextFillPath(context);
-
-    CGContextAddRect(context, self.frame);
-    CGContextSetStrokeColorWithColor(context , [UIColor lightGrayColor].CGColor);
-    CGContextStrokePath(context);
-    
-    
-//    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:boxRect cornerRadius:2.0];
-//    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
-//    [bezierPath stroke];
-
-    
-    const CGFloat outlineStrokeWidth = 2.0f;
-    const CGFloat outlineCornerRadius = 2.0f;
-    
-    const CGColorRef whiteColor = [[UIColor whiteColor] CGColor];
-    const CGColorRef redColor = [[UIColor lightGrayColor] CGColor];
-    
-    // set the background color to white
-    CGContextSetFillColorWithColor(context, whiteColor);
     CGContextFillRect(context, boxRect);
+
+//	float radius = self.cornerRadius;
+//	CGContextBeginPath(context);
+//	CGContextMoveToPoint(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect));
+//	CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMinY(boxRect) + radius, radius, 3 * (float)M_PI / 2, 0, 0);
+//	CGContextAddArc(context, CGRectGetMaxX(boxRect) - radius, CGRectGetMaxY(boxRect) - radius, radius, 0, (float)M_PI / 2, 0);
+//	CGContextAddArc(context, CGRectGetMinX(boxRect) + radius, CGRectGetMaxY(boxRect) - radius, radius, (float)M_PI / 2, (float)M_PI, 0);
+//	CGContextAddArc(context, CGRectGetMinX(boxRect) + radius, CGRectGetMinY(boxRect) + radius, radius, (float)M_PI, 3 * (float)M_PI / 2, 0);
+//	CGContextClosePath(context);
+//	CGContextFillPath(context);
+//
+//    CGContextAddRect(context, self.frame);
+//    CGContextSetStrokeColorWithColor(context , [UIColor lightGrayColor].CGColor);
+//    CGContextStrokePath(context);
     
-    // inset the rect because half of the stroke applied to this path will be on the outside
-    CGRect insetRect = CGRectInset(boxRect, outlineStrokeWidth/2.0f, outlineStrokeWidth/2.0f);
     
-    // get our rounded rect as a path
-    CGMutablePathRef path = createRoundedCornerPath(insetRect, outlineCornerRadius);
+    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:boxRect cornerRadius:2.0];
+    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+    [bezierPath stroke];
+
     
-    // add the path to the context
-    CGContextAddPath(context, path);
-    
-    // set the stroke params
-    CGContextSetStrokeColorWithColor(context, redColor);
-    CGContextSetLineWidth(context, outlineStrokeWidth);
-    
-    // draw the path
-    CGContextDrawPath(context, kCGPathStroke);
-    
-    // release the path
-    CGPathRelease(path);
+//    const CGFloat outlineStrokeWidth = 2.0f;
+//    const CGFloat outlineCornerRadius = 0.0f;
+//    
+//    const CGColorRef redColor = [[UIColor lightGrayColor] CGColor];
+//    
+//    
+//    // inset the rect because half of the stroke applied to this path will be on the outside
+//    CGRect insetRect = CGRectInset(boxRect, outlineStrokeWidth/2.0f, outlineStrokeWidth/2.0f);
+//    
+//    // get our rounded rect as a path
+//    CGMutablePathRef path = createRoundedCornerPath(insetRect, outlineCornerRadius);
+//    
+//    // add the path to the context
+//    CGContextAddPath(context, path);
+//    
+//    // set the stroke params
+//    CGContextSetStrokeColorWithColor(context, redColor);
+//    CGContextSetLineWidth(context, outlineStrokeWidth);
+//    
+//    // draw the path
+//    CGContextDrawPath(context, kCGPathStroke);
+//    
+//    // release the path
+//    CGPathRelease(path);
 
     
 	UIGraphicsPopContext();

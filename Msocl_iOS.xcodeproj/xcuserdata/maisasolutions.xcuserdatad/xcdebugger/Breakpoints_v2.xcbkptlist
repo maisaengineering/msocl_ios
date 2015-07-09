@@ -36,27 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/MBProgressHUD.m"
-            timestampString = "458110814.173386"
+            timestampString = "458138858.905828"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "887"
-            endingLineNumber = "887"
-            landmarkName = "-drawRect:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/MBProgressHUD.m"
-            timestampString = "458110814.173386"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "992"
-            endingLineNumber = "992"
+            startingLineNumber = "885"
+            endingLineNumber = "885"
             landmarkName = "-drawRect:"
             landmarkType = "5">
          </BreakpointContent>
