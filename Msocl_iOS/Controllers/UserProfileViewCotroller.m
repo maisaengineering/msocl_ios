@@ -35,6 +35,7 @@
     float downstart;
     CGRect originalPosition;
     
+    
 }
 @synthesize name;
 @synthesize profileId;
@@ -50,6 +51,7 @@
 @synthesize linkButton;
 @synthesize imageUrl;
 @synthesize handle;
+@synthesize handleLabel;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -61,6 +63,12 @@
     [aboutLabel setTextAlignment:NSTextAlignmentCenter];
     [aboutLabel setBackgroundColor:[UIColor clearColor]];
     aboutLabel.textColor = [UIColor colorWithRed:(68/255.f) green:(68/255.f) blue:(68/255.f) alpha:1];
+
+    handleLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 148, 320, 20)];
+    handleLabel.font =[UIFont fontWithName:@"SanFranciscoText-Light" size:12];
+    [handleLabel setTextAlignment:NSTextAlignmentCenter];
+    [handleLabel setBackgroundColor:[UIColor clearColor]];
+    handleLabel.textColor = [UIColor whiteColor];
 
 
     linkButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -315,14 +323,14 @@
          
      }failure:nil];
     
-    float y = 146;
+    float y = 137;
     
     lineImageVw = [[UIImageView alloc] init];
     [lineImageVw setBackgroundColor:[UIColor blackColor]];
     [lineImageVw setAlpha:0.7];
     [animatedTopView addSubview:lineImageVw];
     
-    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 30)];
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 20)];
     [nameLabel setTextColor:[UIColor whiteColor]];
     [nameLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]];
     [nameLabel setTextAlignment:NSTextAlignmentCenter];
@@ -332,25 +340,20 @@
     nameLabel.text = [recievedDict objectForKey:@"full_name"];
     if(nameLabel.text.length > 0 && [[recievedDict objectForKey:@"pinch_handle"] length] > 0)
     {
-        nameLabel.numberOfLines = 2;
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:nameLabel.text attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]}];
-        [attributedString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n@%@",[recievedDict objectForKey:@"pinch_handle"]] attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}]];
-
-        nameLabel.attributedText = attributedString;
-        
-        CGSize size = [nameLabel sizeThatFits:CGSizeMake(320, 999)];
-        if(size.height > 30)
-        {
-            CGRect frame = nameLabel.frame;
-            size.width = 320;
-            frame.size = size;
-            nameLabel.frame = frame;
-        }
+        handleLabel.text = [NSString stringWithFormat:@"@%@",[recievedDict objectForKey:@"pinch_handle"]];
+        CGRect frame =  handleLabel.frame;
+        frame.origin.y = y;
+        handleLabel.frame = frame;
+        [animatedTopView addSubview:handleLabel];
+        y+=20;
     }
     else if([[recievedDict objectForKey:@"pinch_handle"] length] > 0)
     {
-        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"@%@",[recievedDict objectForKey:@"pinch_handle"]] attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14]}];
-        nameLabel.attributedText = attributedString;
+        handleLabel.text = [NSString stringWithFormat:@"@%@",[recievedDict objectForKey:@"pinch_handle"]];
+        CGRect frame =  aboutLabel.frame;
+        frame.origin.y = 117;
+        handleLabel.frame = frame;
+        [animatedTopView addSubview:handleLabel];
 
     }
     if([recievedDict objectForKey:@"summary"] != nil)
@@ -360,6 +363,7 @@
             size.height = 21;
         
         CGRect frame =  aboutLabel.frame;
+        frame.origin.y = y;
         frame.size.height = size.height;
         aboutLabel.text = [recievedDict objectForKey:@"summary"];
         aboutLabel.frame = frame;

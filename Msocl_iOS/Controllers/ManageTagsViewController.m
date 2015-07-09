@@ -13,6 +13,7 @@
 #import "ProfilePhotoUtils.h"
 #import "PhotoCollectionViewCell.h"
 #import "AppDelegate.h"
+#import "UIImage+GIF.h"
 @implementation ManageTagsViewController
 {
     UITableView *manageTagsTableView;
@@ -133,11 +134,13 @@
     
     PhotoCollectionViewCell* cell=[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(31.5, 21, 32, 32)];
     __weak UIImageView *weakSelf = imageView;
+    UIImage *placeHolder  = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
     
-    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]]] placeholderImage:[UIImage imageNamed:@"tag-placeholder.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+    [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[managedTagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]]] placeholderImage:placeHolder success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
+         weakSelf.frame = cell.bounds;
          weakSelf.image = [photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(95, 95)];
          
      }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error){

@@ -22,11 +22,14 @@
 @property (nonatomic, strong)  UIView *animatedTopView;
 
 @property (nonatomic, strong)  UILabel *nameLabel;
+@property (nonatomic, strong)  UILabel *handleLabel;
+
 @property (nonatomic, strong)  UILabel *aboutLabel;
 @property (nonatomic, strong)  UIButton *linkButton;
 @property (nonatomic, strong)  UIButton *followOrEditBtn;
 @property (nonatomic, strong)  UILabel *postsCount;
 @property (nonatomic, strong)  UILabel *followingCount;
+
 
 
 

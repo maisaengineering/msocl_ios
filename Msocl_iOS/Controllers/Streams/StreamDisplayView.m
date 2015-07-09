@@ -297,7 +297,7 @@
         height += 100+8;
     else
         height += 3;
-    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && (([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0) || postDetailsObject.anonymous))
+    if(!postDetailsObject.anonymous && [postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && ([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0)  )
     {
         height += 20;
     }
@@ -474,7 +474,7 @@
     if(!postDetailsObject.anonymous)
     {
         UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition, 110, 30)];
-        if(([postDetailsObject.owner objectForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner objectForKey:@"fname"] length] > 0) &&
+        if(([postDetailsObject.owner objectForKey:@"fname"] != (id)[NSNull null] && [[postDetailsObject.owner objectForKey:@"fname"] length] > 0) ||
            ([postDetailsObject.owner objectForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner objectForKey:@"lname"] length] > 0)
            )
             [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
@@ -484,6 +484,32 @@
         [name setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
         [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
         [cell.contentView addSubview:name];
+        if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 )
+        {
+            UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition+25, 200, 20)];
+            [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
+            
+            [handle setTextColor:[UIColor lightGrayColor]];
+            [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
+            [cell.contentView addSubview:handle];
+            
+            
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            
+            [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            [cell.contentView addSubview:btn];
+            if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length]) )
+            {
+                btn.frame = CGRectMake(60, yPosition+25, 200, 20);
+            }
+            else
+            {
+                handle.frame = CGRectMake(60, yPosition, 200, 30);
+                btn.frame = CGRectMake(60, yPosition, 200, 30);
+            }
+        }
     }
     else
     {
@@ -496,31 +522,7 @@
         [cell.contentView addSubview:name];
     }
     
-    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 )
-    {
-        UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition+25, 200, 20)];
-        [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
-        [handle setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-        [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
-        [cell.contentView addSubview:handle];
-        
-
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-
-        [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [cell.contentView addSubview:btn];
-        if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length])  || postDetailsObject.anonymous)
-        {
-            btn.frame = CGRectMake(60, yPosition+25, 200, 20);
-        }
-        else
-        {
-            handle.frame = CGRectMake(60, yPosition, 200, 30);
-            btn.frame = CGRectMake(60, yPosition, 200, 30);
-        }
-    }
+    
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
@@ -630,7 +632,7 @@
     UIImageView *postImage;
     if(postDetailsObject.postImage != nil && postDetailsObject.postImage.length > 0)
     {
-        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(110, yPosition, 100, 100)];
+        postImage = [[UIImageView alloc] initWithFrame:CGRectMake(144, yPosition+34, 32, 32)];
         UIImage  *image = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
         
         __weak UIImageView *weakSelf = postImage;
@@ -638,7 +640,8 @@
         [postImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.postImage]] placeholderImage:image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
              weakSelf.image = [photoUtils makeRoundedCornersWithBorder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(100, 100)] withRadious:10.0];
-
+             CGRect frame = weakSelf.frame;
+             weakSelf.frame = CGRectMake(110, frame.origin.y-34, 100, 100);
              CATransition *transition = [CATransition animation];
              transition.duration = 1.0f;
              transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];

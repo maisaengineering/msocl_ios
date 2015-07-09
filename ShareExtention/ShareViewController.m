@@ -17,6 +17,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #import "UIImageView+WebCache.h"
 #import "SDWebImageManager.h"
+#import "UIImage+GIF.h"
 @interface ShareViewController ()
 
 @end
@@ -245,11 +246,11 @@
     [self.view addSubview:scrollView];
     
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 15, width-40, 188)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, width-20, 188)];
     [imageView setImage:[UIImage imageNamed:@"textfield.png"]];
     [scrollView addSubview:imageView];
     
-    textView = [[UITextView alloc] initWithFrame:CGRectMake(28,19,width-56, 140)];
+    textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,width-28, 140)];
     textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     textView.delegate = self;
     textView.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -270,7 +271,7 @@
     
     
     
-    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(20, imageView.frame.origin.y+imageView.frame.size.height+20, 200, 20)];
+    UILabel *selectTagslabel = [[UILabel alloc] initWithFrame:CGRectMake(10, imageView.frame.origin.y+imageView.frame.size.height+20, 200, 20)];
     [selectTagslabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
     [selectTagslabel setTextColor:[UIColor colorWithRed:77/255.0 green:77/255.0 blue:77/255.0 alpha:1.0]];
     [selectTagslabel setText:@"Select tags"];
@@ -280,7 +281,7 @@
     layout.minimumInteritemSpacing = 7;
     layout.minimumLineSpacing = 7;
     
-    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(20, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, width-40, height - selectTagslabel.frame.origin.y-selectTagslabel.frame.size.height - 15) collectionViewLayout:layout];
+    collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(10, selectTagslabel.frame.origin.y+selectTagslabel.frame.size.height+10, width-20, height - selectTagslabel.frame.origin.y-selectTagslabel.frame.size.height - 15-64) collectionViewLayout:layout];
     collectionView.delegate = self;
     collectionView.scrollEnabled = YES;
     collectionView.dataSource = self;
@@ -389,10 +390,12 @@
     
     PhotoCollectionViewCell* cell=[collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:cell.bounds];
+    cell.backgroundColor = [UIColor whiteColor];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(31.5, 21, 32, 32)];
     __weak UIImageView *weakSelf = imageView;
+    UIImage *placeHolder  = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
     
-    imageView.image = [UIImage imageNamed:@"tag-placeholder.png"];
+    imageView.image = placeHolder;
     
         if([[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"] != nil)
         {
@@ -406,6 +409,7 @@
                            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]]];
                            UIImage* image = [[UIImage alloc] initWithData:imageData];
                            if (image) {
+                               weakSelf.frame = cell.bounds;
                                weakSelf.image = image;
                                [photoUtils saveImageToCacheWithOutCompression:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"] :image];
 
@@ -414,6 +418,8 @@
     }
     else
     {
+        weakSelf.frame = cell.bounds;
+
         weakSelf.image = thumb;
     }
 

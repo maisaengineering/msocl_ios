@@ -632,12 +632,11 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     if (self.color) {
         CGContextSetFillColorWithColor(context, self.color.CGColor);
     } else {
-        CGContextSetRGBFillColor(context, 235/255.0, 235/255.0, 235/255.0, 1.0);
+        CGContextSetRGBFillColor(context, 255/255.0, 255/255.0, 255/255.0, 1.0);
     }
 
-    CGContextAddRect(context, self.frame);
-    CGContextSetStrokeColorWithColor(context , [UIColor lightGrayColor].CGColor);
-    CGContextStrokePath(context);
+    
+
 
     
 	// Center HUD
@@ -655,8 +654,92 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	CGContextClosePath(context);
 	CGContextFillPath(context);
 
+    CGContextAddRect(context, self.frame);
+    CGContextSetStrokeColorWithColor(context , [UIColor lightGrayColor].CGColor);
+    CGContextStrokePath(context);
+    
+    
+//    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:boxRect cornerRadius:2.0];
+//    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+//    [bezierPath stroke];
+
+    
+    const CGFloat outlineStrokeWidth = 2.0f;
+    const CGFloat outlineCornerRadius = 2.0f;
+    
+    const CGColorRef whiteColor = [[UIColor whiteColor] CGColor];
+    const CGColorRef redColor = [[UIColor lightGrayColor] CGColor];
+    
+    // set the background color to white
+    CGContextSetFillColorWithColor(context, whiteColor);
+    CGContextFillRect(context, boxRect);
+    
+    // inset the rect because half of the stroke applied to this path will be on the outside
+    CGRect insetRect = CGRectInset(boxRect, outlineStrokeWidth/2.0f, outlineStrokeWidth/2.0f);
+    
+    // get our rounded rect as a path
+    CGMutablePathRef path = createRoundedCornerPath(insetRect, outlineCornerRadius);
+    
+    // add the path to the context
+    CGContextAddPath(context, path);
+    
+    // set the stroke params
+    CGContextSetStrokeColorWithColor(context, redColor);
+    CGContextSetLineWidth(context, outlineStrokeWidth);
+    
+    // draw the path
+    CGContextDrawPath(context, kCGPathStroke);
+    
+    // release the path
+    CGPathRelease(path);
+
+    
 	UIGraphicsPopContext();
+    
+    
 }
+CGMutablePathRef createRoundedCornerPath(CGRect rect, CGFloat cornerRadius) {
+    
+    // create a mutable path
+    CGMutablePathRef path = CGPathCreateMutable();
+    
+    // get the 4 corners of the rect
+    CGPoint topLeft = CGPointMake(rect.origin.x, rect.origin.y);
+    CGPoint topRight = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y);
+    CGPoint bottomRight = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+    CGPoint bottomLeft = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
+    
+    // move to top left
+    CGPathMoveToPoint(path, NULL, topLeft.x + cornerRadius, topLeft.y);
+    
+    // add top line
+    CGPathAddLineToPoint(path, NULL, topRight.x - cornerRadius, topRight.y);
+    
+    // add top right curve
+    CGPathAddQuadCurveToPoint(path, NULL, topRight.x, topRight.y, topRight.x, topRight.y + cornerRadius);
+    
+    // add right line
+    CGPathAddLineToPoint(path, NULL, bottomRight.x, bottomRight.y - cornerRadius);
+    
+    // add bottom right curve
+    CGPathAddQuadCurveToPoint(path, NULL, bottomRight.x, bottomRight.y, bottomRight.x - cornerRadius, bottomRight.y);
+    
+    // add bottom line
+    CGPathAddLineToPoint(path, NULL, bottomLeft.x + cornerRadius, bottomLeft.y);
+    
+    // add bottom left curve
+    CGPathAddQuadCurveToPoint(path, NULL, bottomLeft.x, bottomLeft.y, bottomLeft.x, bottomLeft.y - cornerRadius);
+    
+    // add left line
+    CGPathAddLineToPoint(path, NULL, topLeft.x, topLeft.y + cornerRadius);
+    
+    // add top left curve
+    CGPathAddQuadCurveToPoint(path, NULL, topLeft.x, topLeft.y, topLeft.x + cornerRadius, topLeft.y);
+    
+    // return the path
+    return path;
+}
+
 
 #pragma mark - KVO
 

@@ -261,11 +261,11 @@
 }
 -(void)signUpFailed
 {
-    [txt_handle shake:10
-            withDelta:5
-                speed:0.05
-       shakeDirection:ShakeDirectionHorizontal];
-    lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
+//    [txt_handle shake:10
+//            withDelta:5
+//                speed:0.05
+//       shakeDirection:ShakeDirectionHorizontal];
+//    lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
 
     [appdelegate showOrhideIndicator:NO];
     ShowAlert(@"Error", @"Signup Failed", @"OK");
@@ -663,7 +663,8 @@
 }
 -(void)handleSuccessFull:(NSDictionary *)recievedDict
 {
-    lineImage.backgroundColor = [UIColor colorWithRed:231/255.0 green:231/255.0 blue:231/255.0 alpha:1.0];
+
+    //lineImage.backgroundColor = [UIColor colorWithRed:231/255.0 green:231/255.0 blue:231/255.0 alpha:1.0];
 
 }
 -(void)handleFailed
@@ -672,7 +673,9 @@
             withDelta:5
                 speed:0.05
        shakeDirection:ShakeDirectionHorizontal];
-    lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
+    ShowAlert(@"Error", @"User with same handle already exists. Please try with another handle.", @"OK");
+
+    //lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
 
 }
 @end

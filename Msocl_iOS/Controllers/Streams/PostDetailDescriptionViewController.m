@@ -513,6 +513,16 @@
         if([[commentDict objectForKey:@"commenter" ] valueForKey:@"lname"] != (id)[NSNull null] && [[[commentDict objectForKey:@"commenter" ]  valueForKey:@"lname"] length]>0)
             [parentFnameInitial appendString:[[[[commentDict objectForKey:@"commenter" ] valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
         
+        if(parentFnameInitial.length < 1)
+        {
+            if( [[[commentDict objectForKey:@"commenter" ] valueForKey:@"pinch_handle"] length] >0)
+                [parentFnameInitial appendString:[[[[commentDict objectForKey:@"commenter" ] valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
+            if( [[[commentDict objectForKey:@"commenter" ] valueForKey:@"pinch_handle"] length] >1)
+                [parentFnameInitial appendString:[[[[commentDict objectForKey:@"commenter" ] valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+            
+        }
+
+        
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                                attributes:nil];
@@ -735,6 +745,32 @@
     [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
     [name setFont:[UIFont fontWithName:@"SanFranciscoText-Medium" size:16]];
     [cell.contentView addSubview:name];
+        
+        if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 )
+        {
+            UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition+22, 200, 20)];
+            [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
+            [handle setTextColor:[UIColor lightGrayColor]];
+            [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
+            [cell.contentView addSubview:handle];
+            
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+            [cell.contentView addSubview:btn];
+            if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length]))
+            {
+                btn.frame = CGRectMake(42, yPosition+22, 200, 20);
+            }
+            else
+            {
+                btn.frame = CGRectMake(42, yPosition, 200, 28);
+                handle.frame = CGRectMake(42, yPosition, 200, 28);
+            }
+        }
+        
+
     }
     else
     {
@@ -745,30 +781,6 @@
         [cell.contentView addSubview:name];
     }
     
-    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 )
-    {
-       UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition+22, 200, 20)];
-        [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
-        [handle setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-        [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
-        [cell.contentView addSubview:handle];
-
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [cell.contentView addSubview:btn];
-        if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length])  || postDetailsObject.anonymous)
-        {
-            btn.frame = CGRectMake(42, yPosition+22, 200, 20);
-        }
-        else
-        {
-            btn.frame = CGRectMake(42, yPosition, 200, 28);
-            handle.frame = CGRectMake(42, yPosition, 200, 28);
-        }
-    }
-
     
     UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -892,7 +904,7 @@
              NSString *identifier = textAttachment1.image.accessibilityIdentifier;
              if (identifier!= nil)
              {
-                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, yPosition+5, 300, 150)];
+                 UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(144, yPosition+5+59, 32, 32)];
                  __weak UIImageView *weakImageView  = imageView;
                  UIImage *placeHolder  = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
                  placeHolder.accessibilityIdentifier = identifier;
@@ -902,6 +914,10 @@
                  [imageView addGestureRecognizer:oneTouch];
                  imageView.userInteractionEnabled = YES;
                  [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:identifier]] placeholderImage:placeHolder success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                     
+                     CGRect frame = weakImageView.frame;
+                     weakImageView.frame =  CGRectMake(10, frame.origin.y-59, 300, 150);
+                     
                      image = [image resizedImageByMagick:@"300x150#"];
                      image.accessibilityIdentifier = identifier;
                      weakImageView.image  = image;
@@ -1437,7 +1453,7 @@
     }
     
     
-    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && (([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0) || postDetailsObject.anonymous))
+    if(!postDetailsObject.anonymous && [postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && (([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0) ))
     {
         height += 20;
     }
