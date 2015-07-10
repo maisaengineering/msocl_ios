@@ -153,7 +153,7 @@
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
    // [profileImageVw addSubview:initial];
-    if(imageUrl != nil && imageUrl.length == 0)
+    if(imageUrl == nil || imageUrl.length == 0)
     {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(113.5, 15, 93, 93)];
         [imageView setImage:[UIImage imageNamed:@"circle-186.png"]];
