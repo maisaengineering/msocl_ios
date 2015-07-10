@@ -201,9 +201,10 @@
 }
 -(void)reloadOnLogOut
 {
-    self.navigationItem.leftBarButtonItem.enabled = NO;
-    self.navigationItem.leftBarButtonItem.title = @"";
-    
+    self.navigationItem.leftBarButtonItem = nil;
+//    self.navigationItem.leftBarButtonItem.enabled = NO;
+//    self.navigationItem.leftBarButtonItem.title = @"";
+self.navigationItem.hidesBackButton = YES;
     mostRecentButton.selected = NO;
     
     [mostRecent setHidden:NO];
