@@ -83,6 +83,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	id objectForExecution;
 	UILabel *label;
 	UILabel *detailsLabel;
+    UIView *backGroundView;
 	BOOL isFinished;
 	CGAffineTransform rotationTransform;
 }
@@ -472,6 +473,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	detailsLabel.font = self.detailsLabelFont;
 	detailsLabel.text = self.detailsLabelText;
 	[self addSubview:detailsLabel];
+    
+    
 }
 
 - (void)updateIndicators {
@@ -505,10 +508,22 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 		}
 	} 
 	else if (mode == MBProgressHUDModeCustomView && customView != indicator) {
-		// Update custom view indicator
+        
+        backGroundView = [[UIView alloc] init];
+        backGroundView.backgroundColor = [UIColor whiteColor];
+        backGroundView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+        backGroundView.layer.borderWidth = 1.0f;
+        backGroundView.layer.cornerRadius = 5;
+        backGroundView.layer.masksToBounds = YES;
+
+        // Update custom view indicator
 		[indicator removeFromSuperview];
 		self.indicator = customView;
+        [self addSubview:backGroundView];
 		[self addSubview:indicator];
+        
+        
+        
 	} else if (mode == MBProgressHUDModeText) {
 		[indicator removeFromSuperview];
 		self.indicator = nil;
@@ -645,7 +660,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	// Draw rounded HUD backgroud rect
 	CGRect boxRect = CGRectMake(round((allRect.size.width - size.width) / 2) + self.xOffset,
 								round((allRect.size.height - size.height) / 2) + self.yOffset, size.width, size.height);
-    CGContextFillRect(context, boxRect);
+//    CGContextFillRect(context, boxRect);
 
 //	float radius = self.cornerRadius;
 //	CGContextBeginPath(context);
@@ -662,9 +677,11 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 //    CGContextStrokePath(context);
     
     
-    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:boxRect cornerRadius:2.0];
-    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
-    [bezierPath stroke];
+//    UIBezierPath *bezierPath = [UIBezierPath bezierPathWithRoundedRect:boxRect cornerRadius:2.0];
+//    CGContextSetStrokeColorWithColor(context, [UIColor grayColor].CGColor);
+//    [bezierPath stroke];
+    
+    backGroundView.frame = boxRect;
 
     
 //    const CGFloat outlineStrokeWidth = 2.0f;
