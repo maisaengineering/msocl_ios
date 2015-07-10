@@ -644,18 +644,6 @@
 }
 - (void)recievedData:(BOOL)isFollowing
 {
-    
-    if(![modelManager.userProfile.uid isEqualToString:profileId])
-    {
-        followOrEditBtn.hidden = NO;
-        
-        if(isFollowing)
-            [followOrEditBtn setTitle:@"un-follow" forState:UIControlStateNormal];
-        else
-            [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
-        
-        
-    }
 }
 - (void)tableDidSelect:(int)index
 {
