@@ -62,6 +62,6 @@
  @param failure The block to be executed on the completion of an unsuccessful request. This block has no return value and takes two arguments: the receiver operation and the error that occurred during the request.
  */
 - (void)setCompletionBlockWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+                              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error, id responseObject))failure;
 
 @end

@@ -284,13 +284,9 @@
 -(void)doSignup
 {
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    if(txt_lastname.text.length > 0)
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
-    if(txt_firstName.text.length > 0)
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
-    if(txt_blog.text.length > 0)
     [postDetails setObject:txt_blog.text forKey:@"blog"];
-    if(txt_aboutMe.text.length > 0)
     [postDetails setObject:txt_aboutMe.text forKey:@"summary"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
 
@@ -321,10 +317,18 @@
     [appdelegate showOrhideIndicator:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)signUpFailed
+-(void)signUpFailed:(NSDictionary *)responseDict
 {
     [appdelegate showOrhideIndicator:NO];
-    ShowAlert(@"Error", @"Updation Failed", @"OK");
+    if([responseDict objectForKey:@"message"] != nil &&[[responseDict objectForKey:@"message"] length] > 0 )
+    {
+        NSString *str =  [responseDict objectForKey:@"message"];
+        ShowAlert(@"Error",str , @"OK");
+    }
+    else
+    {
+        ShowAlert(@"Error", @"Updation Failed", @"OK");
+    }
 }
 #pragma mark -
 #pragma mark Image Selection Methods

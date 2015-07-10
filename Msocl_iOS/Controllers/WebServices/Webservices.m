@@ -221,7 +221,7 @@
     }
     else if([command isEqualToString:@"SignUp"])
     {
-        [self.delegate signUpFailed];
+        [self.delegate signUpFailed:[recievedDict objectForKey:@"response"]];
     }
     else if([command isEqualToString:@"GetAllGroups"])
     {
@@ -468,7 +468,7 @@
     
     else
     {
-        [self.delegate signUpFailed];
+        [self.delegate signUpFailed:respDict];
         
     }
     

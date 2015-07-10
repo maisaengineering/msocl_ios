@@ -139,7 +139,7 @@
 
         [strongSelf.delegate webViewDidFinishLoad:strongSelf];
 #pragma clang diagnostic pop
-    } failure:^(AFHTTPRequestOperation * __unused operation, NSError *error) {
+    } failure:^(AFHTTPRequestOperation * __unused operation, NSError *error, id responseObject) {
         if (failure) {
             failure(error);
         }

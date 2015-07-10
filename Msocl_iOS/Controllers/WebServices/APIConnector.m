@@ -48,9 +48,9 @@
         
          
      }
-                                     failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                                     failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject)
      {
-         [self.delegate handleConnectionFailure:[NSDictionary dictionaryWithObjectsAndKeys:[userInfo objectForKey:@"command"],@"command", nil]];
+         [self.delegate handleConnectionFailure:[NSDictionary dictionaryWithObjectsAndKeys:[userInfo objectForKey:@"command"],@"command", responseObject,@"response",nil]];
          
      }];
     [operation start];

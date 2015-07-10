@@ -121,6 +121,15 @@
     if( [[userDict objectForKey:@"lname"] length] >0)
         [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [[userDict valueForKey:@"pinch_handle"] length] >0)
+            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
+        if( [[userDict valueForKey:@"pinch_handle"] length] >1)
+            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+        
+    }
+
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -719,6 +728,15 @@
     if( [[userDict objectForKey:@"lname"] length] >0)
         [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [[userDict valueForKey:@"pinch_handle"] length] >0)
+            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
+        if( [[userDict valueForKey:@"pinch_handle"] length] >1)
+            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+        
+    }
+
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];

@@ -825,7 +825,10 @@
     else
     {
         if(!mostRecent.hidden)
+        {
+            command = @"filter";
             [body setValue:mostRecent.timeStamp forKeyPath:@"last_modified"];
+        }
         else
         {
             [body setValue:following.timeStamp forKeyPath:@"last_modified"];
@@ -840,7 +843,7 @@
     else
         userInfo = @{@"command": @"GetFav"};
     
-    NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     
 }

@@ -264,7 +264,7 @@
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
 }
--(void)signUpFailed
+-(void)signUpFailed:(NSDictionary *)responseDict
 {
 //    [txt_handle shake:10
 //            withDelta:5
@@ -273,7 +273,15 @@
 //    lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
 
     [appdelegate showOrhideIndicator:NO];
-    ShowAlert(@"Error", @"Signup Failed", @"OK");
+    if([responseDict objectForKey:@"message"] != nil &&[[responseDict objectForKey:@"message"] length] > 0 )
+    {
+        NSString *str =  [responseDict objectForKey:@"message"];
+        ShowAlert(@"Error",str , @"OK");
+    }
+    else
+    {
+        ShowAlert(@"Error", @"Updation Failed", @"OK");
+    }
 }
 #pragma mark -
 #pragma mark Image Selection Methods
@@ -643,7 +651,7 @@
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if(textField == txt_handle && textField.text.length > 0)
+    if(textField == txt_handle && textField.text.length >= 6)
     {
         [self checkAvailability];
     }

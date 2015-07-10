@@ -198,7 +198,7 @@ static const char * af_backgroundImageRequestOperationKeyForState(UIControlState
                 }
             }
             [[[strongSelf class] sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject) {
             if ([[urlRequest URL] isEqual:[operation.request URL]]) {
                 if (failure) {
                     failure(error);
@@ -264,7 +264,7 @@ static const char * af_backgroundImageRequestOperationKeyForState(UIControlState
                 }
             }
             [[[strongSelf class] sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject) {
             if ([[urlRequest URL] isEqual:[operation.request URL]]) {
                 if (failure) {
                     failure(error);

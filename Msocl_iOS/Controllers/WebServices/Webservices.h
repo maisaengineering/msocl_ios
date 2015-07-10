@@ -15,7 +15,7 @@
 -(void) loginSccessfull:(NSDictionary *)recievedDict;
 -(void) loginFailed;
 -(void) signUpSccessfull:(NSDictionary *)recievedDict;
--(void) signUpFailed;
+-(void) signUpFailed:(NSDictionary *)responseDict;
 -(void) signOutSccessfull:(NSDictionary *)recievedDict;
 -(void) signOutFailed;
 -(void) didReceivePromptImages:(NSDictionary *)recievedDict;

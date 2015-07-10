@@ -171,7 +171,7 @@
             NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
             NSDictionary *userInfo = @{@"command": @"GetStreams"};
             
-            NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+            NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
             [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
             
         }
@@ -182,23 +182,21 @@
             [body setValue:self.postCount forKeyPath:@"post_count"];
             [body setValue:self.etag forKey:@"etag"];
             [body setValue:step forKeyPath:@"step"];
-            NSString *command = @"all";
+            NSString *command = @"filter";
             if(isFollowing)
             {
                 [body setValue:@"favourites" forKeyPath:@"by"];
-                command = @"filter";
             }
             else if(isUserProfilePosts)
             {
                 [body setValue:userProfileId forKeyPath:@"key"];
-                command = @"filter";
+                [body setValue:@"user" forKeyPath:@"by"];
                 
             }
             else if(isTag)
             {
                 [body setValue:tagName forKeyPath:@"key"];
                 [body setValue:@"tag" forKeyPath:@"by"];
-                command = @"filter";
                 
             }
             
@@ -206,7 +204,7 @@
             NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
             NSDictionary *userInfo = @{@"command": @"GetStreams"};
             
-            NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+            NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
             [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
             
         }
@@ -743,24 +741,71 @@
             break;
         }
         
-        NSString *url = [commenters objectAtIndex:i];
+        NSDictionary *dict = [commenters objectAtIndex:i];
         UIImageView *imagVw = [[UIImageView alloc] initWithFrame:CGRectMake(x, 0, 22, 22)];
         [commentersView addSubview:imagVw];
         
+        if([dict objectForKey:@"photo"] != nil && [[dict objectForKey:@"photo"] length] >0 )
+        {
         __weak UIImageView *weakSelf = imagVw;
         
         
-        [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"icon-profile-register.pngg"] scaledToSize:CGSizeMake(22,22)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+        [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[dict objectForKey:@"photo"]]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"icon-profile-register.pngg"] scaledToSize:CGSizeMake(22,22)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
-             if(request.URL.absoluteString != nil && [request.URL.absoluteString rangeOfString:@"anonymous"].location != NSNotFound )
-             {
-                 weakSelf.image = image;
-             }
-             else
                  weakSelf.image = [photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:image scaledToSize:CGSizeMake(22, 22)] withRadious:0];
              
          }failure:nil];
-        
+        }
+        else if([dict objectForKey:@"fname"] != nil || [dict objectForKey:@"lname"] != nil)
+        {
+            [imagVw setImage:[UIImage imageNamed:@"circle-56.png"]];
+            NSMutableString *parentFnameInitial = [[NSMutableString alloc] init];
+            if([dict objectForKey:@"fname"] != (id)[NSNull null] && [[dict objectForKey:@"fname"] length] >0)
+                [parentFnameInitial appendString:[[[dict objectForKey:@"fname"] substringToIndex:1] uppercaseString]];
+            if([dict objectForKey:@"lname"] != (id)[NSNull null] && [[dict objectForKey:@"lname"] length]>0)
+                [parentFnameInitial appendString:[[[dict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
+            NSMutableAttributedString *attributedText =
+            [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
+                                                   attributes:nil];
+            NSRange range;
+            if(parentFnameInitial.length > 0)
+            {
+                range.location = 0;
+                range.length = 1;
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
+                                        range:range];
+            }
+            if(parentFnameInitial.length > 1)
+            {
+                range.location = 1;
+                range.length = 1;
+                [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:12]}
+                                        range:range];
+            }
+            
+            
+            //add initials
+            
+            UILabel *initial = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
+            initial.attributedText = attributedText;
+            [initial setBackgroundColor:[UIColor clearColor]];
+            initial.textAlignment = NSTextAlignmentCenter;
+            [imagVw addSubview:initial];
+            
+
+            
+        }
+        else if([dict objectForKey:@"anonymous"] != nil && [[dict objectForKey:@"anonymous"] boolValue] )
+        {
+            __weak UIImageView *weakSelf = imagVw;
+            
+            
+            [imagVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"anonymous_image"]]] placeholderImage:[photoUtils makeRoundWithBoarder:[photoUtils squareImageWithImage:[UIImage imageNamed:@"icon-profile-register.pngg"] scaledToSize:CGSizeMake(22,22)] withRadious:0] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
+             {
+                     weakSelf.image = image;
+
+             }failure:nil];
+        }
         
         x+= 22 + 3;
         
