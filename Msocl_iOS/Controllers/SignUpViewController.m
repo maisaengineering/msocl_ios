@@ -163,6 +163,11 @@
         ShowAlert(PROJECT_NAME,@"Please enter handle", @"OK");
         return;
     }
+    else if(txt_handle.text.length < 6)
+    {
+        ShowAlert(PROJECT_NAME,@"Handle should be at least 6 characters", @"OK");
+        return;
+    }
     else if(txt_password.text.length == 0)
     {
         ShowAlert(PROJECT_NAME,@"Please enter password", @"OK");

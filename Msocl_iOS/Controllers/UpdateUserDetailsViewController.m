@@ -284,9 +284,13 @@
 -(void)doSignup
 {
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+    if(txt_lastname.text.length > 0)
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
+    if(txt_firstName.text.length > 0)
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
+    if(txt_blog.text.length > 0)
     [postDetails setObject:txt_blog.text forKey:@"blog"];
+    if(txt_aboutMe.text.length > 0)
     [postDetails setObject:txt_aboutMe.text forKey:@"summary"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
 

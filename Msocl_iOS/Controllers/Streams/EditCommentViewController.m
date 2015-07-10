@@ -336,6 +336,14 @@
     if( [sharedModel.userProfile.lname length] >0)
         [parentFnameInitial appendString:[[sharedModel.userProfile.lname substringToIndex:1] uppercaseString]];
     
+    if(parentFnameInitial.length < 1)
+    {
+        if( [sharedModel.userProfile.handle length] >0)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringToIndex:1] uppercaseString]];
+        if( [sharedModel.userProfile.handle length] >1)
+            [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
+    }
+
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -354,7 +362,6 @@
         [attributedText setAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:102/255.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:13]}
                                 range:range];
     }
-    
     
     //add initials
     
