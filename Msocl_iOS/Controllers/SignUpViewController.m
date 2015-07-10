@@ -653,7 +653,7 @@
 {
     if(textField == txt_handle && textField.text.length >= 6)
     {
-        [self checkAvailability];
+        //[self checkAvailability];
     }
 }
 -(void)checkAvailability
@@ -686,7 +686,7 @@
             withDelta:5
                 speed:0.05
        shakeDirection:ShakeDirectionHorizontal];
-    ShowAlert(@"Error", @"User with same handle already exists. Please try with another handle.", @"OK");
+   // ShowAlert(@"Error", @"User with same handle already exists. Please try with another handle.", @"OK");
 
     //lineImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
 
