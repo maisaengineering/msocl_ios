@@ -65,6 +65,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SanFranciscoText-Semibold.otf</string>
+		<string>SanFranciscoText-Bold.otf</string>
 		<string>SanFranciscoDisplay-Regular.otf</string>
 		<string>SanFranciscoDisplay-Medium.otf</string>
 		<string>SanFranciscoDisplay-Light.otf</string>

@@ -487,8 +487,8 @@
             UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition+25, 200, 20)];
             [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
             
-            [handle setTextColor:[UIColor lightGrayColor]];
-            [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
+            [handle setTextColor:[UIColor grayColor]];
+            [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Semibold" size:12]];
             [cell.contentView addSubview:handle];
             
             

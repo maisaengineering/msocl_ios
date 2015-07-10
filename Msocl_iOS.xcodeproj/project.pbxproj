@@ -323,6 +323,8 @@
 		7FAF027B1B468A68002DD930 /* comment-ana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934061B3A642B001B5A94 /* comment-ana@2x.png */; };
 		7FAF027C1B468AAE002DD930 /* btn-post-ana@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF01E71B465625002DD930 /* btn-post-ana@3x.png */; };
 		7FAF027D1B468AAE002DD930 /* btn-post-ana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */; };
+		7FAF2BD71B4FE7FE00EAAEEE /* SanFranciscoText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF2BD51B4FE7FE00EAAEEE /* SanFranciscoText-Bold.otf */; };
+		7FAF2BD81B4FE7FE00EAAEEE /* SanFranciscoText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF2BD61B4FE7FE00EAAEEE /* SanFranciscoText-Semibold.otf */; };
 		7FB2FEC71B074BD60001CEA6 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */; };
 		7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FEC81B07649F0001CEA6 /* icon-upvote-gray@2x.png */; };
 		7FB2FECB1B0764D20001CEA6 /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FB2FECA1B0764D20001CEA6 /* time@2x.png */; };
@@ -827,6 +829,8 @@
 		7FAF022A1B465625002DD930 /* textfield@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield@3x.png"; sourceTree = "<group>"; };
 		7FAF022B1B465625002DD930 /* time@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@3x.png"; sourceTree = "<group>"; };
 		7FAF022C1B465625002DD930 /* yoga-img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yoga-img@3x.png"; sourceTree = "<group>"; };
+		7FAF2BD51B4FE7FE00EAAEEE /* SanFranciscoText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Bold.otf"; sourceTree = "<group>"; };
+		7FAF2BD61B4FE7FE00EAAEEE /* SanFranciscoText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Semibold.otf"; sourceTree = "<group>"; };
 		7FB2FEC61B074BD60001CEA6 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
 		7FB2FEC81B07649F0001CEA6 /* icon-upvote-gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote-gray@2x.png"; sourceTree = "<group>"; };
 		7FB2FECA1B0764D20001CEA6 /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
@@ -1114,6 +1118,8 @@
 				7FB913511B2ECE9E0064D230 /* SanFranciscoDisplay-Light.otf */,
 				7FB913521B2ECE9E0064D230 /* SanFranciscoDisplay-Medium.otf */,
 				7FB913531B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf */,
+				7FAF2BD51B4FE7FE00EAAEEE /* SanFranciscoText-Bold.otf */,
+				7FAF2BD61B4FE7FE00EAAEEE /* SanFranciscoText-Semibold.otf */,
 			);
 			name = font;
 			sourceTree = "<group>";
@@ -1871,6 +1877,7 @@
 				7FB2FECB1B0764D20001CEA6 /* time@2x.png in Resources */,
 				7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */,
 				7FB9135A1B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf in Resources */,
+				7FAF2BD81B4FE7FE00EAAEEE /* SanFranciscoText-Semibold.otf in Resources */,
 				7FAF02451B465625002DD930 /* icon-comment-main@3x.png in Resources */,
 				7FAF02571B465625002DD930 /* icon-more@3x.png in Resources */,
 				7FAF023F1B465625002DD930 /* comment-btn@3x.png in Resources */,
@@ -2019,6 +2026,7 @@
 				7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */,
 				7FAF026C1B465625002DD930 /* setting-strip-selected@3x.png in Resources */,
 				7FC56D011B4E8F87008C0895 /* icon-favorite@3x.png in Resources */,
+				7FAF2BD71B4FE7FE00EAAEEE /* SanFranciscoText-Bold.otf in Resources */,
 				7FAF02731B465625002DD930 /* tag-placeholder@3x.png in Resources */,
 				7F06BC8A1B4D5F6A00D260F0 /* icon-edit@3x.png in Resources */,
 				7FB913541B2ECE9E0064D230 /* SanFranciscoText-Light.otf in Resources */,
