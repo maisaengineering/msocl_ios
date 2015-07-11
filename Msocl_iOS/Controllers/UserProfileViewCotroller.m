@@ -429,6 +429,13 @@
     originalPosition = CGRectMake(0, y, 320, Deviceheight-y-64);
     
     streamDisplay.frame = CGRectMake(0, y, 320, Deviceheight-y-64);
+    
+    if(animatedTopView.frame.origin.y < 0)
+    {
+        streamDisplay.frame = CGRectMake(0, 0, 320, Deviceheight-64);
+
+    }
+
 
 }
 -(void) profileDetailsFailed

@@ -18,7 +18,7 @@
 #import "STTweetLabel.h"
 #import "UIImage+ResizeMagick.h"
 #import "UIImage+GIF.h"
-
+#import "AppDelegate.h"
 @implementation StreamDisplayView
 {
     ProfilePhotoUtils *photoUtils;
@@ -33,6 +33,7 @@
     
     BOOL isDragging;
     float lastContentOffset;
+    AppDelegate *appDelegate;
     
 }
 @synthesize storiesArray;
@@ -77,7 +78,7 @@
     sharedModel   = [ModelManager sharedModel];
     
     
-    
+    appDelegate = [[UIApplication sharedApplication] delegate];
     storiesArray = [[NSMutableArray alloc] init];
     streamTableView = [[UITableView alloc] initWithFrame:self.bounds];
     streamTableView.delegate = self;
@@ -138,6 +139,8 @@
     //     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
     if (bProcessing) return;
     // Released above the header
+    isSearching = NO;
+    searchString = @"";
     [self resetData];
     
     [self performSelectorInBackground:@selector(callStreamsApi:) withObject:@"next"];
@@ -157,14 +160,16 @@
         AccessToken* token = sharedModel.accessToken;
         if(isSearching)
         {
-            NSString *command = @"search";
+            NSString *command = @"filter";
             NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
             [body setValue:self.timeStamp forKeyPath:@"last_modified"];
             [body setValue:self.postCount forKeyPath:@"post_count"];
             [body setValue:self.etag forKey:@"etag"];
             [body setValue:step forKeyPath:@"step"];
             
-            [body setValue:searchString forKeyPath:@"text"];
+            [body setValue:searchString forKeyPath:@"key"];
+            [body setValue:@"search" forKeyPath:@"by"];
+            
             if(isFollowing)
                 [body setValue:[NSNumber numberWithBool:YES] forKeyPath:@"favourites"];
             
@@ -220,6 +225,8 @@
     if([timeStamp length] == 0)
     {
         [self.storiesArray removeAllObjects];
+        [streamTableView reloadData];
+
     }
     
     if([postArray count] > 0)
@@ -273,10 +280,13 @@
         }
     }
     
-    
+    [appDelegate showOrhideIndicator:NO];
+
 }
 -(void) streamsFailed
 {
+    [appDelegate showOrhideIndicator:NO];
+
     bProcessing = NO;
     [refreshControl endRefreshing];
 }
@@ -297,7 +307,7 @@
         height += 3;
     if(!postDetailsObject.anonymous && [postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && ([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0)  )
     {
-        height += 20;
+        height += 12;
     }
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
@@ -484,7 +494,7 @@
         [cell.contentView addSubview:name];
         if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 )
         {
-            UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition+25, 200, 20)];
+            UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition+25, 200, 12)];
             [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
             
             [handle setTextColor:[UIColor grayColor]];
@@ -495,12 +505,12 @@
             
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             
-            [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+           // [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
             [cell.contentView addSubview:btn];
             if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length]) )
             {
-                btn.frame = CGRectMake(60, yPosition+25, 200, 20);
+                btn.frame = CGRectMake(60, yPosition+25, 200, 12);
             }
             else
             {
@@ -521,11 +531,11 @@
     }
     
     
-    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
-    [profileButton setFrame:CGRectMake(60, yPosition, 150, 18)];
-    [cell.contentView addSubview:profileButton];
+//    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+//    [profileButton setFrame:CGRectMake(60, yPosition, 150, 18)];
+//    [cell.contentView addSubview:profileButton];
     
     UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
     //    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
@@ -582,7 +592,7 @@
     float yPosition = 43;
     
     if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && (([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0) || postDetailsObject.anonymous))
-        yPosition += 20;
+        yPosition += 12;
     NIAttributedLabel *textView = [NIAttributedLabel new];
     
     if(postDetailsObject.content == nil)

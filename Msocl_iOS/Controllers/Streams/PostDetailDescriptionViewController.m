@@ -755,18 +755,16 @@
             [cell.contentView addSubview:handle];
             
             
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-            [cell.contentView addSubview:btn];
+//            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//            [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//            [cell.contentView addSubview:btn];
             if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length]))
             {
-                btn.frame = CGRectMake(42, yPosition+22, 200, 20);
             }
             else
             {
-                btn.frame = CGRectMake(42, yPosition, 120, 28);
-                handle.frame = CGRectMake(42, yPosition, 120, 28);
+                handle.frame  = CGRectMake(42, yPosition, 120, 28);
             }
         }
         
@@ -782,11 +780,11 @@
     }
     
     
-    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
-    [profileButton setFrame:name.frame];
-    [cell.contentView addSubview:profileButton];
+//    UIButton *profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [profileButton addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    profileButton.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];
+//    [profileButton setFrame:name.frame];
+//    [cell.contentView addSubview:profileButton];
     
     UIButton *profileButton1 = [UIButton buttonWithType:UIButtonTypeCustom];
     //    profileButton1.tag = [[streamTableView indexPathForRowAtPoint:cell.center] row];

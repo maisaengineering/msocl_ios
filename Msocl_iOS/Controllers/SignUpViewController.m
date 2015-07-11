@@ -656,6 +656,15 @@
         //[self checkAvailability];
     }
 }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if(textField == txt_handle)
+    {
+        if([string isEqualToString:@" "])
+            return NO;
+    }
+    return YES;
+}
 -(void)checkAvailability
 {
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];

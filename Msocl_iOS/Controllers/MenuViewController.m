@@ -373,8 +373,11 @@
 }
 -(void) signOutSccessfull:(NSDictionary *)recievedDict
 {
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isLogedIn"];
-    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"externalSignIn"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:NO forKey:@"isLogedIn"];
+    [userDefaults setBool:NO forKey:@"externalSignIn"];
+    [userDefaults removeObjectForKey:@"favStreamArray"];
+    [userDefaults synchronize];
     NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
                                   initWithSuiteName:@"group.com.maisasolutions.msocl"];
     [myDefaults  removeObjectForKey:@"userprofile"];

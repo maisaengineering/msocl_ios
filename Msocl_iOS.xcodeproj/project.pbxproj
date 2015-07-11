@@ -113,7 +113,6 @@
 		7F6BEAD31B43AD0B0052FF32 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6BEAD21B43AD0B0052FF32 /* ShareViewController.m */; };
 		7F6BEAD51B43AD0B0052FF32 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6BEAD41B43AD0B0052FF32 /* MainInterface.storyboard */; };
 		7F6BEAD81B43AD0B0052FF32 /* ShareExtention.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7F6BEACD1B43AD0B0052FF32 /* ShareExtention.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7F70D1D41B356C0A00533C44 /* icon-flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F70D1D31B356C0A00533C44 /* icon-flag@2x.png */; };
 		7F714F351AE79A2B00C69BF4 /* comment-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */; };
 		7F714F381AE79A2B00C69BF4 /* icon-upvote@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */; };
 		7F714F451AE7D25300C69BF4 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F714F441AE7D25300C69BF4 /* SettingsViewController.m */; };
@@ -278,7 +277,6 @@
 		7FAF02481B465625002DD930 /* icon-delete-post@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF01FC1B465625002DD930 /* icon-delete-post@3x.png */; };
 		7FAF02491B465625002DD930 /* icon-delete-scroll@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF01FD1B465625002DD930 /* icon-delete-scroll@3x.png */; };
 		7FAF024A1B465625002DD930 /* icon-edit-scroll@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF01FE1B465625002DD930 /* icon-edit-scroll@3x.png */; };
-		7FAF024E1B465625002DD930 /* icon-flag@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF02021B465625002DD930 /* icon-flag@3x.png */; };
 		7FAF024F1B465625002DD930 /* icon-heart-count@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF02031B465625002DD930 /* icon-heart-count@3x.png */; };
 		7FAF02501B465625002DD930 /* icon-heart-list@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF02041B465625002DD930 /* icon-heart-list@3x.png */; };
 		7FAF02511B465625002DD930 /* icon-heart-scroll@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FAF02051B465625002DD930 /* icon-heart-scroll@3x.png */; };
@@ -351,6 +349,8 @@
 		7FC56D071B4E9342008C0895 /* icon-like-postview-active@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC56D031B4E9342008C0895 /* icon-like-postview-active@3x.png */; };
 		7FC56D081B4E9342008C0895 /* icon-like-postview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC56D041B4E9342008C0895 /* icon-like-postview@2x.png */; };
 		7FC56D091B4E9342008C0895 /* icon-like-postview@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC56D051B4E9342008C0895 /* icon-like-postview@3x.png */; };
+		7FC5EAF41B50CBAC0024E576 /* icon-flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC5EAF21B50CBAC0024E576 /* icon-flag@2x.png */; };
+		7FC5EAF51B50CBAC0024E576 /* icon-flag@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC5EAF31B50CBAC0024E576 /* icon-flag@3x.png */; };
 		7FD4EDAA1B328C31001B8C80 /* grey-dots.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDA91B328C30001B8C80 /* grey-dots.gif */; };
 		7FD4EDAC1B3298C6001B8C80 /* loading-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */; };
 		7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */; };
@@ -571,7 +571,6 @@
 		7F6BEAD21B43AD0B0052FF32 /* ShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		7F6BEAD41B43AD0B0052FF32 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		7F6BEADD1B43B00F0052FF32 /* ShareExtention.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ShareExtention.entitlements; sourceTree = "<group>"; };
-		7F70D1D31B356C0A00533C44 /* icon-flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@2x.png"; sourceTree = "<group>"; };
 		7F714F2D1AE79A2B00C69BF4 /* comment-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-textfield@2x.png"; sourceTree = "<group>"; };
 		7F714F301AE79A2B00C69BF4 /* icon-upvote@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-upvote@2x.png"; sourceTree = "<group>"; };
 		7F714F431AE7D25300C69BF4 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -789,7 +788,6 @@
 		7FAF01FC1B465625002DD930 /* icon-delete-post@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-delete-post@3x.png"; sourceTree = "<group>"; };
 		7FAF01FD1B465625002DD930 /* icon-delete-scroll@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-delete-scroll@3x.png"; sourceTree = "<group>"; };
 		7FAF01FE1B465625002DD930 /* icon-edit-scroll@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-edit-scroll@3x.png"; sourceTree = "<group>"; };
-		7FAF02021B465625002DD930 /* icon-flag@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@3x.png"; sourceTree = "<group>"; };
 		7FAF02031B465625002DD930 /* icon-heart-count@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-count@3x.png"; sourceTree = "<group>"; };
 		7FAF02041B465625002DD930 /* icon-heart-list@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-list@3x.png"; sourceTree = "<group>"; };
 		7FAF02051B465625002DD930 /* icon-heart-scroll@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-scroll@3x.png"; sourceTree = "<group>"; };
@@ -852,6 +850,8 @@
 		7FC56D031B4E9342008C0895 /* icon-like-postview-active@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-like-postview-active@3x.png"; sourceTree = "<group>"; };
 		7FC56D041B4E9342008C0895 /* icon-like-postview@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-like-postview@2x.png"; sourceTree = "<group>"; };
 		7FC56D051B4E9342008C0895 /* icon-like-postview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-like-postview@3x.png"; sourceTree = "<group>"; };
+		7FC5EAF21B50CBAC0024E576 /* icon-flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@2x.png"; sourceTree = "<group>"; };
+		7FC5EAF31B50CBAC0024E576 /* icon-flag@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@3x.png"; sourceTree = "<group>"; };
 		7FD4EDA91B328C30001B8C80 /* grey-dots.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "grey-dots.gif"; sourceTree = "<group>"; };
 		7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loading-bar.gif"; sourceTree = "<group>"; };
 		7FE2F9C61B3020030020E115 /* ShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSettingsViewController.h; sourceTree = "<group>"; };
@@ -1392,6 +1392,8 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7FC5EAF21B50CBAC0024E576 /* icon-flag@2x.png */,
+				7FC5EAF31B50CBAC0024E576 /* icon-flag@3x.png */,
 				7FC56D021B4E9342008C0895 /* icon-like-postview-active@2x.png */,
 				7FC56D031B4E9342008C0895 /* icon-like-postview-active@3x.png */,
 				7FC56D041B4E9342008C0895 /* icon-like-postview@2x.png */,
@@ -1438,7 +1440,6 @@
 				7FAF01FC1B465625002DD930 /* icon-delete-post@3x.png */,
 				7FAF01FD1B465625002DD930 /* icon-delete-scroll@3x.png */,
 				7FAF01FE1B465625002DD930 /* icon-edit-scroll@3x.png */,
-				7FAF02021B465625002DD930 /* icon-flag@3x.png */,
 				7FAF02031B465625002DD930 /* icon-heart-count@3x.png */,
 				7FAF02041B465625002DD930 /* icon-heart-list@3x.png */,
 				7FAF02051B465625002DD930 /* icon-heart-scroll@3x.png */,
@@ -1479,7 +1480,6 @@
 				7FAF022B1B465625002DD930 /* time@3x.png */,
 				7FAF022C1B465625002DD930 /* yoga-img@3x.png */,
 				7F5267F51B42B25A00BD73D9 /* anamous@2x.png */,
-				7F70D1D31B356C0A00533C44 /* icon-flag@2x.png */,
 				7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */,
 				7F5934021B3A642B001B5A94 /* btn-post-dropdown@2x.png */,
 				7F5934031B3A642B001B5A94 /* btn-postas@2x.png */,
@@ -1845,7 +1845,6 @@
 				7FAF02311B465625002DD930 /* btn-facebook@3x.png in Resources */,
 				7F8999221AD2B1F6007E2917 /* tour_1@2x.png in Resources */,
 				7F5941C31AF3AA53001F79BD /* tag-cover-strip@2x.png in Resources */,
-				7F70D1D41B356C0A00533C44 /* icon-flag@2x.png in Resources */,
 				7FAF02601B465625002DD930 /* menu-button@3x.png in Resources */,
 				7FAF02331B465625002DD930 /* btn-post-ana@3x.png in Resources */,
 				7F8891121B162459009C8CC8 /* header-icon-samepinch@3x.png in Resources */,
@@ -1873,7 +1872,6 @@
 				7F8890F91B15F310009C8CC8 /* cd-3@2x.png in Resources */,
 				7FB2FED11B077A910001CEA6 /* comment_Count@2x.png in Resources */,
 				7FAF02411B465625002DD930 /* icon-addsub@3x.png in Resources */,
-				7FAF024E1B465625002DD930 /* icon-flag@3x.png in Resources */,
 				7FB2FECB1B0764D20001CEA6 /* time@2x.png in Resources */,
 				7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */,
 				7FB9135A1B2ECE9E0064D230 /* SanFranciscoDisplay-Regular.otf in Resources */,
@@ -1939,6 +1937,7 @@
 				7FAF02491B465625002DD930 /* icon-delete-scroll@3x.png in Resources */,
 				7F82DD141B05FA1A001564A0 /* icon-createpost@2x.png in Resources */,
 				7FAF025B1B465625002DD930 /* icon-share@3x.png in Resources */,
+				7FC5EAF41B50CBAC0024E576 /* icon-flag@2x.png in Resources */,
 				7FAF025E1B465625002DD930 /* icon-upvote@3x.png in Resources */,
 				7F5934141B3A642B001B5A94 /* btn-post-ana@2x.png in Resources */,
 				7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */,
@@ -1949,6 +1948,7 @@
 				7F8890F81B15F310009C8CC8 /* cd-2@2x.png in Resources */,
 				7F7E96EF1AF4F95800995667 /* Typo Grotesk Demo.otf in Resources */,
 				7F76EF851AECBE2400770101 /* icon-addsub@2x.png in Resources */,
+				7FC5EAF51B50CBAC0024E576 /* icon-flag@3x.png in Resources */,
 				7F8890FA1B15F310009C8CC8 /* cd-4@2x.png in Resources */,
 				7FAF02721B465625002DD930 /* tag-cover-strip@3x.png in Resources */,
 				7FAF02551B465625002DD930 /* icon-menu-about@3x.png in Resources */,
@@ -2209,8 +2209,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2220,7 +2220,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
+				PROVISIONING_PROFILE = "d700eae0-deea-46f2-861e-20b98f39a781";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2232,8 +2232,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2243,7 +2243,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
+				PROVISIONING_PROFILE = "d700eae0-deea-46f2-861e-20b98f39a781";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -2336,8 +2336,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2358,7 +2358,7 @@
 				);
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2371,8 +2371,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2393,7 +2393,7 @@
 				);
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

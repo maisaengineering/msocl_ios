@@ -209,11 +209,11 @@ self.navigationItem.hidesBackButton = YES;
     
     [mostRecent setHidden:NO];
     [following setHidden:YES];
-    
     [mostRecent.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     [mostRecent resetData];
     [mostRecent callStreamsApi:@"next"];
-    
+    [following.storiesArray removeAllObjects];
+    [following.streamTableView reloadData];
     modelManager.userProfile = nil;
 }
 -(void)menuDidOpen
@@ -444,6 +444,7 @@ self.navigationItem.hidesBackButton = YES;
             [mostRecent resetData];
             [mostRecent callStreamsApi:@"next"];
             
+            
         }
         else
         {
@@ -453,6 +454,7 @@ self.navigationItem.hidesBackButton = YES;
             [following.streamTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
             [following resetData];
             [following callStreamsApi:@"next"];
+            
             
         }
         mostRecentButton.selected = !mostRecentButton.selected;
@@ -804,23 +806,26 @@ self.navigationItem.hidesBackButton = YES;
     NSString *command = @"all";
     [body setValue:[NSNumber numberWithInt:0] forKeyPath:@"post_count"];
     [body setValue:@"new" forKeyPath:@"step"];
+    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+
     
     if(mostRecent.isSearching)
     {
-        command = @"search";
+        command = @"filter";
         if(!mostRecent.hidden)
         {
-            [body setValue:mostRecent.searchString forKeyPath:@"text"];
+            [body setValue:mostRecent.searchString forKeyPath:@"key"];
             [body setValue:mostRecent.timeStamp forKeyPath:@"last_modified"];
         }
         else
         {
             [body setValue:following.timeStamp forKeyPath:@"last_modified"];
-            [body setValue:following.searchString forKeyPath:@"text"];
+            [body setValue:following.searchString forKeyPath:@"key"];
             
             [body setValue:[NSNumber numberWithBool:YES] forKeyPath:@"favourites"];
         }
-        
+        [body setValue:@"search" forKeyPath:@"by"];
+        urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
     }
     
     else
@@ -844,7 +849,6 @@ self.navigationItem.hidesBackButton = YES;
     else
         userInfo = @{@"command": @"GetFav"};
     
-    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     
 }
@@ -1019,6 +1023,7 @@ self.navigationItem.hidesBackButton = YES;
         UIButton *cancelButton = [searchBar valueForKey:@"_cancelButton"];
         cancelButton.enabled = YES;
         
+        [searchBar becomeFirstResponder];
         mostRecentButton.frame = CGRectMake(0, 32, 320, 30);
         mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-97);
         following.frame = CGRectMake(0, 32, 320, Deviceheight-97);
@@ -1029,12 +1034,15 @@ self.navigationItem.hidesBackButton = YES;
 
 - (void)tableScrolled:(float)y
 {
+    if(!mostRecent.isSearching)
+    {
     mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
     following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
     imageView.frame = CGRectMake(0, 0, 320, 30);
     mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
     
     [searchBar removeFromSuperview];
+    }
 }
 -(void)tableScrolledForTopView:(float)y
 {
@@ -1174,6 +1182,7 @@ self.navigationItem.hidesBackButton = YES;
     if([[self timer] isValid])
         [[self timer] invalidate];
     
+    [appDelegate showOrhideIndicator:YES];
     
     mostRecent.isSearching = YES;
     following.isSearching = YES;
