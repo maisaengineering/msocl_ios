@@ -107,7 +107,7 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
-    txt_confirmPassword.autocorrectionType = UITextAutocorrectionTypeNo;
+    txt_handle.autocorrectionType = UITextAutocorrectionTypeNo;
     
 }
 -(IBAction)backClickes:(id)sender
