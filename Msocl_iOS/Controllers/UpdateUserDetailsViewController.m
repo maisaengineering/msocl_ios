@@ -311,6 +311,10 @@
 {
     
     [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:responseDict forKey:@"userprofile"];
+    [myDefaults synchronize];
     
     [sharedModel setUserDetails:responseDict];
     
