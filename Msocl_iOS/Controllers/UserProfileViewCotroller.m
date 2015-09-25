@@ -34,7 +34,7 @@
     float upstart;
     float downstart;
     CGRect originalPosition;
-    
+    NSArray *badges;
     
 }
 @synthesize name;
@@ -253,7 +253,7 @@
 {
     recievedDict = [recievedDict objectForKey:@"body"];
     
-    
+    badges = [recievedDict objectForKey:@"badges"];
     
     for(UIView *viw in [profileImageVw subviews])
     {
@@ -323,6 +323,13 @@
          
      }failure:nil];
     
+    if(badges.count >0)
+    {
+    UIImageView *badgeImageVw = [[UIImageView alloc] initWithFrame:CGRectMake(210, 88, 100, 24)];
+    [badgeImageVw setImageWithURL:[badges firstObject]];
+    [animatedTopView addSubview:badgeImageVw];
+    }
+    
     float y = 137;
     
     lineImageVw = [[UIImageView alloc] init];
@@ -330,11 +337,14 @@
     [lineImageVw setAlpha:0.7];
     [animatedTopView addSubview:lineImageVw];
     
+    
+    
     nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 117, 320, 20)];
     [nameLabel setTextColor:[UIColor whiteColor]];
     [nameLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:16]];
     [nameLabel setTextAlignment:NSTextAlignmentCenter];
     [animatedTopView addSubview:nameLabel];
+    
     
     
     nameLabel.text = [recievedDict objectForKey:@"full_name"];

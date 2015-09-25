@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1C18AD4008A337AB0C340A15C17C330419AB6B0A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "1C18AD4008A337AB0C340A15C17C330419AB6B0A" : 0,
+    "A7B06E0A0F43CA6C06BEC255886967C4787C2D70" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "663B4C2B-374D-4033-823B-C06B90F54FF7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "1C18AD4008A337AB0C340A15C17C330419AB6B0A" : "msocl_ios",
+    "A7B06E0A0F43CA6C06BEC255886967C4787C2D70" : "msocl_ios\/Msocl_iOS\/AviarySDK"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Msocl_iOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Msocl_iOS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:maisaengineering\/msocl_ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1C18AD4008A337AB0C340A15C17C330419AB6B0A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/maisaengineering\/aviarysdk.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A7B06E0A0F43CA6C06BEC255886967C4787C2D70"
+    }
+  ]
+}

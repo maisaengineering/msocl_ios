@@ -1742,7 +1742,7 @@
 				TargetAttributes = {
 					7F6BEACC1B43AD0B0052FF32 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 867QTRXZVS;
+						DevelopmentTeam = 87Z6P6EGK7;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -2219,6 +2219,7 @@
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d700eae0-deea-46f2-861e-20b98f39a781";
 				SKIP_INSTALL = YES;
@@ -2242,6 +2243,7 @@
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d700eae0-deea-46f2-861e-20b98f39a781";
 				SKIP_INSTALL = YES;
@@ -2336,8 +2338,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2356,9 +2359,10 @@
 					"-Objc",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6206d9d1-4217-414a-8a02-a60d03d34b08";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2371,8 +2375,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Maisa Labs (663JDM6PVV)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS/AviarySDK",
@@ -2391,9 +2396,10 @@
 					"-Objc",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6206d9d1-4217-414a-8a02-a60d03d34b08";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
