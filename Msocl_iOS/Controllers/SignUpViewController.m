@@ -185,23 +185,20 @@
         return;
         
     }
+    else if(![self validateEmailWithString:txt_emailAddress.text])
+    {
+        ShowAlert(PROJECT_NAME,@"Please provide a valid email address", @"OK");
+        return;
+
+    }
     else
     {
         [appdelegate showOrhideIndicator:YES];
+        isSignupClicked = YES;
+
         if(!isUploadingImage)
         {
-            if([self validateEmailWithString:txt_emailAddress.text])
-            {
-                isSignupClicked = YES;
                 [self doSignup];
-            }
-            else
-            {
-                
-                [appdelegate showOrhideIndicator:NO];
-                ShowAlert(PROJECT_NAME,@"Please provide a valid email address", @"OK");
-                return;
-            }
         }
     }
 }
