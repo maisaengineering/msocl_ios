@@ -23,8 +23,8 @@
 #define FLURRY_KEY              @"NXH4VDMB242THB6Y48CT"
 
 // PARSE
-#define PARSE_APPLICATION_KEY   @"7aRj7WVidMmPN5RpMzzUXVbCyG3edtVozRK2kBKu"
-#define PARSE_CLIENT_KEY        @"09oD7RgPSdqY7zwkDPNnGeDcq3dQu5T3HCcJSuyg"
+#define PARSE_APPLICATION_KEY   @"Kk6uWSLLnGCp6xEOPYQq5iGbIz0NiBj5DtH7qdY5"
+#define PARSE_CLIENT_KEY        @"vdj0zlO0cmgeZwoKvSZ8EfwVz7OEVZbrgs73OeQy"
 
 //Device Specifcs
 #define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]

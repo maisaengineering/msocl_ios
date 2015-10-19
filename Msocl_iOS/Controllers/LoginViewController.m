@@ -13,6 +13,7 @@
 #import "PromptImages.h"
 #import "WebViewController.h"
 #import "SignUpViewController.h"
+#import "NotificationUtils.h"
 #import "FogotPasswordViewController.h"
 @implementation LoginViewController
 {
@@ -235,6 +236,9 @@
     [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
     [[ModelManager sharedModel] setUserDetails:responseDict];
     [[PromptImages sharedInstance] getAllGroups];
+    
+    [NotificationUtils resetParseChannels];
+    
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)loginFailed

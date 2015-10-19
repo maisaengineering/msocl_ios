@@ -21,6 +21,9 @@
 #import "UIImage+GIF.h"
 #import "Base64.h"
 #import "CustomCipher.h"
+#import <Parse/Parse.h>
+#import "Reachability.h"
+
 @interface AppDelegate ()<MBProgressHUDDelegate>
 {
     BOOL isPushCalled;
@@ -38,6 +41,9 @@
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
      */
+    
+    [Parse setApplicationId:PARSE_APPLICATION_KEY
+                  clientKey:PARSE_CLIENT_KEY];
     
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
     
@@ -98,6 +104,7 @@
         }
     }
 
+    
     return YES;
 }
 
@@ -111,6 +118,14 @@
     [currentInstallation saveInBackground];
      */
 
+
+    
+        // Store the deviceToken in the current installation and save it to Parse.
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        [currentInstallation setDeviceTokenFromData:deviceToken];
+        [currentInstallation saveInBackground];
+        
+    
     NSString *strDeviceToken = [deviceToken description];
     strDeviceToken = [strDeviceToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     strDeviceToken = [strDeviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -129,6 +144,8 @@
     {
         [self addMessageFromRemoteNotification:userInfo];
     }
+    
+    [PFPush handlePush:userInfo];
     
 }
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo

@@ -11,7 +11,7 @@
 #import "ModelManager.h"
 #import "AppDelegate.h"
 #import "PromptImages.h"
-
+#import "NotificationUtils.h"
 @interface WebViewController ()
 
 @end
@@ -168,6 +168,8 @@
     
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
+    
+    [NotificationUtils resetParseChannels];
 }
 -(void) showExternalSignInFailed
 {

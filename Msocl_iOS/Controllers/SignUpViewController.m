@@ -15,6 +15,7 @@
 #import "PromptImages.h"
 #import "WebViewController.h"
 #import "UITextField+Shake.h"
+#import "NotificationUtils.h"
 @implementation SignUpViewController
 {
     AppDelegate *appdelegate;
@@ -260,6 +261,7 @@
     [appdelegate showOrhideIndicator:NO];
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
+    [NotificationUtils resetParseChannels];
 }
 -(void)signUpFailed:(NSDictionary *)responseDict
 {

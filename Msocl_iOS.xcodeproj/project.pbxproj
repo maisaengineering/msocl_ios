@@ -351,6 +351,8 @@
 		7FC56D091B4E9342008C0895 /* icon-like-postview@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC56D051B4E9342008C0895 /* icon-like-postview@3x.png */; };
 		7FC5EAF41B50CBAC0024E576 /* icon-flag@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC5EAF21B50CBAC0024E576 /* icon-flag@2x.png */; };
 		7FC5EAF51B50CBAC0024E576 /* icon-flag@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FC5EAF31B50CBAC0024E576 /* icon-flag@3x.png */; };
+		7FC8E1F31BD4A83E00302F40 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FC8E1F21BD4A83E00302F40 /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		7FC8E1F91BD4ABEA00302F40 /* NotificationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC8E1F81BD4ABEA00302F40 /* NotificationUtils.m */; settings = {ASSET_TAGS = (); }; };
 		7FD4EDAA1B328C31001B8C80 /* grey-dots.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDA91B328C30001B8C80 /* grey-dots.gif */; };
 		7FD4EDAC1B3298C6001B8C80 /* loading-bar.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */; };
 		7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE2F9C71B3020030020E115 /* ShareSettingsViewController.m */; };
@@ -852,6 +854,9 @@
 		7FC56D051B4E9342008C0895 /* icon-like-postview@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-like-postview@3x.png"; sourceTree = "<group>"; };
 		7FC5EAF21B50CBAC0024E576 /* icon-flag@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@2x.png"; sourceTree = "<group>"; };
 		7FC5EAF31B50CBAC0024E576 /* icon-flag@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-flag@3x.png"; sourceTree = "<group>"; };
+		7FC8E1F21BD4A83E00302F40 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		7FC8E1F71BD4ABEA00302F40 /* NotificationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationUtils.h; path = Msocl_iOS/NotificationUtils.h; sourceTree = SOURCE_ROOT; };
+		7FC8E1F81BD4ABEA00302F40 /* NotificationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationUtils.m; path = Msocl_iOS/NotificationUtils.m; sourceTree = SOURCE_ROOT; };
 		7FD4EDA91B328C30001B8C80 /* grey-dots.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "grey-dots.gif"; sourceTree = "<group>"; };
 		7FD4EDAB1B3298C6001B8C80 /* loading-bar.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "loading-bar.gif"; sourceTree = "<group>"; };
 		7FE2F9C61B3020030020E115 /* ShareSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareSettingsViewController.h; sourceTree = "<group>"; };
@@ -898,6 +903,7 @@
 				7F8998FF1AD25E39007E2917 /* Accelerate.framework in Frameworks */,
 				7F7E55BB1AD3D992007070EF /* AviarySDK.framework in Frameworks */,
 				7F8998FD1AD25DF2007E2917 /* OpenGLES.framework in Frameworks */,
+				7FC8E1F31BD4A83E00302F40 /* Parse.framework in Frameworks */,
 				7FA89E1F1B2AD3C90019BFBC /* FacebookSDK.framework in Frameworks */,
 				7F8998FB1AD25DDA007E2917 /* CoreText.framework in Frameworks */,
 				7F8998F71AD25DC5007E2917 /* QuartzCore.framework in Frameworks */,
@@ -1080,6 +1086,8 @@
 				7F8D80B91AEF702400D3F052 /* UIImage+ResizeMagick.m */,
 				7F06BC701B4CFE4C00D260F0 /* UITextField+Shake.h */,
 				7F06BC711B4CFE4C00D260F0 /* UITextField+Shake.m */,
+				7FC8E1F71BD4ABEA00302F40 /* NotificationUtils.h */,
+				7FC8E1F81BD4ABEA00302F40 /* NotificationUtils.m */,
 			);
 			name = Utitlities;
 			path = Controllers/Utitlities;
@@ -1354,6 +1362,7 @@
 		7F89990A1AD25EE8007E2917 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FC8E1F21BD4A83E00302F40 /* Parse.framework */,
 				7FA89E1E1B2AD3C90019BFBC /* FacebookSDK.framework */,
 				253C89541AD804C9002477A8 /* Social.framework */,
 				253C89521AD804C0002477A8 /* Accounts.framework */,
@@ -2109,6 +2118,7 @@
 				7F5941B41AF388D4001F79BD /* AddPostViewController.m in Sources */,
 				7FE2F9C81B3020030020E115 /* ShareSettingsViewController.m in Sources */,
 				7F83BC591AD14CEF008DFD8B /* AFHTTPRequestOperationManager.m in Sources */,
+				7FC8E1F91BD4ABEA00302F40 /* NotificationUtils.m in Sources */,
 				7F83BC5B1AD14CEF008DFD8B /* AFNetworkReachabilityManager.m in Sources */,
 				7F5DEFB21AD7C50A00F2C60A /* SDWebImageCompat.m in Sources */,
 				7F86E5841ADBCFB00002493F /* SlideNavigationContorllerAnimatorSlide.m in Sources */,

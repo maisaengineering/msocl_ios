@@ -18,6 +18,8 @@
 #import "UserProfileViewCotroller.h"
 #import "UpdateUserDetailsViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <Parse/Parse.h>
+
 @implementation MenuViewController
 {
     ModelManager *sharedModel;
@@ -425,6 +427,12 @@
     {
         [[NSNotificationCenter defaultCenter]postNotificationName:RELOAD_ON_LOG_OUT object:nil];
     }
+    
+    
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    currentInstallation.channels = [[NSArray alloc] init];
+    [currentInstallation saveEventually];
+
     
 }
 
