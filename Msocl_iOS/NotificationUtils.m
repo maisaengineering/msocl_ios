@@ -40,7 +40,7 @@
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     NSArray *currentChannels = currentInstallation.channels;
     BOOL foundCurrent = FALSE;
-    NSString *channelName = [@"user_" stringByAppendingString:sharedModel.userProfile.uid];
+    NSString *channelName = sharedModel.userProfile.uid;
     
     if (currentChannels != nil)
     {
