@@ -23,7 +23,7 @@
 #import "CustomCipher.h"
 #import <Parse/Parse.h>
 #import "Reachability.h"
-
+#import "TagViewController.h"
 @interface AppDelegate ()<MBProgressHUDDelegate>
 {
     BOOL isPushCalled;
@@ -152,10 +152,15 @@
 {
     DebugLog(@"in  has notifications %s",__func__);
     isPushCalled = NO;
-    NSString *postID = [userInfo valueForKey:@"post_uid"];
-    NSString *userUid = [userInfo valueForKey:@"follower_uid"];
     
-    if(postID !=nil && postID.length > 0)
+    NSDictionary *context = [userInfo valueForKey:@"context"];
+    
+    if(context != nil)
+    {
+    NSString *type = [[context valueForKey:@"type"] lowercaseString];
+    NSString *uid = [userInfo valueForKey:@"uid"];
+    
+    if([type isEqualToString:@"post"] || [type isEqualToString:@"comment"] || [type isEqualToString:@"vote"])
     {
         DebugLog(@"in  has post id %s",__func__);
 
@@ -165,12 +170,11 @@
                                                              bundle: nil];
     PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
                                                                                                                       instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
-    postDetailDescriptionViewController.postID = postID;
-        postDetailDescriptionViewController.comment_uid = [userInfo valueForKey:@"comment_uid"];
+    postDetailDescriptionViewController.postID = uid;
     SlideNavigationController *slide = [SlideNavigationController sharedInstance];
     [slide pushViewController:postDetailDescriptionViewController animated:YES];
     }
-    else if(userUid != nil && userUid.length > 0)
+    else if([type isEqualToString:@"follower"])
     {
         DebugLog(@"in  has user id %s",__func__);
 
@@ -180,10 +184,27 @@
                                                                  bundle: nil];
         UserProfileViewCotroller *postDetailDescriptionViewController = (UserProfileViewCotroller*)[mainStoryboard
                                                                                                                           instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
-        postDetailDescriptionViewController.profileId = userUid;
+        postDetailDescriptionViewController.profileId = uid;
         SlideNavigationController *slide = [SlideNavigationController sharedInstance];
         [slide pushViewController:postDetailDescriptionViewController animated:YES];
 
+    }
+    else if([type isEqualToString:@"group"])
+    {
+        DebugLog(@"in  has user id %s",__func__);
+        
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+        
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        
+        TagViewController *postDetailDescriptionViewController = (TagViewController*)[mainStoryboard
+                                                                                                    instantiateViewControllerWithIdentifier: @"TagViewController"];
+        postDetailDescriptionViewController.tagId = uid;
+        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+        [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        
+    }
     }
 }
 //Handles the fail callback when registering Parse for remote notifications

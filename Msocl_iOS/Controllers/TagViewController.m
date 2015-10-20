@@ -43,6 +43,7 @@
 @synthesize animatedTopView;
 @synthesize followingCount;
 @synthesize postsCount;
+@synthesize tagId;
 
 -(void)viewDidLoad
 {
@@ -137,8 +138,15 @@
     NSString *command;
     command = @"show";
     NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":@{@"name":tagName}};
+    
     NSDictionary *userInfo = @{@"command": @"ProfileDetails"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@groups",BASE_URL];
+    
+    if(tagName.length == 0 && tagId.length > 0)
+    {
+        postData = @{@"command": command,@"access_token": token.access_token,@"body":@{}};
+        urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,tagId];
+    }
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     
@@ -147,6 +155,12 @@
 {
     recievedDict = [recievedDict objectForKey:@"body"];
 
+    if(tagName.length == 0)
+    {
+        self.tagName = [recievedDict objectForKey:@"name"];
+        streamDisplay.tagName = [tagName stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        [self refreshWall];
+    }
     tagDict = @{@"name":[recievedDict objectForKey:@"name"],@"uid":[recievedDict objectForKey:@"uid"],@"image":[recievedDict objectForKey:@"image"]};
     followOrEditBtn.hidden = NO;
     if([[recievedDict objectForKey:@"follow"] boolValue])
@@ -155,6 +169,7 @@
         [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
     
     self.tagId = [recievedDict objectForKey:@"uid"];
+
     [followingCount setText:[NSString stringWithFormat:@"Followers: %@",[recievedDict objectForKey:@"followers_count"]]];
     [postsCount setText:[NSString stringWithFormat:@"Posts: %@",[recievedDict objectForKey:@"posts_count"]]];
     
@@ -217,6 +232,7 @@
 {
     [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
+    if(tagName.length > 0)
     [self refreshWall];
     [self callTagDetails];
 
