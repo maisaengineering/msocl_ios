@@ -18,10 +18,11 @@
 @property (nonatomic,retain) MBProgressHUD *indicator;
 @property (nonatomic) BOOL isAppFromBackground;
 @property (nonatomic) BOOL isAppFromPushNotifi;
+@property (nonatomic) BOOL isPushCalled;
 
 - (void)showOrhideIndicator:(BOOL)show;
 - (void)showOrhideIndicator:(BOOL)show withMessage:(NSString *)message;
 -(void)askForNotificationPermission;
-
+-(void)pushNotificationClicked;
 @end
 

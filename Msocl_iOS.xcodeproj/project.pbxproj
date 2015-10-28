@@ -2218,9 +2218,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2229,9 +2229,9 @@
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a0c5e50f-d3a7-4b85-b462-fa2d3f6669f8";
+				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2242,9 +2242,9 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = ShareExtention/ShareExtention.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2253,9 +2253,9 @@
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a0c5e50f-d3a7-4b85-b462-fa2d3f6669f8";
+				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -2347,9 +2347,9 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2369,10 +2369,10 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f9cb288f-dee1-4a41-9ecb-f8f2eba267b3";
+				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2384,9 +2384,9 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = Msocl_iOS/Msocl_iOS.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2406,10 +2406,10 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f9cb288f-dee1-4a41-9ecb-f8f2eba267b3";
+				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

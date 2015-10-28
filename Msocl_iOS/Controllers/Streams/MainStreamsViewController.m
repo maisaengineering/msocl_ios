@@ -119,6 +119,8 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+            NSLog(@"this is mainstream");
+    
     [super viewWillAppear:YES];
     
     [self.navigationController setNavigationBarHidden:NO];
@@ -163,7 +165,16 @@
     
     
 }
-
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    if(appDelegate.isPushCalled)
+    {
+        [appDelegate pushNotificationClicked];
+        appDelegate.isPushCalled = NO;
+    }
+    
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];

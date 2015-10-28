@@ -26,7 +26,9 @@
 #import "TagViewController.h"
 @interface AppDelegate ()<MBProgressHUDDelegate>
 {
-    BOOL isPushCalled;
+    
+    NSString *notifiUID;
+    NSDictionary *userDict;
 }
 @end
 
@@ -34,6 +36,7 @@
 @synthesize indicator;
 @synthesize isAppFromBackground;
 @synthesize isAppFromPushNotifi;
+@synthesize isPushCalled;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
@@ -91,15 +94,16 @@
     
     if (launchOptions != nil)
     {
-        DebugLog(@"in  has notifications %s",__func__);
 
         NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
         if (dictionary != nil)
         {
             if(!isPushCalled)
             {
-            isPushCalled = YES;
-                [self performSelector:@selector(addMessageFromRemoteNotification:) withObject:dictionary afterDelay:0.5];
+                isPushCalled = YES;
+                notifiUID = [dictionary objectForKey:@"uid"];
+                userDict = dictionary;
+
             }
         }
     }
@@ -133,36 +137,48 @@
     // Store the Device token in UserDefaulst for future purpose
     [[NSUserDefaults standardUserDefaults] setObject:strDeviceToken forKey:DEVICE_TOKEN_KEY];
     
-    NSLog(@"My Device token is:%@", strDeviceToken);
 }
 
 //When a push notification is received while the application is not in the foreground, it is displayed in the iOS Notification Center.
 //However, if the notification is received while the app is active, it is up to the app to handle it. To do so, we can implement this method
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if ( (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) && !isPushCalled )
+    
+
+    if ( (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) && ![[userInfo objectForKey:@"uid"] isEqualToString:notifiUID] )
     {
         [self addMessageFromRemoteNotification:userInfo];
     }
     
+    NSLog(@"notifiUID is:%@", notifiUID);
+
+    NSLog(@"RECIEVE :%@", [userInfo objectForKey:@"uid"]);
+
+
     [PFPush handlePush:userInfo];
     
+}
+-(void)pushNotificationClicked
+{
+    [self addMessageFromRemoteNotification:userDict];
 }
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo
 {
     DebugLog(@"in  has notifications %s",__func__);
-    isPushCalled = NO;
+    
     
     NSDictionary *context = [userInfo valueForKey:@"context"];
     
+    NSLog(@"My Device token is:%@", context);
+
     if(context != nil)
     {
     NSString *type = [[context valueForKey:@"type"] lowercaseString];
-    NSString *uid = [userInfo valueForKey:@"uid"];
+    NSString *uid = [context valueForKey:@"uid"];
     
+        
     if([type isEqualToString:@"post"] || [type isEqualToString:@"comment"] || [type isEqualToString:@"vote"])
     {
-        DebugLog(@"in  has post id %s",__func__);
 
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
     
@@ -172,11 +188,12 @@
                                                                                                                       instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
     postDetailDescriptionViewController.postID = uid;
     SlideNavigationController *slide = [SlideNavigationController sharedInstance];
-    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        });
     }
     else if([type isEqualToString:@"follower"])
     {
-        DebugLog(@"in  has user id %s",__func__);
 
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
         
@@ -186,12 +203,13 @@
                                                                                                                           instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
         postDetailDescriptionViewController.profileId = uid;
         SlideNavigationController *slide = [SlideNavigationController sharedInstance];
-        [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        });
 
     }
     else if([type isEqualToString:@"group"])
     {
-        DebugLog(@"in  has user id %s",__func__);
         
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
         
@@ -202,7 +220,11 @@
                                                                                                     instantiateViewControllerWithIdentifier: @"TagViewController"];
         postDetailDescriptionViewController.tagId = uid;
         SlideNavigationController *slide = [SlideNavigationController sharedInstance];
-        [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        });
+
         
     }
     }

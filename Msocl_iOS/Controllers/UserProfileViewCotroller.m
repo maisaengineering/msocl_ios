@@ -153,14 +153,7 @@
     [initial setBackgroundColor:[UIColor clearColor]];
     initial.textAlignment = NSTextAlignmentCenter;
    // [profileImageVw addSubview:initial];
-    if(imageUrl == nil || imageUrl.length == 0)
-    {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(113.5, 15, 93, 93)];
-        [imageView setImage:[UIImage imageNamed:@"circle-186.png"]];
-        [animatedTopView addSubview:imageView];
-        [imageView addSubview:initial];
-        [animatedTopView setBackgroundColor:[UIColor lightGrayColor]];
-    }
+    
     
     if([modelManager.userProfile.uid isEqualToString:profileId])
     {
@@ -308,6 +301,14 @@
     
     __weak UIImageView *weakSelf = profileImageVw;
     
+    if([recievedDict objectForKey:@"photo"] == nil || [[recievedDict objectForKey:@"photo"] length] == 0)
+    {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(113.5, 15, 93, 93)];
+        [imageView setImage:[UIImage imageNamed:@"circle-186.png"]];
+        [animatedTopView addSubview:imageView];
+        [imageView addSubview:initial];
+        [animatedTopView setBackgroundColor:[UIColor lightGrayColor]];
+    }
     
     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
