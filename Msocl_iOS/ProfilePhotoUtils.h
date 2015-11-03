@@ -27,7 +27,8 @@
 - (UIImage*) getSubImageFrom: (UIImage*) img WithRect: (CGRect) rect;
 - (void)saveImageToCacheWithOutCompression:(NSString *)url :(UIImage *)image;
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)size withRadious:(CGFloat )radious;
-
+- (void)saveImageToCacheWithData:(NSString *)url :(NSData *)data;
+- (UIImage *)getGIFImageFromCache:(NSString *)url;
 @property (nonatomic, strong) ALAssetsLibrary     * assetLibrary;
 
 @end

@@ -11,7 +11,7 @@
 #import "JTSSimpleImageDownloader.h"
 #import "UIImage+JTSImageEffects.h"
 #import "UIApplication+JTSImageViewController.h"
-
+#import "UIImage+animatedGIF.h"
 CG_INLINE CGFLOAT_TYPE JTSImageFloatAbs(CGFLOAT_TYPE aFloat) {
 #if CGFLOAT_IS_DOUBLE
     return fabs(aFloat);
@@ -411,6 +411,28 @@ typedef struct {
         _flags.imageIsBeingReadFromDisk = fromDisk;
         
         typeof(self) __weak weakSelf = self;
+        
+        if([[imageInfo.imageURL absoluteString] containsString:@".gif"])
+        {
+            typeof(self) strongSelf = weakSelf;
+            dispatch_queue_t myQueue = dispatch_queue_create("imageque",NULL);
+            dispatch_async(myQueue, ^{
+                UIImage *image = [UIImage animatedImageWithAnimatedGIFURL:imageInfo.imageURL];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf cancelProgressTimer];
+                    if (strongSelf.isViewLoaded) {
+                        [strongSelf updateInterfaceWithImage:image];
+                    } else {
+                        strongSelf.image = image;
+                    }
+                    
+                });
+            });
+            
+        }
+        else
+        {
         NSURLSessionDataTask *task = [JTSSimpleImageDownloader downloadImageForURL:imageInfo.imageURL canonicalURL:imageInfo.canonicalImageURL completion:^(UIImage *image) {
             typeof(self) strongSelf = weakSelf;
             [strongSelf cancelProgressTimer];
@@ -430,7 +452,7 @@ typedef struct {
         }];
         
         self.imageDownloadDataTask = task;
-        
+        }
         [self startProgressTimer];
     }
 }

@@ -47,6 +47,7 @@
 		7F4C88FC1AF0B5BB008B769C /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */; };
 		7F4C88FD1AF0B5BB008B769C /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */; };
 		7F5267F61B42B25A00BD73D9 /* anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5267F51B42B25A00BD73D9 /* anamous@2x.png */; };
+		7F54D4BE1BE886F90084ED9C /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F54D4BD1BE886F90084ED9C /* UIImage+animatedGIF.m */; settings = {ASSET_TAGS = (); }; };
 		7F5934141B3A642B001B5A94 /* btn-post-ana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */; };
 		7F5934151B3A642B001B5A94 /* btn-post-dropdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934021B3A642B001B5A94 /* btn-post-dropdown@2x.png */; };
 		7F5934161B3A642B001B5A94 /* btn-postas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934031B3A642B001B5A94 /* btn-postas@2x.png */; };
@@ -474,6 +475,8 @@
 		7F4C88F61AF0B5BB008B769C /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
 		7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
 		7F5267F51B42B25A00BD73D9 /* anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anamous@2x.png"; sourceTree = "<group>"; };
+		7F54D4BC1BE886F90084ED9C /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+animatedGIF.h"; path = "Msocl_iOS/UIImage+animatedGIF.h"; sourceTree = SOURCE_ROOT; };
+		7F54D4BD1BE886F90084ED9C /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+animatedGIF.m"; path = "Msocl_iOS/UIImage+animatedGIF.m"; sourceTree = SOURCE_ROOT; };
 		7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-post-ana@2x.png"; sourceTree = "<group>"; };
 		7F5934021B3A642B001B5A94 /* btn-post-dropdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-post-dropdown@2x.png"; sourceTree = "<group>"; };
 		7F5934031B3A642B001B5A94 /* btn-postas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-postas@2x.png"; sourceTree = "<group>"; };
@@ -1088,6 +1091,8 @@
 				7F06BC711B4CFE4C00D260F0 /* UITextField+Shake.m */,
 				7FC8E1F71BD4ABEA00302F40 /* NotificationUtils.h */,
 				7FC8E1F81BD4ABEA00302F40 /* NotificationUtils.m */,
+				7F54D4BC1BE886F90084ED9C /* UIImage+animatedGIF.h */,
+				7F54D4BD1BE886F90084ED9C /* UIImage+animatedGIF.m */,
 			);
 			name = Utitlities;
 			path = Controllers/Utitlities;
@@ -2095,6 +2100,7 @@
 				7F80DE8E1AD6AB3000EA6D1F /* OnboardingViewController.m in Sources */,
 				7F7726E51B0B755500474190 /* AboutViewController.m in Sources */,
 				7F5DEFB51AD7C50A00F2C60A /* SDWebImageDownloaderOperation.m in Sources */,
+				7F54D4BE1BE886F90084ED9C /* UIImage+animatedGIF.m in Sources */,
 				7F80DE851AD6AAF700EA6D1F /* ModelManager.m in Sources */,
 				7F80DE5D1AD6544400EA6D1F /* ProfilePhotoUtils.m in Sources */,
 				7F916D511AF2169400103CAF /* EditCommentViewController.m in Sources */,

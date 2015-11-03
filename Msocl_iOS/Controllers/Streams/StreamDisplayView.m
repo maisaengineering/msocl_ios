@@ -19,6 +19,7 @@
 #import "UIImage+ResizeMagick.h"
 #import "UIImage+GIF.h"
 #import "AppDelegate.h"
+#import "UIImage+animatedGIF.h"
 @implementation StreamDisplayView
 {
     ProfilePhotoUtils *photoUtils;
@@ -644,6 +645,60 @@
         UIImage  *image = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
         
         __weak UIImageView *weakSelf = postImage;
+
+        
+        if([postDetailsObject.postImage containsString:@".gif"])
+        {
+            weakSelf.image = image;
+             UIImage *thumb = [photoUtils getGIFImageFromCache:postDetailsObject.postImage];
+            
+            if(thumb ==nil)
+            {
+            dispatch_queue_t myQueue = dispatch_queue_create("imageque",NULL);
+            dispatch_async(myQueue, ^{
+                NSData *data =  [NSData dataWithContentsOfURL:[NSURL URLWithString:postDetailsObject.postImage]];
+                UIImage *gif_image = [UIImage animatedImageWithAnimatedGIFData:data];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.image = gif_image;
+                    CGRect frame = weakSelf.frame;
+                    weakSelf.frame = CGRectMake(110, frame.origin.y-34, 100, 100);
+                    CATransition *transition = [CATransition animation];
+                    transition.duration = 1.0f;
+                    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                    transition.type = kCATransitionFade;
+                    [weakSelf.layer addAnimation:transition forKey:nil];
+                    
+                    [photoUtils saveImageToCacheWithData:postDetailsObject.postImage :data];
+
+                    CALayer * l = [weakSelf layer];
+                    [l setMasksToBounds:YES];
+                    [l setCornerRadius:10.0];
+                    
+                });
+            });
+            }
+            else
+            {
+                weakSelf.image = thumb;
+                CGRect frame = weakSelf.frame;
+                weakSelf.frame = CGRectMake(110, frame.origin.y-34, 100, 100);
+                CATransition *transition = [CATransition animation];
+                transition.duration = 1.0f;
+                transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                transition.type = kCATransitionFade;
+                [weakSelf.layer addAnimation:transition forKey:nil];
+                
+                CALayer * l = [weakSelf layer];
+                [l setMasksToBounds:YES];
+                [l setCornerRadius:10.0];
+
+                
+            }
+
+        }
+        else
+        {
         
         [postImage setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:postDetailsObject.postImage]] placeholderImage:image success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
          {
@@ -659,6 +714,7 @@
              
          }failure:nil];
         
+        }
         yPosition += 100+8;
         
         [cell.contentView addSubview:postImage];

@@ -28,7 +28,7 @@
 #import "JTSImageInfo.h"
 #import "UserProfileViewCotroller.h"
 #import "UIImage+GIF.h"
-
+#import "UIImage+animatedGIF.h"
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -911,6 +911,64 @@
                  [oneTouch setNumberOfTouchesRequired:1];
                  [imageView addGestureRecognizer:oneTouch];
                  imageView.userInteractionEnabled = YES;
+                 if([identifier containsString:@".gif"])
+                     
+                 {
+                     weakImageView.image = placeHolder;
+
+                     UIImage *thumb = [photoUtils getGIFImageFromCache:identifier];
+                     
+                     if(thumb ==nil)
+                     {
+                         dispatch_queue_t myQueue = dispatch_queue_create("imageque",NULL);
+                         dispatch_async(myQueue, ^{
+                             NSData *data =  [NSData dataWithContentsOfURL:[NSURL URLWithString:identifier]];
+                             UIImage *gif_image = [UIImage animatedImageWithAnimatedGIFData:data];
+                             
+                             dispatch_async(dispatch_get_main_queue(), ^{
+                                 CGRect frame = weakImageView.frame;
+                                 weakImageView.frame =  CGRectMake(10, frame.origin.y-59, 300, 150);
+                                 [weakImageView setContentMode:UIViewContentModeRedraw];
+                                 
+                                 
+                                 gif_image.accessibilityIdentifier = identifier;
+                                 weakImageView.image  = gif_image;
+                                 
+                                 CATransition *transition = [CATransition animation];
+                                 transition.duration = 1.0f;
+                                 transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                                 transition.type = kCATransitionFade;
+                                 
+                                 [weakImageView.layer addAnimation:transition forKey:nil];
+                                 
+                                 [photoUtils saveImageToCacheWithData:identifier :data];
+                             });
+                         });
+                         
+
+                     }
+                     else
+                     {
+                         CGRect frame = weakImageView.frame;
+                         weakImageView.frame =  CGRectMake(10, frame.origin.y-59, 300, 150);
+                         [weakImageView setContentMode:UIViewContentModeRedraw];
+                         
+                         
+                         thumb.accessibilityIdentifier = identifier;
+                         weakImageView.image  = thumb;
+                         
+                         CATransition *transition = [CATransition animation];
+                         transition.duration = 1.0f;
+                         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+                         transition.type = kCATransitionFade;
+                         
+                         [weakImageView.layer addAnimation:transition forKey:nil];
+
+                     }
+                     
+                 }
+                 else
+                 {
                  [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:identifier]] placeholderImage:placeHolder success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                      
                      CGRect frame = weakImageView.frame;
@@ -930,8 +988,9 @@
 
                      
                  } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                     
+                      
                  }];
+                 }
                  [cell.contentView addSubview:imageView];
                  yPosition += 150+10;
                  
