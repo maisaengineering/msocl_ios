@@ -911,7 +911,8 @@
                  [oneTouch setNumberOfTouchesRequired:1];
                  [imageView addGestureRecognizer:oneTouch];
                  imageView.userInteractionEnabled = YES;
-                 if([identifier containsString:@".gif"])
+                 
+                 if([identifier rangeOfString:@".gif" options:NSCaseInsensitiveSearch].location != NSNotFound)
                      
                  {
                      weakImageView.image = placeHolder;

@@ -411,8 +411,8 @@ typedef struct {
         _flags.imageIsBeingReadFromDisk = fromDisk;
         
         typeof(self) __weak weakSelf = self;
-        
-        if([[imageInfo.imageURL absoluteString] containsString:@".gif"])
+
+        if([[imageInfo.imageURL absoluteString] rangeOfString:@".gif" options:NSCaseInsensitiveSearch].location != NSNotFound)
         {
             typeof(self) strongSelf = weakSelf;
             dispatch_queue_t myQueue = dispatch_queue_create("imageque",NULL);

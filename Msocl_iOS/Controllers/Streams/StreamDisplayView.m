@@ -647,7 +647,7 @@
         __weak UIImageView *weakSelf = postImage;
 
         
-        if([postDetailsObject.postImage containsString:@".gif"])
+        if([postDetailsObject.postImage rangeOfString:@".gif" options:NSCaseInsensitiveSearch].location != NSNotFound)
         {
             weakSelf.image = image;
              UIImage *thumb = [photoUtils getGIFImageFromCache:postDetailsObject.postImage];

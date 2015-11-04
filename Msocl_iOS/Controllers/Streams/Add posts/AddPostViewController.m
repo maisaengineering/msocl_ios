@@ -19,6 +19,7 @@
 #import "PhotoCollectionViewCell.h"
 #import "FacebookShareController.h"
 #import "UIImage+GIF.h"
+#import "UIImage+animatedGIF.h"
 @implementation AddPostViewController
 {
     UITextView *textView;
@@ -605,6 +606,9 @@
 - (void) photoEditor:(AVYPhotoEditorController *)editor finishedWithImage:(UIImage *)image
 {
     [self finishedEditingImage:image];
+    [self processImageToUpload:image];
+    [self UploadImage:image];
+
 }
 
 -(void)finishedEditingImage:(UIImage *)image
@@ -612,9 +616,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
     
     //It used to identify the attched image when sending to srever
+    
+}
+
+-(void)processImageToUpload:(UIImage *)image
+{
     NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
     image.accessibilityIdentifier = identifier;
-    [self UploadImage:image];
     
     image = [photoUtils imageWithImage:image scaledToSize:CGSizeMake(26, 16) withRadious:3.0];
     NSMutableAttributedString *attributedString = [textView.attributedText mutableCopy];
@@ -658,10 +666,8 @@
     
     
     uploadingImages ++;
-    
+
 }
-
-
 // This is called when the user taps "Cancel" in the photo editor.
 - (void) photoEditorCanceled:(AVYPhotoEditorController *)editor
 {
@@ -705,36 +711,59 @@
     NSURL * assetURL = [info objectForKey:UIImagePickerControllerReferenceURL];
     void(^completion)(void)  = ^(void){
         
-        [[self assetLibrary] assetForURL:assetURL resultBlock:^(ALAsset *asset)
-         {
-             if (asset)
-             {
-                 [self launchEditorWithAsset:asset];
-                 
-                 //save image to phone IF it came from camera
-                 if (photoFromCamera == TRUE)
-                 {
-                     UIImage * origImage = info[UIImagePickerControllerOriginalImage];
-                     [photoUtils saveImageToPhotoLib:origImage];
-                 }
-             }
-             else
+
+            [[self assetLibrary] assetForURL:assetURL resultBlock:^(ALAsset *asset)
              {
                  
-                 if (photoFromCamera == TRUE)
+                 if (asset)
                  {
-                     UIImage * origImage = info[UIImagePickerControllerOriginalImage];
-                     [photoUtils saveImageToPhotoLib:origImage];
+                     if ([[assetURL absoluteString] rangeOfString:@"gif" options:NSCaseInsensitiveSearch].location != NSNotFound)
+
+                         {
+                             ALAssetRepresentation *rep = [asset defaultRepresentation];
+                             Byte *buffer = (Byte*)malloc((NSUInteger)rep.size);
+                             NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:(NSUInteger)rep.size error:nil];
+                             NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
+                             UIImage *image = [UIImage animatedImageWithAnimatedGIFData:data];
+                             [self processImageToUpload:image];
+                             [self UploadGIFImage:image withData:data];
+
+                             [appdelegate showOrhideIndicator:NO];
+                         }
+                         else
+                         {
+                     [self launchEditorWithAsset:asset];
+                         }
+                     //save image to phone IF it came from camera
+                     if (photoFromCamera == TRUE)
+                     {
+                         UIImage * origImage = info[UIImagePickerControllerOriginalImage];
+                         [photoUtils saveImageToPhotoLib:origImage];
+                     }
+                         
                  }
-                 
-                 
-                 [self launchPhotoEditorWithImage:info[UIImagePickerControllerOriginalImage] highResolutionImage:info[UIImagePickerControllerOriginalImage]];
+                 else
+                 {
+                     
+                     if (photoFromCamera == TRUE)
+                     {
+                         UIImage * origImage = info[UIImagePickerControllerOriginalImage];
+                         [photoUtils saveImageToPhotoLib:origImage];
+                     }
+                     
+                     
+                     [self launchPhotoEditorWithImage:info[UIImagePickerControllerOriginalImage] highResolutionImage:info[UIImagePickerControllerOriginalImage]];
+                 }
              }
-         }
-                            failureBlock:^(NSError *error) {
-                                [appdelegate showOrhideIndicator:NO];
-                                ShowAlert(@"Error", @"Please enable access to your device's photos.", @"OK");
-                            }];
+                                failureBlock:^(NSError *error) {
+                                    [appdelegate showOrhideIndicator:NO];
+                                    ShowAlert(@"Error", @"Please enable access to your device's photos.", @"OK");
+                                }];
+            
+        
+        
+
+        
     };
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -781,6 +810,34 @@
 
 #pragma mark- Image upload Methods
 #pragma mark-
+-(void)UploadGIFImage:(UIImage *)imageOrg withData:(NSData *)imageData
+{
+    NSString *fileExtension = @"gif";
+    NSString *imageExtension = fileExtension;
+    imageExtension = [imageExtension uppercaseString];
+    NSString *stringImageName = [NSString stringWithFormat:@"temp.%@",imageExtension];
+    NSString *stringContentType = [NSString stringWithFormat:@"image/%@",[imageExtension lowercaseString]];
+    NSString *stringContent = [imageData base64EncodedString];
+    
+    NSMutableDictionary *newImageDetails  = [NSMutableDictionary dictionary];
+    [newImageDetails setValue:stringImageName     forKey:@"name"];
+    [newImageDetails setValue:stringContentType   forKey:@"content_type"];
+    [newImageDetails setValue:stringContent       forKey:@"content"];
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    
+    //build an info object and convert to json
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": @"s3upload",
+                               @"body": newImageDetails};
+    NSDictionary *userInfo = @{@"command": @"upload_to_s3",@"identifier":imageOrg.accessibilityIdentifier};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+    
+    
+}
 -(void)UploadImage:(UIImage *)imageOrg
 {
     NSData *imageData = UIImageJPEGRepresentation(imageOrg, 0.7);

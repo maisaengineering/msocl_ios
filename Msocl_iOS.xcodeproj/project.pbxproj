@@ -34,6 +34,8 @@
 		7F0AB8EF1AE27280009219B2 /* menu-notifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0AB8E91AE27280009219B2 /* menu-notifications@2x.png */; };
 		7F0AB8F01AE27280009219B2 /* menu-profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F0AB8EA1AE27280009219B2 /* menu-profile@2x.png */; };
 		7F0AB8F51AE2960E009219B2 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0AB8F41AE2960E009219B2 /* SignUpViewController.m */; };
+		7F13A48A1BE9D23600E7569A /* UIImage+animatedGIF.h in Sources */ = {isa = PBXBuildFile; fileRef = 7F54D4BC1BE886F90084ED9C /* UIImage+animatedGIF.h */; };
+		7F13A48B1BE9D23600E7569A /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F54D4BD1BE886F90084ED9C /* UIImage+animatedGIF.m */; };
 		7F2178B71AE51862003D8A33 /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2178B61AE51862003D8A33 /* DXPopover.m */; };
 		7F2A59941AE2563E0089EDBB /* btn-facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59911AE2563E0089EDBB /* btn-facebook@2x.png */; };
 		7F2A59951AE2563E0089EDBB /* btn-google@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59921AE2563E0089EDBB /* btn-google@2x.png */; };
@@ -2061,6 +2063,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F13A48A1BE9D23600E7569A /* UIImage+animatedGIF.h in Sources */,
+				7F13A48B1BE9D23600E7569A /* UIImage+animatedGIF.m in Sources */,
 				7FC56CF41B4E4C90008C0895 /* UIImage+GIF.h in Sources */,
 				7FC56CF51B4E4C90008C0895 /* UIImage+GIF.m in Sources */,
 				7FAF02791B4685A2002DD930 /* Base64.m in Sources */,

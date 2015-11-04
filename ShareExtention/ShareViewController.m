@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import "SDWebImageManager.h"
 #import "UIImage+GIF.h"
+#import "UIImage+animatedGIF.h"
 @interface ShareViewController ()
 
 @end
@@ -311,21 +312,41 @@
             [itemProvider loadItemForTypeIdentifier:@"public.image" options:nil completionHandler:
              ^(id<NSSecureCoding> item, NSError *error)
              {
+                 NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
+
                  UIImage *sharedImage = nil;
+                 
+                 
+                 
                  if([(NSObject*)item isKindOfClass:[NSURL class]])
                  {
-                     
+                     if ([[(NSURL*)item absoluteString] rangeOfString:@"gif" options:NSCaseInsensitiveSearch].location != NSNotFound)
+                     {
+                         NSData *data = [NSData dataWithContentsOfURL:(NSURL*)item];
+                         sharedImage = [UIImage animatedImageWithAnimatedGIFData:data];
+                         sharedImage.accessibilityIdentifier = identifier;
+                         [self UploadGIFImage:sharedImage withData:data];
+                     }
+                     else
+                     {
                      sharedImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:(NSURL*)item]];
+                     sharedImage.accessibilityIdentifier = identifier;
+                         //It used to identify the attched image when sending to srever
+                         [self UploadImage:sharedImage];
+                     }
+
                  }
                  if([(NSObject*)item isKindOfClass:[UIImage class]])
                  {
                      sharedImage = (UIImage*)item;
+                     sharedImage.accessibilityIdentifier = identifier;
+                     //It used to identify the attched image when sending to srever
+                     [self UploadImage:sharedImage];
+
                  }
                  
-                 //It used to identify the attched image when sending to srever
-                 NSString *identifier = [NSString stringWithFormat:@"image%lu",(unsigned long)imagesIdDict.count+1];
-                 sharedImage.accessibilityIdentifier = identifier;
-                 [self UploadImage:sharedImage];
+                 
+                
 
                  NSTextAttachment *textAttachment = [[NSTextAttachment alloc] init];
                  
@@ -969,6 +990,85 @@
 
 #pragma mark- Image upload Methods
 #pragma mark-
+-(void)UploadGIFImage:(UIImage *)imageOrg withData:(NSData *)imageData
+{
+    NSString *fileExtension = @"gif";
+    NSString *imageExtension = fileExtension;
+    imageExtension = [imageExtension uppercaseString];
+    NSString *stringImageName = [NSString stringWithFormat:@"temp.%@",imageExtension];
+    NSString *stringContentType = [NSString stringWithFormat:@"image/%@",[imageExtension lowercaseString]];
+    NSString *stringContent = [imageData base64EncodedString];
+    
+    NSMutableDictionary *newImageDetails  = [NSMutableDictionary dictionary];
+    [newImageDetails setValue:stringImageName     forKey:@"name"];
+    [newImageDetails setValue:stringContentType   forKey:@"content_type"];
+    [newImageDetails setValue:stringContent       forKey:@"content"];
+    
+    
+    //build an info object and convert to json
+    NSDictionary* postData = @{@"access_token": [tokenDict objectForKey:@"access_token"],
+                               @"command": @"s3upload",
+                               @"body": newImageDetails};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:postData options:0  error:nil];
+    
+    //convert data to string
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    NSURL *url = [[NSURL alloc] initWithString:urlAsString];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    NSData *requestData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: requestData];
+    
+    NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    sessionConfiguration.sharedContainerIdentifier=@"group.com.maisasolutions.msocl";
+    // config.HTTPMaximumConnectionsPerHost = 1;
+    __block NSString *identfier = imageOrg.accessibilityIdentifier;
+    
+    NSURLSession *session = [NSURLSession  sessionWithConfiguration:sessionConfiguration delegate:self delegateQueue:nil];
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                                          
+                                          {
+                                              if(error == nil){
+                                                  uploadingImages--;
+                                                  NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                               options:NSJSONReadingMutableContainers
+                                                                                                                 error:nil];
+                                                  responseDict = [responseDict objectForKey:@"body"];
+                                                  [imagesIdDict setObject:[responseDict objectForKey:@"key"] forKey:identfier];
+                                                  if(uploadingImages == 0 && isPostClicked)
+                                                  {
+                                                      isPostClicked = NO;
+                                                      [self callPostApi];
+                                                  }
+                                                  
+                                              }
+                                              else{
+                                                  uploadingImages--;
+                                                  if(uploadingImages == 0 && isPostClicked)
+                                                  {
+                                                      isPostClicked = NO;
+                                                      [self callPostApi];
+                                                  }
+                                              }
+                                              
+                                          }];
+    
+    [postDataTask resume];
+    
+}
+
+
 -(void)UploadImage:(UIImage *)imageOrg
 {
     NSData *imageData = UIImageJPEGRepresentation(imageOrg, 0.7);
