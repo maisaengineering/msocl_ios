@@ -29,6 +29,7 @@
     
     NSString *notifiUID;
     NSDictionary *userDict;
+    UIAlertView *updateAlert;
 }
 @end
 
@@ -44,6 +45,23 @@
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
      */
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *currentAppVersion = APP_VERSION;
+    NSString *previousVersion = [defaults objectForKey:@"appVersion"];
+    if(!previousVersion)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:previousVersion forKey:@"appversion"];
+    
+    }
+    else if (![previousVersion isEqualToString:currentAppVersion])
+    {
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FORCED_UPDATE"];
+        [[NSUserDefaults standardUserDefaults] setObject:currentAppVersion forKey:@"appversion"];
+    }
+   
+    
     
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
@@ -149,7 +167,38 @@
     {
         [self addMessageFromRemoteNotification:userInfo];
     }
-    
+    else if(application.applicationState == UIApplicationStateActive)
+    {
+        NSDictionary *context = [userInfo valueForKey:@"context"];
+        if(context != nil)
+        {
+            NSString *type = [[context valueForKey:@"type"] lowercaseString];
+            NSString *uid = [context valueForKey:@"uid"];
+
+        if([type isEqualToString:@"admin"])
+        {
+            if([[uid uppercaseString] isEqualToString:@"FORCED_UPDATE"])
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FORCED_UPDATE"];
+                
+                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+                if(state == UIApplicationStateActive && [[[NSUserDefaults standardUserDefaults] objectForKey:@"appversion"] isEqualToString:APP_VERSION])
+                {
+                    [self updateApp:YES];
+                }
+                
+            }
+            else if([[uid uppercaseString] isEqualToString:@"UPDATE"])
+            {
+                UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+                if(state == UIApplicationStateActive && [[[NSUserDefaults standardUserDefaults] objectForKey:@"appversion"] isEqualToString:APP_VERSION])
+                {
+                    [self updateApp:NO];
+                }
+            }
+        }
+        }
+    }
     NSLog(@"notifiUID is:%@", notifiUID);
 
     NSLog(@"RECIEVE :%@", [userInfo objectForKey:@"uid"]);
@@ -226,6 +275,28 @@
         });
 
         
+    }
+    else if([type isEqualToString:@"admin"])
+    {
+        if([[uid uppercaseString] isEqualToString:@"FORCED_UPDATE"])
+        {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"FORCED_UPDATE"];
+            
+            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+            if(state == UIApplicationStateActive && [[[NSUserDefaults standardUserDefaults] objectForKey:@"appversion"] isEqualToString:APP_VERSION])
+            {
+                [self updateApp:YES];
+            }
+            
+        }
+        else if([[uid uppercaseString] isEqualToString:@"UPDATE"])
+        {
+            UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+            if(state == UIApplicationStateActive && [[[NSUserDefaults standardUserDefaults] objectForKey:@"appversion"] isEqualToString:APP_VERSION])
+            {
+                [self updateApp:NO];
+            }
+        }
     }
     }
 }
@@ -322,6 +393,11 @@
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"AppFromPassiveState" object:nil];
 
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"FORCED_UPDATE"] && [[[NSUserDefaults standardUserDefaults] objectForKey:@"appversion"] isEqualToString:APP_VERSION])
+    {
+        [self updateApp:YES];
+    }
+
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -401,6 +477,69 @@
     
     return urlWasHandled;
 }
-
-
+#pragma mark -
+#pragma mark Upadte 
+-(void)updateApp:(BOOL)isForced
+{
+    if(!updateAlert.visible)
+    {
+    if(isForced)
+    {
+        updateAlert = [[UIAlertView alloc]initWithTitle:@"Update required!"
+                                                       message:@"There's a new version of KidsLink. You must update to continue using the app."
+                                                      delegate:self
+                                             cancelButtonTitle:nil
+                                             otherButtonTitles:@"Update", nil];
+        updateAlert.tag = 2;
+        [updateAlert show];
+        
+    }
+    
+    else
+    {
+        updateAlert = [[UIAlertView alloc]initWithTitle:@"Update available!"
+                                                       message:@"Don't miss out on the latest KidsLink features and fixes."
+                                                      delegate:self
+                                             cancelButtonTitle:@"Skip"
+                                             otherButtonTitles:@"Update", nil];
+        updateAlert.tag = 1;
+        [updateAlert show];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"UPDATE"];
+        
+    }
+    }
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == 1)
+    {
+        switch (buttonIndex)
+        {
+            case 0:
+            {
+                
+                break;
+            }
+            case 1:
+            {
+                NSString *iTunesLink = @"itms-apps://itunes.apple.com/us/app/id998823966?mt=8";
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+                
+                break;
+            }
+            default:
+            {
+                
+                break;
+            }
+        }
+    }
+    else
+    {
+        NSString *iTunesLink = @"itms-apps://itunes.apple.com/us/app/id998823966?mt=8";
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+        
+    }
+    
+}
 @end
