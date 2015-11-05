@@ -230,7 +230,7 @@
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 140)];
     textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     textView.delegate = self;
-    textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    textView.autocorrectionType = UITextAutocorrectionTypeYes;
     [scrollView addSubview:textView];
     
     placeholderLabel = [[UILabel alloc] initWithFrame:CGRectMake(4, 5, textView.frame.size.width, 20)];
