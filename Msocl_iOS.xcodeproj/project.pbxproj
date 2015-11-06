@@ -1758,7 +1758,7 @@
 				TargetAttributes = {
 					7F6BEACC1B43AD0B0052FF32 = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 867QTRXZVS;
+						DevelopmentTeam = 9JD683Q4YT;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -1767,7 +1767,7 @@
 					};
 					7FF5CBFA1ACE9E60004F4F9B = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 867QTRXZVS;
+						DevelopmentTeam = 9JD683Q4YT;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -2229,8 +2229,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2241,7 +2241,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
+				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2253,8 +2253,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2265,7 +2265,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6aff6cb2-54f5-4c88-958a-b9e7686fcf0d";
+				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -2358,8 +2358,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2382,7 +2382,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
+				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2395,8 +2395,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: MAISA SOLUTIONS INC (867QTRXZVS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2419,7 +2419,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c4088738-937b-4e5b-a17c-f4a344059e20";
+				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

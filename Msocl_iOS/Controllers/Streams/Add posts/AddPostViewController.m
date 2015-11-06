@@ -20,6 +20,7 @@
 #import "FacebookShareController.h"
 #import "UIImage+GIF.h"
 #import "UIImage+animatedGIF.h"
+#import "TPKeyboardAvoidingScrollView.h"
 @implementation AddPostViewController
 {
     UITextView *textView;
@@ -42,6 +43,8 @@
     UIView *addPopUpView;
     UIImageView *dropDown;
     NSMutableDictionary *editImageDict;
+    CGRect originalFrame;
+    CGSize keyboardSize;
     
 }
 @synthesize scrollView;
@@ -196,6 +199,14 @@
     [self check];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -203,7 +214,27 @@
     
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     
+}
+-(void)keyboardWillShow:(NSNotification *)notification
+{
+    CGRect keyboardrect = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    float keyBoardY = scrollView.frame.size.height - keyboardrect.size.height;
+    if(keyBoardY < textView.frame.origin.y+textView.frame.size.height)
+    {
+        CGRect frame = textView.frame;
+        frame.size.height -= (textView.frame.origin.y+textView.frame.size.height - keyBoardY);
+        textView.frame = frame;
+    }
+
+
+}
+-(void)keyboardWillHide:(NSNotification *)notification
+{
+    keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    textView.frame = originalFrame;
 }
 -(void)backClicked
 {
@@ -218,7 +249,7 @@
 -(void)postDetailsScroll
 {
     int height = Deviceheight-64;
-    scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
+    scrollView = [[TPKeyboardAvoidingScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, height)];
     scrollView.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1.0];
     [self.view addSubview:scrollView];
     
@@ -228,6 +259,7 @@
     [scrollView addSubview:imageView];
     
     textView = [[UITextView alloc] initWithFrame:CGRectMake(14,19,292, 140)];
+    originalFrame = textView.frame;
     textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     textView.delegate = self;
     textView.autocorrectionType = UITextAutocorrectionTypeYes;
@@ -1038,6 +1070,7 @@
 {
     [placeholderLabel removeFromSuperview];
     [textView setInputAccessoryView:inputView];
+    
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView1
 {
