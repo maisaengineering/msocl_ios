@@ -16,6 +16,8 @@
 #import "TagViewController.h"
 #import "UpdateUserDetailsViewController.h"
 #import "StringConstants.h"
+#import <Crashlytics/Crashlytics.h>
+
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -296,6 +298,8 @@ self.navigationItem.hidesBackButton = YES;
 #pragma mark Call backs from stream display
 - (void)userProifleClicked:(int)index
 {
+        [[Crashlytics sharedInstance] crash];
+
     isShowPostCalled = YES;
     selectedIndex = index;
     PostDetails *postObject;

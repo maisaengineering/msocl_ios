@@ -20,7 +20,7 @@
 #define kAFAviarySecret         @"ea86727d549f068d"
 
 //FLURRY
-#define FLURRY_KEY              @"NXH4VDMB242THB6Y48CT"
+#define FLURRY_KEY       @"XV2DBVXPD5JTJ2NSKGKM"
 
 // PARSE
 #define PARSE_APPLICATION_KEY   @"Kk6uWSLLnGCp6xEOPYQq5iGbIz0NiBj5DtH7qdY5"

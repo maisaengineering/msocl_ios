@@ -24,6 +24,8 @@
 #import <Parse/Parse.h>
 #import "Reachability.h"
 #import "TagViewController.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 @interface AppDelegate ()<MBProgressHUDDelegate>
 {
     
@@ -61,10 +63,14 @@
         [[NSUserDefaults standardUserDefaults] setObject:currentAppVersion forKey:@"appversion"];
     }
    
-    
+    //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
+   // [Flurry setCrashReportingEnabled:YES];
+    [Fabric with:@[CrashlyticsKit]];
+
     
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
+    
     
     indicator = [[MBProgressHUD alloc] initWithView:self.window];
     
@@ -146,7 +152,7 @@
         PFInstallation *currentInstallation = [PFInstallation currentInstallation];
         [currentInstallation setDeviceTokenFromData:deviceToken];
         [currentInstallation saveInBackground];
-        
+    
     
     NSString *strDeviceToken = [deviceToken description];
     strDeviceToken = [strDeviceToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
