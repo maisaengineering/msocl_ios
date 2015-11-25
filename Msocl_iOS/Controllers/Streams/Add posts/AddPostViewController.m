@@ -21,6 +21,7 @@
 #import "UIImage+GIF.h"
 #import "UIImage+animatedGIF.h"
 #import "TPKeyboardAvoidingScrollView.h"
+#import "Flurry.h"
 @implementation AddPostViewController
 {
     UITextView *textView;
@@ -45,7 +46,7 @@
     NSMutableDictionary *editImageDict;
     CGRect originalFrame;
     CGSize keyboardSize;
-    
+    NSDictionary *editPostDetails;
 }
 @synthesize scrollView;
 @synthesize postDetailsObject;
@@ -60,11 +61,12 @@
 {
     [super viewDidLoad];
     
+    
     appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     
-    
+    [self getAllGroups];
     photoUtils = [ProfilePhotoUtils alloc];
     uploadingImages = 0;
     if(selectedtagsArray.count == 0)
@@ -120,7 +122,7 @@
         if( [sharedModel.userProfile.handle length] >1)
             [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
     }
-
+    
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -218,6 +220,37 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
     
 }
+#pragma mark -
+#pragma mark Groups
+-(void)getAllGroups
+{
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSDictionary* postData = @{@"command": @"favourites",@"access_token": token.access_token};
+    NSDictionary *userInfo = @{@"command": @"GetAllGroups"};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@groups",BASE_URL];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+-(void)didReceiveGroups:(NSDictionary *)responseDict
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[responseDict objectForKey:@"groups"] forKey:@"Groups"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:[responseDict objectForKey:@"groups"] forKey:@"Groups"];
+    [myDefaults synchronize];
+    
+    tagsArray = [responseDict objectForKey:@"groups"];
+    [collectionView reloadData];
+}
+-(void)fetchingGroupsFailedWithError
+{
+    
+}
+
 -(void)keyboardWillShow:(NSNotification *)notification
 {
     CGRect keyboardrect = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
@@ -228,8 +261,8 @@
         frame.size.height -= (textView.frame.origin.y+textView.frame.size.height - keyBoardY);
         textView.frame = frame;
     }
-
-
+    
+    
 }
 -(void)keyboardWillHide:(NSNotification *)notification
 {
@@ -640,7 +673,7 @@
     [self finishedEditingImage:image];
     [self processImageToUpload:image];
     [self UploadImage:image];
-
+    
 }
 
 -(void)finishedEditingImage:(UIImage *)image
@@ -698,7 +731,7 @@
     
     
     uploadingImages ++;
-
+    
 }
 // This is called when the user taps "Cancel" in the photo editor.
 - (void) photoEditorCanceled:(AVYPhotoEditorController *)editor
@@ -743,58 +776,58 @@
     NSURL * assetURL = [info objectForKey:UIImagePickerControllerReferenceURL];
     void(^completion)(void)  = ^(void){
         
-
-            [[self assetLibrary] assetForURL:assetURL resultBlock:^(ALAsset *asset)
+        
+        [[self assetLibrary] assetForURL:assetURL resultBlock:^(ALAsset *asset)
+         {
+             
+             if (asset)
              {
-                 
-                 if (asset)
+                 if ([[assetURL absoluteString] rangeOfString:@"gif" options:NSCaseInsensitiveSearch].location != NSNotFound)
+                     
                  {
-                     if ([[assetURL absoluteString] rangeOfString:@"gif" options:NSCaseInsensitiveSearch].location != NSNotFound)
-
-                         {
-                             ALAssetRepresentation *rep = [asset defaultRepresentation];
-                             Byte *buffer = (Byte*)malloc((NSUInteger)rep.size);
-                             NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:(NSUInteger)rep.size error:nil];
-                             NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
-                             UIImage *image = [UIImage animatedImageWithAnimatedGIFData:data];
-                             [self processImageToUpload:image];
-                             [self UploadGIFImage:image withData:data];
-
-                             [appdelegate showOrhideIndicator:NO];
-                         }
-                         else
-                         {
-                     [self launchEditorWithAsset:asset];
-                         }
-                     //save image to phone IF it came from camera
-                     if (photoFromCamera == TRUE)
-                     {
-                         UIImage * origImage = info[UIImagePickerControllerOriginalImage];
-                         [photoUtils saveImageToPhotoLib:origImage];
-                     }
-                         
+                     ALAssetRepresentation *rep = [asset defaultRepresentation];
+                     Byte *buffer = (Byte*)malloc((NSUInteger)rep.size);
+                     NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:(NSUInteger)rep.size error:nil];
+                     NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
+                     UIImage *image = [UIImage animatedImageWithAnimatedGIFData:data];
+                     [self processImageToUpload:image];
+                     [self UploadGIFImage:image withData:data];
+                     
+                     [appdelegate showOrhideIndicator:NO];
                  }
                  else
                  {
-                     
-                     if (photoFromCamera == TRUE)
-                     {
-                         UIImage * origImage = info[UIImagePickerControllerOriginalImage];
-                         [photoUtils saveImageToPhotoLib:origImage];
-                     }
-                     
-                     
-                     [self launchPhotoEditorWithImage:info[UIImagePickerControllerOriginalImage] highResolutionImage:info[UIImagePickerControllerOriginalImage]];
+                     [self launchEditorWithAsset:asset];
                  }
+                 //save image to phone IF it came from camera
+                 if (photoFromCamera == TRUE)
+                 {
+                     UIImage * origImage = info[UIImagePickerControllerOriginalImage];
+                     [photoUtils saveImageToPhotoLib:origImage];
+                 }
+                 
              }
-                                failureBlock:^(NSError *error) {
-                                    [appdelegate showOrhideIndicator:NO];
-                                    ShowAlert(@"Error", @"Please enable access to your device's photos.", @"OK");
-                                }];
-            
+             else
+             {
+                 
+                 if (photoFromCamera == TRUE)
+                 {
+                     UIImage * origImage = info[UIImagePickerControllerOriginalImage];
+                     [photoUtils saveImageToPhotoLib:origImage];
+                 }
+                 
+                 
+                 [self launchPhotoEditorWithImage:info[UIImagePickerControllerOriginalImage] highResolutionImage:info[UIImagePickerControllerOriginalImage]];
+             }
+         }
+                            failureBlock:^(NSError *error) {
+                                [appdelegate showOrhideIndicator:NO];
+                                ShowAlert(@"Error", @"Please enable access to your device's photos.", @"OK");
+                            }];
         
         
-
+        
+        
         
     };
     
@@ -950,7 +983,7 @@
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(31.5, 21, 32, 32)];
     __weak UIImageView *weakSelf = imageView;
     UIImage *placeHolder  = [UIImage sd_animatedGIFNamed:@"Preloader_2"];
-
+    
     [imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[tagsArray objectAtIndex:indexPath.row] objectForKey:@"image"]]] placeholderImage:placeHolder success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
          weakSelf.frame = cell.bounds;
@@ -1122,7 +1155,7 @@
      }];
     
     [newAttrString endEditing];
-
+    
     return YES;
 }
 -(void)textChangedCustomEvent
@@ -1275,7 +1308,7 @@
         [popView addSubview:postAsLabel1];
         if(sharedModel.userProfile.fname.length < 1 && sharedModel.userProfile.lname.length < 1)
             postAsLabel1.text = [NSString stringWithFormat:@"Post as %@",sharedModel.userProfile.handle];
-
+        
         UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
         
         
@@ -1292,7 +1325,7 @@
             if( [sharedModel.userProfile.handle length] >1)
                 [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
         }
-
+        
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                                attributes:nil];
@@ -1345,7 +1378,7 @@
     
     //[popover showAtView:btn withContentView:popView];
     [popover showAtView:btn withContentView:popView inView:self.navigationController.view];
-
+    
 }
 -(void)postClicked
 {
@@ -1370,7 +1403,7 @@
             [parentFnameInitial appendString:[[sharedModel.userProfile.handle substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
     }
     
-
+    
     
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -1496,7 +1529,7 @@
     [dropDown removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
     
-   
+    
 }
 -(void)postCreationFailed
 {
@@ -1561,7 +1594,7 @@
         if(![[editImageDict allValues] containsObject:str])
             [array addObject:str];
     }
-
+    
     
     //Image Ids
     if([array count] > 0)
@@ -1579,6 +1612,8 @@
     NSDictionary *userInfo = @{@"command": @"updatePost"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@posts/%@",BASE_URL,postDetailsObject.uid];
     
+    editPostDetails = [NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData", urlAsString,@"urlString",nil];
+    
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
 -(void) updatePostSccessfull:(PostDetails *)postDetails
@@ -1594,13 +1629,14 @@
     [self.delegate PostEdited:postDetails];
     
 }
--(void) updatePostFailed
+-(void) updatePostFailed:(NSDictionary *)dict
 {
     [appdelegate showOrhideIndicator:NO];
     
     isPostClicked = NO;
     postButton.enabled = YES;
     
+    [Flurry logEvent:@"EditPostFailed" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:editPostDetails,@"datils",dict,@"responseFromApi", nil]];
     ShowAlert(@"Error", POST_CREATION_FAILED, @"OK");
 }
 #pragma mark -

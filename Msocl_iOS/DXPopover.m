@@ -6,6 +6,7 @@
 //
 
 #import "DXPopover.h"
+#import "Flurry.h"
 
 #define DEGREES_TO_RADIANS(degrees)  ((3.14159265359 * degrees)/ 180)
 
@@ -74,9 +75,9 @@
     
     
     self.frame = frame;
-
+    
     CGPoint arrowPoint = [self.containerView convertPoint:self.arrowShowPoint toView:self];
-
+    
     CGPoint anchorPoint;
     switch (self.popoverPosition) {
         case DXPopoverPositionDown: {
@@ -93,7 +94,7 @@
     CGPoint DX_lastAnchor = self.layer.anchorPoint;
     self.layer.anchorPoint = anchorPoint;
     self.layer.position = CGPointMake(self.layer.position.x+(anchorPoint.x-DX_lastAnchor.x)*self.layer.bounds.size.width, self.layer.position.y+(anchorPoint.y-DX_lastAnchor.y)*self.layer.bounds.size.height);\
-
+    
     frame.size.height += self.arrowSize.height;
     self.frame = frame;
 }
@@ -123,7 +124,7 @@
     }
     
     self.blackOverlay.backgroundColor = maskColor;
-
+    
     
     [containerView addSubview:self.blackOverlay];
     [self.blackOverlay addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
@@ -180,7 +181,7 @@
             atPoint.y = CGRectGetMaxY(atViewFrame) + betweenArrowAndAtView;
         }
     }
-
+    
     [self showAtPoint:atPoint popoverPostion:dxP withContentView:contentView inView:containerView];
 }
 
@@ -205,7 +206,11 @@
             contentViewFrame.origin.y = 0.0;
             break;
         case DXPopoverPositionDown:
+        {
             contentViewFrame.origin.y = self.arrowSize.height;
+            NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:NSStringFromCGRect(contentViewFrame),@"frame", nil];
+            [Flurry logEvent:@"PopOverOnPostEdit" withParameters:dict];
+        }
             break;
     }
     
@@ -306,4 +311,4 @@
 
 // Copyright belongs to original author
 // http://code4app.net (en) http://code4app.com (cn)
-// From the most professional code share website: Code4App.net 
+// From the most professional code share website: Code4App.net

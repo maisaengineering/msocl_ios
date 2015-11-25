@@ -29,7 +29,6 @@
 		7F06BC8A1B4D5F6A00D260F0 /* icon-edit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F06BC7A1B4D5F6A00D260F0 /* icon-edit@3x.png */; };
 		7F06BC931B4D5F6A00D260F0 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F06BC831B4D5F6A00D260F0 /* search@2x.png */; };
 		7F06BC941B4D5F6A00D260F0 /* search@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F06BC841B4D5F6A00D260F0 /* search@3x.png */; };
-		7F0701121C044A800026354F /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0701111C044A800026354F /* libFlurry_7.3.0.a */; settings = {ASSET_TAGS = (); }; };
 		7F0701161C0458DC0026354F /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0701141C0458DC0026354F /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		7F0701171C0458DC0026354F /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0701151C0458DC0026354F /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		7F07C4B71B2571BE00627F4F /* EmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F07C4B61B2571BE00627F4F /* EmailViewController.m */; };
@@ -115,6 +114,10 @@
 		7F5F18F01ADE9B8700C5B4EC /* icon-edit-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18ED1ADE9B8700C5B4EC /* icon-edit-scroll@2x.png */; };
 		7F5F18F11ADE9B8700C5B4EC /* icon-heart-scroll@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */; };
 		7F5F18F41ADE9E7E00C5B4EC /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */; };
+		7F5F534A1C058A4D009F937B /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5F53491C058A4D009F937B /* libFlurry_7.3.0.a */; settings = {ASSET_TAGS = (); }; };
+		7F5F534B1C058A4D009F937B /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5F53491C058A4D009F937B /* libFlurry_7.3.0.a */; settings = {ASSET_TAGS = (); }; };
+		7F5F534C1C058A65009F937B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89461AD8047A002477A8 /* CFNetwork.framework */; };
+		7F5F534D1C058A6C009F937B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */; };
 		7F6BEAD31B43AD0B0052FF32 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F6BEAD21B43AD0B0052FF32 /* ShareViewController.m */; };
 		7F6BEAD51B43AD0B0052FF32 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6BEAD41B43AD0B0052FF32 /* MainInterface.storyboard */; };
 		7F6BEAD81B43AD0B0052FF32 /* ShareExtention.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7F6BEACD1B43AD0B0052FF32 /* ShareExtention.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -451,8 +454,6 @@
 		7F06BC7A1B4D5F6A00D260F0 /* icon-edit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-edit@3x.png"; sourceTree = "<group>"; };
 		7F06BC831B4D5F6A00D260F0 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
 		7F06BC841B4D5F6A00D260F0 /* search@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@3x.png"; sourceTree = "<group>"; };
-		7F0701101C044A800026354F /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
-		7F0701111C044A800026354F /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
 		7F0701141C0458DC0026354F /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		7F0701151C0458DC0026354F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		7F07C4B51B2571BE00627F4F /* EmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailViewController.h; sourceTree = "<group>"; };
@@ -576,6 +577,8 @@
 		7F5F18EE1ADE9B8700C5B4EC /* icon-heart-scroll@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-heart-scroll@2x.png"; sourceTree = "<group>"; };
 		7F5F18F21ADE9E7D00C5B4EC /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		7F5F53481C058A4D009F937B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		7F5F53491C058A4D009F937B /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
 		7F6BEACD1B43AD0B0052FF32 /* ShareExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F6BEAD01B43AD0B0052FF32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F6BEAD11B43AD0B0052FF32 /* ShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -886,6 +889,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F5F534D1C058A6C009F937B /* SystemConfiguration.framework in Frameworks */,
+				7F5F534C1C058A65009F937B /* CFNetwork.framework in Frameworks */,
+				7F5F534B1C058A4D009F937B /* libFlurry_7.3.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,6 +903,7 @@
 				253C89531AD804C0002477A8 /* Accounts.framework in Frameworks */,
 				7F0701161C0458DC0026354F /* Crashlytics.framework in Frameworks */,
 				253C89511AD804BA002477A8 /* libsqlite3.dylib in Frameworks */,
+				7F5F534A1C058A4D009F937B /* libFlurry_7.3.0.a in Frameworks */,
 				253C894F1AD804B1002477A8 /* libz.dylib in Frameworks */,
 				7F0701171C0458DC0026354F /* Fabric.framework in Frameworks */,
 				253C894D1AD804A1002477A8 /* Security.framework in Frameworks */,
@@ -905,7 +912,6 @@
 				7F8998F91AD25DCB007E2917 /* CoreGraphics.framework in Frameworks */,
 				253C89471AD8047A002477A8 /* CFNetwork.framework in Frameworks */,
 				253C89451AD80473002477A8 /* AudioToolbox.framework in Frameworks */,
-				7F0701121C044A800026354F /* libFlurry_7.3.0.a in Frameworks */,
 				25214C361AD6C3A20084BAC4 /* SystemConfiguration.framework in Frameworks */,
 				7F8999071AD25E5E007E2917 /* MessageUI.framework in Frameworks */,
 				7F8999051AD25E57007E2917 /* libz.1.2.5.dylib in Frameworks */,
@@ -936,8 +942,8 @@
 		7F07010F1C044A6E0026354F /* Flurry */ = {
 			isa = PBXGroup;
 			children = (
-				7F0701101C044A800026354F /* Flurry.h */,
-				7F0701111C044A800026354F /* libFlurry_7.3.0.a */,
+				7F5F53481C058A4D009F937B /* Flurry.h */,
+				7F5F53491C058A4D009F937B /* libFlurry_7.3.0.a */,
 			);
 			name = Flurry;
 			sourceTree = "<group>";
@@ -2264,6 +2270,10 @@
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Msocl_iOS",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2288,6 +2298,10 @@
 				INFOPLIST_FILE = ShareExtention/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Msocl_iOS",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

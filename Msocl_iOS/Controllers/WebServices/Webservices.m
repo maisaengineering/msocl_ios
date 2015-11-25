@@ -176,12 +176,12 @@
     {
         [self connectionSuccessExternalSignInOptions:responseDict];
     }
-
+    
     else if([command isEqualToString:@"emailNotify"])
     {
         [self connectionSuccessEmailNotification:responseDict];
     }
-
+    
     else if([command isEqualToString:@"apnNotify"])
     {
         [self connectionSuccessPushNotification:responseDict];
@@ -190,7 +190,7 @@
     {
         [self connectionSuccessHandle:responseDict];
     }
-
+    
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -257,7 +257,7 @@
     }
     else if([command isEqualToString:@"updatePost"])
     {
-        [self.delegate updatePostFailed];
+        [self.delegate updatePostFailed:[recievedDict objectForKey:@"response"]];
     }
     else if([command isEqualToString:@"hearting"])
     {
@@ -326,7 +326,7 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:respDict forKey:@"tokens"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-
+    
     NSMutableArray *tokens = [[NSMutableArray alloc] init];
     AccessToken *token = [[AccessToken alloc] init];
     
@@ -419,7 +419,7 @@
 -(void)connectionSuccessUpdatePost:(NSDictionary *)respDict
 {
     PostDetails *postObject = [[PostDetails alloc] initWithDictionary:[respDict objectForKey:@"body"]];
-   
+    
     NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
     NSString *stringStatus1 = [validResponseStatus stringValue];
     if ([stringStatus1 isEqualToString:@"200"])
@@ -430,7 +430,7 @@
     
     else
     {
-        [self.delegate updatePostFailed];
+        [self.delegate updatePostFailed:respDict];
         
     }
     

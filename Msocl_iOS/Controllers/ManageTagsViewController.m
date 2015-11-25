@@ -107,6 +107,14 @@
     [managedTagsArray addObjectsFromArray:[responseDict objectForKey:@"recommended"]];
     selectedTags = [[responseDict objectForKey:@"favourites"] mutableCopy];
     
+    [[NSUserDefaults standardUserDefaults] setObject:selectedTags forKey:@"Groups"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:selectedTags forKey:@"Groups"];
+    [myDefaults synchronize];
+    
     
     [collectionView reloadData];
 }
@@ -187,7 +195,7 @@
                                           initWithSuiteName:@"group.com.maisasolutions.msocl"];
             [myDefaults setObject:groups forKey:@"Groups"];
             [myDefaults synchronize];
-
+            
         }
         
         AccessToken* token = sharedModel.accessToken;
@@ -218,7 +226,7 @@
                                       initWithSuiteName:@"group.com.maisasolutions.msocl"];
         [myDefaults setObject:groups forKey:@"Groups"];
         [myDefaults synchronize];
-
+        
         AccessToken* token = sharedModel.accessToken;
         
         NSDictionary* postData = @{@"command": @"unfollow",@"access_token": token.access_token};

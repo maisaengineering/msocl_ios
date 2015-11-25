@@ -45,7 +45,7 @@
 -(void) didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray;
 -(void) visitedPageGuidesFailed;
 -(void) updatePostSccessfull:(PostDetails *)postDetails;
--(void) updatePostFailed;
+-(void) updatePostFailed:(NSDictionary *)dict;
 -(void) heartingSuccessFull:(NSDictionary *)recievedDict;
 -(void) heartingFailed;
 -(void) postDeleteSuccessFull:(NSDictionary *)recievedDict;

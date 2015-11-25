@@ -114,14 +114,14 @@
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
-   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClicked:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClicked:)];
     addButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
     self.navigationItem.rightBarButtonItem= addButton;
-
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-            NSLog(@"this is mainstream");
+    NSLog(@"this is mainstream");
     
     [super viewWillAppear:YES];
     
@@ -215,9 +215,9 @@
 -(void)reloadOnLogOut
 {
     self.navigationItem.leftBarButtonItem = nil;
-//    self.navigationItem.leftBarButtonItem.enabled = NO;
-//    self.navigationItem.leftBarButtonItem.title = @"";
-self.navigationItem.hidesBackButton = YES;
+    //    self.navigationItem.leftBarButtonItem.enabled = NO;
+    //    self.navigationItem.leftBarButtonItem.title = @"";
+    self.navigationItem.hidesBackButton = YES;
     mostRecentButton.selected = NO;
     
     [mostRecent setHidden:NO];
@@ -284,21 +284,20 @@ self.navigationItem.hidesBackButton = YES;
             [following.streamTableView reloadData];
         
     }
-   
-   /* if(!mostRecent.hidden)
-    {
-        [mostRecent.streamTableView reloadData];
-    }
-    else
-        [following.streamTableView reloadData];
-    */
+    
+    /* if(!mostRecent.hidden)
+     {
+     [mostRecent.streamTableView reloadData];
+     }
+     else
+     [following.streamTableView reloadData];
+     */
     isShowPostCalled = NO;
 }
 #pragma mark -
 #pragma mark Call backs from stream display
 - (void)userProifleClicked:(int)index
 {
-    
     isShowPostCalled = YES;
     selectedIndex = index;
     PostDetails *postObject;
@@ -306,8 +305,8 @@ self.navigationItem.hidesBackButton = YES;
         postObject = [mostRecent.storiesArray objectAtIndex:selectedIndex];
     else
         postObject = [following.storiesArray objectAtIndex:selectedIndex];
-  
-        [self performSegueWithIdentifier: @"UserProfile" sender: self];
+    
+    [self performSegueWithIdentifier: @"UserProfile" sender: self];
 }
 - (void)recievedData:(BOOL)isFollowing
 {
@@ -821,7 +820,7 @@ self.navigationItem.hidesBackButton = YES;
     [body setValue:[NSNumber numberWithInt:0] forKeyPath:@"post_count"];
     [body setValue:@"new" forKeyPath:@"step"];
     NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
-
+    
     
     if(mostRecent.isSearching)
     {
@@ -965,7 +964,7 @@ self.navigationItem.hidesBackButton = YES;
                     following.etag = [dict objectForKey:@"etag"];
                     following.timeStamp = [dict objectForKey:@"last_modified"];
                     following.postCount = [dict objectForKey:@"post_count"];
-
+                    
                     following.storiesArray = [[NSMutableArray alloc]initWithArray:storiesArray1];
                     [following.streamTableView setContentOffset:CGPointZero animated:YES];
                     [following.streamTableView reloadData];
@@ -1050,12 +1049,12 @@ self.navigationItem.hidesBackButton = YES;
 {
     if(!mostRecent.isSearching)
     {
-    mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
-    following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
-    imageView.frame = CGRectMake(0, 0, 320, 30);
-    mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
-    
-    [searchBar removeFromSuperview];
+        mostRecent.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+        following.frame = CGRectMake(0, 0, 320, Deviceheight-65);
+        imageView.frame = CGRectMake(0, 0, 320, 30);
+        mostRecentButton.frame = CGRectMake(0, 0, 320, 30);
+        
+        [searchBar removeFromSuperview];
     }
 }
 -(void)tableScrolledForTopView:(float)y
