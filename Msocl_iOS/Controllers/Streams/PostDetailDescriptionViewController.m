@@ -291,7 +291,7 @@
 
 -(void)shareOptions
 {
-    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook",@"Share by Email",@"Share by SMS", nil];
+    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy Link",@"Share on Facebook",@"Share by Email",@"Share by SMS",@"Share on WhatsApp", nil];
 //    NSURL *whatsappURL = [NSURL URLWithString:@"whatsapp://send?text=Hello%2C%20World!"];
 //    
 //    if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
@@ -1944,6 +1944,13 @@
             if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
                 [[UIApplication sharedApplication] openURL: whatsappURL];
             }
+        }
+        else if([title isEqualToString:@"Copy Link"])
+        {
+            PostDetails *post = [storiesArray lastObject];
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            pasteboard.URL = [NSURL URLWithString:post.url];
+
         }
         
 
