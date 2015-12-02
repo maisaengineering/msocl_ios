@@ -1940,9 +1940,25 @@
         else if([title isEqualToString:@"Share on WhatsApp"])
         {
             PostDetails *post = [storiesArray lastObject];
-            NSURL *whatsappURL = [NSURL URLWithString:[NSString stringWithFormat:@"whatsapp://send?text=%@",post.url]];
+            NSString * msg = post.url;
+
+            msg = [msg stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
+            msg = [msg stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+            msg = [msg stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
+            msg = [msg stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+            msg = [msg stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
+            msg = [msg stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+
+            NSURL *whatsappURL = [NSURL URLWithString:[NSString stringWithFormat:@"whatsapp://send?text=%@",msg]];
             if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
                 [[UIApplication sharedApplication] openURL: whatsappURL];
+            }
+            else
+            {
+                UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"WhatsApp not installed" message:@"Please install WhatsApp to share the post" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [warningAlert show];
+                return;
+
             }
         }
         else if([title isEqualToString:@"Copy Link"])
