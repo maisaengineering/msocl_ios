@@ -105,12 +105,22 @@
         tour_ImageView.image = [UIImage imageNamed:@"tour0-4.png"];
         
         iAmInBtn.frame = CGRectMake(115, 370, 80, 40);
+        
+        UIImageView *logoImage = [[UIImageView alloc] initWithFrame:CGRectMake(40, 21, 240, 56)];
+        [logoImage setImage:[UIImage imageNamed:@"icon-login.png"]];
+        [tour_ImageView addSubview:logoImage];
+
     }
     else
     {
         tour_ImageView.image = [UIImage imageNamed:@"tour_0.png"];
         hyperLinkButton.frame = CGRectMake(0, 380, 320, 40);
         iAmInBtn.frame = CGRectMake(115, 429, 80, 40);
+        
+        UIImageView *logoImage = [[UIImageView alloc] initWithFrame:CGRectMake(40, 54, 240, 56)];
+        [logoImage setImage:[UIImage imageNamed:@"icon-login.png"]];
+        [tour_ImageView addSubview:logoImage];
+
 
     }
     
