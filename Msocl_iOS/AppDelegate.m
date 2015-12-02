@@ -67,7 +67,8 @@
    // [Flurry setCrashReportingEnabled:YES];
     [Fabric with:@[CrashlyticsKit]];
 
-    
+    [Flurry startSession:FLURRY_KEY];
+
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
     
@@ -314,8 +315,8 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application
 {
-    [Flurry startSession:FLURRY_KEY];
-    [Flurry setCrashReportingEnabled:YES];
+    
+    //[Flurry setCrashReportingEnabled:YES];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
