@@ -71,8 +71,13 @@
     uploadingImages = 0;
     if(selectedtagsArray.count == 0)
         selectedtagsArray = [[NSMutableArray alloc] init];
+    
     tagsArray = [[NSUserDefaults standardUserDefaults] objectForKey:@"Groups"];
     
+    NSSortDescriptor *brandDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:brandDescriptor];
+    tagsArray = [tagsArray sortedArrayUsingDescriptors:sortDescriptors];
+
     
     
     popover = [DXPopover popover];
@@ -244,6 +249,11 @@
     [myDefaults synchronize];
     
     tagsArray = [responseDict objectForKey:@"groups"];
+    
+    NSSortDescriptor *brandDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:brandDescriptor];
+    tagsArray = [tagsArray sortedArrayUsingDescriptors:sortDescriptors];
+
     [collectionView reloadData];
 }
 -(void)fetchingGroupsFailedWithError

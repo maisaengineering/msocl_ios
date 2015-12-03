@@ -312,7 +312,7 @@
     
     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {
-         weakSelf.image = [image resizedImageByMagick:@"320x198#"];
+         weakSelf.image = [image resizedImageByMagick:@"320x198!"];
          [initial removeFromSuperview];
 
          CATransition *transition = [CATransition animation];

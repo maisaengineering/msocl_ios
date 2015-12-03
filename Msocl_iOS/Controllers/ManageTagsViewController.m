@@ -106,6 +106,11 @@
     [appdelegate showOrhideIndicator:NO];
     managedTagsArray = [[responseDict objectForKey:@"favourites"] mutableCopy];
     [managedTagsArray addObjectsFromArray:[responseDict objectForKey:@"recommended"]];
+    
+    NSSortDescriptor *brandDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:brandDescriptor];
+    managedTagsArray = [[managedTagsArray sortedArrayUsingDescriptors:sortDescriptors] mutableCopy];
+
     selectedTags = [[responseDict objectForKey:@"favourites"] mutableCopy];
     
     [[NSUserDefaults standardUserDefaults] setObject:selectedTags forKey:@"Groups"];

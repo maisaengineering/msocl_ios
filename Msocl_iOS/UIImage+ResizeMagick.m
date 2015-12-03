@@ -23,8 +23,8 @@
     if([spec hasSuffix:@"!"]) {
         NSString *specWithoutSuffix = [spec substringToIndex: [spec length] - 1];
         NSArray *widthAndHeight = [specWithoutSuffix componentsSeparatedByString: @"x"];
-        NSUInteger width = [[widthAndHeight objectAtIndex: 0] unsignedIntegerValue];
-        NSUInteger height = [[widthAndHeight objectAtIndex: 1] unsignedIntegerValue];
+        NSUInteger width = [[widthAndHeight objectAtIndex: 0] intValue];
+        NSUInteger height = [[widthAndHeight objectAtIndex: 1] intValue];
         UIImage *newImage = [self resizedImageWithMinimumSize: CGSizeMake (width, height)];
         return [newImage drawImageInBounds: CGRectMake (0, 0, width, height)];
     }
