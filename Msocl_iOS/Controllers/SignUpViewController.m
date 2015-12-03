@@ -16,6 +16,7 @@
 #import "WebViewController.h"
 #import "UITextField+Shake.h"
 #import "NotificationUtils.h"
+#import "Flurry.h"
 @implementation SignUpViewController
 {
     AppDelegate *appdelegate;
@@ -110,6 +111,7 @@
      ];
     txt_handle.autocorrectionType = UITextAutocorrectionTypeNo;
     
+    [Flurry logEvent:@"navigation_to_register"];
 }
 -(IBAction)backClickes:(id)sender
 {
@@ -261,6 +263,19 @@
     [appdelegate showOrhideIndicator:NO];
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:NO];
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    if (sharedModel.userProfile)
+    {
+        [Flurry setUserID:sharedModel.userProfile.uid];
+    }
+    else
+    {
+        [Flurry setUserID:DEVICE_UUID];
+    }
+    
+    [Flurry logEvent:@"register_successful"];
+
     [NotificationUtils resetParseChannels];
 }
 -(void)signUpFailed:(NSDictionary *)responseDict
@@ -281,6 +296,8 @@
     {
         ShowAlert(@"Error", @"Updation Failed", @"OK");
     }
+    
+    [Flurry logEvent:@"register_failed"];
 }
 #pragma mark -
 #pragma mark Image Selection Methods

@@ -29,6 +29,7 @@
 #import "UserProfileViewCotroller.h"
 #import "UIImage+GIF.h"
 #import "UIImage+animatedGIF.h"
+#import "Flurry.h"
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -223,7 +224,7 @@
     
         popover = [DXPopover popover];
     
-    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(149.5, 8, 21, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
     editButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -233,6 +234,14 @@
     [self.navigationController.navigationBar addSubview:editButton];
 
     [editButton setHidden:YES];
+
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            postID, @"post_uid",
+                            nil];
+    
+    [Flurry logEvent:@"navigation_to_post" withParameters:params timed:YES];
+    
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -273,6 +282,7 @@
         
     }
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
 
 }
 - (void)keyboardDidShow:(NSNotification*)notification
@@ -298,7 +308,7 @@
 //        
 //        [shareActionSheet addButtonWithTitle:@"Share on WhatsApp"];
 //    }
-
+    
     [shareActionSheet showInView:self.view];
 }
 
@@ -317,8 +327,14 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            postID, @"post_uid",
+                            nil];
+    [Flurry endTimedEvent:@"navigation_to_post" withParameters:params];
+
+
 }
 
 -(void)backClicked
@@ -1351,6 +1367,7 @@
 }
 -(void)callCommentApi
 {
+    
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
         [self gotoLoginScreen];
@@ -1366,6 +1383,14 @@
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
 
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            postID, @"post_uid",
+                            nil];
+    
+    [Flurry logEvent:@"post_comment" withParameters:params timed:YES];
+
+    
     [appDelegate showOrhideIndicator:YES];
     
     PostDetails *postDetls = [storiesArray lastObject];
@@ -1379,6 +1404,8 @@
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     [self.txt_comment resignFirstResponder];
     streamTableView.frame = originalPostion;
+    
+    
 
 }
 -(void) commentSuccessful:(NSDictionary *)recievedDict
@@ -1924,6 +1951,16 @@
     }
     else
     {
+        if(buttonIndex != actionSheet.cancelButtonIndex)
+        {
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    postID, @"post_uid",
+                                    nil];
+            
+            [Flurry logEvent:@"post_share" withParameters:params timed:YES];
+            
+        }
+        
         NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if([title isEqualToString:@"Share on Facebook"])
         {

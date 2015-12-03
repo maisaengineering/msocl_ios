@@ -19,7 +19,7 @@
 #import "UpdateUserDetailsViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
-
+#import "Flurry.h"
 @implementation MenuViewController
 {
     ModelManager *sharedModel;
@@ -387,6 +387,8 @@
     [myDefaults removeObjectForKey:@"tokens"];
     [myDefaults synchronize];
 
+    [sharedModel clear];
+    
     [self callAccessTokenApi];
 }
 -(void) signOutFailed
@@ -433,6 +435,7 @@
     currentInstallation.channels = [[NSArray alloc] init];
     [currentInstallation saveEventually];
 
+    [Flurry setUserID:DEVICE_UUID];
     
 }
 

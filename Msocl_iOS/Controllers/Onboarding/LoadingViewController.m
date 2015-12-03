@@ -31,7 +31,7 @@
     background.animationDuration = 1;
     [background startAnimating] ;
 
-    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(149.5, 8, 21, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
     [self.view addSubview:background]; //screenHeight - 1136

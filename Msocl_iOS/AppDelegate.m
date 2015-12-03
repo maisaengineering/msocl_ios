@@ -332,6 +332,8 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
+    [Flurry endTimedEvent:@"app_open_time" withParameters:nil];
+    
     [[PageGuidePopUps sharedInstance] sendVisitedPageGuides];
     
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
@@ -375,6 +377,17 @@
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"kUserClickedLockButton"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    if (sharedModel.userProfile)
+    {
+        [Flurry setUserID:sharedModel.userProfile.uid];
+    }
+    else
+    {
+        [Flurry setUserID:DEVICE_UUID];
+    }
+
+    [Flurry logEvent:@"app_open_time" timed:YES];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

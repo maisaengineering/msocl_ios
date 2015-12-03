@@ -206,8 +206,7 @@
     
     if(selectedtagsArray.count > 0)
         [collectionView reloadData];
-
-    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake((Devicewidth-47)/2, 8, 47, 28)];
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake((Devicewidth-21)/2, 8, 21, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     [self.navigationController.navigationBar addSubview:iconImage];
     if(tokenDict != nil)

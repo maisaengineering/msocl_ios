@@ -16,6 +16,7 @@
 #import "UserProfileViewCotroller.h"
 #import "UpdateUserDetailsViewController.h"
 #import "UIImage+ResizeMagick.h"
+#import "Flurry.h"
 @implementation TagViewController
 {
     StreamDisplayView *streamDisplay;
@@ -118,6 +119,8 @@
     addButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
     self.navigationItem.rightBarButtonItem= addButton;
 
+    
+    
 
 }
 -(void)addClicked:(id)sender
@@ -190,6 +193,13 @@
          
      }failure:nil];
 
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [recievedDict objectForKey:@"uid"], @"tag_uid",
+                                   nil];
+    
+
+    [Flurry logEvent:@"navigation_to_tag" withParameters:params];
+    
 }
 
 -(void) profileDetailsFailed
@@ -321,6 +331,9 @@
         
         int count =  [[[followingCount.text componentsSeparatedByString:@" "] lastObject] intValue]+1;
         followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
+        
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.tagId,@"tag_uid", nil];
+        [Flurry logEvent:@"subscribe_tag" withParameters:params];
     }
     else
     {
@@ -343,6 +356,10 @@
         followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
         
         [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
+        
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.tagId,@"tag_uid", nil];
+        [Flurry logEvent:@"unsubscribe_tag" withParameters:params];
+
         
     }
 }

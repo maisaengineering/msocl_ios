@@ -15,6 +15,7 @@
 #import "SignUpViewController.h"
 #import "NotificationUtils.h"
 #import "FogotPasswordViewController.h"
+#import "Flurry.h"
 @implementation LoginViewController
 {
     AppDelegate *appdelegate;
@@ -115,6 +116,9 @@
             x+=98;
         }
     
+    [Flurry logEvent:@"navigation_to_login"];
+
+    
 }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -212,6 +216,7 @@
 }
 -(void)loginSccessfull:(NSDictionary *)responseDict
 {
+    [Flurry logEvent:@"login_successful"];
     
     [appdelegate showOrhideIndicator:NO];
     
@@ -239,10 +244,22 @@
     
     [NotificationUtils resetParseChannels];
     
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    if (sharedModel.userProfile)
+    {
+        [Flurry setUserID:sharedModel.userProfile.uid];
+    }
+    else
+    {
+        [Flurry setUserID:DEVICE_UUID];
+    }
+
+    
     [self.navigationController popViewControllerAnimated:NO];
 }
 -(void)loginFailed
 {
+    [Flurry logEvent:@"login_failed"];
     [appdelegate showOrhideIndicator:NO];
     ShowAlert(@"Error", @"Email id and Password do not match", @"OK");
 }

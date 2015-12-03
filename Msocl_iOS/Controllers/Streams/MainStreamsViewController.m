@@ -17,7 +17,7 @@
 #import "UpdateUserDetailsViewController.h"
 #import "StringConstants.h"
 #import <Crashlytics/Crashlytics.h>
-
+#import "Flurry.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -111,7 +111,7 @@
     [searchButton setFrame:CGRectMake(250, 9.5, 25, 25)];
     [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
-    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(136.5, 8, 47, 28)];
+    iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(149.5, 8, 21, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClicked:)];
@@ -165,6 +165,7 @@
     [self performSelector:@selector(setUpTimer) withObject:nil afterDelay:1.0];
     [self.navigationController.navigationBar addSubview:searchButton];
     
+    [Flurry logEvent:@"navigation_to_wall"];
     
 }
 -(void)viewDidAppear:(BOOL)animated
