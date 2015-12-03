@@ -38,7 +38,7 @@
 {
     [super viewDidLoad];
     
-    self.tableView.separatorColor = [UIColor lightGrayColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
@@ -46,7 +46,6 @@
     photoUtils = [ProfilePhotoUtils alloc];
     appdelegate = [[UIApplication sharedApplication] delegate];
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
     
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -147,6 +146,11 @@
         [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];
         [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16]];
         
+        
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 89.5, 320, 0.5)];
+        [label setBackgroundColor:[UIColor lightGrayColor]];
+        [cell.contentView addSubview:label];
         return cell;
         
     }
@@ -191,6 +195,10 @@
             break;
     }
     
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 43.5, 320, 0.5)];
+    [label setBackgroundColor:[UIColor lightGrayColor]];
+    [cell.contentView addSubview:label];
+
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
