@@ -43,6 +43,12 @@
 		7F2A59961AE2563E0089EDBB /* btn-twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2A59931AE2563E0089EDBB /* btn-twitter@2x.png */; };
 		7F2CFFBD1CC9095000AB6199 /* fbconnect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFBC1CC9095000AB6199 /* fbconnect@2x.png */; };
 		7F2CFFBE1CC9095000AB6199 /* fbconnect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFBC1CC9095000AB6199 /* fbconnect@2x.png */; };
+		7F2CFFC01CC9203100AB6199 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFBF1CC9203100AB6199 /* Icon-60@3x.png */; };
+		7F2CFFC11CC9203100AB6199 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFBF1CC9203100AB6199 /* Icon-60@3x.png */; };
+		7F2CFFC31CC9211200AB6199 /* login_with_facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFC21CC9211200AB6199 /* login_with_facebook@2x.png */; };
+		7F2CFFC41CC9211200AB6199 /* login_with_facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFC21CC9211200AB6199 /* login_with_facebook@2x.png */; };
+		7F2CFFC61CC9234700AB6199 /* pinch_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFC51CC9234700AB6199 /* pinch_icon@2x.png */; };
+		7F2CFFC71CC9234700AB6199 /* pinch_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFC51CC9234700AB6199 /* pinch_icon@2x.png */; };
 		7F33EF951B28235A003FDB44 /* FacebookShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F33EF941B28235A003FDB44 /* FacebookShareController.m */; };
 		7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */; };
 		7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */; };
@@ -471,6 +477,9 @@
 		7F2A59921AE2563E0089EDBB /* btn-google@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-google@2x.png"; sourceTree = "<group>"; };
 		7F2A59931AE2563E0089EDBB /* btn-twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-twitter@2x.png"; sourceTree = "<group>"; };
 		7F2CFFBC1CC9095000AB6199 /* fbconnect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fbconnect@2x.png"; sourceTree = "<group>"; };
+		7F2CFFBF1CC9203100AB6199 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "Images.xcassets/AppIcon.appiconset/Icon-60@3x.png"; sourceTree = "<group>"; };
+		7F2CFFC21CC9211200AB6199 /* login_with_facebook@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login_with_facebook@2x.png"; path = "../login_with_facebook@2x.png"; sourceTree = "<group>"; };
+		7F2CFFC51CC9234700AB6199 /* pinch_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinch_icon@2x.png"; sourceTree = "<group>"; };
 		7F33EF931B28235A003FDB44 /* FacebookShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookShareController.h; sourceTree = "<group>"; };
 		7F33EF941B28235A003FDB44 /* FacebookShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookShareController.m; sourceTree = "<group>"; };
 		7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-textfield@2x.png"; sourceTree = "<group>"; };
@@ -1427,6 +1436,9 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F2CFFC51CC9234700AB6199 /* pinch_icon@2x.png */,
+				7F2CFFC21CC9211200AB6199 /* login_with_facebook@2x.png */,
+				7F2CFFBF1CC9203100AB6199 /* Icon-60@3x.png */,
 				7F2CFFBC1CC9095000AB6199 /* fbconnect@2x.png */,
 				7FC271221C101C15008AFE45 /* header-icon-samepinch@2x.png */,
 				7FC271231C101C15008AFE45 /* header-icon-samepinch@3x.png */,
@@ -1855,13 +1867,16 @@
 				7FEC6DCF1B43C58700A29BCF /* SanFranciscoDisplay-Regular.otf in Resources */,
 				7FEC6DC81B43C56B00A29BCF /* anamous@2x.png in Resources */,
 				7FC271271C101C15008AFE45 /* header-icon-samepinch@2x.png in Resources */,
+				7F2CFFC41CC9211200AB6199 /* login_with_facebook@2x.png in Resources */,
 				7FEC6DC71B43C56100A29BCF /* tag-tick@2x.png in Resources */,
 				7FEC6DC61B43C55700A29BCF /* tag-tick-active@2x.png in Resources */,
+				7F2CFFC71CC9234700AB6199 /* pinch_icon@2x.png in Resources */,
 				7FEC6DC51B43C54C00A29BCF /* textfield@2x.png in Resources */,
 				7FEC6DC41B43C53E00A29BCF /* btn-post-dropdown@2x.png in Resources */,
 				7FEC6DC31B43C52900A29BCF /* btn-postas@2x.png in Resources */,
 				7FEC6DC21B43C51800A29BCF /* Images.xcassets in Resources */,
 				7FC2712D1C101C15008AFE45 /* icon-login@3x.png in Resources */,
+				7F2CFFC11CC9203100AB6199 /* Icon-60@3x.png in Resources */,
 				7F6BEAD51B43AD0B0052FF32 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1874,6 +1889,7 @@
 				7FAF02751B465625002DD930 /* tag-tick@3x.png in Resources */,
 				7FAF02461B465625002DD930 /* icon-create@3x.png in Resources */,
 				7FAF02641B465625002DD930 /* menu-profile@3x.png in Resources */,
+				7F2CFFC31CC9211200AB6199 /* login_with_facebook@2x.png in Resources */,
 				7F7E96F11AF4FF4F00995667 /* Typo Grotesk Thin Demo.otf in Resources */,
 				7FAF02591B465625002DD930 /* icon-profile-register@3x.png in Resources */,
 				7F06BC851B4D5F6A00D260F0 /* icon_device_camera@2x.png in Resources */,
@@ -1920,6 +1936,7 @@
 				7FAF02341B465625002DD930 /* btn-post-dropdown@3x.png in Resources */,
 				7FAF02501B465625002DD930 /* icon-heart-list@3x.png in Resources */,
 				7F8891061B16024C009C8CC8 /* btn-Cmntas@2x.png in Resources */,
+				7F2CFFC01CC9203100AB6199 /* Icon-60@3x.png in Resources */,
 				7F952F621B26E0F600810014 /* slider-gray@2x.png in Resources */,
 				7F5F18D81ADE7ABD00C5B4EC /* icon-comment-main@2x.png in Resources */,
 				7FAF02661B465625002DD930 /* placeHolder_show@3x.png in Resources */,
@@ -1980,6 +1997,7 @@
 				7F5934141B3A642B001B5A94 /* btn-post-ana@2x.png in Resources */,
 				7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */,
 				7F06BC881B4D5F6A00D260F0 /* icon-camera-add@3x.png in Resources */,
+				7F2CFFC61CC9234700AB6199 /* pinch_icon@2x.png in Resources */,
 				7F76B7E31B10B83E0045F9D7 /* icon-menu-mtags@2x.png in Resources */,
 				7F8890F71B15F310009C8CC8 /* cd-1@2x.png in Resources */,
 				7FAF024F1B465625002DD930 /* icon-heart-count@3x.png in Resources */,
@@ -2270,8 +2288,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2284,9 +2302,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
+				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2298,8 +2316,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -2312,9 +2330,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Msocl_iOS",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl.shareextention;
+				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod.shareextention;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -2407,8 +2425,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2429,10 +2447,10 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
+				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2445,8 +2463,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Venkata B (9YFZVN5KK5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Venkata B (9YFZVN5KK5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2467,10 +2485,10 @@
 					"-Objc",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.maisasolutions.msocl;
+				PRODUCT_BUNDLE_IDENTIFIER = co.samepinch.prod;
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7438f931-f629-4c83-bc59-89544b66fd0b";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

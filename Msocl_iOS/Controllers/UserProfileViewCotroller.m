@@ -17,6 +17,9 @@
 #import "TagViewController.h"
 #import "LoginViewController.h"
 #import "UIImage+ResizeMagick.h"
+#import "JTSImageViewController.h"
+#import "JTSImageInfo.h"
+
 @implementation UserProfileViewCotroller
 {
     StreamDisplayView *streamDisplay;
@@ -208,7 +211,36 @@
     profileImageVw = [[UIImageView alloc] initWithFrame:animatedTopView.bounds];
     [animatedTopView addSubview:profileImageVw];
     
+    UITapGestureRecognizer *oneTouch=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tappedImageView:)];
+    [oneTouch setNumberOfTouchesRequired:1];
+    [profileImageVw addGestureRecognizer:oneTouch];
+    profileImageVw.userInteractionEnabled = YES;
+
+    
 }
+- (void)tappedImageView:(UITapGestureRecognizer *)tapGesture {
+    if (tapGesture.state != UIGestureRecognizerStateEnded) {
+        return;
+    }
+    
+    if(imageUrl != nil && imageUrl.length > 0)
+    {
+    
+    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+    imageInfo.imageURL = [NSURL URLWithString:imageUrl];
+    
+    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                           initWithImageInfo:imageInfo
+                                           mode:JTSImageViewControllerMode_Image
+                                           backgroundStyle:JTSImageViewControllerBackgroundOption_None];
+    
+    // Present the view controller.
+    [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
+
+    }
+    return;
+}
+
 -(void)backClicked
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -301,6 +333,8 @@
         [imageView addSubview:initial];
         [animatedTopView setBackgroundColor:[UIColor lightGrayColor]];
     }
+    
+    imageUrl = [recievedDict objectForKey:@"photo"];
     
     [profileImageVw setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[recievedDict objectForKey:@"photo"]]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)
      {

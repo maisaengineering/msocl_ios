@@ -182,20 +182,48 @@
                                     <action selector="closeClicked:" destination="n8D-mp-AZb" eventType="touchUpInside" id="1Xf-4b-lnB"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-login.png" id="mjH-Yv-c3F">
-                                <rect key="frame" x="40" y="63" width="240" height="56"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pinch_icon.png" id="mjH-Yv-c3F">
+                                <rect key="frame" x="135" y="140" width="50" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="biR-Wm-q8u">
-                                <rect key="frame" x="47" y="155" width="226" height="50"/>
+                                <rect key="frame" x="-23" y="260" width="366" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="fbconnect.png">
+                                <state key="normal" backgroundImage="login_with_facebook.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="facebookButtonClikced:" destination="n8D-mp-AZb" eventType="touchUpInside" id="rut-Ep-Qyg"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CuL-yu-Qhi">
+                                <rect key="frame" x="69" y="225" width="182" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Login with your Facebook account.">
+                                        <attributes>
+                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="11" name="HelveticaNeue-LightItalic"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="17" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="We respect your privacy.">
+                                        <attributes>
+                                            <color key="NSColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="11" name="HelveticaNeue-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1279,12 +1307,13 @@
     <resources>
         <image name="checkbox_empty.png" width="20" height="20"/>
         <image name="checkbox_full.png" width="20" height="20"/>
-        <image name="fbconnect.png" width="226" height="50"/>
         <image name="icon-back.png" width="16" height="23"/>
         <image name="icon-close.png" width="32" height="34"/>
         <image name="icon-login.png" width="240" height="56"/>
         <image name="icon-profile-register.png" width="50" height="50"/>
         <image name="icon_device_camera.png" width="38" height="27"/>
+        <image name="login_with_facebook.png" width="366" height="50"/>
+        <image name="pinch_icon.png" width="50" height="79"/>
         <image name="profile-register.png" width="51" height="50"/>
         <image name="setting-strip-selected.png" width="292" height="35"/>
     </resources>
