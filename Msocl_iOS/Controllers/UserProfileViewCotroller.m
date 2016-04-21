@@ -261,14 +261,6 @@
     if( [[nameArray lastObject] length] >0)
         [parentFnameInitial appendString:[[[nameArray lastObject] substringToIndex:1] uppercaseString]];
     
-    if(parentFnameInitial.length < 1)
-    {
-        if( [[recievedDict objectForKey:@"pinch_handle"] length] >0)
-            [parentFnameInitial appendString:[[recievedDict objectForKey:@"pinch_handle"] uppercaseString]];
-        if( [[recievedDict objectForKey:@"pinch_handle"] length] >1)
-            [parentFnameInitial appendString:[[[[recievedDict objectForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString] uppercaseString]];
-        
-    }
 
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -349,24 +341,7 @@
     
     
     nameLabel.text = [recievedDict objectForKey:@"full_name"];
-    if(nameLabel.text.length > 0 && [[recievedDict objectForKey:@"pinch_handle"] length] > 0)
-    {
-        handleLabel.text = [NSString stringWithFormat:@"@%@",[recievedDict objectForKey:@"pinch_handle"]];
-        CGRect frame =  handleLabel.frame;
-        frame.origin.y = y;
-        handleLabel.frame = frame;
-        [animatedTopView addSubview:handleLabel];
-        y+=20;
-    }
-    else if([[recievedDict objectForKey:@"pinch_handle"] length] > 0)
-    {
-        handleLabel.text = [NSString stringWithFormat:@"@%@",[recievedDict objectForKey:@"pinch_handle"]];
-        CGRect frame =  aboutLabel.frame;
-        frame.origin.y = 117;
-        handleLabel.frame = frame;
-        [animatedTopView addSubview:handleLabel];
 
-    }
     if([recievedDict objectForKey:@"summary"] != nil)
     {
         CGSize size = [[recievedDict objectForKey:@"summary"] sizeWithAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]}];

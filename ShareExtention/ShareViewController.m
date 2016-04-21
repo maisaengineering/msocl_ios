@@ -122,15 +122,6 @@
     if( [[userDict objectForKey:@"lname"] length] >0)
         [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
     
-    if(parentFnameInitial.length < 1)
-    {
-        if( [[userDict valueForKey:@"pinch_handle"] length] >0)
-            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
-        if( [[userDict valueForKey:@"pinch_handle"] length] >1)
-            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
-        
-    }
-
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];
@@ -637,11 +628,7 @@
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
         [popView addSubview:postAsLabel1];
-        if(postAsLabel1.text.length  <1)
-        {
-            [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@",[userDict objectForKey:@"pinch_handle"]]];
 
-        }
         UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
         
         
@@ -651,14 +638,6 @@
         if( [[userDict objectForKey:@"lname"] length] >0)
             [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
         
-        if(parentFnameInitial.length < 1)
-        {
-            if( [[userDict valueForKey:@"pinch_handle"] length] >0)
-                [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
-            if( [[userDict valueForKey:@"pinch_handle"] length] >1)
-                [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
-            
-        }
 
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -748,15 +727,6 @@
     if( [[userDict objectForKey:@"lname"] length] >0)
         [parentFnameInitial appendString:[[[userDict objectForKey:@"lname"] substringToIndex:1] uppercaseString]];
     
-    if(parentFnameInitial.length < 1)
-    {
-        if( [[userDict valueForKey:@"pinch_handle"] length] >0)
-            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
-        if( [[userDict valueForKey:@"pinch_handle"] length] >1)
-            [parentFnameInitial appendString:[[[userDict valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
-        
-    }
-
     NSMutableAttributedString *attributedText =
     [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
                                            attributes:nil];

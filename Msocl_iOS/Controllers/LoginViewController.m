@@ -80,14 +80,7 @@
         {
             [facebookButton setHidden:YES];
         }
-        else
-        {
-            [facebookButton setHidden:NO];
-            CGRect frame = facebookButton.frame;
-            frame.origin.x = x;
-            facebookButton.frame = frame;
-            x+=98;
-        }
+    
         
         if([externalSignInOptions containsObject:@"twitter"])
         {

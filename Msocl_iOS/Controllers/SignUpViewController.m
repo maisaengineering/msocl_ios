@@ -217,7 +217,6 @@
     [postDetails setObject:txt_lastname.text forKey:@"lname"];
     [postDetails setObject:txt_firstName.text forKey:@"fname"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
-    [postDetails setObject:txt_handle.text forKey:@"pinch_handle"];
     [postDetails setObject:txt_password.text forKey:@"password"];
     if(imageId.length > 0)
         [postDetails setObject:imageId forKey:@"key"];

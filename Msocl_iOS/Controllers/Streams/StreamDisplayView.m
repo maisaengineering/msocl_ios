@@ -306,10 +306,6 @@
         height += 100+8;
     else
         height += 3;
-    if(!postDetailsObject.anonymous && [postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && ([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0)  )
-    {
-        height += 12;
-    }
     if((isMostRecent || isFollowing) && indexPath.row == 0)
     {
         return height + 30;
@@ -400,14 +396,6 @@
         if([postDetailsObject.owner valueForKey:@"lname"] != (id)[NSNull null] && [[postDetailsObject.owner valueForKey:@"lname"] length]>0)
             [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"lname"] substringToIndex:1] uppercaseString]];
         
-        if(parentFnameInitial.length < 1)
-        {
-            if( [[postDetailsObject.owner valueForKey:@"pinch_handle"] length] >0)
-                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"pinch_handle"] substringToIndex:1] uppercaseString]];
-            if( [[postDetailsObject.owner valueForKey:@"pinch_handle"] length] >1)
-                [parentFnameInitial appendString:[[[postDetailsObject.owner valueForKey:@"pinch_handle"] substringWithRange:NSMakeRange(1, 1)] uppercaseString]];
-            
-        }
 
         NSMutableAttributedString *attributedText =
         [[NSMutableAttributedString alloc] initWithString:parentFnameInitial
@@ -493,32 +481,7 @@
         [name setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
         [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
         [cell.contentView addSubview:name];
-        if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 )
-        {
-            UILabel * handle = [[UILabel alloc] initWithFrame:CGRectMake(60, yPosition+25, 200, 12)];
-            [handle setText:[NSString stringWithFormat:@"@%@",[postDetailsObject.owner objectForKey:@"pinch_handle"]]];
-            
-            [handle setTextColor:[UIColor grayColor]];
-            [handle setFont:[UIFont fontWithName:@"SanFranciscoText-Semibold" size:12]];
-            [cell.contentView addSubview:handle];
-            
-            
-            
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            
-           // [btn addTarget:self action:@selector(profileButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            [btn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-            [cell.contentView addSubview:btn];
-            if(([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length]) )
-            {
-                btn.frame = CGRectMake(60, yPosition+25, 200, 12);
-            }
-            else
-            {
-                handle.frame = CGRectMake(60, yPosition, 110, 30);
-                btn.frame = CGRectMake(60, yPosition, 110, 30);
-            }
-        }
+
     }
     else
     {
@@ -547,24 +510,13 @@
     
     
     
-    UIImageView *timeIcon  = [[UIImageView alloc] initWithFrame:CGRectMake(242, yPosition+8, 13, 13)];
-    [timeIcon setImage:[UIImage imageNamed:@"time.png"]];
-    [cell.contentView addSubview:timeIcon];
-    
-    //Time
-    UILabel *time = [[UILabel alloc] initWithFrame:CGRectMake(256, yPosition+9, 55, 12)];
-    [time setText:[profileDateUtils dailyLanguage:postDetailsObject.time]];
-    [time setTextAlignment:NSTextAlignmentLeft];
-    [time setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
-    [time setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:10]];
-    [cell.contentView addSubview:time];
     
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(211, yPosition+3, 18, 18)];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(211+68, yPosition+3, 18, 18)];
     [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
     [cell.contentView addSubview:heartCntImage];
     
-    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(230, yPosition+9, 10, 10)];
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(230+68, yPosition+9, 10, 10)];
     [heartCount setText:postDetailsObject.time];
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
@@ -572,11 +524,11 @@
     [heartCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:8]];
     [cell.contentView addSubview:heartCount];
     
-    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(173, yPosition+7.5, 22, 13)];
+    UIImageView *viewsCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(173+68, yPosition+7.5, 22, 13)];
     [viewsCntImage setImage:[UIImage imageNamed:@"icon-view-count.png"]];
     [cell.contentView addSubview:viewsCntImage];
     
-    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(195.5f, yPosition+9, 20, 10)];
+    UILabel *viewsCount = [[UILabel alloc] initWithFrame:CGRectMake(195.5f+68, yPosition+9, 20, 10)];
     [viewsCount setText:postDetailsObject.time];
     [viewsCount setTextAlignment:NSTextAlignmentLeft];
     [viewsCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.viewsCount]];
@@ -592,8 +544,6 @@
 {
     float yPosition = 43;
     
-    if([postDetailsObject.owner objectForKey:@"pinch_handle"] != nil && [[postDetailsObject.owner objectForKey:@"pinch_handle"] length] > 0 && (([[postDetailsObject.owner objectForKey:@"fname"] length] >0 || [[postDetailsObject.owner objectForKey:@"lname"] length] > 0) || postDetailsObject.anonymous))
-        yPosition += 12;
     NIAttributedLabel *textView = [NIAttributedLabel new];
     
     if(postDetailsObject.content == nil)

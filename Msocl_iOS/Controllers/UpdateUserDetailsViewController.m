@@ -128,16 +128,10 @@
      ];
     
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"externalSignIn"])
-    {
+   
         changePWDButton.hidden = YES;
         txt_Password.hidden = YES;
         lineImage.hidden = YES;
-        CGRect frame = upadteButton.frame;
-        frame.origin.y = changePWDButton.frame.origin.y;
-        upadteButton.frame = frame;
-    }
-    
     [self setDetails];
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -176,7 +170,6 @@
     [txt_emailAddress setText:sharedModel.userProfile.email];
     [txt_blog setText:sharedModel.userProfile.blog];
     [txt_aboutMe setText:sharedModel.userProfile.aboutMe];
-    [txt_handle setText:sharedModel.userProfile.handle];
     txt_handle.userInteractionEnabled = NO;
     __weak UIImageView *weakSelf = profileImage;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -257,12 +250,7 @@
 -(IBAction)signupClicked:(id)sender
 {
     [self resignKeyBoards];
-     if(txt_handle.text.length == 0 )
-    {
-        ShowAlert(PROJECT_NAME,@"Please enter handle", @"OK");
-        return;
-    }
-    else if(txt_emailAddress.text.length == 0)
+     if(txt_emailAddress.text.length == 0)
     {
         ShowAlert(PROJECT_NAME,@"Please enter email", @"OK");
         return;

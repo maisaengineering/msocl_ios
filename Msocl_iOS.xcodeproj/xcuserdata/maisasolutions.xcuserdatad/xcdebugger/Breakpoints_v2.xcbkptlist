@@ -84,27 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470841856.57222"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844024.280694"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1644"
-            endingLineNumber = "1644"
+            startingLineNumber = "1570"
+            endingLineNumber = "1570"
             landmarkName = "-keyboardWillShow:"
             landmarkType = "5">
          </BreakpointContent>
@@ -116,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844024.280694"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1395"
-            endingLineNumber = "1395"
+            startingLineNumber = "1334"
+            endingLineNumber = "1334"
             landmarkName = "-callCommentApi"
             landmarkType = "5">
          </BreakpointContent>
@@ -148,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844024.280694"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1667"
-            endingLineNumber = "1667"
+            startingLineNumber = "1593"
+            endingLineNumber = "1593"
             landmarkName = "-keyboardWillHide:"
             landmarkType = "5">
          </BreakpointContent>
@@ -164,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844024.280694"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1674"
-            endingLineNumber = "1674"
+            startingLineNumber = "1600"
+            endingLineNumber = "1600"
             landmarkName = "@implementation PostDetailDescriptionViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -228,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844024.280694"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1410"
-            endingLineNumber = "1410"
+            startingLineNumber = "1349"
+            endingLineNumber = "1349"
             landmarkName = "-callCommentApi"
             landmarkType = "5">
          </BreakpointContent>
@@ -244,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844691.131555"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1788"
-            endingLineNumber = "1788"
+            startingLineNumber = "1714"
+            endingLineNumber = "1714"
             landmarkName = "-heartingSuccessFull:"
             landmarkType = "5">
          </BreakpointContent>
@@ -260,11 +244,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844691.131555"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1820"
-            endingLineNumber = "1820"
+            startingLineNumber = "1746"
+            endingLineNumber = "1746"
             landmarkName = "-deleteButtonClicked"
             landmarkType = "5">
          </BreakpointContent>
@@ -276,11 +260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844691.131555"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1906"
-            endingLineNumber = "1906"
+            startingLineNumber = "1832"
+            endingLineNumber = "1832"
             landmarkName = "-moreClicked:"
             landmarkType = "5">
          </BreakpointContent>
@@ -292,28 +276,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
-            timestampString = "470844976.717042"
+            timestampString = "482940845.462427"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2089"
-            endingLineNumber = "2089"
+            startingLineNumber = "2015"
+            endingLineNumber = "2015"
             landmarkName = "-commentUpVoteFailed"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
-            timestampString = "470848762.568872"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -341,6 +309,22 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/UpdateUserDetailsViewController.m"
+            timestampString = "482941337.557075"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "-doSignup"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
