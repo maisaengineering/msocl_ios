@@ -121,7 +121,7 @@
         //[placeholderLabel setText:placeholder];
         [placeholderLabel setBackgroundColor:[UIColor clearColor]];
         [placeholderLabel setNumberOfLines:0];
-        placeholderLabel.text = @"Add a comment";
+        placeholderLabel.text = @"Give your advice";
         [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
         [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]];
         [placeholderLabel setTextColor:[UIColor lightGrayColor]];
@@ -132,7 +132,7 @@
     UIButton *commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [commentBtn setFrame:CGRectMake(188, 6.5, 84, 41)];
     [commentBtn setTitleColor:[UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [commentBtn setTitle:@"Comment as" forState:UIControlStateNormal];
+    [commentBtn setTitle:@"Advice as" forState:UIControlStateNormal];
     [commentBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
     [commentBtn setBackgroundImage:[UIImage imageNamed:@"comment-btn.png"] forState:UIControlStateNormal];
     [commentBtn addTarget:self action:@selector(callCommentApi) forControlEvents:UIControlEventTouchUpInside];
@@ -1138,14 +1138,14 @@
         if(isAnonymous)
         {
             UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-            [postAsLabel1 setText:[NSString stringWithFormat:@"Comment as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
+            [postAsLabel1 setText:[NSString stringWithFormat:@"Advice as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
             [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
             [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
             [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
             [popView addSubview:postAsLabel1];
             
             if(sharedModel.userProfile.fname.length < 1 && sharedModel.userProfile.lname.length < 1)
-                postAsLabel1.text = [NSString stringWithFormat:@"Comment as %@",sharedModel.userProfile.handle];
+                postAsLabel1.text = [NSString stringWithFormat:@"Advice as %@",sharedModel.userProfile.handle];
             UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
             
             __weak UIImageView *weakSelf1 = userImage;
@@ -1213,7 +1213,7 @@
         else
         {
             UILabel *postAsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 260, 40)];
-            [postAsLabel setText:@"Comment as anonymous"];
+            [postAsLabel setText:@"Advice as anonymous"];
             [postAsLabel setTextAlignment:NSTextAlignmentCenter];
             [postAsLabel setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
             [postAsLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:16]];

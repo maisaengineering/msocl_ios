@@ -177,6 +177,7 @@
         appDelegate.isPushCalled = NO;
     }
     
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"killed"];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

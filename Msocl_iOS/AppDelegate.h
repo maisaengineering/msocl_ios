@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL isAppFromBackground;
 @property (nonatomic) BOOL isAppFromPushNotifi;
 @property (nonatomic) BOOL isPushCalled;
+@property (nonatomic, strong) NSData *parseToken;
 
 - (void)showOrhideIndicator:(BOOL)show;
 - (void)showOrhideIndicator:(BOOL)show withMessage:(NSString *)message;

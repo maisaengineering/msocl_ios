@@ -25,6 +25,7 @@
 #import "Reachability.h"
 #import "AddPostViewController.h"
 #import "TagViewController.h"
+#import "LoginViewController.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 @interface AppDelegate ()<MBProgressHUDDelegate>
@@ -41,6 +42,8 @@
 @synthesize isAppFromBackground;
 @synthesize isAppFromPushNotifi;
 @synthesize isPushCalled;
+@synthesize parseToken;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
@@ -135,6 +138,8 @@
     }
 
     
+
+    
     return YES;
 }
 
@@ -151,10 +156,8 @@
 
     
         // Store the deviceToken in the current installation and save it to Parse.
-        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-        [currentInstallation setDeviceTokenFromData:deviceToken];
-        [currentInstallation saveInBackground];
     
+    parseToken = deviceToken;
     
     NSString *strDeviceToken = [deviceToken description];
     strDeviceToken = [strDeviceToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
@@ -221,8 +224,11 @@
 }
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo
 {
+ 
     DebugLog(@"in  has notifications %s",__func__);
     
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"killed"];
     
     NSDictionary *context = [userInfo valueForKey:@"context"];
     
@@ -284,21 +290,62 @@
 
         
     }
-    else if([type isEqualToString:@"addPost"])
+    else if([[type lowercaseString] isEqualToString:@"addpost"])
     {
         
-        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
-        
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                                 bundle: nil];
-        
-        AddPostViewController *postDetailDescriptionViewController = (AddPostViewController*)[mainStoryboard
-                                                                                      instantiateViewControllerWithIdentifier: @"AddPostViewController"];
-        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [slide pushViewController:postDetailDescriptionViewController animated:YES];
-        });
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+        {
+            [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+            
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            
+            AddPostViewController *postDetailDescriptionViewController = (AddPostViewController*)[mainStoryboard
+                                                                                                  instantiateViewControllerWithIdentifier: @"AddPostViewController"];
+            SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [slide pushViewController:postDetailDescriptionViewController animated:YES];
+            });
+
+        }
+        else
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            
+            CGRect screenRect = [[UIScreen mainScreen] bounds];
+            CGFloat screenWidth = screenRect.size.width;
+            CGFloat screenHeight = screenRect.size.height;
+            
+            login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+            
+            [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+            
+            SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+
+                [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+                    
+                }
+                                 completion:^(BOOL finished){
+                                     [login.view removeFromSuperview];
+                                     
+                                     [slide pushViewController:login animated:NO];
+                                 }
+                 ];
+                
+
+                
+            });
+
+            
+
+
+        }
         
         
     }
@@ -456,6 +503,9 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"killed"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
@@ -537,6 +587,14 @@
         }
         
        NSDictionary *valuesDict = [NSDictionary dictionaryWithObject:tempDict forKey:@"context"];
+        
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"killed"])
+        {
+            isPushCalled = YES;
+            userDict = valuesDict;
+
+        }
+        else
         [self addMessageFromRemoteNotification:valuesDict];
         
         return YES;

@@ -503,6 +503,8 @@
 {
     if ([self hasValidAPIKey])
     {
+        [textView resignFirstResponder];
+        
         UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
                                               @"Take photo", @"Choose existing", nil];
         addImageActionSheet.tag = 1;

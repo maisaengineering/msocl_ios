@@ -9,7 +9,7 @@
 #import "NotificationUtils.h"
 #import <Parse/Parse.h>
 #import "ModelManager.h"
-
+#import "AppDelegate.h"
 
 @implementation NotificationUtils
 
@@ -35,40 +35,19 @@
 
 +(void)resetParseChannels
 {
+    
     ModelManager *sharedModel = [ModelManager sharedModel];
-    
+   
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    NSArray *currentChannels = currentInstallation.channels;
-    BOOL foundCurrent = FALSE;
+    AppDelegate *appDele = [[UIApplication sharedApplication] delegate];
+    [currentInstallation setDeviceTokenFromData:appDele.parseToken];
     NSString *channelName = [@"sp_" stringByAppendingString:sharedModel.userProfile.uid];
-    
-    if (currentChannels != nil)
-    {
-        for (id object in currentChannels)
-        {
-            if (![object isEqualToString:channelName])
-            {
-                [currentInstallation removeObject:object forKey:@"channels"];
-                [currentInstallation saveEventually];
-            }
-            else
-            {
-                foundCurrent = TRUE;
-            }
-        }
-    }
-    else
-    {
-        currentInstallation.channels = [[NSArray alloc] init];
-    }
-    
-    if (!foundCurrent)
-    {
-        [currentInstallation addUniqueObject:channelName forKey:@"channels"];
-        [currentInstallation saveEventually];
-    }
-    
-    
+    currentInstallation.channels = @[channelName];
+    // [currentInstallation saveInBackground];
+    [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        
+    }];
+
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HAS_REGISTERED_KLID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
