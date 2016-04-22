@@ -34,6 +34,8 @@
 @property (nonatomic, strong) NSMutableDictionary *homeContext;
 @property (nonatomic, strong) NSString *comment_uid;
 
+@property (nonatomic, assign) BOOL showShareDialog;
+
 
 
 @property (nonatomic,weak) id <PostDetailsProtocol>delegate;

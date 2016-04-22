@@ -63,6 +63,7 @@
 @synthesize subContext;
 @synthesize homeContext;
 @synthesize comment_uid;
+@synthesize showShareDialog;
 
 -(void)viewDidLoad
 {
@@ -405,6 +406,13 @@
         NSArray *commentArray = [postObject.comments filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"uid = %@",self.comment_uid]];
         [self.streamTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[postObject.comments indexOfObject:[commentArray lastObject]] inSection:0]
                          atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        
+    }
+    
+    if(showShareDialog)
+    {
+        showShareDialog = NO;
+        [self shareOptions];
         
     }
 }
@@ -1355,7 +1363,7 @@
     NSMutableArray *commentsArray = [postDetls.comments mutableCopy];
     if(commentsArray == nil)
         commentsArray = [[NSMutableArray alloc] init];
-    [commentsArray addObject:recievedDict];
+    [commentsArray insertObject:recievedDict atIndex:0];
     postDetls.comments = commentsArray;
     [storiesArray replaceObjectAtIndex:0 withObject:postDetls];
     [streamTableView reloadData];

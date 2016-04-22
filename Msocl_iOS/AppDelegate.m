@@ -23,6 +23,7 @@
 #import "CustomCipher.h"
 #import <Parse/Parse.h>
 #import "Reachability.h"
+#import "AddPostViewController.h"
 #import "TagViewController.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -283,6 +284,40 @@
 
         
     }
+    else if([type isEqualToString:@"addPost"])
+    {
+        
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+        
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        
+        AddPostViewController *postDetailDescriptionViewController = (AddPostViewController*)[mainStoryboard
+                                                                                      instantiateViewControllerWithIdentifier: @"AddPostViewController"];
+        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        });
+        
+        
+    }
+    else if([type isEqualToString:@"share"])
+    {
+        
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+        
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
+                                                                                                                          instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
+        postDetailDescriptionViewController.postID = uid;
+        postDetailDescriptionViewController.showShareDialog = YES;
+        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [slide pushViewController:postDetailDescriptionViewController animated:YES];
+        });
+    }
     else if([type isEqualToString:@"admin"])
     {
         if([[uid uppercaseString] isEqualToString:@"FORCED_UPDATE"])
@@ -487,6 +522,26 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     
+    if([[url absoluteString] containsString:@"samepinchapp://"])
+    {
+        
+        NSLog(@"query string: %@", [url query]);
+        NSArray *array = [[url query] componentsSeparatedByString:@"&"];
+        
+        NSMutableDictionary *tempDict = [[NSMutableDictionary alloc] init];
+        for(NSString *string in array)
+        {
+            NSArray *valueAndKey = [string componentsSeparatedByString:@"="];
+            [tempDict setObject:[valueAndKey lastObject] forKey:[valueAndKey firstObject]];
+            
+        }
+        
+       NSDictionary *valuesDict = [NSDictionary dictionaryWithObject:tempDict forKey:@"context"];
+        [self addMessageFromRemoteNotification:valuesDict];
+        
+        return YES;
+    }
+    
     BOOL urlWasHandled = [FBAppCall handleOpenURL:url
                                 sourceApplication:sourceApplication
                                   fallbackHandler:^(FBAppCall *call) {
@@ -497,6 +552,7 @@
     
     return urlWasHandled;
 }
+
 #pragma mark -
 #pragma mark Upadte 
 -(void)updateApp:(BOOL)isForced
