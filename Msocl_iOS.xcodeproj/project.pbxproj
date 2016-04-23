@@ -58,6 +58,7 @@
 		7F4C88FC1AF0B5BB008B769C /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */; };
 		7F4C88FD1AF0B5BB008B769C /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */; };
 		7F5267F61B42B25A00BD73D9 /* anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5267F51B42B25A00BD73D9 /* anamous@2x.png */; };
+		7F5435811CCB50600006F985 /* PromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5435801CCB50600006F985 /* PromptViewController.m */; };
 		7F54D4BE1BE886F90084ED9C /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F54D4BD1BE886F90084ED9C /* UIImage+animatedGIF.m */; };
 		7F5934141B3A642B001B5A94 /* btn-post-ana@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */; };
 		7F5934151B3A642B001B5A94 /* btn-post-dropdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5934021B3A642B001B5A94 /* btn-post-dropdown@2x.png */; };
@@ -496,6 +497,8 @@
 		7F4C88F61AF0B5BB008B769C /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
 		7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
 		7F5267F51B42B25A00BD73D9 /* anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anamous@2x.png"; sourceTree = "<group>"; };
+		7F54357F1CCB50600006F985 /* PromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromptViewController.h; sourceTree = "<group>"; };
+		7F5435801CCB50600006F985 /* PromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromptViewController.m; sourceTree = "<group>"; };
 		7F54D4BC1BE886F90084ED9C /* UIImage+animatedGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+animatedGIF.h"; path = "Msocl_iOS/UIImage+animatedGIF.h"; sourceTree = SOURCE_ROOT; };
 		7F54D4BD1BE886F90084ED9C /* UIImage+animatedGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+animatedGIF.m"; path = "Msocl_iOS/UIImage+animatedGIF.m"; sourceTree = SOURCE_ROOT; };
 		7F5934011B3A642B001B5A94 /* btn-post-ana@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn-post-ana@2x.png"; sourceTree = "<group>"; };
@@ -1388,6 +1391,8 @@
 				7F5941BA1AF3891E001F79BD /* ManageTagsViewController.m */,
 				7F7726E31B0B755500474190 /* AboutViewController.h */,
 				7F7726E41B0B755500474190 /* AboutViewController.m */,
+				7F54357F1CCB50600006F985 /* PromptViewController.h */,
+				7F5435801CCB50600006F985 /* PromptViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -2230,6 +2235,7 @@
 				7F83BC671AD14CEF008DFD8B /* UIRefreshControl+AFNetworking.m in Sources */,
 				7F4C88FB1AF0B5BB008B769C /* JTSAnimatedGIFUtility.m in Sources */,
 				7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */,
+				7F5435811CCB50600006F985 /* PromptViewController.m in Sources */,
 				7F4C88FA1AF0B5BB008B769C /* JTSSimpleImageDownloader.m in Sources */,
 				2527723C1AE288FC008ECE78 /* PageGuidePopUps.m in Sources */,
 				7F0AB8F51AE2960E009219B2 /* SignUpViewController.m in Sources */,

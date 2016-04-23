@@ -26,14 +26,17 @@
 #import "AddPostViewController.h"
 #import "TagViewController.h"
 #import "LoginViewController.h"
+#import "NotificationUtils.h"
+#import "PromptViewController.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-@interface AppDelegate ()<MBProgressHUDDelegate>
+@interface AppDelegate ()<MBProgressHUDDelegate,PromptDelegate>
 {
     
     NSString *notifiUID;
     NSDictionary *userDict;
     UIAlertView *updateAlert;
+    
 }
 @end
 
@@ -43,6 +46,7 @@
 @synthesize isAppFromPushNotifi;
 @synthesize isPushCalled;
 @synthesize parseToken;
+@synthesize promptView;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -52,6 +56,7 @@
                   clientKey:PARSE_CLIENT_KEY];
      */
     
+    [self setUserDatails];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *currentAppVersion = APP_VERSION;
     NSString *previousVersion = [defaults objectForKey:@"appVersion"];
@@ -142,7 +147,25 @@
     
     return YES;
 }
-
+-(void)setUserDatails
+{
+if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+{
+    
+    NSDictionary *tokenDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"];
+    NSDictionary *userDetailsDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"];
+    
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:userDetailsDict forKey:@"userprofile"];
+    [myDefaults setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"access_token"] forKey:@"access_token"];
+    [myDefaults setObject:tokenDict forKey:@"tokens"];
+    [myDefaults synchronize];
+    
+    [[ModelManager sharedModel] setDetailsFromUserDefaults];
+    
+}
+}
 //If the registration is successful, the callback method is the below one
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
@@ -290,7 +313,7 @@
 
         
     }
-    else if([[type lowercaseString] isEqualToString:@"addpost"])
+    else if([type isEqualToString:@"addpost"])
     {
         
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
@@ -499,6 +522,11 @@
     {
         [self updateApp:YES];
     }
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+       {
+           [NotificationUtils resetParseChannels];
+       }
 
 }
 
@@ -512,6 +540,43 @@
 //Called from multiple controllers to make sure we only ask at a relevant time
 -(void)askForNotificationPermission
 {
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    BOOL enabled;
+    
+    // Try to use the newer isRegisteredForRemoteNotifications otherwise use the enabledRemoteNotificationTypes.
+    if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)])
+    {
+        UIUserNotificationSettings *types = [application currentUserNotificationSettings];
+        
+        enabled = types.types & UIUserNotificationTypeAlert;;
+    }
+    else
+    {
+        UIRemoteNotificationType types = [application enabledRemoteNotificationTypes];
+        enabled = types & UIRemoteNotificationTypeAlert;
+    }
+    
+    if(!enabled)
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        promptView = (PromptViewController*)[mainStoryboard
+                                             instantiateViewControllerWithIdentifier: @"PromptViewController"];
+        promptView.delegate = self;
+        [self.window addSubview:promptView.view];
+    }
+
+    
+ //   SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+   // [slide presentViewController:promptView animated:NO completion:nil];
+
+}
+-(void)responseFromPrompt:(int)index
+{
+    if(index == 2)
+    {
+        
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge
@@ -526,8 +591,10 @@
          UIRemoteNotificationTypeAlert|
          UIRemoteNotificationTypeSound];
     }
-}
+        
+    }
 
+}
 
 #pragma mark -
 #pragma mark Methods To Show Activity Indicator

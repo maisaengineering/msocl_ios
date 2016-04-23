@@ -35,11 +35,13 @@
 
 +(void)resetParseChannels
 {
-    
+    AppDelegate *appDele = [[UIApplication sharedApplication] delegate];
+
+    if(appDele.parseToken != nil && ![[NSUserDefaults standardUserDefaults] boolForKey:@"HAS_REGISTERED_KLID"])
+    {
     ModelManager *sharedModel = [ModelManager sharedModel];
    
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
-    AppDelegate *appDele = [[UIApplication sharedApplication] delegate];
     [currentInstallation setDeviceTokenFromData:appDele.parseToken];
     NSString *channelName = [@"sp_" stringByAppendingString:sharedModel.userProfile.uid];
     currentInstallation.channels = @[channelName];
@@ -50,6 +52,7 @@
 
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HAS_REGISTERED_KLID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 @end

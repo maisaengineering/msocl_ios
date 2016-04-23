@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class MBProgressHUD;
+@class MBProgressHUD,PromptViewController;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 
@@ -20,6 +20,7 @@
 @property (nonatomic) BOOL isAppFromPushNotifi;
 @property (nonatomic) BOOL isPushCalled;
 @property (nonatomic, strong) NSData *parseToken;
+@property (nonatomic, strong) PromptViewController *promptView;
 
 - (void)showOrhideIndicator:(BOOL)show;
 - (void)showOrhideIndicator:(BOOL)show withMessage:(NSString *)message;

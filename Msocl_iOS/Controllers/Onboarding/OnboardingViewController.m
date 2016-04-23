@@ -566,7 +566,7 @@
 
 -(void) askForNotificationPermission
 {
-    [appDelegate askForNotificationPermission];
+  //  [appDelegate askForNotificationPermission];
 }
 
 -(void)addKidButtonTapped:(UIButton *)sender

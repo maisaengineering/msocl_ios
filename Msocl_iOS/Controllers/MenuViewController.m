@@ -385,6 +385,7 @@
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setBool:NO forKey:@"isLogedIn"];
+    [userDefaults setBool:NO forKey:@"HAS_REGISTERED_KLID"];
     [userDefaults setBool:NO forKey:@"externalSignIn"];
     [userDefaults removeObjectForKey:@"favStreamArray"];
     [userDefaults synchronize];

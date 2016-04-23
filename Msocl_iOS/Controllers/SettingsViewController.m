@@ -17,6 +17,7 @@
 #import "ModelManager.h"
 #import "StringConstants.h"
 #import "AppDelegate.h"
+#import "WebViewController.h"
 
 @implementation SettingsViewController
 {
@@ -97,6 +98,13 @@
     UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
     [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
     
+}
+-(IBAction)allOthersTapped:(id)sender
+{
+    UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
+    webViewController.loadUrl = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@rules",APP_BASE_URL]];
+    [self.navigationController pushViewController: webViewController animated:YES];
 }
 -(IBAction)PushNotifiClicked:(id)sender
 {
