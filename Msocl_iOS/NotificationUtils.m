@@ -53,6 +53,24 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HAS_REGISTERED_KLID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    else
+    {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+        {
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge
+                                                                                                 |UIUserNotificationTypeSound|UIUserNotificationTypeAlert) categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            
+        }
+        else
+        {
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|
+             UIRemoteNotificationTypeAlert|
+             UIRemoteNotificationTypeSound];
+        }
+
+    }
 }
 
 @end

@@ -104,7 +104,10 @@
             break;
         case 6:
         {
-            [appdelegate showOrhideIndicator:YES];
+
+            if ([MFMailComposeViewController canSendMail]) {
+
+                [appdelegate showOrhideIndicator:YES];
 
             mailComposer= [[MFMailComposeViewController alloc] init];
             [mailComposer setMailComposeDelegate:self];
@@ -115,6 +118,7 @@
             //        [self presentModalViewController:mailComposer animated:TRUE];
             [self presentViewController:mailComposer animated:TRUE completion:^{ [appdelegate showOrhideIndicator:NO];
 }];
+            }
         }
             break;
         default:

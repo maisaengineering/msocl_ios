@@ -326,6 +326,8 @@
 #pragma mark Image Selection Methods
 -(IBAction)chosePhoto:(id)sender
 {
+    [self resignKeyBoards];
+    
     if ([self hasValidAPIKey])
     {
         UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:
@@ -666,15 +668,14 @@
 #pragma mark Textfield Delegate methods
 -(void)resignKeyBoards
 {
-    for (UIView *i in self.view.subviews)
-    {
-        if([i isKindOfClass:[UITextField class]]){
-            UITextField *txtfield = (UITextField *)i;
-            {
-                [txtfield resignFirstResponder];
-            }
-        }
-    }
+    [txt_firstName resignFirstResponder];
+    [txt_emailAddress resignFirstResponder];
+    [txt_lastname resignFirstResponder];
+    [txt_handle resignFirstResponder];
+    [txt_phno resignFirstResponder];
+    [txt_blog resignFirstResponder];
+    [txt_aboutMe resignFirstResponder];
+    [txt_Password resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

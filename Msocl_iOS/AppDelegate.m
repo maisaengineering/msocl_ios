@@ -29,6 +29,7 @@
 #import "NotificationUtils.h"
 #import "PromptViewController.h"
 #import <Fabric/Fabric.h>
+#import "CustomCipher.h"
 #import <Crashlytics/Crashlytics.h>
 @interface AppDelegate ()<MBProgressHUDDelegate,PromptDelegate>
 {
@@ -188,6 +189,11 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
 
     // Store the Device token in UserDefaulst for future purpose
     [[NSUserDefaults standardUserDefaults] setObject:strDeviceToken forKey:DEVICE_TOKEN_KEY];
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"HAS_REGISTERED_KLID"] && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        [NotificationUtils resetParseChannels];
+    }
     
 }
 
@@ -566,7 +572,10 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         promptView.delegate = self;
         [self.window addSubview:promptView.view];
     }
-
+   else
+   {
+       [self responseFromPrompt:2];
+   }
     
  //   SlideNavigationController *slide = [SlideNavigationController sharedInstance];
    // [slide presentViewController:promptView animated:NO completion:nil];

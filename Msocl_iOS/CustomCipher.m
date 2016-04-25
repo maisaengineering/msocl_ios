@@ -30,7 +30,7 @@
     
     int cipherKey = 4; //hardcoding key
     
-    unichar shiftedChar = character + cipherKey;
+    unichar shiftedChar = character - cipherKey;
     
     //If character is lowercase a..z
     if ((character > 96)&&(character<123)){
@@ -39,6 +39,52 @@
     //Else if character is captital A..Z
     else if ((character > 64)&&(character<91)){
         return ((shiftedChar-UPPER_CASE_OFFSET)%DEVISOR)+UPPER_CASE_OFFSET;
+    }
+    //Else do not encrypt character
+    else {
+        return character;
+    }
+}
++(NSString *) decrypt:(NSString *)stringToDecrypt
+{
+    int size = (int)[stringToDecrypt length];
+    unichar message[size];
+    for (int i = 0; i < [stringToDecrypt length]; i++){
+        char character = [stringToDecrypt characterAtIndex:i];
+        message[i] = [self decryptChar : character];
+    }
+    NSString *codedMessage = [[NSString alloc] initWithCharacters:message length:size];
+    return codedMessage;
+
+}
++(unichar) decryptChar:(unichar) character {
+    
+    
+    
+    //If character is lowercase a..z
+    if ((character > 96)&&(character<123)){
+        if(character <= 100)
+        {
+            character = character+ 22;
+        }
+        else
+        {
+            character = character - 4;
+        }
+        return character;
+    }
+    //Else if character is captital A..Z
+    else if ((character > 64)&&(character<91)){
+        if(character <= 68)
+        {
+            character = character+ 22;
+        }
+        else
+        {
+             character = character - 4;
+        }
+
+        return character;
     }
     //Else do not encrypt character
     else {

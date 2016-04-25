@@ -56,8 +56,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    [appdelegate showOrhideIndicator:YES];
-    [self getOptionsForExternalSignIn];
+    //[appdelegate showOrhideIndicator:YES];
+    //[self getOptionsForExternalSignIn];
 }
 
 #pragma mark -
@@ -101,9 +101,11 @@
 }
 -(IBAction)allOthersTapped:(id)sender
 {
+    ModelManager *sharedModel = [ModelManager sharedModel];
+
     UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
-    webViewController.loadUrl = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@rules",APP_BASE_URL]];
+    webViewController.loadUrl = [[NSURL alloc]initWithString:[NSString stringWithFormat:@"%@%@/app_setting",kBASE_URL,sharedModel.userProfile.uid]];
     [self.navigationController pushViewController: webViewController animated:YES];
 }
 -(IBAction)PushNotifiClicked:(id)sender
