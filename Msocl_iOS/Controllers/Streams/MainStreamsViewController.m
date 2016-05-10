@@ -118,6 +118,8 @@
     addButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
     self.navigationItem.rightBarButtonItem= addButton;
     
+    [appDelegate askForNotificationPermission];
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {

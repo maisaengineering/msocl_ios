@@ -58,7 +58,7 @@
 {
     [iconImage removeFromSuperview];
     [super viewWillDisappear:YES];
-    [self askForNotificationPermission];
+    //[self askForNotificationPermission];
     
 }
 -(void) askForNotificationPermission
