@@ -16,6 +16,9 @@
 #import "NotificationUtils.h"
 #import "FogotPasswordViewController.h"
 #import "Flurry.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 @implementation LoginViewController
 {
     AppDelegate *appdelegate;
@@ -207,35 +210,35 @@
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
--(void)loginSccessfull:(NSDictionary *)responseDict
+-(void)loginSccessfull:(NSDictionary *)recievedDict
 {
-    [Flurry logEvent:@"login_successful"];
-    
-    [appdelegate showOrhideIndicator:NO];
-    
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
     
-    [[NSUserDefaults standardUserDefaults] setObject:responseDict forKey:@"userprofile"];
+    [[NSUserDefaults standardUserDefaults] setObject:recievedDict forKey:@"userprofile"];
     
     NSMutableDictionary *tokenDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"tokens"] mutableCopy];
-    [tokenDict setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];
+    [tokenDict setObject:[recievedDict objectForKey:@"access_token"] forKey:@"access_token"];
     [[NSUserDefaults standardUserDefaults] setObject:tokenDict forKey:@"tokens"];
-    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"externalSignIn"];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
                                   initWithSuiteName:@"group.com.maisasolutions.msocl"];
-    [myDefaults setObject:responseDict forKey:@"userprofile"];
-    [myDefaults setObject:[responseDict objectForKey:@"access_token"] forKey:@"access_token"];
+    [myDefaults setObject:recievedDict forKey:@"userprofile"];
+    [myDefaults setObject:[recievedDict objectForKey:@"access_token"] forKey:@"access_token"];
     [myDefaults setObject:tokenDict forKey:@"tokens"];
     [myDefaults synchronize];
     
-    [[[ModelManager sharedModel] accessToken] setAccess_token:[responseDict objectForKey:@"access_token"]];
-    [[ModelManager sharedModel] setUserDetails:responseDict];
+    
+    [[[ModelManager sharedModel] accessToken] setAccess_token:[recievedDict objectForKey:@"access_token"]];
+    [[ModelManager sharedModel] setUserDetails:recievedDict];
     [[PromptImages sharedInstance] getAllGroups];
     
-    [NotificationUtils resetParseChannels];
+    
+    
+    NSArray *viewControllers = [self.navigationController viewControllers];
+    [self.navigationController popToViewController:viewControllers[viewControllers.count - 2] animated:YES];
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     if (sharedModel.userProfile)
@@ -246,16 +249,27 @@
     {
         [Flurry setUserID:DEVICE_UUID];
     }
-
     
-    [self.navigationController popViewControllerAnimated:NO];
+    [NotificationUtils resetParseChannels];
+
 }
--(void)loginFailed
+-(void)loginFailed:(NSDictionary *)recievedDict
 {
     [Flurry logEvent:@"login_failed"];
     [appdelegate showOrhideIndicator:NO];
-    ShowAlert(@"Error", @"Email id and Password do not match", @"OK");
+    
+    if([recievedDict objectForKey:@"message"])
+    {
+        ShowAlert(@"Error", [recievedDict objectForKey:@"message"], @"OK");
+    }
+    else
+    {
+        ShowAlert(@"Error",@"Failed to login to Facebook. Please try again", @"OK");
+    }
+    
 }
+
+
 
 #pragma mark -
 #pragma mark Fogot Password Methods
@@ -278,11 +292,89 @@
 
 - (IBAction)facebookButtonClikced:(id)sender
 {
-    UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
-    webViewController.tagValue = (int)[sender tag];
-    [self.navigationController pushViewController: webViewController animated:YES];
+    
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login
+     logInWithReadPermissions: @[@"public_profile",@"email",@"user_photos"]
+     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+         if (error) {
+             NSLog(@"Process error");
+             ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
+             
+         } else if (result.isCancelled) {
+             NSLog(@"Cancelled");
+             ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
+         } else {
+             NSLog(@"Logged in");
+             NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+             [parameters setValue:@"id,first_name,last_name,email,picture.width(600).height(600)" forKey:@"fields"];
+             [appdelegate showOrhideIndicator:YES];
+             
+             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
+              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                           id result, NSError *error) {
+                  if(!error)
+                  {
+                      NSDictionary *response = (NSDictionary *)result;
+                      if(response.count == 5)
+                      {
+                          
+                          [self doFBLogin:result];
+                      }
+                      else if(![response objectForKey:@"email"])
+                      {
+                          ShowAlert(PROJECT_NAME,@"This facebook account is either not registered with an email address or the email address is not valid anymore. Please add a valid email address and try again", @"OK");
+                          [appdelegate showOrhideIndicator:NO];;
+                      }
+                      else
+                      {
+                          [appdelegate showOrhideIndicator:NO];
+                          ShowAlert(PROJECT_NAME,@"Failed to login to Facebook. Please try again", @"OK");
+                          
+                      }
+                  }
+                  else
+                  {
+                      [appdelegate showOrhideIndicator:NO];
+                      ShowAlert(PROJECT_NAME,@"Failed to login to Facebook. Please try again", @"OK");
+                      ;
+                  }
+                  [[FBSDKLoginManager new] logOut];
+              }];
+         }
+     }];
+    [login logOut];
 }
+
+-(void)doFBLogin:(NSDictionary *)userDetailsDict
+{
+    
+    NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+    [postDetails setObject:@"facebook" forKey:@"provider"];
+    [postDetails setObject:[userDetailsDict objectForKey:@"id"] forKey:@"oauth_uid"];
+    [postDetails setObject:[userDetailsDict objectForKey:@"first_name"] forKey:@"fname"];
+    [postDetails setObject:[userDetailsDict objectForKey:@"last_name"] forKey:@"lname"];
+    [postDetails setObject:[userDetailsDict objectForKey:@"email"] forKey:@"email"];
+    [postDetails setObject:[[[userDetailsDict objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"] forKey:@"rphoto"];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] != nil)
+        [postDetails setObject:[[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] forKey:@"device_token"];
+    [postDetails setObject:@"iOS" forKey:@"platform"];
+    
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": @"externalSignIn",
+                               @"body": postDetails};
+    NSDictionary *userInfo = @{@"command": @"Login"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/users",BASE_URL];
+    
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+
+
+
+
 #pragma mark -
 #pragma mark Textfield methods
 -(void)resignKeyBoards

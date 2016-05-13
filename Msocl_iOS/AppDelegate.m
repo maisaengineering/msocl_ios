@@ -30,6 +30,8 @@
 #import "PromptViewController.h"
 #import <Fabric/Fabric.h>
 #import "CustomCipher.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <Crashlytics/Crashlytics.h>
 @interface AppDelegate ()<MBProgressHUDDelegate,PromptDelegate>
 {
@@ -146,7 +148,8 @@
     
 
     
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                    didFinishLaunchingWithOptions:launchOptions];
 }
 -(void)setUserDatails
 {
@@ -533,6 +536,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
        {
            [NotificationUtils resetParseChannels];
        }
+    
+    [FBSDKAppEvents activateApp];
 
 }
 
@@ -675,6 +680,14 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         
         return YES;
     }
+    
+    
+    if ([[url scheme] isEqualToString:FACEBOOK_SCHEME])
+        return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                              openURL:url
+                                                    sourceApplication:sourceApplication
+                                                           annotation:annotation];
+
     
     BOOL urlWasHandled = [FBAppCall handleOpenURL:url
                                 sourceApplication:sourceApplication

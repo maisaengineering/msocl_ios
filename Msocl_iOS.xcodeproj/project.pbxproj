@@ -57,6 +57,11 @@
 		7F4C88FB1AF0B5BB008B769C /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F31AF0B5BB008B769C /* JTSAnimatedGIFUtility.m */; };
 		7F4C88FC1AF0B5BB008B769C /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */; };
 		7F4C88FD1AF0B5BB008B769C /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */; };
+		7F5128C91CE5A47E006646D9 /* NotificationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5128C81CE5A47E006646D9 /* NotificationsViewController.m */; };
+		7F5128CC1CE5AF98006646D9 /* NotificationDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5128CB1CE5AF98006646D9 /* NotificationDetails.m */; };
+		7F5128D21CE5D9BB006646D9 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5128CE1CE5D9BB006646D9 /* FBSDKCoreKit.framework */; };
+		7F5128D31CE5D9BB006646D9 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5128CF1CE5D9BB006646D9 /* FBSDKLoginKit.framework */; };
+		7F5128D41CE5D9BB006646D9 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5128D01CE5D9BB006646D9 /* FBSDKShareKit.framework */; };
 		7F5267F61B42B25A00BD73D9 /* anamous@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5267F51B42B25A00BD73D9 /* anamous@2x.png */; };
 		7F5435811CCB50600006F985 /* PromptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5435801CCB50600006F985 /* PromptViewController.m */; };
 		7F54D4BE1BE886F90084ED9C /* UIImage+animatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F54D4BD1BE886F90084ED9C /* UIImage+animatedGIF.m */; };
@@ -496,6 +501,13 @@
 		7F4C88F51AF0B5BB008B769C /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
 		7F4C88F61AF0B5BB008B769C /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
 		7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
+		7F5128C71CE5A47E006646D9 /* NotificationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsViewController.h; sourceTree = "<group>"; };
+		7F5128C81CE5A47E006646D9 /* NotificationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsViewController.m; sourceTree = "<group>"; };
+		7F5128CA1CE5AF98006646D9 /* NotificationDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationDetails.h; sourceTree = "<group>"; };
+		7F5128CB1CE5AF98006646D9 /* NotificationDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationDetails.m; sourceTree = "<group>"; };
+		7F5128CE1CE5D9BB006646D9 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		7F5128CF1CE5D9BB006646D9 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		7F5128D01CE5D9BB006646D9 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		7F5267F51B42B25A00BD73D9 /* anamous@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anamous@2x.png"; sourceTree = "<group>"; };
 		7F54357F1CCB50600006F985 /* PromptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromptViewController.h; sourceTree = "<group>"; };
 		7F5435801CCB50600006F985 /* PromptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromptViewController.m; sourceTree = "<group>"; };
@@ -918,11 +930,14 @@
 			files = (
 				253C89551AD804C9002477A8 /* Social.framework in Frameworks */,
 				253C89531AD804C0002477A8 /* Accounts.framework in Frameworks */,
+				7F5128D31CE5D9BB006646D9 /* FBSDKLoginKit.framework in Frameworks */,
+				7F5128D21CE5D9BB006646D9 /* FBSDKCoreKit.framework in Frameworks */,
 				7F0701161C0458DC0026354F /* Crashlytics.framework in Frameworks */,
 				253C89511AD804BA002477A8 /* libsqlite3.dylib in Frameworks */,
 				7F5F534A1C058A4D009F937B /* libFlurry_7.3.0.a in Frameworks */,
 				253C894F1AD804B1002477A8 /* libz.dylib in Frameworks */,
 				7F0701171C0458DC0026354F /* Fabric.framework in Frameworks */,
+				7F5128D41CE5D9BB006646D9 /* FBSDKShareKit.framework in Frameworks */,
 				253C894D1AD804A1002477A8 /* Security.framework in Frameworks */,
 				253C894B1AD80496002477A8 /* MobileCoreServices.framework in Frameworks */,
 				253C89491AD8048E002477A8 /* CoreLocation.framework in Frameworks */,
@@ -982,6 +997,15 @@
 				7F4C88F71AF0B5BB008B769C /* UIApplication+JTSImageViewController.m */,
 			);
 			name = ZoomImage;
+			sourceTree = "<group>";
+		};
+		7F5128C61CE5A452006646D9 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				7F5128C71CE5A47E006646D9 /* NotificationsViewController.h */,
+				7F5128C81CE5A47E006646D9 /* NotificationsViewController.m */,
+			);
+			name = Notifications;
 			sourceTree = "<group>";
 		};
 		7F5DEF8D1AD7C50A00F2C60A /* SDWebImage */ = {
@@ -1088,6 +1112,7 @@
 		7F7E55BE1AD3F643007070EF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7F5128C61CE5A452006646D9 /* Notifications */,
 				7F80DE731AD6AAB500EA6D1F /* WebServices */,
 				7F5EB3911AE8CC3C004780A9 /* UserProfile */,
 				7F86E58E1ADBD4F80002493F /* Settings */,
@@ -1193,6 +1218,8 @@
 				7F80DE811AD6AAF700EA6D1F /* StringConstants.h */,
 				7F80DE821AD6AAF700EA6D1F /* UserProfile.h */,
 				7F80DE831AD6AAF700EA6D1F /* UserProfile.m */,
+				7F5128CA1CE5AF98006646D9 /* NotificationDetails.h */,
+				7F5128CB1CE5AF98006646D9 /* NotificationDetails.m */,
 			);
 			path = ModalClasses;
 			sourceTree = "<group>";
@@ -1400,6 +1427,9 @@
 		7F89990A1AD25EE8007E2917 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F5128CE1CE5D9BB006646D9 /* FBSDKCoreKit.framework */,
+				7F5128CF1CE5D9BB006646D9 /* FBSDKLoginKit.framework */,
+				7F5128D01CE5D9BB006646D9 /* FBSDKShareKit.framework */,
 				7F0701141C0458DC0026354F /* Crashlytics.framework */,
 				7F0701151C0458DC0026354F /* Fabric.framework */,
 				7FC8E1F21BD4A83E00302F40 /* Parse.framework */,
@@ -2161,6 +2191,7 @@
 				7F86E5891ADBCFB00002493F /* SlideNavigationController.m in Sources */,
 				7F5EB3941AE8CC58004780A9 /* UserProfileViewCotroller.m in Sources */,
 				7F83BC641AD14CEF008DFD8B /* UIButton+AFNetworking.m in Sources */,
+				7F5128CC1CE5AF98006646D9 /* NotificationDetails.m in Sources */,
 				7F83BC581AD14CEF008DFD8B /* AFHTTPRequestOperation.m in Sources */,
 				7F80DE781AD6AAB500EA6D1F /* APIConnector.m in Sources */,
 				7FA8FF2E1B25628D006F751A /* PushNotiSettingsViewController.m in Sources */,
@@ -2178,6 +2209,7 @@
 				7F599E261AE66E1E00DED294 /* MainStreamsViewController.m in Sources */,
 				7F5F18E61ADE997200C5B4EC /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				7F5DEFB01AD7C50A00F2C60A /* NSData+ImageContentType.m in Sources */,
+				7F5128C91CE5A47E006646D9 /* NotificationsViewController.m in Sources */,
 				7F8999131AD2649E007E2917 /* Base64.m in Sources */,
 				7F5F18E71ADE997200C5B4EC /* SWCellScrollView.m in Sources */,
 				7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */,

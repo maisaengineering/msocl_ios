@@ -217,7 +217,7 @@
     }
     else if([command isEqualToString:@"Login"])
     {
-        [self.delegate loginFailed];
+        [self.delegate loginFailed:[recievedDict objectForKey:@"response"]];
     }
     else if([command isEqualToString:@"SignUp"])
     {
@@ -449,7 +449,7 @@
     
     else
     {
-        [self.delegate loginFailed];
+        [self.delegate loginFailed:respDict];
         
     }
     

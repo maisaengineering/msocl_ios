@@ -2038,11 +2038,8 @@
         PostDetails *postDetails = [self.storiesArray lastObject];
         NSString *itemDate = postDetails.time;
         NSString *itemId = postID;
-        NSString *emailId = [NSString stringWithFormat:@"%@ %@", itemDate, itemId];
-        NSString *emailIdBase64 = [emailId base64EncodedString];
-     //   NSString *emailIdCipher = [CustomCipher encrypt:emailIdBase64];
         
-        NSString *bodyText = [NSString stringWithFormat:@"Dear Same Pinch,\r\n\r\nPlease review the content for a post item dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, emailIdBase64];
+        NSString *bodyText = [NSString stringWithFormat:@"Dear Same Pinch,\r\n\r\nPlease review the content for a post item dated %@ for inappropriate content.\r\n\r\n[So we can identify the content, please do not change the text between the two lines below, which represents the unique identifier for the content.  However, feel free to provide additional information above these lines for our review.]\r\n\r\n---------------------\r\n%@\r\n---------------------",itemDate, itemId];
         
         NSMutableDictionary *emailData = [[NSMutableDictionary alloc] init];
         [emailData setValue:@"Inappropriate content" forKey:@"subject"];

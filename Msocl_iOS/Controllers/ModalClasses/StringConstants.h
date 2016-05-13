@@ -53,6 +53,8 @@
 
 #define FACEBOOK_NAME_SPACE       @"miossamepinch"
 #define FACEBOOK_CHECK          @"FACEBOOK_CHECK"
+#define FACEBOOK_SCHEME  @"fb1636478616583615"
+
 
 #ifdef DEBUG
 #define DebugLog( s, ... ) NSLog( @"<%p %@:%d (%@)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  NSStringFromSelector(_cmd), [NSString stringWithFormat:(s), ##__VA_ARGS__] )

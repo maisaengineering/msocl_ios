@@ -13,7 +13,7 @@
 @protocol webServiceProtocol<NSObject>
 @optional
 -(void) loginSccessfull:(NSDictionary *)recievedDict;
--(void) loginFailed;
+-(void) loginFailed:(NSDictionary *)recievedDict;
 -(void) signUpSccessfull:(NSDictionary *)recievedDict;
 -(void) signUpFailed:(NSDictionary *)responseDict;
 -(void) signOutSccessfull:(NSDictionary *)recievedDict;
