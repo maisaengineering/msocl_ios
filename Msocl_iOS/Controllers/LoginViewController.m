@@ -292,58 +292,73 @@
 
 - (IBAction)facebookButtonClikced:(id)sender
 {
+    BOOL isInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]];
     
-    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-    [login
-     logInWithReadPermissions: @[@"public_profile",@"email",@"user_photos"]
-     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-         if (error) {
-             NSLog(@"Process error");
-             ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
-             
-         } else if (result.isCancelled) {
-             NSLog(@"Cancelled");
-             ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
-         } else {
-             NSLog(@"Logged in");
-             NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-             [parameters setValue:@"id,first_name,last_name,email,picture.width(600).height(600)" forKey:@"fields"];
-             [appdelegate showOrhideIndicator:YES];
-             
-             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
-              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
-                                           id result, NSError *error) {
-                  if(!error)
-                  {
-                      NSDictionary *response = (NSDictionary *)result;
-                      if(response.count == 5)
+    if (isInstalled) {
+        
+        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        [login
+         logInWithReadPermissions: @[@"public_profile",@"email",@"user_photos"]
+         handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+             if (error) {
+                 NSLog(@"Process error");
+                 ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
+                 
+             } else if (result.isCancelled) {
+                 NSLog(@"Cancelled");
+                 ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
+             } else {
+                 NSLog(@"Logged in");
+                 NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+                 [parameters setValue:@"id,first_name,last_name,email,picture.width(600).height(600)" forKey:@"fields"];
+                 [appdelegate showOrhideIndicator:YES];
+                 
+                 [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
+                  startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                               id result, NSError *error) {
+                      if(!error)
                       {
-                          
-                          [self doFBLogin:result];
-                      }
-                      else if(![response objectForKey:@"email"])
-                      {
-                          ShowAlert(PROJECT_NAME,@"This facebook account is either not registered with an email address or the email address is not valid anymore. Please add a valid email address and try again", @"OK");
-                          [appdelegate showOrhideIndicator:NO];;
+                          NSDictionary *response = (NSDictionary *)result;
+                          if(response.count == 5)
+                          {
+                              
+                              [self doFBLogin:result];
+                          }
+                          else if(![response objectForKey:@"email"])
+                          {
+                              ShowAlert(PROJECT_NAME,@"This facebook account is either not registered with an email address or the email address is not valid anymore. Please add a valid email address and try again", @"OK");
+                              [appdelegate showOrhideIndicator:NO];;
+                          }
+                          else
+                          {
+                              [appdelegate showOrhideIndicator:NO];
+                              ShowAlert(PROJECT_NAME,@"Failed to login to Facebook. Please try again", @"OK");
+                              
+                          }
                       }
                       else
                       {
                           [appdelegate showOrhideIndicator:NO];
                           ShowAlert(PROJECT_NAME,@"Failed to login to Facebook. Please try again", @"OK");
-                          
+                          ;
                       }
-                  }
-                  else
-                  {
-                      [appdelegate showOrhideIndicator:NO];
-                      ShowAlert(PROJECT_NAME,@"Failed to login to Facebook. Please try again", @"OK");
-                      ;
-                  }
-                  [[FBSDKLoginManager new] logOut];
-              }];
-         }
-     }];
-    [login logOut];
+                      [[FBSDKLoginManager new] logOut];
+                  }];
+             }
+         }];
+        [login logOut];
+
+    }
+    else
+    {
+        UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
+        webViewController.tagValue = (int)[sender tag];
+        [self.navigationController pushViewController: webViewController animated:YES];
+
+    }
+
+    
 }
 
 -(void)doFBLogin:(NSDictionary *)userDetailsDict
