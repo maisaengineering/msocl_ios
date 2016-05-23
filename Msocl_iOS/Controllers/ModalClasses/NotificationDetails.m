@@ -10,10 +10,38 @@
 
 @implementation NotificationDetails
 
-@synthesize isRead;
+@synthesize  viewed;
 @synthesize uid;
 @synthesize url;
-@synthesize time;
+@synthesize source;
 @synthesize message;
+@synthesize sourceId;
+
+-(id)initWithDictionary:(NSDictionary *)response{
+    
+    if (self=[super init]) {
+        for (NSString *key in response.allKeys) {
+            if ([key isEqualToString:@"uid"]) {
+                self.uid=[response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"sourceId"]) {
+                self.sourceId=[response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"message"]) {
+                self.message = [response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"source"]) {
+                self.source = [response objectForKey:key];
+            }
+            else if ([key isEqualToString:@"viewed"]) {
+                self.viewed = [[response objectForKey:key] boolValue];
+            }
+            else if ([key isEqualToString:@"url"]) {
+                self.url = [response objectForKey:key];
+            }
+        }
+    }
+    return self;
+}
 @end
 

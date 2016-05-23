@@ -74,6 +74,8 @@
 -(void) pushNotificationFailed;
 -(void) handleSuccessFull:(NSDictionary *)recievedDict;
 -(void) handleFailed;
+-(void) didReceiveNotification:(NSDictionary *)recievedDict;
+-(void) notificationFailed;
 
 
 @end

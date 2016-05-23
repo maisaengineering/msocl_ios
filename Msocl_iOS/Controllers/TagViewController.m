@@ -140,16 +140,22 @@
     AccessToken* token = modelManager.accessToken;
     NSString *command;
     command = @"show";
-    NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":@{@"name":tagName}};
+    NSDictionary* postData;
     
     NSDictionary *userInfo = @{@"command": @"ProfileDetails"};
     NSString *urlAsString = [NSString stringWithFormat:@"%@groups",BASE_URL];
     
-    if(tagName.length == 0 && tagId.length > 0)
+    if(tagName)
+    {
+        postData = @{@"command": command,@"access_token": token.access_token,@"body":@{@"name":tagName}};
+
+    }
+   else if(tagName.length == 0 && tagId.length > 0)
     {
         postData = @{@"command": command,@"access_token": token.access_token,@"body":@{}};
         urlAsString = [NSString stringWithFormat:@"%@groups/%@",BASE_URL,tagId];
     }
+    
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     

@@ -33,6 +33,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <Crashlytics/Crashlytics.h>
+#import "Branch.h"
+
 @interface AppDelegate ()<MBProgressHUDDelegate,PromptDelegate>
 {
     
@@ -274,7 +276,9 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         
     if([type isEqualToString:@"post"] || [type isEqualToString:@"comment"] || [type isEqualToString:@"vote"])
     {
-
+        
+        if(uid != nil && uid.length > 0)
+        {
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
@@ -286,10 +290,13 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         dispatch_async(dispatch_get_main_queue(), ^{
             [slide pushViewController:postDetailDescriptionViewController animated:YES];
         });
+        }
     }
     else if([type isEqualToString:@"follower"])
     {
 
+        if(uid != nil && uid.length > 0)
+        {
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
         
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
@@ -301,10 +308,12 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         dispatch_async(dispatch_get_main_queue(), ^{
             [slide pushViewController:postDetailDescriptionViewController animated:YES];
         });
-
+        }
     }
     else if([type isEqualToString:@"group"])
     {
+        if(uid != nil && uid.length > 0)
+        {
         
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
         
@@ -319,6 +328,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         dispatch_async(dispatch_get_main_queue(), ^{
             [slide pushViewController:postDetailDescriptionViewController animated:YES];
         });
+        }
 
         
     }
@@ -383,6 +393,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     }
     else if([type isEqualToString:@"share"])
     {
+        if(uid != nil && uid.length > 0)
+        {
         
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
         
@@ -396,6 +408,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         dispatch_async(dispatch_get_main_queue(), ^{
             [slide pushViewController:postDetailDescriptionViewController animated:YES];
         });
+        }
     }
     else if([type isEqualToString:@"admin"])
     {
@@ -680,7 +693,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         
         return YES;
     }
-    
+    [[Branch getInstance] handleDeepLink:url];
+
     
     if ([[url scheme] isEqualToString:FACEBOOK_SCHEME])
         return [[FBSDKApplicationDelegate sharedInstance] application:application
@@ -699,6 +713,13 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     
     return urlWasHandled;
 }
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+    BOOL handledByBranch = [[Branch getInstance] continueUserActivity:userActivity];
+    
+    return handledByBranch;
+}
+
 
 #pragma mark -
 #pragma mark Upadte 

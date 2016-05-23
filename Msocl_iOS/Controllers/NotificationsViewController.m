@@ -107,7 +107,7 @@
         bProcessing = YES;
         
         AccessToken* token = sharedModel.accessToken;
-        NSString *command = @"filter";
+        NSString *command = @"all";
         NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
         [body setValue:self.timeStamp forKeyPath:@"last_modified"];
         [body setValue:self.notificationCount forKeyPath:@"notification_count"];
@@ -117,7 +117,7 @@
         NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
         NSDictionary *userInfo = @{@"command": @"GetNotifications"};
         
-        NSString *urlAsString = [NSString stringWithFormat:@"%@v2/posts",BASE_URL];
+        NSString *urlAsString = [NSString stringWithFormat:@"%@notifications",BASE_URL];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
     }
 }
@@ -125,7 +125,7 @@
 {
     bProcessing = NO;
     
-    NSArray *postArray = [recievedDict objectForKey:@"posts"];
+    NSArray *notifiArray = [recievedDict objectForKey:@"notifications"];
     
     if([timeStamp length] == 0)
     {
@@ -134,17 +134,17 @@
         
     }
     
-    if([postArray count] > 0)
+    if([notifiArray count] > 0)
     {
         
         if([notificationsArray count] > 0)
         {
-            [notificationsArray addObjectsFromArray:postArray];
+            [notificationsArray addObjectsFromArray:notifiArray];
             
         }
         else
         {
-            notificationsArray = [postArray mutableCopy];
+            notificationsArray = [notifiArray mutableCopy];
         }
         
         NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:notificationsArray];
@@ -155,19 +155,17 @@
     }
     
     
-    
     [refreshControl endRefreshing];
     
     self.timeStamp = [recievedDict objectForKey:@"last_modified"];
     self.notificationCount = [recievedDict objectForKey:@"post_count"];
     self.etag = [recievedDict objectForKey:@"etag"];
     
-    
     //  [streamTableView reloadData];
     [appDelegate showOrhideIndicator:NO];
     
 }
--(void) streamsFailed
+-(void) notificationFailed
 {
     [appDelegate showOrhideIndicator:NO];
     
@@ -192,7 +190,7 @@
     }
     
     CGSize contentSize;
-    if(notificationDetailsObject.isRead)
+    if(notificationDetailsObject.viewed)
     {
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:notificationDetailsObject.message attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]}];
         
@@ -287,7 +285,7 @@
     UIImageView *bubbleImage;
 
     CGSize contentSize;
-    if(notificationDetailsObject.isRead)
+    if(notificationDetailsObject.viewed)
     {
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:notificationDetailsObject.message attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14], NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
         

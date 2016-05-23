@@ -11,9 +11,11 @@
 @interface NotificationDetails : NSObject
 
 @property (nonatomic,strong) NSString *uid;
-@property (nonatomic,strong) NSString *time;
+@property (nonatomic,strong) NSString *sourceId;
 @property (nonatomic,strong) NSString *url;
+@property (nonatomic,strong) NSString *source;
 @property (nonatomic,strong) NSString *message;
-@property (nonatomic, assign) BOOL isRead;
+@property (nonatomic, assign) BOOL viewed;
 
+- (id)initWithDictionary:(NSDictionary*)response;
 @end

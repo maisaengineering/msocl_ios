@@ -10,6 +10,7 @@
 #import "Reachability.h"
 #import "AccessToken.h"
 #import "PostDetails.h"
+#import "NotificationDetails.h"
 @implementation Webservices
 @synthesize delegate;
 -(id)init{
@@ -189,6 +190,10 @@
     else if([command isEqualToString:@"handle"])
     {
         [self connectionSuccessHandle:responseDict];
+    }
+    else if([command isEqualToString:@"GetNotifications"])
+    {
+        [self connectionSuccessNotifications:responseDict];
     }
     
 }
@@ -550,6 +555,34 @@
     else
     {
         [self.delegate streamsFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessNotifications:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        NSArray *arrayPostDetails = [[respDict objectForKey:@"body"] objectForKey:@"notifications"];
+        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+        
+        for(NSDictionary *postDict in arrayPostDetails)
+        {
+            NotificationDetails *postObject = [[NotificationDetails alloc] initWithDictionary:postDict];
+            [arrayOfpostDetailsObjects addObject:postObject];
+        }
+        [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"notifications"];
+        
+        [self.delegate didReceiveNotification:dictCopty];
+        
+    }
+    
+    else
+    {
+        [self.delegate notificationFailed];
         
     }
     
