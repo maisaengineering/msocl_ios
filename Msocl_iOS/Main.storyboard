@@ -253,6 +253,20 @@
             </objects>
             <point key="canvasLocation" x="1924" y="-64"/>
         </scene>
+        <!--Notifications View Controller-->
+        <scene sceneID="ehO-RY-AZL">
+            <objects>
+                <viewController storyboardIdentifier="NotificationsViewController" id="SEr-lC-sIz" customClass="NotificationsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gFZ-tn-VKd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u5w-YR-69W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2272" y="-60"/>
+        </scene>
         <!--M SOCIAL-->
         <scene sceneID="JHK-IK-3Gy">
             <objects>

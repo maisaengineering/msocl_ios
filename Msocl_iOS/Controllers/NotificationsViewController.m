@@ -17,8 +17,11 @@
 #import "SDWebImageManager.h"
 #import "STTweetLabel.h"
 #import "AppDelegate.h"
-
-
+#import "SlideNavigationController.h"
+#import "PostDetailDescriptionViewController.h"
+#import "UserProfileViewCotroller.h"
+#import "TagViewController.h"
+#import "LoginViewController.h"
 @interface NotificationsViewController ()
 
 @end
@@ -60,7 +63,7 @@
     notificationsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 320, Deviceheight-65)];
     notificationsTableView.delegate = self;
     notificationsTableView.dataSource = self;
-    notificationsTableView.tableFooterView = nil;
+    notificationsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     notificationsTableView.tableHeaderView = nil;
     notificationsTableView.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1.0];
     [self.view addSubview:notificationsTableView];
@@ -72,6 +75,9 @@
     [refreshControl addTarget:self action:@selector(handleRefresh:) forControlEvents:UIControlEventValueChanged];
     [notificationsTableView addSubview:refreshControl];
     
+    self.title = @"Notifications";
+    
+    [self callNotificationsApi:@"next"];
     // Do any additional setup after loading the view.
 }
 
@@ -297,7 +303,7 @@
     }
     else
     {
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:notificationDetailsObject.message attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14], NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:notificationDetailsObject.message attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Regular" size:14], NSForegroundColorAttributeName:[UIColor blackColor]}];
         
         textView.attributedText = attributedString;
         
@@ -321,31 +327,230 @@
         if(contentSize.height+20 > 60)
         {
             textView.frame = CGRectMake(profileImage.frame.size.width+20, 10, contentSize.width, contentSize.height);
-            bubbleImage.center = textView.center;
-            profileImage.center = textView.center;
+          
+            CGRect rect = bubbleImage.frame;
+            rect.origin.y = textView.center.y;
+            bubbleImage.frame = rect;
+
+            rect = profileImage.frame;
+            rect.origin.y = textView.center.y;
+            profileImage.frame = rect;
             
         }
         else
         {
             textView.frame = CGRectMake(profileImage.frame.size.width+20, 10, contentSize.width, contentSize.height);
-            bubbleImage.center = profileImage.center;
-            textView.center = profileImage.center;
+            
+            CGRect rect = bubbleImage.frame;
+            rect.origin.y = profileImage.center.y;
+            bubbleImage.frame = rect;
+            
+            rect = profileImage.frame;
+            rect.origin.y = profileImage.center.y;
+            textView.frame = rect;
         }
     }
     else
     {
         textView.frame = CGRectMake(profileImage.frame.size.width+20, 10, contentSize.width, contentSize.height);
-        bubbleImage.center = textView.center;
+        CGRect rect = bubbleImage.frame;
+        rect.origin.y = textView.center.y;
+        bubbleImage.frame = rect;
     }
     
     
     
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NotificationDetails *notificationDetailsObject = [notificationsArray objectAtIndex:indexPath.row];
+    if(!notificationDetailsObject.viewed)
+    {
+        notificationDetailsObject.viewed = YES;
+        [tableView reloadData];
+
+        AccessToken* token = sharedModel.accessToken;
+        NSString *command = @"update";
+        NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
+        
+        NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
+        NSDictionary *userInfo = @{@"command": @"NotificationUpdate"};
+        
+        NSString *urlAsString = [NSString stringWithFormat:@"%@notifications/%@",BASE_URL,notificationDetailsObject.uid];
+        [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+
+    }
+    [self addMessageFromRemoteNotification:notificationDetailsObject];
+
+
+}
+- (void)addMessageFromRemoteNotification:(NotificationDetails *)notificationDetailsObject
+{
+    
+    
+    
+   
+        NSString *type = [notificationDetailsObject.source lowercaseString];
+        NSString *uid = notificationDetailsObject.sourceId;
+        
+        
+        if([type isEqualToString:@"post"] || [type isEqualToString:@"comment"] || [type isEqualToString:@"vote"])
+        {
+            
+            if(uid != nil && uid.length > 0)
+            {
+                [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+                
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
+                                                                                                                                  instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
+                postDetailDescriptionViewController.postID = uid;
+                SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+                });
+            }
+        }
+        else if([type isEqualToString:@"follower"])
+        {
+            
+            if(uid != nil && uid.length > 0)
+            {
+                [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+                
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                UserProfileViewCotroller *postDetailDescriptionViewController = (UserProfileViewCotroller*)[mainStoryboard
+                                                                                                            instantiateViewControllerWithIdentifier: @"UserProfileViewCotroller"];
+                postDetailDescriptionViewController.profileId = uid;
+                SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+                });
+            }
+        }
+        else if([type isEqualToString:@"group"])
+        {
+            if(uid != nil && uid.length > 0)
+            {
+                
+                [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+                
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                
+                TagViewController *postDetailDescriptionViewController = (TagViewController*)[mainStoryboard
+                                                                                              instantiateViewControllerWithIdentifier: @"TagViewController"];
+                postDetailDescriptionViewController.tagId = uid;
+                SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+                });
+            }
+            
+            
+        }
+        else if([type isEqualToString:@"addpost"])
+        {
+            
+            if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+            {
+                [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+                
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                
+                AddPostViewController *postDetailDescriptionViewController = (AddPostViewController*)[mainStoryboard
+                                                                                                      instantiateViewControllerWithIdentifier: @"AddPostViewController"];
+                SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+                });
+                
+            }
+            else
+            {
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                
+                CGRect screenRect = [[UIScreen mainScreen] bounds];
+                CGFloat screenWidth = screenRect.size.width;
+                CGFloat screenHeight = screenRect.size.height;
+                
+                login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+                
+                [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+                
+                SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                        login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+                        
+                    }
+                                     completion:^(BOOL finished){
+                                         [login.view removeFromSuperview];
+                                         
+                                         [slide pushViewController:login animated:NO];
+                                     }
+                     ];
+                    
+                    
+                    
+                });
+                
+                
+                
+                
+            }
+            
+            
+        }
+        else if([type isEqualToString:@"share"])
+        {
+            if(uid != nil && uid.length > 0)
+            {
+                
+                [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+                
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
+                                                                                                                                  instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
+                postDetailDescriptionViewController.postID = uid;
+                postDetailDescriptionViewController.showShareDialog = YES;
+                SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+                });
+            }
+        }
+
+
+}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 

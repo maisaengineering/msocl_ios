@@ -56,7 +56,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 8;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -171,25 +171,30 @@
             cell.imageView.image = [UIImage imageNamed:@"icon-createpost.png"];
             break;
             
-            
         case 3:
+            cell.textLabel.text = @"Notifications";
+            cell.imageView.image = [UIImage imageNamed:@"menu-notifications.png"];
+            break;
+
+            
+        case 4:
             cell.textLabel.text = @"Settings";
             cell.imageView.image = [UIImage imageNamed:@"menu-settings.png"];
             break;
             
-        case 4:
+        case 5:
             cell.textLabel.text = @"Manage Tags";
             cell.imageView.image = [UIImage imageNamed:@"icon-menu-mtags.png"];
             break;
             
             
-        case 5:
+        case 6:
             cell.textLabel.text = @"About";
             cell.imageView.image = [UIImage imageNamed:@"icon-menu-about.png"];
             break;
             
             
-        case 6:
+        case 7:
             cell.textLabel.text = @"Logout";
             cell.imageView.image = [UIImage imageNamed:@"menu-logout.png"];
             break;
@@ -251,6 +256,18 @@
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                                      bundle: nil];
             
+            UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
+            
+            [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
+        }            break;
+            
+            break;
+
+        case 4:
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            
             UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"SettingsViewController"];
             
             [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
@@ -258,7 +275,7 @@
             
             break;
             
-        case 4:
+        case 5:
         {
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                                      bundle: nil];
@@ -268,7 +285,7 @@
         }
             break;
             
-        case 5:
+        case 6:
         {
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
                                                                      bundle: nil];
@@ -280,7 +297,7 @@
             break;
             
             
-        case 6:
+        case 7:
             [self logOut];
             break;
             
