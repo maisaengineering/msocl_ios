@@ -293,7 +293,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 -(void)didReceiveVisitedPageGuidesSuccessful:(NSMutableArray *)recievedArray
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"time_reminder_visits"];
-    [self getPageGuidePopUpData];
+    //[self getPageGuidePopUpData];
     DebugLog(@"recievded dict %@",recievedArray);
 }
 -(void)visitedPageGuidesFailed

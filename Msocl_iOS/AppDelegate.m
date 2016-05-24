@@ -77,6 +77,9 @@
         [[NSUserDefaults standardUserDefaults] setObject:currentAppVersion forKey:@"appversion"];
     }
    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PageGuidePopUpImages"];
+    
+
     //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
    // [Flurry setCrashReportingEnabled:YES];
     [Fabric with:@[CrashlyticsKit]];
@@ -524,11 +527,14 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     
+    
+    application.applicationIconBadgeNumber = 0;
+
     if(token.access_token.length>0)
     {
         [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
 
-        NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
+      /*  NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
 
         if(visited_reminders != nil && visited_reminders.count  > 0)
         {
@@ -536,6 +542,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         }
         else
        [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
+       */
     }
     
     [[NSNotificationCenter defaultCenter]postNotificationName:@"AppFromPassiveState" object:nil];

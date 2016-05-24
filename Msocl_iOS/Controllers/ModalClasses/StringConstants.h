@@ -9,15 +9,15 @@
 #ifndef Msocl_iOS_StringConstants_h
 #define Msocl_iOS_StringConstants_h
 
-#define APP_VERSION     @"1.5.5"
+#define APP_VERSION     @"1.5.6"
 
 // Dev Credentials
 //#define CLIENT_ID               @"3e0786a2f258e6f9b08250dbd7f35010480988e0d3d1ef373b79e07884be79f9"
 //#define CLIENT_SECRET           @"813c95cc2eb6c0cf4f49d30d0add0c6fc3ea82863d30507beb6733c0e643927c"
 
 // Prod Credentials
-#define CLIENT_ID               @"07b71e492ccb9de623cfa8d151157b5452ad52eae7197fe85689a07876960f8f"
-#define CLIENT_SECRET           @"2e716b657cd8d0a85ea632a915d0a3c699bd7bc2be326ecec167d26bba159a9b"
+#define CLIENT_ID               @"52a9fa5f4532ffc37da93a6f99f4b075dcb0932631224c21f297a268a25d6b68"
+#define CLIENT_SECRET           @"966a87c43bab9ae27f2d21b240428b2a1b347f3b220462ab8edb22a1449af79c"
 
 
 //AVIARY

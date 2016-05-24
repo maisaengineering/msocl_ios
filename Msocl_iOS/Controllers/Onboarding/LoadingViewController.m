@@ -92,7 +92,7 @@
         [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
 
     
-    NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
+  /*  NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
     
     if(visited_reminders != nil && visited_reminders.count  > 0)
     {
@@ -101,6 +101,7 @@
     else
         [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
     
+   */
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
     else

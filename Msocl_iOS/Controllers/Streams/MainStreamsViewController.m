@@ -152,7 +152,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStreamsDataInBackgroundForPUSHNotificationAlerts) name:@"AppFromPassiveState" object:nil];
     
     
-    [self check];
+//    [self check];
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
