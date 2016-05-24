@@ -426,7 +426,7 @@
     
     postsCount = [[UILabel alloc] initWithFrame:CGRectMake(20, y, 130, 20)];
     [postsCount setTextColor:[UIColor whiteColor]];
-    [postsCount setText:[NSString stringWithFormat:@"posts: %@",[recievedDict objectForKey:@"posts_count"]]];
+    [postsCount setText:[NSString stringWithFormat:@"advices: %@",[recievedDict objectForKey:@"advise_count"]]];
     [postsCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
     [postsCount setTextAlignment:NSTextAlignmentRight];
     [animatedTopView addSubview:postsCount];

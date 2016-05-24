@@ -150,7 +150,11 @@
         }
     }
 
-    
+    Branch *branch = [Branch getInstance];
+    [branch initSessionWithLaunchOptions:launchOptions andRegisterDeepLinkHandler:^(NSDictionary *params, NSError *error) {
+        // route the user based on what's in params
+    }];
+
 
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
