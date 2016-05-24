@@ -292,10 +292,7 @@
 
 - (IBAction)facebookButtonClikced:(id)sender
 {
-    BOOL isInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]];
     
-    if (isInstalled) {
-        
         FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
         [login
          logInWithReadPermissions: @[@"public_profile",@"email",@"user_photos"]
@@ -348,17 +345,6 @@
          }];
         [login logOut];
 
-    }
-    else
-    {
-        UIStoryboard *sBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        WebViewController *webViewController = [sBoard instantiateViewControllerWithIdentifier:@"WebViewController"];
-        webViewController.tagValue = (int)[sender tag];
-        [self.navigationController pushViewController: webViewController animated:YES];
-
-    }
-
-    
 }
 
 -(void)doFBLogin:(NSDictionary *)userDetailsDict
