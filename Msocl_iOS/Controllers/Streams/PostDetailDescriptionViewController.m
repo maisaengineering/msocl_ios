@@ -31,6 +31,9 @@
 #import "UIImage+animatedGIF.h"
 #import "Flurry.h"
 #import "PromptViewController.h"
+#import <FBSDKShareKit/FBSDKShareKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -634,12 +637,12 @@
         // NSString *temp = [[dict objectForKey:@"commenter"] objectForKey:@"fname"];
     
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(267, 16, 12, 12)];
-    [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(267, 15, 8, 12)];
+    [heartCntImage setImage:[UIImage imageNamed:@"thumbsup_grey.png"]];
 
     [cell.contentView addSubview:heartCntImage];
 
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(280,16.5,10,12)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(276,16.5,10,12)];
     [upVoteCount setBackgroundColor:[UIColor clearColor]];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",[[commentDict objectForKey:@"upvote_count"] intValue] ]];
     [upVoteCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:12]];
@@ -780,12 +783,12 @@
 
     
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [heartButton setImage:[UIImage imageNamed:@"icon-upvote-gray.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(204+68, 11, 18, 18)];
+    [heartButton setImage:[UIImage imageNamed:@"thumbsup_grey.png"] forState:UIControlStateNormal];
+    [heartButton setFrame:CGRectMake(204+68+4, 12, 9, 15)];
     [heartButton setTag:[indexPath row]];
     [cell.contentView addSubview:heartButton];
     
-    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(222+68, 13, 20 , 18)];
+    UILabel *upVoteCount = [[UILabel alloc] initWithFrame:CGRectMake(222+65, 13, 20 , 18)];
     [upVoteCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
      [upVoteCount setTextColor:[UIColor colorWithRed:(153/255.f) green:(153/255.f) blue:(153/255.f) alpha:1]];
     [upVoteCount setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:10]];
@@ -1064,10 +1067,15 @@
     }
     UIButton *heartButton = [UIButton buttonWithType:UIButtonTypeCustom];
     if(postDetailsObject.upvoted)
-        [heartButton setImage:[UIImage imageNamed:@"icon-like-postview-active.png"] forState:UIControlStateNormal];
+    {
+        [heartButton setFrame:CGRectMake(278, yPosition, 28, 35)];
+        [heartButton setImage:[UIImage imageNamed:@"thumbsup.png"] forState:UIControlStateNormal];
+    }
     else
-        [heartButton setImage:[UIImage imageNamed:@"icon-like-postview.png"] forState:UIControlStateNormal];
-    [heartButton setFrame:CGRectMake(278, yPosition+6, 28, 28)];
+    {
+        [heartButton setFrame:CGRectMake(278, yPosition+4, 28, 35)];
+        [heartButton setImage:[UIImage imageNamed:@"fist.png"] forState:UIControlStateNormal];
+    }
     [heartButton setTag:[indexPath row]];
     [heartButton addTarget:self action:@selector(heartButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [cell.contentView addSubview:heartButton];
@@ -2397,9 +2405,33 @@
 -(void)shareToFB
 {
     PostDetails *post = [storiesArray lastObject];
-    FacebookShareController *fbc = [[FacebookShareController alloc] init];
-    fbc.postedConfirmationDelegate = self;
-    [fbc PostToFacebookViaAPI:post.url:@"":@"":@"story"];
+    if (![[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"])
+    {
+        FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+
+        [loginManager logInWithPublishPermissions:@[@"publish_actions"] handler:^(FBSDKLoginManagerLoginResult *result, NSError *error)
+         {
+             if ([result.grantedPermissions containsObject:@"publish_actions"])
+             {
+                 FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+                 content.contentURL = [NSURL URLWithString:post.url];
+                 [FBSDKShareAPI shareWithContent:content delegate:nil];
+
+             }}];
+    }
+    else
+    {
+    FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
+    content.contentURL = [NSURL URLWithString:post.url];
+    [FBSDKShareAPI shareWithContent:content delegate:nil];
+
+    }
+
+    
+//    FacebookShareController *fbc = [[FacebookShareController alloc] init];
+//    fbc.postedConfirmationDelegate = self;
+//    [fbc PostToFacebookViaAPI:post.url:@"":@"":@"story"];
+    
 
 }
 @end

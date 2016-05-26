@@ -295,15 +295,15 @@
     
         FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
         [login
-         logInWithReadPermissions: @[@"public_profile",@"email",@"user_photos"]
+         logInWithReadPermissions: @[@"public_profile",@"email"]
          handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
              if (error) {
                  NSLog(@"Process error");
-                 ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
+                 ShowAlert(PROJECT_NAME,@"Failed to login. Please try again.", @"OK");
                  
              } else if (result.isCancelled) {
                  NSLog(@"Cancelled");
-                 ShowAlert(PROJECT_NAME,@"Something went wrong. Please try again", @"OK");
+                 ShowAlert(PROJECT_NAME,@"Failed to login. Please try again.", @"OK");
              } else {
                  NSLog(@"Logged in");
                  NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
@@ -329,14 +329,14 @@
                           else
                           {
                               [appdelegate showOrhideIndicator:NO];
-                              ShowAlert(PROJECT_NAME,@"Failed to login to Facebook. Please try again", @"OK");
+                              ShowAlert(PROJECT_NAME,@"Failed to login. Please try again,", @"OK");
                               
                           }
                       }
                       else
                       {
                           [appdelegate showOrhideIndicator:NO];
-                          ShowAlert(PROJECT_NAME,@"Failed to login to Facebook. Please try again", @"OK");
+                          ShowAlert(PROJECT_NAME,@"Failed to login. Please try again.", @"OK");
                           ;
                       }
                       [[FBSDKLoginManager new] logOut];

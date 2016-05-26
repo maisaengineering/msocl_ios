@@ -721,6 +721,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
                                       // Here goes the code to handle the links
                                       // Use the links to show a relevant view of your app to the user
                                   }];
+
     
     return urlWasHandled;
 }

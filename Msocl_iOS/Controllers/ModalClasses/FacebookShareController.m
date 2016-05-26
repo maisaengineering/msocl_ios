@@ -21,6 +21,7 @@
     //permissions we need
     NSArray *permissions = [NSArray arrayWithObjects:@"publish_actions", nil];
     
+
     [FBSession openActiveSessionWithPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:YES
                                      completionHandler:
      ^(FBSession *session, FBSessionState state, NSError *error) {

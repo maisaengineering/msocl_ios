@@ -512,11 +512,11 @@
     
     
     
-    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(211+68, yPosition+3, 18, 18)];
-    [heartCntImage setImage:[UIImage imageNamed:@"icon-upvote-gray.png"]];
+    UIImageView *heartCntImage  = [[UIImageView alloc] initWithFrame:CGRectMake(215+68 , yPosition+4, 9, 15)];
+    [heartCntImage setImage:[UIImage imageNamed:@"thumbsup_grey.png"]];
     [cell.contentView addSubview:heartCntImage];
     
-    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(230+68, yPosition+9, 10, 10)];
+    UILabel *heartCount = [[UILabel alloc] initWithFrame:CGRectMake(230+64, yPosition+9, 10, 10)];
     [heartCount setText:postDetailsObject.time];
     [heartCount setTextAlignment:NSTextAlignmentLeft];
     [heartCount setText:[NSString stringWithFormat:@"%i",postDetailsObject.upVoteCount]];
