@@ -155,9 +155,14 @@
         
     }
     
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16];
+    
+    for(UIView *view in [cell.contentView subviews])
+        [view removeFromSuperview];
+
     
     switch (indexPath.row)
     {
@@ -172,8 +177,34 @@
             break;
             
         case 3:
+        {
             cell.textLabel.text = @"Notifications";
             cell.imageView.image = [UIImage imageNamed:@"menu-notifications.png"];
+            
+            NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+            int count = 0;
+            count = [[userdefaults objectForKey:@"notificationcount"] intValue];
+            if([userdefaults objectForKey:@"notificationcount"] && count > 0)
+            {
+            UIImageView *bubbleImage = [[UIImageView alloc] initWithFrame:CGRectMake(160, 9, 26, 26)];
+            bubbleImage.backgroundColor = [UIColor redColor];
+            bubbleImage.layer.cornerRadius = bubbleImage.frame.size.height /2;
+            bubbleImage.layer.masksToBounds = YES;
+            bubbleImage.layer.borderWidth = 0;
+            [cell.contentView addSubview:bubbleImage];
+                
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(160, 9, 26, 26)];
+                if(count > 999)
+                    [label setText:[NSString stringWithFormat:@"999"]];
+                else
+                    [label setText:[NSString stringWithFormat:@"%i",count]];
+                label.textAlignment = NSTextAlignmentCenter;
+            label.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:13];
+            [label setTextColor:[UIColor whiteColor]];
+            [cell.contentView addSubview:label];
+            }
+        }
+
             break;
 
             
@@ -403,6 +434,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setBool:NO forKey:@"isLogedIn"];
     [userDefaults setBool:NO forKey:@"HAS_REGISTERED_KLID"];
+    [userDefaults removeObjectForKey:@"notificationcount"];
     [userDefaults setBool:NO forKey:@"externalSignIn"];
     [userDefaults removeObjectForKey:@"favStreamArray"];
     [userDefaults synchronize];
@@ -411,6 +443,7 @@
     [myDefaults  removeObjectForKey:@"userprofile"];
     [myDefaults removeObjectForKey:@"access_token"];
     [myDefaults removeObjectForKey:@"tokens"];
+    
     [myDefaults synchronize];
 
     [sharedModel clear];

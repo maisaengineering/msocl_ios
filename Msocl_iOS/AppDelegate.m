@@ -214,6 +214,17 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     
+    NSDictionary *context = [userInfo valueForKey:@"context"];
+    if(context != nil)
+    {
+        NSString *type = [[context valueForKey:@"type"] lowercaseString];
+        if(![type isEqualToString:@"admin"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]+1] forKey:@"notificationcount"];
+        }
+    }
+
+    
 
     if ( (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) && ![[userInfo objectForKey:@"uid"] isEqualToString:notifiUID] )
     {
@@ -298,6 +309,9 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
             [slide pushViewController:postDetailDescriptionViewController animated:YES];
         });
         }
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+
     }
     else if([type isEqualToString:@"follower"])
     {
@@ -316,6 +330,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
             [slide pushViewController:postDetailDescriptionViewController animated:YES];
         });
         }
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+
     }
     else if([type isEqualToString:@"group"])
     {
@@ -337,10 +353,12 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         });
         }
 
-        
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+
     }
     else if([type isEqualToString:@"addpost"])
     {
+        
         
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         {
@@ -396,6 +414,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
 
         }
         
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+
         
     }
     else if([type isEqualToString:@"share"])
@@ -416,6 +436,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
             [slide pushViewController:postDetailDescriptionViewController animated:YES];
         });
         }
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+
     }
     else if([type isEqualToString:@"admin"])
     {
@@ -559,6 +581,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
        {
            [NotificationUtils resetParseChannels];
+           [[PageGuidePopUps sharedInstance] trackNewUserSession];
+           
        }
     
     [FBSDKAppEvents activateApp];

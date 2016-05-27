@@ -18,6 +18,7 @@
 #import "Flurry.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import "PageGuidePopUps.h"
 
 @implementation LoginViewController
 {
@@ -250,6 +251,9 @@
         [Flurry setUserID:DEVICE_UUID];
     }
     
+        [[PageGuidePopUps sharedInstance] trackNewUserSession];
+        
+    
     [NotificationUtils resetParseChannels];
 
 }
@@ -316,15 +320,10 @@
                       if(!error)
                       {
                           NSDictionary *response = (NSDictionary *)result;
-                          if(response.count == 5)
+                          if(response.count > 0)
                           {
                               
                               [self doFBLogin:result];
-                          }
-                          else if(![response objectForKey:@"email"])
-                          {
-                              ShowAlert(PROJECT_NAME,@"This facebook account is either not registered with an email address or the email address is not valid anymore. Please add a valid email address and try again", @"OK");
-                              [appdelegate showOrhideIndicator:NO];;
                           }
                           else
                           {
@@ -349,12 +348,12 @@
 
 -(void)doFBLogin:(NSDictionary *)userDetailsDict
 {
-    
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:@"facebook" forKey:@"provider"];
     [postDetails setObject:[userDetailsDict objectForKey:@"id"] forKey:@"oauth_uid"];
     [postDetails setObject:[userDetailsDict objectForKey:@"first_name"] forKey:@"fname"];
     [postDetails setObject:[userDetailsDict objectForKey:@"last_name"] forKey:@"lname"];
+    if([userDetailsDict objectForKey:@"email"])
     [postDetails setObject:[userDetailsDict objectForKey:@"email"] forKey:@"email"];
     [postDetails setObject:[[[userDetailsDict objectForKey:@"picture"] objectForKey:@"data"] objectForKey:@"url"] forKey:@"rphoto"];
     if([[NSUserDefaults standardUserDefaults] objectForKey:DEVICE_TOKEN_KEY] != nil)
@@ -372,9 +371,6 @@
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
-
-
-
 
 #pragma mark -
 #pragma mark Textfield methods

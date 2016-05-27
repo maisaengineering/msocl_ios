@@ -381,4 +381,18 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 {
     
 }
+#pragma mark -
+#pragma mark Call to New session api
+-(void)trackNewUserSession
+{
+    ModelManager *sharedModel = [ModelManager sharedModel];
+    AccessToken* token = sharedModel.accessToken;
+    NSString *command = @"newSession";
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": command};
+    NSDictionary *userInfo = @{@"command": command};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+
 @end

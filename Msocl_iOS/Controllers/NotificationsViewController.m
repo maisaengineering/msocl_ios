@@ -77,7 +77,7 @@
     
     self.title = @"Notifications";
     
-    [self callNotificationsApi:@"next"];
+    [self callNotificationsApi:@""];
     // Do any additional setup after loading the view.
 }
 
@@ -89,7 +89,7 @@
     // Released above the header
     [self resetData];
     
-    [self performSelectorInBackground:@selector(callNotificationsApi:) withObject:@"next"];
+    [self performSelectorInBackground:@selector(callNotificationsApi:) withObject:@""];
     
 }
 
@@ -164,9 +164,17 @@
     [refreshControl endRefreshing];
     
     self.timeStamp = [recievedDict objectForKey:@"last_modified"];
-    self.notificationCount = [recievedDict objectForKey:@"post_count"];
+    self.notificationCount = [recievedDict objectForKey:@"notification_count"];
     self.etag = [recievedDict objectForKey:@"etag"];
     
+    if([recievedDict objectForKey:@"count"] && [[recievedDict objectForKey:@"count"] intValue] >0)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:[recievedDict objectForKey:@"count"] forKey:@"notificationcount"];
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"notificationcount"];
+    }
     //  [streamTableView reloadData];
     [appDelegate showOrhideIndicator:NO];
     
@@ -385,7 +393,6 @@
     if(!notificationDetailsObject.viewed)
     {
         notificationDetailsObject.viewed = YES;
-        [tableView reloadData];
 
         AccessToken* token = sharedModel.accessToken;
         NSString *command = @"update";
@@ -397,7 +404,26 @@
         NSString *urlAsString = [NSString stringWithFormat:@"%@notifications/%@",BASE_URL,notificationDetailsObject.uid];
         [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
+        [notificationsArray removeObjectAtIndex:indexPath.row];
+        
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] && [[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue] > 0)
+        {
+            if([[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue] ==1)
+            {
+                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"notificationcount"];
+            }
+            else
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+
+            }
+        
+        }
+        [tableView reloadData];
+
     }
+    
+    
     [self addMessageFromRemoteNotification:notificationDetailsObject];
 
 

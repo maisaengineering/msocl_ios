@@ -28,4 +28,5 @@
 - (void)getAllTimedReminderImagesWithURLS:(NSMutableArray *) pageGuidesArray;
 
 -(void)getOptionsForExternalSignIn;
+-(void)trackNewUserSession;
 @end
