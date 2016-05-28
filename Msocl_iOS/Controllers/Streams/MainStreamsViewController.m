@@ -35,7 +35,9 @@
     UIButton *searchButton;
     UIImageView *iconImage;
     BOOL menuOpened;
-    
+    UIButton *notificationsButton;
+    UIImageView *notificationBubble;
+    UILabel *notificationCount;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -109,8 +111,31 @@
     
     searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
-    [searchButton setFrame:CGRectMake(285, 9.5, 25, 25)];
+    [searchButton setFrame:CGRectMake(250, 9.5, 25, 25)];
     [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    notificationsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [notificationsButton setImage:[UIImage imageNamed:@"notification.png"] forState:UIControlStateNormal];
+    [notificationsButton setFrame:CGRectMake(280, 9.5, 25, 25)];
+    [notificationsButton addTarget:self action:@selector(notificationClicked) forControlEvents:UIControlEventTouchUpInside];
+
+    notificationBubble = [[UIImageView alloc] initWithFrame:CGRectMake(290,0, 20, 20)];
+    notificationBubble.backgroundColor = [UIColor colorWithRed:255/255.0 green:0/255.0 blue:0/255.0 alpha:1.0];
+    //notificationBubble.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
+    notificationBubble.layer.cornerRadius = notificationBubble.frame.size.height /2;
+    [notificationBubble.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
+    notificationBubble.layer.borderColor = [UIColor whiteColor].CGColor;
+    notificationBubble.layer.borderWidth = 1.0;
+    notificationBubble.layer.masksToBounds = YES;
+    
+    
+    notificationCount = [[UILabel alloc] initWithFrame:CGRectMake(290,0, 20, 20)];
+    notificationCount.textAlignment = NSTextAlignmentCenter;
+    notificationCount.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:10];
+    [notificationCount setTextColor:[UIColor whiteColor]];
+
+    
     
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(149.5, 8, 21, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
@@ -154,7 +179,12 @@
                                              selector:@selector(pageGuidesDownloaded)
                                                  name:@"PageGuidsDownloaded"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNotificationCount)
+                                                 name:@"UpdateNotificationCount"
+                                               object:nil];
     
+
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getStreamsDataInBackgroundForPUSHNotificationAlerts) name:@"AppFromPassiveState" object:nil];
@@ -174,7 +204,9 @@
     [self refreshWall];
     [self performSelector:@selector(setUpTimer) withObject:nil afterDelay:1.0];
     [self.navigationController.navigationBar addSubview:searchButton];
+    [self.navigationController.navigationBar addSubview:notificationsButton];
     
+    [self updateNotificationCount];
     [Flurry logEvent:@"navigation_to_wall"];
     
 }
@@ -203,6 +235,7 @@
     [iconImage removeFromSuperview];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:RELOAD_ON_LOG_OUT object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AppFromPassiveState" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UpdateNotificationCount" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidClose" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SlideNavigationControllerDidOpen" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PageGuidsDownloaded" object:nil];
@@ -213,7 +246,34 @@
     following.isSearching = NO;
     [searchButton removeFromSuperview];
     
+    [notificationCount removeFromSuperview];
+    [notificationBubble removeFromSuperview];
+    [notificationsButton removeFromSuperview];
+    
 }
+-(void)updateNotificationCount
+{
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+    int count = 0;
+    count = [[userdefaults objectForKey:@"notificationcount"] intValue];
+    if([userdefaults objectForKey:@"notificationcount"] && count > 0)
+    {
+        [self.navigationController.navigationBar addSubview:notificationBubble];
+        [self.navigationController.navigationBar addSubview:notificationCount];
+        if(count > 999)
+            [notificationCount setText:[NSString stringWithFormat:@"999"]];
+        else
+            [notificationCount setText:[NSString stringWithFormat:@"%i",count]];
+
+    }
+    else
+    {
+        [notificationCount removeFromSuperview];
+        [notificationBubble removeFromSuperview];
+    }
+
+}
+
 -(void)pageGuidesDownloaded
 {
     if(!menuOpened && [[self.navigationController topViewController] isKindOfClass:[MainStreamsViewController class]])
@@ -1134,6 +1194,14 @@
         }
     }
     
+}
+-(void)notificationClicked
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+
 }
 -(void) searchBarCancelButtonClicked:(UISearchBar *)searchBar1
 {

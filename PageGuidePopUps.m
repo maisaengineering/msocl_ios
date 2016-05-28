@@ -391,6 +391,9 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:[recievedDict objectForKey:@"notifications_count"] forKey:@"notificationcount"];
     [defaults setObject:[recievedDict objectForKey:@"ratingInterval"] forKey:@"ratingInterval"];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"UpdateNotificationCount" object:nil];
+
 
 }
 -(void)externalSigninOptionsFailed

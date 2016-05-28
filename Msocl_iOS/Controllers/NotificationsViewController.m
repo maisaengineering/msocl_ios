@@ -120,6 +120,11 @@
         [body setValue:self.etag forKey:@"etag"];
         [body setValue:step forKeyPath:@"step"];
         
+        if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+        {
+            [body setObject:DEVICE_UUID forKey:@"ref"];
+        }
+        
         NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
         NSDictionary *userInfo = @{@"command": @"GetNotifications"};
         
@@ -389,6 +394,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        return;
+    }
     NotificationDetails *notificationDetailsObject = [notificationsArray objectAtIndex:indexPath.row];
     if(!notificationDetailsObject.viewed)
     {

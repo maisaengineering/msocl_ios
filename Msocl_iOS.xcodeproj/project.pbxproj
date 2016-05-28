@@ -100,8 +100,8 @@
 		7F3975041CF6DC7F001184DD /* thumbsup_grey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975021CF6DC7F001184DD /* thumbsup_grey@3x.png */; };
 		7F3975061CF97124001184DD /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975051CF97124001184DD /* plus@2x.png */; };
 		7F3975081CF98501001184DD /* lock_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975071CF98501001184DD /* lock_white@3x.png */; };
-		7F39750A1CF98779001184DD /* notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975091CF98779001184DD /* notification@3x.png */; };
 		7F39750D1CF9A674001184DD /* RateTheAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39750C1CF9A674001184DD /* RateTheAppViewController.m */; };
+		7F3975111CF9D6EC001184DD /* notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975101CF9D6EC001184DD /* notification@3x.png */; };
 		7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */; };
 		7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */; };
 		7F4C88F91AF0B5BB008B769C /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88EF1AF0B5BB008B769C /* JTSImageInfo.m */; };
@@ -637,9 +637,9 @@
 		7F3975021CF6DC7F001184DD /* thumbsup_grey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsup_grey@3x.png"; sourceTree = "<group>"; };
 		7F3975051CF97124001184DD /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
 		7F3975071CF98501001184DD /* lock_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_white@3x.png"; sourceTree = "<group>"; };
-		7F3975091CF98779001184DD /* notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification@3x.png"; sourceTree = "<group>"; };
 		7F39750B1CF9A674001184DD /* RateTheAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateTheAppViewController.h; sourceTree = "<group>"; };
 		7F39750C1CF9A674001184DD /* RateTheAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateTheAppViewController.m; sourceTree = "<group>"; };
+		7F3975101CF9D6EC001184DD /* notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification@3x.png"; sourceTree = "<group>"; };
 		7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-textfield@2x.png"; sourceTree = "<group>"; };
 		7F4C88EC1AF0B5BB008B769C /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
 		7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
@@ -1758,8 +1758,8 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7F3975091CF98779001184DD /* notification@3x.png */,
 				7F3975071CF98501001184DD /* lock_white@3x.png */,
+				7F3975101CF9D6EC001184DD /* notification@3x.png */,
 				7F3975051CF97124001184DD /* plus@2x.png */,
 				7F3975011CF6DC7F001184DD /* thumbsup_grey@2x.png */,
 				7F3975021CF6DC7F001184DD /* thumbsup_grey@3x.png */,
@@ -2314,7 +2314,7 @@
 				7FAF02321B465625002DD930 /* btn-google@3x.png in Resources */,
 				7FC271261C101C15008AFE45 /* header-icon-samepinch@2x.png in Resources */,
 				7F5934221B3A642B001B5A94 /* menu-button@2x.png in Resources */,
-				7F39750A1CF98779001184DD /* notification@3x.png in Resources */,
+				7F3975111CF9D6EC001184DD /* notification@3x.png in Resources */,
 				7FAF02481B465625002DD930 /* icon-delete-post@3x.png in Resources */,
 				7F8999241AD2B1F6007E2917 /* tour_3@2x.png in Resources */,
 				7F7E96F51AF508C900995667 /* Ubuntu-L.ttf in Resources */,
