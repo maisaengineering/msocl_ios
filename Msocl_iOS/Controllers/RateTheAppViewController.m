@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     
     self.remindMeLaterBtn.layer.cornerRadius = 2;
-    self.remindMeLaterBtn.layer.borderWidth = 0.5;
+    self.remindMeLaterBtn.layer.borderWidth = 1;
     self.remindMeLaterBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.rateBtn.layer.cornerRadius = 2;
     

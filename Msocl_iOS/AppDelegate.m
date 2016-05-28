@@ -162,9 +162,9 @@
     }];
 
 
-    
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                    didFinishLaunchingWithOptions:launchOptions];
+    return YES;
+//    return [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                    didFinishLaunchingWithOptions:launchOptions];
 }
 -(void)setUserDatails
 {
@@ -714,6 +714,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     
+    NSLog(@"query string: %@", [url query]);
+
     if([[url absoluteString] containsString:@"samepinchapp://"])
     {
         
@@ -764,6 +766,9 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {
+    
+    NSLog(@"user activity: %@", userActivity.userInfo);
+
     BOOL handledByBranch = [[Branch getInstance] continueUserActivity:userActivity];
     
     return handledByBranch;

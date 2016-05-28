@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view.
     
     self.noThanksBtn.layer.cornerRadius = 2;
-    self.noThanksBtn.layer.borderWidth = 0.5;
+    self.noThanksBtn.layer.borderWidth = 1;
     self.noThanksBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.notifyBtn.layer.cornerRadius = 2;
     
