@@ -35,6 +35,7 @@
     UIButton *searchButton;
     UIImageView *iconImage;
     BOOL menuOpened;
+    
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -108,16 +109,23 @@
     
     searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
-    [searchButton setFrame:CGRectMake(250, 9.5, 25, 25)];
+    [searchButton setFrame:CGRectMake(285, 9.5, 25, 25)];
     [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
     iconImage = [[UIImageView alloc] initWithFrame:CGRectMake(149.5, 8, 21, 28)];
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClicked:)];
-    addButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
-    self.navigationItem.rightBarButtonItem= addButton;
     
+    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    plusButton.frame = CGRectMake(262, self.view.frame.size.height-120, 50, 50);
+    [plusButton setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+    [plusButton.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
+    [plusButton.layer setShadowOpacity:0.5f];
+    [plusButton.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
+    [plusButton.layer setShadowRadius:3.0f];
+    [plusButton addTarget:self action:@selector(addClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:plusButton];
+    [self.view bringSubviewToFront:plusButton];
     [appDelegate askForNotificationPermission];
     
 }
@@ -218,10 +226,8 @@
 }
 -(void)reloadOnLogOut
 {
-    self.navigationItem.leftBarButtonItem = nil;
     //    self.navigationItem.leftBarButtonItem.enabled = NO;
     //    self.navigationItem.leftBarButtonItem.title = @"";
-    self.navigationItem.hidesBackButton = YES;
     mostRecentButton.selected = NO;
     
     [mostRecent setHidden:NO];
@@ -524,10 +530,7 @@
 
 - (BOOL)slideNavigationControllerShouldDisplayLeftMenu
 {
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-        return YES;
-    else
-        return NO;
+    return YES;
 }
 
 - (BOOL)slideNavigationControllerShouldDisplayRightMenu

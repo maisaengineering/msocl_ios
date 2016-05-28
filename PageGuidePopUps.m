@@ -10,13 +10,15 @@
 #import "ModelManager.h"
 #import "StringConstants.h"
 #import <sys/utsname.h>
-
+#import "ProfileDateUtils.h"
+#import "AppDelegate.h"
 @implementation PageGuidePopUps
 
 @synthesize timer;
 @synthesize dicVisitedPage;
 @synthesize arrVisitedPages;
 @synthesize grphicsArray;
+@synthesize rateView;
 
 static PageGuidePopUps *pageGuidePopUpsObject = nil;
 + (id)sharedInstance
@@ -357,24 +359,38 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 
 #pragma mark -
 #pragma mark Call to Disable External Sign in
--(void)getOptionsForExternalSignIn
+-(void)getAppConfig
 {
     ModelManager *sharedModel = [ModelManager sharedModel];
     AccessToken* token = sharedModel.accessToken;
     NSString *command = @"appConfig";
-    NSDictionary* postData = @{@"access_token": token.access_token,
-                               @"command": command};
+    NSDictionary* postData;
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        
+        postData = @{@"access_token": token.access_token,
+                     @"command": command,
+                     @"body":@{@"ref": sharedModel.userProfile.uid}
+                     };
+
+
+    }
+    else
+    {
+        postData = @{@"access_token": token.access_token,
+                     @"command": command,
+                     @"body":@{@"ref": DEVICE_UUID}
+                     };
+    }
     NSDictionary *userInfo = @{@"command": command};
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
 -(void)externalSigninOptionsSuccessFull:(NSDictionary *)recievedDict
 {
-
-    if([[recievedDict objectForKey:@"noExLogins"] count] > 0)
-        [[NSUserDefaults standardUserDefaults] setObject:[recievedDict objectForKey:@"noExLogins"] forKey:@"externalSignInOptions"];
-    else
-        [[NSUserDefaults standardUserDefaults] setObject:[[NSArray alloc] init] forKey:@"externalSignInOptions"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[recievedDict objectForKey:@"notifications_count"] forKey:@"notificationcount"];
+    [defaults setObject:[recievedDict objectForKey:@"ratingInterval"] forKey:@"ratingInterval"];
 
 }
 -(void)externalSigninOptionsFailed
@@ -394,5 +410,87 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
     NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 }
+-(void)newSessionSuccessFull:(NSDictionary *)recievedDict
+{
+    
+    
+}
+-(void)newSessionFailed
+{
+    
+}
+
+#pragma mark -
+#pragma mark Rate App Methods
+-(void)askForRateApp
+{
+    if(rateView && rateView.view.superview != nil)
+    {
+        return;
+    }
+    NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+    
+    if(![defaults boolForKey:@"ratedapp"])
+    {
+        NSDate *installedDate = [defaults objectForKey:@"last_shown_date"];
+        NSInteger daysBetween = 0;
+
+        if(installedDate != nil)
+        {
+            daysBetween = [ProfileDateUtils daysBetweenDate:[NSDate date] andDate:installedDate];
+            
+            NSDictionary *ratringDict = [defaults objectForKey:@"ratingInterval"];
+            
+            int intervel = 0;
+            if([defaults boolForKey:@"shownOneTime"])
+                intervel = [[ratringDict objectForKey:@"later"] intValue];
+            else
+                intervel = [[ratringDict objectForKey:@"first"] intValue];
+
+            if(daysBetween > intervel)
+            {
+                [defaults setObject:[NSDate date] forKey:@"last_shown_date"];
+                
+                [defaults setBool:YES forKey:@"shownOneTime"];
+
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                rateView = (RateTheAppViewController *)[mainStoryboard
+                                                     instantiateViewControllerWithIdentifier: @"RateTheAppViewController"];
+                rateView.delegate = self;
+                AppDelegate *appdele = [[UIApplication sharedApplication] delegate];
+                [appdele.window addSubview:rateView.view];
+
+            }
+
+        }
+        else
+        {
+            [defaults setObject:[NSDate date] forKey:@"last_shown_date"];
+            [defaults synchronize];
+
+        }
+    }
+}
+-(void)responseFromPrompt:(int)index
+{
+    if(index == 2)
+    {
+        
+        NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
+        [defaults setBool:YES forKey:@"ratedapp"];
+        
+        NSString *iTunesLink = @"itms-apps://itunes.apple.com/us/app/id998823966?mt=8";
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+
+    }
+    AppDelegate *appdele = [[UIApplication sharedApplication] delegate];
+
+    if(appdele.deferNotificationPrompt)
+    {
+        [appdele askForNotificationPermission];
+    }
+}
+
 
 @end

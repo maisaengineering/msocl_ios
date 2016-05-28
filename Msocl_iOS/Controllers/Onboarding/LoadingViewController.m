@@ -89,7 +89,7 @@
     ModelManager *sharedModel = [ModelManager sharedModel];
     sharedModel.accessToken = [tokens objectAtIndex:0];
     
-        [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
+        [[PageGuidePopUps sharedInstance] getAppConfig];
 
     
   /*  NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];

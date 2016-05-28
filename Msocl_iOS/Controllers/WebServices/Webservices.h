@@ -76,6 +76,10 @@
 -(void) handleFailed;
 -(void) didReceiveNotification:(NSDictionary *)recievedDict;
 -(void) notificationFailed;
+-(void) newSessionSuccessFull:(NSDictionary *)recievedDict;
+-(void) newSessionFailed;
+-(void) shareUrlSuccessFull:(NSDictionary *)recievedDict;
+-(void) shareUrlFailed;
 
 
 @end

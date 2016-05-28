@@ -252,7 +252,7 @@
     }
     
         [[PageGuidePopUps sharedInstance] trackNewUserSession];
-        
+        [[PageGuidePopUps sharedInstance] getAppConfig];
     
     [NotificationUtils resetParseChannels];
 

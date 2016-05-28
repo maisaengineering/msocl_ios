@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL isAppFromBackground;
 @property (nonatomic) BOOL isAppFromPushNotifi;
 @property (nonatomic) BOOL isPushCalled;
+@property (nonatomic) BOOL deferNotificationPrompt;
 @property (nonatomic, strong) NSData *parseToken;
 @property (nonatomic, strong) PromptViewController *promptView;
 

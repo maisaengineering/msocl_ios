@@ -37,21 +37,22 @@
 {
     AppDelegate *appDele = [[UIApplication sharedApplication] delegate];
 
-    if(appDele.parseToken != nil && ![[NSUserDefaults standardUserDefaults] boolForKey:@"HAS_REGISTERED_KLID"])
+    if(appDele.parseToken != nil)
     {
     ModelManager *sharedModel = [ModelManager sharedModel];
    
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:appDele.parseToken];
-    NSString *channelName = [@"sp_" stringByAppendingString:sharedModel.userProfile.uid];
+    NSString *channelName;
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+        channelName = [@"sp_" stringByAppendingString:sharedModel.userProfile.uid];
+    else
+        channelName = @"non_signed_in_user";
     currentInstallation.channels = @[channelName];
-    // [currentInstallation saveInBackground];
     [currentInstallation saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         
     }];
 
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HAS_REGISTERED_KLID"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     }
     else
     {

@@ -67,17 +67,23 @@
     NSString *previousVersion = [defaults objectForKey:@"appVersion"];
     if(!previousVersion)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:previousVersion forKey:@"appversion"];
+        [defaults setObject:previousVersion forKey:@"appversion"];
     
     }
     else if (![previousVersion isEqualToString:currentAppVersion])
     {
         
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"FORCED_UPDATE"];
-        [[NSUserDefaults standardUserDefaults] setObject:currentAppVersion forKey:@"appversion"];
+        [defaults removeObjectForKey:@"FORCED_UPDATE"];
+        [defaults setObject:currentAppVersion forKey:@"appversion"];
+        
+        //////Cleaning Rating info
+        [defaults removeObjectForKey:@"ratedapp"];
+        [defaults removeObjectForKey:@"last_shown_date"];
+        [defaults removeObjectForKey:@"shownOneTime"];
     }
    
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PageGuidePopUpImages"];
+    [defaults removeObjectForKey:@"PageGuidePopUpImages"];
+    [defaults synchronize];
     
 
     //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
@@ -202,10 +208,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     // Store the Device token in UserDefaulst for future purpose
     [[NSUserDefaults standardUserDefaults] setObject:strDeviceToken forKey:DEVICE_TOKEN_KEY];
     
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"HAS_REGISTERED_KLID"] && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    {
+   
         [NotificationUtils resetParseChannels];
-    }
     
 }
 
@@ -542,7 +546,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
         [Flurry setUserID:DEVICE_UUID];
     }
-
+    
     [Flurry logEvent:@"app_open_time" timed:YES];
 }
 
@@ -558,7 +562,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
 
     if(token.access_token.length>0)
     {
-        [[PageGuidePopUps sharedInstance] getOptionsForExternalSignIn];
+        [[PageGuidePopUps sharedInstance] getAppConfig];
 
       /*  NSMutableArray *visited_reminders = [[NSUserDefaults standardUserDefaults] objectForKey:@"time_reminder_visits"];
 
@@ -580,11 +584,13 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
        {
-           [NotificationUtils resetParseChannels];
            [[PageGuidePopUps sharedInstance] trackNewUserSession];
            
        }
     
+    //[NotificationUtils resetParseChannels];
+    [[PageGuidePopUps sharedInstance] askForRateApp];
+
     [FBSDKAppEvents activateApp];
 
 }
@@ -599,6 +605,13 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
 //Called from multiple controllers to make sure we only ask at a relevant time
 -(void)askForNotificationPermission
 {
+    if([[PageGuidePopUps sharedInstance] rateView] && [[[PageGuidePopUps sharedInstance] rateView] view].superview != nil)
+    {
+        self.deferNotificationPrompt = YES;
+        return;
+    }
+    
+    self.deferNotificationPrompt = NO;
     UIApplication *application = [UIApplication sharedApplication];
     
     BOOL enabled;

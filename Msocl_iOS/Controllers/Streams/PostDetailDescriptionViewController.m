@@ -57,6 +57,7 @@
     UIBarButtonItem *shareButton;
     CGRect keyboardFrameBeginRect;
     CGRect originalPostion;
+    NSString *shareUrl;
 }
 @synthesize storiesArray;
 @synthesize postID;
@@ -303,10 +304,15 @@
 {
     return UIStatusBarStyleLightContent;
 }
-
+-(void)showShareOptions
+{
+    PostDetails *post = [storiesArray lastObject];
+    shareUrl = post.url;
+    [self shareOptions];
+}
 -(void)shareOptions
 {
-    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy Link",@"Share on Facebook",@"Share by Email",@"Share by SMS",@"Share on WhatsApp", nil];
+    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:@"Copy Link",@"Share on Facebook",@"Share by Email",@"Share by SMS",@"Share on WhatsApp", nil];
 //    NSURL *whatsappURL = [NSURL URLWithString:@"whatsapp://send?text=Hello%2C%20World!"];
 //    
 //    if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
@@ -397,7 +403,7 @@
         [editButton setHidden:NO];
     }
     
-    shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareOptions)];
+    shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showShareOptions)];
     shareButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
     self.navigationItem.rightBarButtonItem= shareButton;
     
@@ -419,6 +425,7 @@
         
         
         [[appDelegate.promptView view] removeFromSuperview];
+        shareUrl = postObject.url;
         [self shareOptions];
         
     }
@@ -1845,16 +1852,17 @@
 #pragma mark More Options In Comment
 -(void)moreClicked:(id)sender
 {
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    {
     PostDetails *post = [storiesArray lastObject];
     NSDictionary * commentDict = [post.comments objectAtIndex:[sender tag]-1];
     commentIndex = [sender tag]-1;
-   
+    
     UIActionSheet *addImageActionSheet = [[UIActionSheet alloc] init];
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
     if([[commentDict objectForKey:@"upvoted"] boolValue])
     {
-    [addImageActionSheet addButtonWithTitle:@"Undo Like"];
+        [addImageActionSheet addButtonWithTitle:@"Undo Like"];
     }
     else
     {
@@ -1863,21 +1871,21 @@
         if([[commentDict objectForKey:@"can"] containsObject:@"edit"])
             [addImageActionSheet addButtonWithTitle:@"Edit"];
         
-
+        
     }
-        if([[commentDict objectForKey:@"can"] containsObject:@"flag"])
+    if([[commentDict objectForKey:@"can"] containsObject:@"flag"])
         [addImageActionSheet addButtonWithTitle:@"Flag"];
+    
+    }
+        [addImageActionSheet addButtonWithTitle:@"Share"];
 
     addImageActionSheet.cancelButtonIndex = [addImageActionSheet addButtonWithTitle:@"Cancel"];
-
+    
     addImageActionSheet.tag = 1;
     [addImageActionSheet setDelegate:self];
     [addImageActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-    }
-    else
-    {
-        [self gotoLoginScreen];
-    }
+
+    
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -1914,6 +1922,12 @@
     {
         [self performSegueWithIdentifier: @"EditComment" sender: self];
     }
+        
+    else if([title isEqualToString:@"Share"])
+    {
+        [self getShareUrl];
+    }
+        
     }
     else
     {
@@ -2072,7 +2086,7 @@
     PostDetails *post = [storiesArray lastObject];
     [appDelegate showOrhideIndicator:YES];
     
-    NSString *message =  post.url;
+    NSString *message =  shareUrl;
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
     messageController.messageComposeDelegate = self;
@@ -2118,7 +2132,7 @@
 
         PostDetails *post = [storiesArray lastObject];
 
-        NSString *body = post.url;
+        NSString *body = shareUrl;
         
         mailComposer= [[MFMailComposeViewController alloc] init];
         [mailComposer setMailComposeDelegate:self];
@@ -2402,9 +2416,37 @@
 }
 #pragma mark -
 #pragma mark Share Methods
+-(void)getShareUrl
+{
+    
+    PostDetails *postDetails = [storiesArray lastObject];
+    NSMutableDictionary * commentDict = [[postDetails.comments objectAtIndex:commentIndex] mutableCopy];
+    NSString *itemId = [commentDict objectForKey:@"uid"];
+    
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSDictionary* postData = @{@"command": @"shareUrl",@"access_token": token.access_token,@"body":@{@"commentId":itemId}};
+    NSDictionary *userInfo = @{@"command": @"shareUrl"};
+    
+    NSString *urlAsString = [NSString stringWithFormat:@"%@posts",BASE_URL];
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+
+    [appDelegate showOrhideIndicator:YES];
+}
+-(void)shareUrlSuccessFull:(NSDictionary *)recievedDict
+{
+    shareUrl = [recievedDict objectForKey:@"url"];
+    [appDelegate showOrhideIndicator:NO];
+    [self shareOptions];
+}
+-(void)shareUrlFailed
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+#pragma mark -
+#pragma mark FB Share Methods
 -(void)shareToFB
 {
-    PostDetails *post = [storiesArray lastObject];
     if (![[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"])
     {
         FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
@@ -2414,7 +2456,7 @@
              if ([result.grantedPermissions containsObject:@"publish_actions"])
              {
                  FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-                 content.contentURL = [NSURL URLWithString:post.url];
+                 content.contentURL = [NSURL URLWithString:shareUrl];
                  [FBSDKShareAPI shareWithContent:content delegate:nil];
 
              }}];
@@ -2422,7 +2464,7 @@
     else
     {
     FBSDKShareLinkContent *content = [[FBSDKShareLinkContent alloc] init];
-    content.contentURL = [NSURL URLWithString:post.url];
+    content.contentURL = [NSURL URLWithString:shareUrl];
     [FBSDKShareAPI shareWithContent:content delegate:nil];
 
     }

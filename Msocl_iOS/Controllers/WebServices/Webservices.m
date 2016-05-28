@@ -195,7 +195,15 @@
     {
         [self connectionSuccessNotifications:responseDict];
     }
-    
+    else if([command isEqualToString:@"newSession"])
+    {
+        [self  connectionSuccessNewSession:responseDict];
+    }
+
+    else if([command isEqualToString:@"shareUrl"])
+    {
+        [self  connectionSuccessShareUrl:responseDict];
+    }
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -323,6 +331,14 @@
     else if([command isEqualToString:@"handle"])
     {
         [self.delegate handleFailed];
+    }
+    else if([command isEqualToString:@"newSession"])
+    {
+        [self.delegate handleFailed];
+    }
+    else if([command isEqualToString:@"shareUrl"])
+    {
+        [self.delegate shareUrlFailed];
     }
 }
 #pragma mark -
@@ -628,6 +644,41 @@
     }
     
 }
+-(void)connectionSuccessNewSession:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate newSessionSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate newSessionFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessShareUrl:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate shareUrlSuccessFull:dictCopty];
+    }
+    
+    else
+    {
+        [self.delegate shareUrlFailed];
+        
+    }
+    
+}
+
 -(void)connectionSuccessSignOut:(NSDictionary *)respDict
 {
     NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];

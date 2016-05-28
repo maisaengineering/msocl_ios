@@ -20,6 +20,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
 #import "Flurry.h"
+#import "LoginViewController.h"
+#import "NotificationUtils.h"
 @implementation MenuViewController
 {
     ModelManager *sharedModel;
@@ -56,13 +58,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+        return 8;
+    else
+    return 4;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.row == 0)
+    
+    if(indexPath.row == 0 && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         return 90;
     else return 44;
+
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -79,6 +86,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
     if(indexPath.row == 0)
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftTopCell"];
@@ -186,22 +195,24 @@
             count = [[userdefaults objectForKey:@"notificationcount"] intValue];
             if([userdefaults objectForKey:@"notificationcount"] && count > 0)
             {
-            UIImageView *bubbleImage = [[UIImageView alloc] initWithFrame:CGRectMake(160, 9, 26, 26)];
-            bubbleImage.backgroundColor = [UIColor redColor];
+            UIImageView *bubbleImage = [[UIImageView alloc] initWithFrame:CGRectMake(21, 4, 20, 20)];
+            bubbleImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
             bubbleImage.layer.cornerRadius = bubbleImage.frame.size.height /2;
             bubbleImage.layer.masksToBounds = YES;
             bubbleImage.layer.borderWidth = 0;
+                
             [cell.contentView addSubview:bubbleImage];
                 
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(160, 9, 26, 26)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(21, 4, 20, 20)];
                 if(count > 999)
                     [label setText:[NSString stringWithFormat:@"999"]];
                 else
                     [label setText:[NSString stringWithFormat:@"%i",count]];
                 label.textAlignment = NSTextAlignmentCenter;
-            label.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:13];
+            label.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:10];
             [label setTextColor:[UIColor whiteColor]];
             [cell.contentView addSubview:label];
+
             }
         }
 
@@ -238,10 +249,83 @@
     cell.backgroundColor = [UIColor clearColor];
     
     return cell;
+    }
+    else
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftMenuCell"];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.textLabel.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16];
+        
+        for(UIView *view in [cell.contentView subviews])
+            [view removeFromSuperview];
+        
+        
+        switch (indexPath.row)
+        {
+            case 0:
+                cell.textLabel.text = @"Wall";
+                cell.imageView.image = [UIImage imageNamed:@"menu-home.png"];
+                break;
+                
+            case 1:
+            {
+                cell.textLabel.text = @"Notifications";
+                cell.imageView.image = [UIImage imageNamed:@"menu-notifications.png"];
+                
+                NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
+                int count = 0;
+                count = [[userdefaults objectForKey:@"notificationcount"] intValue];
+                if([userdefaults objectForKey:@"notificationcount"] && count > 0)
+                {
+                    UIImageView *bubbleImage = [[UIImageView alloc] initWithFrame:CGRectMake(21, 4, 20, 20)];
+                    bubbleImage.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
+                    bubbleImage.layer.cornerRadius = bubbleImage.frame.size.height /2;
+                    bubbleImage.layer.masksToBounds = YES;
+                    bubbleImage.layer.borderWidth = 0;
+                    
+                    [cell.contentView addSubview:bubbleImage];
+                    
+                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(21, 4, 20, 20)];
+                    if(count > 999)
+                        [label setText:[NSString stringWithFormat:@"999"]];
+                    else
+                        [label setText:[NSString stringWithFormat:@"%i",count]];
+                    label.textAlignment = NSTextAlignmentCenter;
+                    label.font = [UIFont fontWithName:@"SanFranciscoDisplay-Light" size:10];
+                    [label setTextColor:[UIColor whiteColor]];
+                    [cell.contentView addSubview:label];
+                }
+            }
+                
+                break;
+                
+            case 2:
+                cell.textLabel.text = @"About";
+                cell.imageView.image = [UIImage imageNamed:@"icon-menu-about.png"];
+                break;
+                
+                
+            case 3:
+                cell.textLabel.text = @"Login";
+                cell.imageView.image = [UIImage imageNamed:@"lock_white.png"];
+                break;
+        }
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 43.5, 320, 0.5)];
+        [label setBackgroundColor:[UIColor lightGrayColor]];
+        [cell.contentView addSubview:label];
+        
+        cell.backgroundColor = [UIColor clearColor];
+        
+        return cell;
+
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
     
     switch (indexPath.row)
     {
@@ -335,6 +419,82 @@
             
         default:
             break;
+    }
+    }
+    else
+    {
+        
+        switch (indexPath.row)
+        {
+                
+            case 0:
+            {
+                if([[[SlideNavigationController sharedInstance] topViewController] isKindOfClass:[MainStreamsViewController class]])
+                {
+                    [(MainStreamsViewController *)[[SlideNavigationController sharedInstance] topViewController] resetFavoritesFromWall];
+                }
+            }
+                break;
+                
+            case 1:
+            {
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                
+                UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"NotificationsViewController"];
+                
+                [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
+            }            break;
+                
+                break;
+                
+            case 2:
+            {
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                
+                UIViewController *vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"AboutViewController"];
+                
+                [[SlideNavigationController sharedInstance] pushViewController:vc animated:YES];
+            }
+                break;
+                
+                
+            case 3:
+            {
+                [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                
+                CGRect screenRect = [[UIScreen mainScreen] bounds];
+                CGFloat screenWidth = screenRect.size.width;
+                CGFloat screenHeight = screenRect.size.height;
+                
+                login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+                
+                [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+                
+                
+                [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+                    
+                }
+                                 completion:^(BOOL finished){
+                                     [login.view removeFromSuperview];
+                                     
+                                     [[SlideNavigationController sharedInstance] pushViewController:login animated:NO];
+                                 }
+                 ];
+                
+
+            }
+                break;
+                
+                
+            default:
+                break;
+        }
     }
     
     //    [[SlideNavigationController sharedInstance] popToRootAndSwitchToViewController:vc
@@ -437,6 +597,7 @@
     [userDefaults removeObjectForKey:@"notificationcount"];
     [userDefaults setBool:NO forKey:@"externalSignIn"];
     [userDefaults removeObjectForKey:@"favStreamArray"];
+    
     [userDefaults synchronize];
     NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
                                   initWithSuiteName:@"group.com.maisasolutions.msocl"];
@@ -449,6 +610,7 @@
     [sharedModel clear];
     
     [self callAccessTokenApi];
+    
 }
 -(void) signOutFailed
 {
@@ -495,6 +657,9 @@
     [currentInstallation saveEventually];
 
     [Flurry setUserID:DEVICE_UUID];
+    
+    [[PageGuidePopUps sharedInstance] getAppConfig];
+    [NotificationUtils resetParseChannels];
     
 }
 

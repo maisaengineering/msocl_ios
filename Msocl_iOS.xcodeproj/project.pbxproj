@@ -98,6 +98,10 @@
 		7F3975001CF57CDD001184DD /* thumbsup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3974FC1CF57CDD001184DD /* thumbsup@3x.png */; };
 		7F3975031CF6DC7F001184DD /* thumbsup_grey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975011CF6DC7F001184DD /* thumbsup_grey@2x.png */; };
 		7F3975041CF6DC7F001184DD /* thumbsup_grey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975021CF6DC7F001184DD /* thumbsup_grey@3x.png */; };
+		7F3975061CF97124001184DD /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975051CF97124001184DD /* plus@2x.png */; };
+		7F3975081CF98501001184DD /* lock_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975071CF98501001184DD /* lock_white@3x.png */; };
+		7F39750A1CF98779001184DD /* notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975091CF98779001184DD /* notification@3x.png */; };
+		7F39750D1CF9A674001184DD /* RateTheAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39750C1CF9A674001184DD /* RateTheAppViewController.m */; };
 		7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */; };
 		7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */; };
 		7F4C88F91AF0B5BB008B769C /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88EF1AF0B5BB008B769C /* JTSImageInfo.m */; };
@@ -631,6 +635,11 @@
 		7F3974FC1CF57CDD001184DD /* thumbsup@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsup@3x.png"; sourceTree = "<group>"; };
 		7F3975011CF6DC7F001184DD /* thumbsup_grey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsup_grey@2x.png"; sourceTree = "<group>"; };
 		7F3975021CF6DC7F001184DD /* thumbsup_grey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsup_grey@3x.png"; sourceTree = "<group>"; };
+		7F3975051CF97124001184DD /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
+		7F3975071CF98501001184DD /* lock_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_white@3x.png"; sourceTree = "<group>"; };
+		7F3975091CF98779001184DD /* notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification@3x.png"; sourceTree = "<group>"; };
+		7F39750B1CF9A674001184DD /* RateTheAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateTheAppViewController.h; sourceTree = "<group>"; };
+		7F39750C1CF9A674001184DD /* RateTheAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateTheAppViewController.m; sourceTree = "<group>"; };
 		7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-textfield@2x.png"; sourceTree = "<group>"; };
 		7F4C88EC1AF0B5BB008B769C /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
 		7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
@@ -1692,6 +1701,8 @@
 				7F7726E41B0B755500474190 /* AboutViewController.m */,
 				7F54357F1CCB50600006F985 /* PromptViewController.h */,
 				7F5435801CCB50600006F985 /* PromptViewController.m */,
+				7F39750B1CF9A674001184DD /* RateTheAppViewController.h */,
+				7F39750C1CF9A674001184DD /* RateTheAppViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1747,6 +1758,9 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F3975091CF98779001184DD /* notification@3x.png */,
+				7F3975071CF98501001184DD /* lock_white@3x.png */,
+				7F3975051CF97124001184DD /* plus@2x.png */,
 				7F3975011CF6DC7F001184DD /* thumbsup_grey@2x.png */,
 				7F3975021CF6DC7F001184DD /* thumbsup_grey@3x.png */,
 				7F3974F91CF57CDD001184DD /* fist@2x.png */,
@@ -2283,6 +2297,7 @@
 				7FAF02671B465625002DD930 /* placeHolder_wall@3x.png in Resources */,
 				7F8999231AD2B1F6007E2917 /* tour_2@2x.png in Resources */,
 				7FAF023C1B465625002DD930 /* circle-279@3x.png in Resources */,
+				7F3975061CF97124001184DD /* plus@2x.png in Resources */,
 				7F8891001B15FF28009C8CC8 /* cd-2@3x.png in Resources */,
 				7FAF023D1B465625002DD930 /* comment_Count@3x.png in Resources */,
 				7FAF022D1B465625002DD930 /* anamous@3x.png in Resources */,
@@ -2299,6 +2314,7 @@
 				7FAF02321B465625002DD930 /* btn-google@3x.png in Resources */,
 				7FC271261C101C15008AFE45 /* header-icon-samepinch@2x.png in Resources */,
 				7F5934221B3A642B001B5A94 /* menu-button@2x.png in Resources */,
+				7F39750A1CF98779001184DD /* notification@3x.png in Resources */,
 				7FAF02481B465625002DD930 /* icon-delete-post@3x.png in Resources */,
 				7F8999241AD2B1F6007E2917 /* tour_3@2x.png in Resources */,
 				7F7E96F51AF508C900995667 /* Ubuntu-L.ttf in Resources */,
@@ -2312,6 +2328,7 @@
 				7FAF02581B465625002DD930 /* icon-post-@3x.png in Resources */,
 				7F5941BF1AF3892D001F79BD /* placeHolder_wall@2x.png in Resources */,
 				7F5934181B3A642B001B5A94 /* checkbox_full@2x.png in Resources */,
+				7F3975081CF98501001184DD /* lock_white@3x.png in Resources */,
 				7F8891011B15FF28009C8CC8 /* cd-3@3x.png in Resources */,
 				7FAF02491B465625002DD930 /* icon-delete-scroll@3x.png in Resources */,
 				7F82DD141B05FA1A001564A0 /* icon-createpost@2x.png in Resources */,
@@ -2580,6 +2597,7 @@
 				7F3568A21CF2CA38009D506B /* BranchInstallRequest.m in Sources */,
 				7F3568A41CF2CA38009D506B /* BranchLoadRewardsRequest.m in Sources */,
 				7F5DEFB81AD7C50A00F2C60A /* UIButton+WebCache.m in Sources */,
+				7F39750D1CF9A674001184DD /* RateTheAppViewController.m in Sources */,
 				7F86E5861ADBCFB00002493F /* SlideNavigationContorllerAnimatorSlideAndFade.m in Sources */,
 				7F35689A1CF2CA38009D506B /* BranchUniversalObject.m in Sources */,
 				25F51BBC1AD8F1F200369764 /* WebViewController.m in Sources */,

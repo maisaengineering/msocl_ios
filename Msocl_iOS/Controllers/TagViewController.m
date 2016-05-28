@@ -115,9 +115,16 @@
      }failure:nil];
     
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addClicked:)];
-    addButton.tintColor = [UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0];
-    self.navigationItem.rightBarButtonItem= addButton;
+    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    plusButton.frame = CGRectMake(262, self.view.frame.size.height-120, 50, 50);
+    [plusButton setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+    [plusButton.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
+    [plusButton.layer setShadowOpacity:0.5f];
+    [plusButton.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
+    [plusButton.layer setShadowRadius:3.0f];
+    [plusButton addTarget:self action:@selector(addClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:plusButton];
+    [self.view bringSubviewToFront:plusButton];
 
     
     
