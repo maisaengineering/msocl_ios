@@ -37,6 +37,7 @@
     BOOL menuOpened;
     UIButton *notificationsButton;
     UIImageView *notificationBubble;
+    UIButton *  notificationsButton2;
     UILabel *notificationCount;
 }
 @synthesize mostRecentButton;
@@ -120,6 +121,11 @@
     [notificationsButton setFrame:CGRectMake(280, 9.5, 25, 25)];
     [notificationsButton addTarget:self action:@selector(notificationClicked) forControlEvents:UIControlEventTouchUpInside];
 
+    notificationsButton2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    [notificationsButton2 setFrame:CGRectMake(270, 0, 40, 40)];
+    [notificationsButton2 addTarget:self action:@selector(notificationClicked) forControlEvents:UIControlEventTouchUpInside];
+
+    
     notificationBubble = [[UIImageView alloc] initWithFrame:CGRectMake(290,0, 20, 20)];
     notificationBubble.backgroundColor = [UIColor colorWithRed:255/255.0 green:0/255.0 blue:0/255.0 alpha:1.0];
     //notificationBubble.backgroundColor = [UIColor colorWithRed:197/255.0 green:33/255.0 blue:40/255.0 alpha:1.0];
@@ -205,6 +211,7 @@
     [self performSelector:@selector(setUpTimer) withObject:nil afterDelay:1.0];
     [self.navigationController.navigationBar addSubview:searchButton];
     [self.navigationController.navigationBar addSubview:notificationsButton];
+    [self.navigationController.navigationBar addSubview:notificationsButton2];
     
     [self updateNotificationCount];
     [Flurry logEvent:@"navigation_to_wall"];
@@ -249,7 +256,7 @@
     [notificationCount removeFromSuperview];
     [notificationBubble removeFromSuperview];
     [notificationsButton removeFromSuperview];
-    
+    [notificationsButton2 removeFromSuperview];
 }
 -(void)updateNotificationCount
 {

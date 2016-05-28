@@ -440,7 +440,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
 
         if(installedDate != nil)
         {
-            daysBetween = [ProfileDateUtils daysBetweenDate:[NSDate date] andDate:installedDate];
+            daysBetween = [ProfileDateUtils daysBetweenDate:installedDate andDate:[NSDate date]];
             
             NSDictionary *ratringDict = [defaults objectForKey:@"ratingInterval"];
             

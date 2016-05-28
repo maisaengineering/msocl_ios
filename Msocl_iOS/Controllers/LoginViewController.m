@@ -255,6 +255,8 @@
         [[PageGuidePopUps sharedInstance] getAppConfig];
     
     [NotificationUtils resetParseChannels];
+    
+    [appdelegate showOrhideIndicator:NO];
 
 }
 -(void)loginFailed:(NSDictionary *)recievedDict

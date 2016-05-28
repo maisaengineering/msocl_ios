@@ -661,7 +661,7 @@
     UIButton *moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [moreButton setImage:[UIImage imageNamed:@"icon-more.png"] forState:UIControlStateNormal];
     [moreButton addTarget:self action:@selector(moreClicked:) forControlEvents:UIControlEventTouchUpInside];
-    moreButton.frame = CGRectMake(290, 2, 20, 40);
+    moreButton.frame = CGRectMake(280, 2, 40, 40);
     [moreButton setTag:[indexPath row]];
     [cell.contentView addSubview:moreButton];
     
