@@ -102,6 +102,8 @@
 		7F3975081CF98501001184DD /* lock_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975071CF98501001184DD /* lock_white@3x.png */; };
 		7F39750D1CF9A674001184DD /* RateTheAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F39750C1CF9A674001184DD /* RateTheAppViewController.m */; };
 		7F3975111CF9D6EC001184DD /* notification@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975101CF9D6EC001184DD /* notification@3x.png */; };
+		7F3975151CF9F552001184DD /* lock_new@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975141CF9F552001184DD /* lock_new@3x.png */; };
+		7F3975171CF9F98A001184DD /* lock_blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3975161CF9F98A001184DD /* lock_blue@3x.png */; };
 		7F39EBD51AFB8B0E002FD492 /* search-textfield@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */; };
 		7F4C88F81AF0B5BB008B769C /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */; };
 		7F4C88F91AF0B5BB008B769C /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4C88EF1AF0B5BB008B769C /* JTSImageInfo.m */; };
@@ -640,6 +642,8 @@
 		7F39750B1CF9A674001184DD /* RateTheAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateTheAppViewController.h; sourceTree = "<group>"; };
 		7F39750C1CF9A674001184DD /* RateTheAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateTheAppViewController.m; sourceTree = "<group>"; };
 		7F3975101CF9D6EC001184DD /* notification@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "notification@3x.png"; sourceTree = "<group>"; };
+		7F3975141CF9F552001184DD /* lock_new@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_new@3x.png"; sourceTree = "<group>"; };
+		7F3975161CF9F98A001184DD /* lock_blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock_blue@3x.png"; sourceTree = "<group>"; };
 		7F39EBD41AFB8B0E002FD492 /* search-textfield@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-textfield@2x.png"; sourceTree = "<group>"; };
 		7F4C88EC1AF0B5BB008B769C /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
 		7F4C88ED1AF0B5BB008B769C /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
@@ -1758,6 +1762,8 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F3975161CF9F98A001184DD /* lock_blue@3x.png */,
+				7F3975141CF9F552001184DD /* lock_new@3x.png */,
 				7F3975071CF98501001184DD /* lock_white@3x.png */,
 				7F3975101CF9D6EC001184DD /* notification@3x.png */,
 				7F3975051CF97124001184DD /* plus@2x.png */,
@@ -2351,6 +2357,7 @@
 				7FAF02551B465625002DD930 /* icon-menu-about@3x.png in Resources */,
 				7F5934151B3A642B001B5A94 /* btn-post-dropdown@2x.png in Resources */,
 				7FAF02781B465625002DD930 /* yoga-img@3x.png in Resources */,
+				7F3975171CF9F98A001184DD /* lock_blue@3x.png in Resources */,
 				7F59341D1B3A642B001B5A94 /* icon-close@2x.png in Resources */,
 				7F826FAA1B08A9CE009455E9 /* tag-tick-active@2x.png in Resources */,
 				7FFCDE2A1ADD0F4B00D78D9B /* icon-heart@2x.png in Resources */,
@@ -2416,6 +2423,7 @@
 				7F8891021B15FF28009C8CC8 /* cd-4@3x.png in Resources */,
 				7F8999261AD2B1F6007E2917 /* tour_5@2x.png in Resources */,
 				7FAF022F1B465625002DD930 /* bg-blur@3x.png in Resources */,
+				7F3975151CF9F552001184DD /* lock_new@3x.png in Resources */,
 				7F86E5951ADBF0A50002493F /* icon-post-@2x.png in Resources */,
 				7FAF02351B465625002DD930 /* btn-postas@3x.png in Resources */,
 				7F5941BE1AF3892D001F79BD /* placeHolder_show@2x.png in Resources */,

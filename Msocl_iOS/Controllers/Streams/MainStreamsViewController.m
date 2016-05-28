@@ -111,7 +111,10 @@
     
     
     searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
+    else
+    [searchButton setImage:[UIImage imageNamed:@"lock_blue.png"] forState:UIControlStateNormal];
     [searchButton setFrame:CGRectMake(250, 9.5, 25, 25)];
     [searchButton addTarget:self action:@selector(searchButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     
@@ -200,18 +203,22 @@
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
-        
+        [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
         [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
     }
     else
+    {
         [self.navigationItem setHidesBackButton:YES];
-    
+        [searchButton setImage:[UIImage imageNamed:@"lock_blue.png"] forState:UIControlStateNormal];
+    }
     [self.navigationController.navigationBar addSubview:iconImage];
     [self refreshWall];
     [self performSelector:@selector(setUpTimer) withObject:nil afterDelay:1.0];
     [self.navigationController.navigationBar addSubview:searchButton];
     [self.navigationController.navigationBar addSubview:notificationsButton];
     [self.navigationController.navigationBar addSubview:notificationsButton2];
+    
+
     
     [self updateNotificationCount];
     [Flurry logEvent:@"navigation_to_wall"];
@@ -305,6 +312,10 @@
     [following.storiesArray removeAllObjects];
     [following.streamTableView reloadData];
     modelManager.userProfile = nil;
+    
+    [self.navigationItem setHidesBackButton:YES];
+    [searchButton setImage:[UIImage imageNamed:@"lock_blue.png"] forState:UIControlStateNormal];
+
 }
 -(void)menuDidOpen
 {
@@ -1084,6 +1095,38 @@
 -(void)searchButtonClicked
 {
     
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            
+            CGRect screenRect = [[UIScreen mainScreen] bounds];
+            CGFloat screenWidth = screenRect.size.width;
+            CGFloat screenHeight = screenRect.size.height;
+            
+            login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+            
+            [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+            
+            
+            [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+                
+            }
+                             completion:^(BOOL finished){
+                                 [login.view removeFromSuperview];
+                                 
+                                 [self.navigationController pushViewController:login animated:NO];
+                             }
+             ];
+            
+            
+            
+        }
+    else
+    {
+    
     [self setTimedRemindersActionTaken:@"search"];
     
     if([searchBar superview] == nil)
@@ -1114,6 +1157,7 @@
         mostRecent.frame = CGRectMake(0, 32, 320, Deviceheight-97);
         following.frame = CGRectMake(0, 32, 320, Deviceheight-97);
         imageView.frame = CGRectMake(0, 32, 320, 30);
+    }
     }
 }
 
