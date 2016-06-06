@@ -10,6 +10,7 @@
 #import "Reachability.h"
 #import "AccessToken.h"
 #import "PostDetails.h"
+#import "Follower.h"
 #import "NotificationDetails.h"
 @implementation Webservices
 @synthesize delegate;
@@ -204,6 +205,11 @@
     {
         [self  connectionSuccessShareUrl:responseDict];
     }
+    else if([command isEqualToString:@"followers"])
+    {
+        [self  connectionSuccessFollowers:responseDict];
+    }
+
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
 {
@@ -339,6 +345,10 @@
     else if([command isEqualToString:@"shareUrl"])
     {
         [self.delegate shareUrlFailed];
+    }
+    else if([command isEqualToString:@"followers"])
+    {
+        [self.delegate followersFailed];
     }
 }
 #pragma mark -
@@ -599,6 +609,34 @@
     else
     {
         [self.delegate notificationFailed];
+        
+    }
+    
+}
+-(void)connectionSuccessFollowers:(NSDictionary *)respDict
+{
+    NSMutableDictionary *dictCopty = [[respDict objectForKey:@"body"] mutableCopy];
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        NSArray *arrayPostDetails = [[respDict objectForKey:@"body"] objectForKey:@"users"];
+        NSMutableArray *arrayOfpostDetailsObjects=[NSMutableArray arrayWithCapacity:0];
+        
+        for(NSDictionary *postDict in arrayPostDetails)
+        {
+            Follower *followerObject = [[Follower alloc] initWithDictionary:postDict];
+            [arrayOfpostDetailsObjects addObject:followerObject];
+        }
+        [dictCopty setObject:arrayOfpostDetailsObjects forKey:@"followers"];
+        
+        [self.delegate didReceiveFollowers:dictCopty];
+        
+    }
+    
+    else
+    {
+        [self.delegate followersFailed];
         
     }
     

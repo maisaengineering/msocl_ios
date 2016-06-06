@@ -83,7 +83,7 @@
         <!--Loading View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="LoadingViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoadingViewController" id="vXZ-lx-hvc" customClass="LoadingViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -112,11 +112,27 @@
                     <connections>
                         <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="iax-nE-auz"/>
                         <segue destination="rfw-mt-SzH" kind="push" identifier="TagView" id="m3S-0J-NjW"/>
+                        <segue destination="Wn7-FF-qTC" kind="push" identifier="UserProfileToFollowers" id="ia7-Ts-vv6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxC-iZ-i4c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="996" y="-713"/>
+        </scene>
+        <!--Followers-->
+        <scene sceneID="m0M-J6-5dj">
+            <objects>
+                <viewController storyboardIdentifier="FollowersViewController" id="Wn7-FF-qTC" customClass="FollowersViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cHY-SA-Y4W">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Followers" id="eDw-6p-Rbi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zg3-a8-6fl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1520" y="-1316"/>
         </scene>
         <!--Onboarding View Controller-->
         <scene sceneID="EaA-Uh-g5J">
@@ -149,7 +165,7 @@
         <!--SAME PINCH-->
         <scene sceneID="WPi-qf-jqp">
             <objects>
-                <viewController id="pTI-2x-fJr" customClass="MainStreamsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainStreamsViewController" id="pTI-2x-fJr" customClass="MainStreamsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YSH-8p-2nG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -847,7 +863,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xat-Po-jKT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1457" y="-20"/>
+            <point key="canvasLocation" x="1538" y="113"/>
         </scene>
         <!--Menu View Controller-->
         <scene sceneID="Ixl-9i-Qlh">
@@ -1462,10 +1478,10 @@ Would you rate us now? you are free to do so.</string>
         <image name="setting-strip-selected.png" width="292" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="iax-nE-auz"/>
-        <segue reference="dLo-Yv-fr4"/>
-        <segue reference="m3S-0J-NjW"/>
-        <segue reference="fCv-1J-IEX"/>
         <segue reference="Ngw-Gf-AxF"/>
+        <segue reference="qU5-jb-Cet"/>
+        <segue reference="hMW-K8-sV6"/>
+        <segue reference="TSv-V5-Dr2"/>
+        <segue reference="Wlp-Jd-hhp"/>
     </inferredMetricsTieBreakers>
 </document>

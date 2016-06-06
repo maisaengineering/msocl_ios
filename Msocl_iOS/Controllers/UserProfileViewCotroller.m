@@ -19,6 +19,7 @@
 #import "UIImage+ResizeMagick.h"
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
+#import "FollowersViewController.h"
 
 @implementation UserProfileViewCotroller
 {
@@ -438,6 +439,11 @@
     [followingCount setTextAlignment:NSTextAlignmentLeft];
     [animatedTopView addSubview:followingCount];
     
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(followersAction)];
+    [recognizer setNumberOfTapsRequired:1];
+    [followingCount addGestureRecognizer:recognizer];
+    followingCount.userInteractionEnabled = YES;
+    
     y += 21;
     
     CGRect frameTop = animatedTopView.frame;
@@ -457,6 +463,17 @@
     }
 
 
+}
+-(void)followersAction
+{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        [self performSegueWithIdentifier: @"UserProfileToFollowers" sender: self];
+    }
+    else
+    {
+        [self gotoLoginScreen];
+    }
 }
 -(void) profileDetailsFailed
 {
@@ -696,7 +713,15 @@
         TagViewController *destViewController = segue.destinationViewController;
         destViewController.tagName = selectedTag;
     }
+    else if ([segue.identifier isEqualToString:@"UserProfileToFollowers"])
+    {
+        
+        FollowersViewController *destViewController = segue.destinationViewController;
+        destViewController.uid = profileId;
+    }
     
+    
+
 }
 -(void) PostEditedFromPostDetails:(PostDetails *)postDetails
 {

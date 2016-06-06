@@ -17,4 +17,5 @@
 + (id)sharedInstance;
 -(void)getPrompImages;
 -(void)getAllGroups;
+-(void)ClearOnAuhorisationError;
 @end

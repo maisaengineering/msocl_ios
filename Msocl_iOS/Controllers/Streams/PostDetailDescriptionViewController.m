@@ -31,9 +31,7 @@
 #import "UIImage+animatedGIF.h"
 #import "Flurry.h"
 #import "PromptViewController.h"
-#import <FBSDKShareKit/FBSDKShareKit.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
+
 @implementation PostDetailDescriptionViewController
 {
     ProfilePhotoUtils *photoUtils;
@@ -57,6 +55,7 @@
     UIBarButtonItem *shareButton;
     CGRect keyboardFrameBeginRect;
     CGRect originalPostion;
+    UIButton *inviteButton;
     NSString *shareUrl;
 }
 @synthesize storiesArray;
@@ -247,6 +246,13 @@
     
     [Flurry logEvent:@"navigation_to_post" withParameters:params timed:YES];
     
+    inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [inviteButton setTitle:@"INVITE" forState:UIControlStateNormal];
+    [inviteButton setFrame:CGRectMake(220, 4, 56, 44)];
+    [inviteButton.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
+    [inviteButton setTitleColor:[UIColor colorWithRed:0/255.0 green:122/255.0 blue:255/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [inviteButton addTarget:self action:@selector(inviteClicked) forControlEvents:UIControlEventTouchUpInside];
+
 
 }
 
@@ -288,7 +294,8 @@
         
     }
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+    //[self.navigationController.navigationBar addSubview:inviteButton];
+
 
 }
 - (void)keyboardDidShow:(NSNotification*)notification
@@ -304,6 +311,14 @@
 {
     return UIStatusBarStyleLightContent;
 }
+
+-(void)inviteClicked
+{
+    UIActionSheet *inviteActionSheet = [[UIActionSheet alloc] initWithTitle:@"Invite" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Invite by FB",@"Invite by Email",@"Invite by SMS", nil];
+    inviteActionSheet.tag = 3;
+    [inviteActionSheet showInView:self.view];
+
+}
 -(void)showShareOptions
 {
     PostDetails *post = [storiesArray lastObject];
@@ -313,13 +328,7 @@
 -(void)shareOptions
 {
     UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:@"Copy Link",@"Share on Facebook",@"Share by Email",@"Share by SMS",@"Share on WhatsApp", nil];
-//    NSURL *whatsappURL = [NSURL URLWithString:@"whatsapp://send?text=Hello%2C%20World!"];
-//    
-//    if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
-//        
-//        [shareActionSheet addButtonWithTitle:@"Share on WhatsApp"];
-//    }
-    
+    shareActionSheet.tag = 2;
     [shareActionSheet showInView:self.view];
 }
 
@@ -344,7 +353,8 @@
                             postID, @"post_uid",
                             nil];
     [Flurry endTimedEvent:@"navigation_to_post" withParameters:params];
-
+    
+    [inviteButton removeFromSuperview];
 
 }
 
@@ -1929,7 +1939,7 @@
     }
         
     }
-    else
+    else if(actionSheet.tag == 2)
     {
         if(buttonIndex != actionSheet.cancelButtonIndex)
         {
@@ -1988,6 +1998,32 @@
         
 
     }
+    else if(actionSheet.tag == 3)
+    {
+        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+        if([title isEqualToString:@"Invite by FB"])
+        {
+            FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
+            NSString *iTunesLink = @"https://fb.me/546766048829450";
+
+            content.appLinkURL = [NSURL URLWithString:iTunesLink];
+            //optionally set previewImageURL
+           // content.appInvitePreviewImageURL = [NSURL URLWithString:@"https://www.mydomain.com/my_invite_image.jpg"];
+            
+            // Present the dialog. Assumes self is a view controller
+            // which implements the protocol `FBSDKAppInviteDialogDelegate`.
+            [FBSDKAppInviteDialog showWithContent:content delegate:self];
+
+        }
+    }
+}
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results
+{
+    
+}
+- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didFailWithError:(NSError *)error
+{
+    
 }
 -(void)CommentUpVote
 {

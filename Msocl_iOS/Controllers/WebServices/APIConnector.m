@@ -9,7 +9,7 @@
 #import "APIConnector.h"
 #import "AFNetworking.h"
 #import "StringConstants.h"
-
+#import "PromptImages.h"
 @implementation APIConnector
 @synthesize delegate;
 
@@ -43,14 +43,30 @@
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
      {
+         
+         if([responseObject objectForKey:@"status"] && [[responseObject objectForKey:@"status"] intValue] == 401)
+         {
+             [[PromptImages sharedInstance] ClearOnAuhorisationError];
+         }
+         else
+         {
              NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:userInfo,@"userInfo",responseObject,@"response", nil];
              [self.delegate handleConnectionSuccess:dict];
+
+         }
         
          
      }
                                      failure:^(AFHTTPRequestOperation *operation, NSError *error, id responseObject)
      {
+         if([responseObject objectForKey:@"status"] && [[responseObject objectForKey:@"status"] intValue] == 401)
+         {
+             [[PromptImages sharedInstance] ClearOnAuhorisationError];
+         }
+         else
+         {
          [self.delegate handleConnectionFailure:[NSDictionary dictionaryWithObjectsAndKeys:[userInfo objectForKey:@"command"],@"command", responseObject,@"response",nil]];
+         }
          
      }];
     [operation start];

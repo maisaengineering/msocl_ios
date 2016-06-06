@@ -187,6 +187,8 @@
 		7F5F534B1C058A4D009F937B /* libFlurry_7.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F5F53491C058A4D009F937B /* libFlurry_7.3.0.a */; };
 		7F5F534C1C058A65009F937B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 253C89461AD8047A002477A8 /* CFNetwork.framework */; };
 		7F5F534D1C058A6C009F937B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25214C351AD6C3A20084BAC4 /* SystemConfiguration.framework */; };
+		7F641A181D056A2100506444 /* FollowersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F641A171D056A2100506444 /* FollowersViewController.m */; };
+		7F641A1B1D05767600506444 /* Follower.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F641A1A1D05767600506444 /* Follower.m */; };
 		7F6B053D1C0F013400284ED8 /* tour_0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6B053A1C0F013400284ED8 /* tour_0@2x.png */; };
 		7F6B053E1C0F013400284ED8 /* tour_0@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6B053B1C0F013400284ED8 /* tour_0@3x.png */; };
 		7F6B053F1C0F013400284ED8 /* tour0-4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F6B053C1C0F013400284ED8 /* tour0-4@2x.png */; };
@@ -766,6 +768,10 @@
 		7F5F18F31ADE9E7E00C5B4EC /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7F5F53481C058A4D009F937B /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
 		7F5F53491C058A4D009F937B /* libFlurry_7.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.3.0.a; sourceTree = "<group>"; };
+		7F641A161D056A2100506444 /* FollowersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowersViewController.h; sourceTree = "<group>"; };
+		7F641A171D056A2100506444 /* FollowersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowersViewController.m; sourceTree = "<group>"; };
+		7F641A191D05767600506444 /* Follower.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Follower.h; sourceTree = "<group>"; };
+		7F641A1A1D05767600506444 /* Follower.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Follower.m; sourceTree = "<group>"; };
 		7F6B053A1C0F013400284ED8 /* tour_0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tour_0@2x.png"; sourceTree = "<group>"; };
 		7F6B053B1C0F013400284ED8 /* tour_0@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tour_0@3x.png"; sourceTree = "<group>"; };
 		7F6B053C1C0F013400284ED8 /* tour0-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tour0-4@2x.png"; sourceTree = "<group>"; };
@@ -1339,6 +1345,8 @@
 			children = (
 				7F5EB3921AE8CC58004780A9 /* UserProfileViewCotroller.h */,
 				7F5EB3931AE8CC58004780A9 /* UserProfileViewCotroller.m */,
+				7F641A161D056A2100506444 /* FollowersViewController.h */,
+				7F641A171D056A2100506444 /* FollowersViewController.m */,
 				7F8895561AEB6A7B000AD083 /* TagViewController.h */,
 				7F8895571AEB6A7B000AD083 /* TagViewController.m */,
 			);
@@ -1506,6 +1514,8 @@
 				7F80DE831AD6AAF700EA6D1F /* UserProfile.m */,
 				7F5128CA1CE5AF98006646D9 /* NotificationDetails.h */,
 				7F5128CB1CE5AF98006646D9 /* NotificationDetails.m */,
+				7F641A191D05767600506444 /* Follower.h */,
+				7F641A1A1D05767600506444 /* Follower.m */,
 			);
 			path = ModalClasses;
 			sourceTree = "<group>";
@@ -2568,6 +2578,7 @@
 				7F86E5841ADBCFB00002493F /* SlideNavigationContorllerAnimatorSlide.m in Sources */,
 				7F3568A91CF2CA38009D506B /* BranchSetIdentityRequest.m in Sources */,
 				7F5DEFBA1AD7C50A00F2C60A /* UIImage+MultiFormat.m in Sources */,
+				7F641A181D056A2100506444 /* FollowersViewController.m in Sources */,
 				7F8D80E31AEFC89B00D3F052 /* PhotoCollectionViewCell.m in Sources */,
 				7F5F18E91ADE997200C5B4EC /* SWTableViewCell.m in Sources */,
 				7F8334541ADCF0480067C538 /* STTweetTextStorage.m in Sources */,
@@ -2591,6 +2602,7 @@
 				7F8D80BA1AEF702400D3F052 /* UIImage+ResizeMagick.m in Sources */,
 				7F8D80B31AEF5C8D00D3F052 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				7F4C88FC1AF0B5BB008B769C /* UIImage+JTSImageEffects.m in Sources */,
+				7F641A1B1D05767600506444 /* Follower.m in Sources */,
 				7F83BC5E1AD14CEF008DFD8B /* AFURLRequestSerialization.m in Sources */,
 				7F5DEFAF1AD7C50A00F2C60A /* MKAnnotationView+WebCache.m in Sources */,
 				7FF5CC011ACE9E61004F4F9B /* main.m in Sources */,

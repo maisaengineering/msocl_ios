@@ -133,6 +133,11 @@
     [self askForNotificationPermission];
     [self goToMainStreams];
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self.navigationController setNavigationBarHidden:YES];
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];

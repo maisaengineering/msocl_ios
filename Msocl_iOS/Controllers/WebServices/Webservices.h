@@ -80,6 +80,8 @@
 -(void) newSessionFailed;
 -(void) shareUrlSuccessFull:(NSDictionary *)recievedDict;
 -(void) shareUrlFailed;
+-(void) didReceiveFollowers:(NSDictionary *)recievedDict;
+-(void) followersFailed;
 
 
 @end

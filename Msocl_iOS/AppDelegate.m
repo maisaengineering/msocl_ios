@@ -443,6 +443,35 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
 
     }
+    else if([type isEqualToString:@"firstpost"])
+    {
+        
+            [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+        
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSData *encodedObject = [defaults objectForKey:@"mostRecentStreamArray"];
+        NSArray *arrayPostDetails = [[NSKeyedUnarchiver unarchiveObjectWithData:encodedObject] mutableCopy];
+        if(arrayPostDetails.count > 0)
+        {
+        PostDetails *postObject = [[PostDetails alloc] initWithDictionary:[arrayPostDetails firstObject]];
+        
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                     bundle: nil];
+            PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
+                                                                                                                              instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
+            postDetailDescriptionViewController.postID = postObject.uid;
+            postDetailDescriptionViewController.showShareDialog = YES;
+            SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [slide pushViewController:postDetailDescriptionViewController animated:YES];
+            });
+        
+        }
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+
+    }
+
     else if([type isEqualToString:@"admin"])
     {
         if([[uid uppercaseString] isEqualToString:@"FORCED_UPDATE"])

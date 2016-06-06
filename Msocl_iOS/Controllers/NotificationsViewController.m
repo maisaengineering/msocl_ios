@@ -80,7 +80,11 @@
     [self callNotificationsApi:@""];
     // Do any additional setup after loading the view.
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO];
+    [super viewWillAppear:YES];
+}
 -(void)handleRefresh:(id)sender
 {
     //    UIRefreshControl *refresh = sender;
@@ -394,18 +398,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
-    {
-        return;
-    }
     NotificationDetails *notificationDetailsObject = [notificationsArray objectAtIndex:indexPath.row];
-    if(!notificationDetailsObject.viewed)
+    if(!notificationDetailsObject.viewed && notificationDetailsObject.uid.length >0)
     {
         notificationDetailsObject.viewed = YES;
 
         AccessToken* token = sharedModel.accessToken;
         NSString *command = @"update";
         NSMutableDictionary *body = [[NSMutableDictionary alloc]init];
+        
+        if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+        {
+            [body setObject:DEVICE_UUID forKey:@"ref"];
+        }
         
         NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
         NSDictionary *userInfo = @{@"command": @"NotificationUpdate"};
@@ -583,7 +588,35 @@
                 });
             }
         }
-
+    
+        else if([type isEqualToString:@"firstpost"])
+        {
+            
+            [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+            
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSData *encodedObject = [defaults objectForKey:@"mostRecentStreamArray"];
+            NSArray *arrayPostDetails = [[NSKeyedUnarchiver unarchiveObjectWithData:encodedObject] mutableCopy];
+            if(arrayPostDetails.count > 0)
+            {
+                PostDetails *postObject = [[PostDetails alloc] initWithDictionary:[arrayPostDetails firstObject]];
+                
+                UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                         bundle: nil];
+                PostDetailDescriptionViewController *postDetailDescriptionViewController = (PostDetailDescriptionViewController*)[mainStoryboard
+                                                                                                                                  instantiateViewControllerWithIdentifier: @"PostDetailDescriptionViewController"];
+                postDetailDescriptionViewController.postID = postObject.uid;
+                postDetailDescriptionViewController.showShareDialog = YES;
+                SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [slide pushViewController:postDetailDescriptionViewController animated:YES];
+                });
+                
+            }
+            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]-1] forKey:@"notificationcount"];
+            
+        }
 
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
