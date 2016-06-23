@@ -340,7 +340,7 @@
     }
     else if([command isEqualToString:@"newSession"])
     {
-        [self.delegate handleFailed];
+        [self.delegate newSessionFailed];
     }
     else if([command isEqualToString:@"shareUrl"])
     {

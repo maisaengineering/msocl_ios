@@ -211,6 +211,9 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
    
         [NotificationUtils resetParseChannels];
     
+    
+    
+    
 }
 
 //When a push notification is received while the application is not in the foreground, it is displayed in the iOS Notification Center.
@@ -227,12 +230,25 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
             [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:[[[NSUserDefaults standardUserDefaults] objectForKey:@"notificationcount"] intValue]+1] forKey:@"notificationcount"];
         }
     }
-
     
 
     if ( (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground) && ![[userInfo objectForKey:@"uid"] isEqualToString:notifiUID] )
     {
-        [self addMessageFromRemoteNotification:userInfo];
+        AccessToken* token = [[ModelManager sharedModel] accessToken];
+        if(token == nil || token.access_token == nil)
+        {
+            if(!isPushCalled)
+            {
+                isPushCalled = YES;
+                notifiUID = [userInfo objectForKey:@"uid"];
+                userDict = userInfo;
+                
+            }
+        }
+        else
+        {
+            [self addMessageFromRemoteNotification:userInfo];
+        }
     }
     else if(application.applicationState == UIApplicationStateActive)
     {
@@ -287,9 +303,6 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"killed"];
     
     NSDictionary *context = [userInfo valueForKey:@"context"];
-    
-    NSLog(@"My Device token is:%@", context);
-
     if(context != nil)
     {
     NSString *type = [[context valueForKey:@"type"] lowercaseString];
@@ -761,12 +774,14 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         
        NSDictionary *valuesDict = [NSDictionary dictionaryWithObject:tempDict forKey:@"context"];
         
-        if([[NSUserDefaults standardUserDefaults] objectForKey:@"killed"])
+        AccessToken* token = [[ModelManager sharedModel] accessToken];
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"killed"] || (token == nil || token.access_token == nil))
         {
             isPushCalled = YES;
             userDict = valuesDict;
 
         }
+        
         else
         [self addMessageFromRemoteNotification:valuesDict];
         

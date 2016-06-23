@@ -102,7 +102,7 @@
         [[PageGuidePopUps sharedInstance] getPageGuidePopUpData];
     
    */
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"])
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"onboarding"] || appdelegate.isPushCalled)
     [self performSegueWithIdentifier: @"MainStreamsSegue" sender: self];
     else
     [self performSegueWithIdentifier: @"OnBoarding" sender: self];
