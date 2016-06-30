@@ -450,8 +450,7 @@
    
         NSString *type = [notificationDetailsObject.source lowercaseString];
         NSString *uid = notificationDetailsObject.sourceId;
-        
-        
+    
         if([type isEqualToString:@"post"] || [type isEqualToString:@"comment"] || [type isEqualToString:@"vote"])
         {
             

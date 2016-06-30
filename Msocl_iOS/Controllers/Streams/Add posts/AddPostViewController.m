@@ -1457,7 +1457,8 @@
 }
 -(void)createPost
 {
-    if(textView.text.length == 0)
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    if(textView.text.length ==  0 || ([[textView.text stringByTrimmingCharactersInSet: set] length] == 0))
     {
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;
@@ -1556,7 +1557,8 @@
 #pragma Edit Post
 -(void)editPost
 {
-    if(textView.text.length == 0)
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    if(textView.text.length ==  0 || ([[textView.text stringByTrimmingCharactersInSet: set] length] == 0))
     {
         ShowAlert(PROJECT_NAME, @"Please enter text", @"OK");
         return;

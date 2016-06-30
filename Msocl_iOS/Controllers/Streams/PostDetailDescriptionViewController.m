@@ -236,7 +236,6 @@
     [editButton addTarget:self action:@selector(editClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
     [editButton setImage:[UIImage imageNamed:@"icon-edit.png"] forState:UIControlStateNormal];
     editButton.frame = CGRectMake(250 ,10,30,30);
-    [self.navigationController.navigationBar addSubview:editButton];
 
     [editButton setHidden:YES];
 
@@ -396,6 +395,7 @@
 #pragma mark API calls to get Stream data
 -(void)callShowPostApi
 {
+    [appDelegate showOrhideIndicator:YES];
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"command": @"show",@"access_token": token.access_token};
@@ -410,6 +410,7 @@
     PostDetails *postObject = [postArray lastObject];
     if([postObject.can containsObject:@"edit"])
     {
+        [self.navigationController.navigationBar addSubview:editButton];
         [editButton setHidden:NO];
     }
     
@@ -439,10 +440,12 @@
         [self shareOptions];
         
     }
+    
+    [appDelegate showOrhideIndicator:NO];
 }
 -(void) showPostFailed
 {
-    
+    [appDelegate showOrhideIndicator:NO];
 }
 
 #pragma mark -
@@ -1343,6 +1346,12 @@
 }
 -(void)callCommentApi
 {
+    PostDetails *postDetls = [storiesArray lastObject];
+
+    if(!postDetls.uid)
+    {
+        return;
+    }
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
@@ -1350,15 +1359,19 @@
         return;
         
     }
-    if(self.txt_comment.text.length ==  0)
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    if(self.txt_comment.text.length ==  0 || ([[self.txt_comment.text stringByTrimmingCharactersInSet: set] length] == 0))
     {
         ShowAlert(PROJECT_NAME, @"Please enter comment", @"OK");
         return;
     }
+    
     //Invalidate the timer
     if([[self  timerHomepage] isValid])
         [[self  timerHomepage] invalidate];
 
+
+    
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             postID, @"post_uid",
@@ -1369,7 +1382,6 @@
     
     [appDelegate showOrhideIndicator:YES];
     
-    PostDetails *postDetls = [storiesArray lastObject];
     
     AccessToken* token = sharedModel.accessToken;
     
@@ -1630,8 +1642,11 @@
     // set views with new info
     self.commentView.frame = containerFrame;
     
+    
     // commit animations
     [UIView commitAnimations];
+    
+    streamTableView.frame = originalPostion;
 }
 
 

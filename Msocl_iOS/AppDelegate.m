@@ -41,7 +41,7 @@
     NSString *notifiUID;
     NSDictionary *userDict;
     UIAlertView *updateAlert;
-    
+    BOOL didLaunchedFromWeb;
 }
 @end
 
@@ -60,6 +60,8 @@
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
      */
+    
+    
     
     [self setUserDatails];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -153,6 +155,12 @@
                 userDict = dictionary;
 
             }
+        }
+        
+        NSDictionary* urlDictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+        if(urlDictionary)
+        {
+            didLaunchedFromWeb = YES;
         }
     }
 
@@ -775,15 +783,18 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
        NSDictionary *valuesDict = [NSDictionary dictionaryWithObject:tempDict forKey:@"context"];
         
         AccessToken* token = [[ModelManager sharedModel] accessToken];
-        if([[NSUserDefaults standardUserDefaults] objectForKey:@"killed"] || (token == nil || token.access_token == nil))
+        if([[NSUserDefaults standardUserDefaults] objectForKey:@"killed"] || didLaunchedFromWeb || (token == nil || token.access_token == nil) )
         {
             isPushCalled = YES;
             userDict = valuesDict;
+            didLaunchedFromWeb = NO;
 
         }
         
         else
-        [self addMessageFromRemoteNotification:valuesDict];
+        {
+            [self addMessageFromRemoteNotification:valuesDict];
+        }
         
         return YES;
     }
