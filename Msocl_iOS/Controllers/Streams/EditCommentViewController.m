@@ -382,7 +382,6 @@
 }
 -(void)callCommentApi
 {
-    [appdelegate showOrhideIndicator:YES];
     
     
     NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
@@ -392,7 +391,8 @@
         return;
     }
 
-    
+    [appdelegate showOrhideIndicator:YES];
+
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"command": @"update",@"access_token": token.access_token,@"body":@{@"text":textView.text,@"anonymous":[NSNumber numberWithBool:isAnonymous]}};
