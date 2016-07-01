@@ -385,6 +385,14 @@
     [appdelegate showOrhideIndicator:YES];
     
     
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    if(textView.text.length ==  0 || ([[textView.text stringByTrimmingCharactersInSet: set] length] == 0))
+    {
+        ShowAlert(PROJECT_NAME, @"Please enter comment", @"OK");
+        return;
+    }
+
+    
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"command": @"update",@"access_token": token.access_token,@"body":@{@"text":textView.text,@"anonymous":[NSNumber numberWithBool:isAnonymous]}};

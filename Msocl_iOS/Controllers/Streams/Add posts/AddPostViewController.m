@@ -22,6 +22,7 @@
 #import "UIImage+animatedGIF.h"
 #import "TPKeyboardAvoidingScrollView.h"
 #import "Flurry.h"
+#import "MainStreamsViewController.h"
 @implementation AddPostViewController
 {
     UITextView *textView;
@@ -1543,6 +1544,21 @@
     [anonymousButton removeFromSuperview];
     [postAnonymous removeFromSuperview];
     [dropDown removeFromSuperview];
+    
+    BOOL isWallAvaialble = NO;
+    for (UIViewController *controller in self.navigationController.viewControllers) {
+        //Do not forget to import AnOldViewController.h
+        if([controller isKindOfClass:[MainStreamsViewController class]]) {
+            
+            [self.navigationController popToViewController:controller
+                                                  animated:YES];
+            isWallAvaialble = YES;
+            break;
+        }
+    }
+    
+
+    if(!isWallAvaialble)
     [self.navigationController popViewControllerAnimated:YES];
     
     

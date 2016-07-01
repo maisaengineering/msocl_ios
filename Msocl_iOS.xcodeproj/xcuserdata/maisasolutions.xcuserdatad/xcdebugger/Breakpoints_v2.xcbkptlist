@@ -126,12 +126,12 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "489059599.244606"
+                  timestampString = "489062390.463506"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
                   endingLineNumber = "29"
-                  offsetFromSymbolStart = "174">
+                  offsetFromSymbolStart = "126">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -141,12 +141,12 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "489059599.244799"
+                  timestampString = "489062390.463686"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
                   endingLineNumber = "29"
-                  offsetFromSymbolStart = "12">
+                  offsetFromSymbolStart = "16">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -156,12 +156,12 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "489059599.244984"
+                  timestampString = "489062390.4639"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
                   endingLineNumber = "29"
-                  offsetFromSymbolStart = "10">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
