@@ -111,7 +111,7 @@
 
 - (void)fetchingTokensFailedWithError
 {
-
     [appdelegate showOrhideIndicator:NO];
+    [self performSelector:@selector(callAccessTokenApi) withObject:nil afterDelay:1];
 }
 @end

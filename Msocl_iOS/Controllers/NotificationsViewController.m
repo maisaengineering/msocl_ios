@@ -143,7 +143,7 @@
         {
             [body setObject:DEVICE_UUID forKey:@"ref"];
         }
-        
+        [body setObject:@"ios" forKey:@"device"];
         NSDictionary* postData = @{@"command": command,@"access_token": token.access_token,@"body":body};
         NSDictionary *userInfo = @{@"command": @"GetNotifications"};
         
