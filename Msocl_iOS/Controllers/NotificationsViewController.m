@@ -41,6 +41,7 @@
     BOOL isDragging;
     float lastContentOffset;
     AppDelegate *appDelegate;
+    BOOL cameToThisViewAsNotLoggedIn;
 
 }
 @synthesize notificationsArray;
@@ -78,12 +79,26 @@
     self.title = @"Notifications";
     
     [self callNotificationsApi:@""];
+    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        cameToThisViewAsNotLoggedIn = YES;
+    }
     // Do any additional setup after loading the view.
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO];
     [super viewWillAppear:YES];
+   if(cameToThisViewAsNotLoggedIn && [[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        cameToThisViewAsNotLoggedIn = NO;
+        [notificationsArray removeAllObjects];
+        [notificationsTableView reloadData];
+        [self resetData];
+        [appDelegate showOrhideIndicator:YES];
+        [self callNotificationsApi:@""];
+    }
 }
 -(void)handleRefresh:(id)sender
 {
@@ -527,12 +542,13 @@
                     [slide pushViewController:postDetailDescriptionViewController animated:YES];
                 });
                 
+                
             }
             else
             {
                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
                 LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-                
+                login.addPostFromNotifications = YES;
                 CGRect screenRect = [[UIScreen mainScreen] bounds];
                 CGFloat screenWidth = screenRect.size.width;
                 CGFloat screenHeight = screenRect.size.height;
@@ -560,9 +576,6 @@
                     
                     
                 });
-                
-                
-                
                 
             }
             
@@ -639,7 +652,22 @@
         
     }
 }
-
+-(void)gotoAddPost
+{
+    [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                             bundle: nil];
+    
+    AddPostViewController *addPostViewCntrl = (AddPostViewController*)[mainStoryboard
+                                                                                          instantiateViewControllerWithIdentifier: @"AddPostViewController"];
+    SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+    
+    NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
+    [viewCntrlArray addObject:addPostViewCntrl];
+    [slide setViewControllers:viewCntrlArray];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

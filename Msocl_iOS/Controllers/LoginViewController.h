@@ -17,6 +17,8 @@
 @property (nonatomic, strong) IBOutlet UIButton *googleButton;
 @property (nonatomic, strong) IBOutlet UILabel *loginWith;
 
+@property (nonatomic, assign) BOOL addPostFromNotifications;
+
 -(IBAction)loginClicked:(id)sender;
 -(IBAction)forgotPasswordClicked:(id)sender;
 -(IBAction)registerClicked:(id)sender;

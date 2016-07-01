@@ -19,6 +19,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "PageGuidePopUps.h"
+#import "SlideNavigationController.h"
+#import "AddPostViewController.h"
 
 @implementation LoginViewController
 {
@@ -238,8 +240,30 @@
     
     
     
-    NSArray *viewControllers = [self.navigationController viewControllers];
-    [self.navigationController popToViewController:viewControllers[viewControllers.count - 2] animated:YES];
+    
+    if (self.addPostFromNotifications)
+    {
+        [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+        
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        
+        AddPostViewController *addPostViewCntrl = (AddPostViewController*)[mainStoryboard
+                                                                           instantiateViewControllerWithIdentifier: @"AddPostViewController"];
+        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+        
+        NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
+        [viewCntrlArray removeLastObject];
+        [viewCntrlArray addObject:addPostViewCntrl];
+        [slide setViewControllers:viewCntrlArray animated:YES];
+
+    }
+    else
+    {
+        NSArray *viewControllers = [self.navigationController viewControllers];
+        [self.navigationController popToViewController:viewControllers[viewControllers.count - 2] animated:YES];
+
+    }
     
     ModelManager *sharedModel = [ModelManager sharedModel];
     if (sharedModel.userProfile)

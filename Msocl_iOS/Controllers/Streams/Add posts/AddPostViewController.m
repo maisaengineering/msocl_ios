@@ -214,6 +214,9 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    [self.navigationController setNavigationBarHidden:NO];
+
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

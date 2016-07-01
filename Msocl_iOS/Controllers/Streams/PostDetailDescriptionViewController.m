@@ -294,6 +294,19 @@
     }
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     //[self.navigationController.navigationBar addSubview:inviteButton];
+    
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
+    {
+        if(isAnonymous)
+        {
+            [self commentAsAnonymous];
+        }
+        else
+        {
+            [self commentClicked:nil];
+        }
+    }
 
 
 }
