@@ -450,7 +450,7 @@ static PageGuidePopUps *pageGuidePopUpsObject = nil;
             else
                 intervel = [[ratringDict objectForKey:@"first"] intValue];
 
-            if(daysBetween > intervel)
+            if(daysBetween >= intervel)
             {
                 [defaults setObject:[NSDate date] forKey:@"last_shown_date"];
                 

@@ -126,12 +126,12 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "489064213.7292"
+                  timestampString = "489145049.08757"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
                   endingLineNumber = "29"
-                  offsetFromSymbolStart = "174">
+                  offsetFromSymbolStart = "126">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -141,12 +141,12 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "489064213.729358"
+                  timestampString = "489145049.087725"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
                   endingLineNumber = "29"
-                  offsetFromSymbolStart = "12">
+                  offsetFromSymbolStart = "16">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -156,12 +156,12 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "489064213.729514"
+                  timestampString = "489145049.087873"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
                   endingLineNumber = "29"
-                  offsetFromSymbolStart = "10">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -211,6 +211,54 @@
             startingLineNumber = "160"
             endingLineNumber = "160"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/Streams/Add posts/AddPostViewController.m"
+            timestampString = "489132064.451823"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1568"
+            endingLineNumber = "1568"
+            landmarkName = "-postCreationFailed"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
+            timestampString = "489132334.068557"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
+            landmarkName = "-showPostFailed"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Msocl_iOS/Controllers/Streams/PostDetailDescriptionViewController.m"
+            timestampString = "489132335.822398"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
+            landmarkName = "-didReceiveShowPost:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
