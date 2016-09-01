@@ -83,6 +83,11 @@
 -(void) didReceiveFollowers:(NSDictionary *)recievedDict;
 -(void) followersFailed;
 
+-(void) evaluateUserSuccessFull:(NSDictionary *)recievedDict;
+-(void) evaluateUserFailed:(NSDictionary *)recievedDict;
+
+-(void) phoneVerificationSuccessFull:(NSDictionary *)recievedDict;
+-(void) phoneVerificationFailed:(NSDictionary *)recievedDict;
 
 @end
 

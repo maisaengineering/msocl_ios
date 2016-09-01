@@ -18,4 +18,6 @@
 @synthesize blog;
 @synthesize handle;
 @synthesize aboutMe;
+@synthesize phno;
+@synthesize verified;
 @end

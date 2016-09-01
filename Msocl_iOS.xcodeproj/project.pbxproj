@@ -50,6 +50,12 @@
 		7F2CFFC61CC9234700AB6199 /* pinch_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFC51CC9234700AB6199 /* pinch_icon@2x.png */; };
 		7F2CFFC71CC9234700AB6199 /* pinch_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F2CFFC51CC9234700AB6199 /* pinch_icon@2x.png */; };
 		7F33EF951B28235A003FDB44 /* FacebookShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F33EF941B28235A003FDB44 /* FacebookShareController.m */; };
+		7F3544BC1D78070F00B0892E /* gandhi.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7F3544BB1D78070F00B0892E /* gandhi.gif */; };
+		7F3544BF1D7807F700B0892E /* NewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3544BE1D7807F700B0892E /* NewLoginViewController.m */; };
+		7F3544C21D781F4C00B0892E /* LoginFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3544C11D781F4C00B0892E /* LoginFirstViewController.m */; };
+		7F3544C51D78278B00B0892E /* LoginSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3544C41D78278B00B0892E /* LoginSecondViewController.m */; };
+		7F3544C71D782CBE00B0892E /* overlay.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7F3544C61D782CBE00B0892E /* overlay.jpg */; };
+		7F3544CA1D78559A00B0892E /* VerificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3544C91D78559A00B0892E /* VerificationViewController.m */; };
 		7F3567AA1CF2C3E6009D506B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3567A91CF2C3E6009D506B /* AdSupport.framework */; };
 		7F3567AC1CF2C3F6009D506B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3567AB1CF2C3F6009D506B /* CoreTelephony.framework */; };
 		7F3567AE1CF2C407009D506B /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3567AD1CF2C407009D506B /* CoreSpotlight.framework */; };
@@ -545,6 +551,16 @@
 		7F2CFFC51CC9234700AB6199 /* pinch_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinch_icon@2x.png"; sourceTree = "<group>"; };
 		7F33EF931B28235A003FDB44 /* FacebookShareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookShareController.h; sourceTree = "<group>"; };
 		7F33EF941B28235A003FDB44 /* FacebookShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookShareController.m; sourceTree = "<group>"; };
+		7F3544BB1D78070F00B0892E /* gandhi.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = gandhi.gif; sourceTree = "<group>"; };
+		7F3544BD1D7807F700B0892E /* NewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewLoginViewController.h; sourceTree = "<group>"; };
+		7F3544BE1D7807F700B0892E /* NewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewLoginViewController.m; sourceTree = "<group>"; };
+		7F3544C01D781F4C00B0892E /* LoginFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginFirstViewController.h; sourceTree = "<group>"; };
+		7F3544C11D781F4C00B0892E /* LoginFirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginFirstViewController.m; sourceTree = "<group>"; };
+		7F3544C31D78278B00B0892E /* LoginSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSecondViewController.h; sourceTree = "<group>"; };
+		7F3544C41D78278B00B0892E /* LoginSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSecondViewController.m; sourceTree = "<group>"; };
+		7F3544C61D782CBE00B0892E /* overlay.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = overlay.jpg; sourceTree = "<group>"; };
+		7F3544C81D78559A00B0892E /* VerificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerificationViewController.h; sourceTree = "<group>"; };
+		7F3544C91D78559A00B0892E /* VerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerificationViewController.m; sourceTree = "<group>"; };
 		7F3567A91CF2C3E6009D506B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		7F3567AB1CF2C3F6009D506B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		7F3567AD1CF2C407009D506B /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
@@ -1461,6 +1477,14 @@
 				25F51BBB1AD8F1F200369764 /* WebViewController.m */,
 				7F76EF8D1AECDBEB00770101 /* FogotPasswordViewController.h */,
 				7F76EF8E1AECDBEB00770101 /* FogotPasswordViewController.m */,
+				7F3544BD1D7807F700B0892E /* NewLoginViewController.h */,
+				7F3544BE1D7807F700B0892E /* NewLoginViewController.m */,
+				7F3544C01D781F4C00B0892E /* LoginFirstViewController.h */,
+				7F3544C11D781F4C00B0892E /* LoginFirstViewController.m */,
+				7F3544C31D78278B00B0892E /* LoginSecondViewController.h */,
+				7F3544C41D78278B00B0892E /* LoginSecondViewController.m */,
+				7F3544C81D78559A00B0892E /* VerificationViewController.h */,
+				7F3544C91D78559A00B0892E /* VerificationViewController.m */,
 			);
 			name = "Login & Signup";
 			sourceTree = "<group>";
@@ -1774,6 +1798,8 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7F3544C61D782CBE00B0892E /* overlay.jpg */,
+				7F3544BB1D78070F00B0892E /* gandhi.gif */,
 				7F3975181CFA1869001184DD /* appicon_circle@2x.png */,
 				7F3975161CF9F98A001184DD /* lock_blue@3x.png */,
 				7F3975141CF9F552001184DD /* lock_new@3x.png */,
@@ -2260,6 +2286,7 @@
 				7FC56CFA1B4E8D90008C0895 /* icon-favorite-disable@2x.png in Resources */,
 				7FAF025F1B465625002DD930 /* icon-view-count@3x.png in Resources */,
 				7FB2FECD1B076B2C0001CEA6 /* icon-search@2x.png in Resources */,
+				7F3544C71D782CBE00B0892E /* overlay.jpg in Resources */,
 				7F59341B1B3A642B001B5A94 /* icon-back@2x.png in Resources */,
 				7F88A78E1AF610B200C87B45 /* Ubuntu-LI.ttf in Resources */,
 				7F8D80D11AEFC19200D3F052 /* textfield@2x.png in Resources */,
@@ -2366,6 +2393,7 @@
 				7F7E96EF1AF4F95800995667 /* Typo Grotesk Demo.otf in Resources */,
 				7F76EF851AECBE2400770101 /* icon-addsub@2x.png in Resources */,
 				7FC5EAF51B50CBAC0024E576 /* icon-flag@3x.png in Resources */,
+				7F3544BC1D78070F00B0892E /* gandhi.gif in Resources */,
 				7F8890FA1B15F310009C8CC8 /* cd-4@2x.png in Resources */,
 				7FAF02721B465625002DD930 /* tag-cover-strip@3x.png in Resources */,
 				7FAF02551B465625002DD930 /* icon-menu-about@3x.png in Resources */,
@@ -2587,6 +2615,7 @@
 				7F80DE841AD6AAF700EA6D1F /* AccessToken.m in Sources */,
 				7F35689F1CF2CA38009D506B /* BranchCloseRequest.m in Sources */,
 				7F5941B61AF388EC001F79BD /* StreamDisplayView.m in Sources */,
+				7F3544C51D78278B00B0892E /* LoginSecondViewController.m in Sources */,
 				7F3568A61CF2CA38009D506B /* BranchOpenRequest.m in Sources */,
 				7F5DEFBB1AD7C50A00F2C60A /* UIImage+WebP.m in Sources */,
 				7F3568951CF2CA38009D506B /* Branch.m in Sources */,
@@ -2610,6 +2639,7 @@
 				7F5F18E81ADE997200C5B4EC /* SWLongPressGestureRecognizer.m in Sources */,
 				7F5941B81AF38903001F79BD /* PostDetailDescriptionViewController.m in Sources */,
 				7F7E55C81AD3F793007070EF /* LoginViewController.m in Sources */,
+				7F3544BF1D7807F700B0892E /* NewLoginViewController.m in Sources */,
 				7F5DEFB31AD7C50A00F2C60A /* SDWebImageDecoder.m in Sources */,
 				7F35688F1CF2CA38009D506B /* BNCPreferenceHelper.m in Sources */,
 				7F8D80CF1AEFB5C800D3F052 /* CustomCipher.m in Sources */,
@@ -2618,6 +2648,7 @@
 				7F5DEFBC1AD7C50A00F2C60A /* UIImageView+HighlightedWebCache.m in Sources */,
 				7F83BC621AD14CEF008DFD8B /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				7F35688C1CF2CA38009D506B /* BNCError.m in Sources */,
+				7F3544CA1D78559A00B0892E /* VerificationViewController.m in Sources */,
 				7F3568A21CF2CA38009D506B /* BranchInstallRequest.m in Sources */,
 				7F3568A41CF2CA38009D506B /* BranchLoadRewardsRequest.m in Sources */,
 				7F5DEFB81AD7C50A00F2C60A /* UIButton+WebCache.m in Sources */,
@@ -2629,6 +2660,7 @@
 				7F83BC671AD14CEF008DFD8B /* UIRefreshControl+AFNetworking.m in Sources */,
 				7F4C88FB1AF0B5BB008B769C /* JTSAnimatedGIFUtility.m in Sources */,
 				7F35689D1CF2CA38009D506B /* BNCServerRequest.m in Sources */,
+				7F3544C21D781F4C00B0892E /* LoginFirstViewController.m in Sources */,
 				7F5DEFBD1AD7C50A00F2C60A /* UIImageView+WebCache.m in Sources */,
 				7F3568A51CF2CA38009D506B /* BranchLogoutRequest.m in Sources */,
 				7F35688A1CF2CA38009D506B /* BNCDeviceInfo.m in Sources */,

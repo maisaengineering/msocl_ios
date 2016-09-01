@@ -17,6 +17,9 @@
     NSArray  *phone_numbers;
     NSString *post_code;
     NSString *image;
+    NSString *phno;
+    NSNumber *verified;
+    
     
 }
 
@@ -30,4 +33,6 @@
 @property (strong, nonatomic) NSString *aboutMe;
 
 @property (strong, nonatomic) NSString *image;
+@property (strong, nonatomic) NSString *phno;
+@property (strong, nonatomic) NSNumber *verified;
 @end

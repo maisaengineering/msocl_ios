@@ -18,6 +18,7 @@
 #import "StringConstants.h"
 #import <Crashlytics/Crashlytics.h>
 #import "Flurry.h"
+#import "NewLoginViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -501,7 +502,7 @@
     {
         
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
         
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenWidth = screenRect.size.width;

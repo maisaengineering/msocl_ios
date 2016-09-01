@@ -149,7 +149,7 @@
          }failure:nil];
         if(sharedModel.userProfile.fname.length >0 || sharedModel.userProfile.lname.length > 0)
         [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
-        else
+        else if(sharedModel.userProfile.handle.length > 0)
             [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"@%@",sharedModel.userProfile.handle]];
         
         [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];

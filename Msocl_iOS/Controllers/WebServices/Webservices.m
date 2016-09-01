@@ -89,6 +89,14 @@
     {
         [self connectionSuccessLogin:responseDict];
     }
+    else if([command isEqualToString:@"create"])
+    {
+        [self connectionSuccessLogin:responseDict];
+    }
+    else if([command isEqualToString:@"signIn"])
+    {
+        [self connectionSuccessLogin:responseDict];
+    }
     else if([command isEqualToString:@"SignUp"])
     {
         [self connectionSuccessSignUp:responseDict];
@@ -208,6 +216,14 @@
     else if([command isEqualToString:@"followers"])
     {
         [self  connectionSuccessFollowers:responseDict];
+    }
+    else if([command isEqualToString:@"evaluateUser"])
+    {
+        [self  connectionSuccessEvaluateUser:responseDict];
+    }
+    else if([command isEqualToString:@"verifyAccount"])
+    {
+        [self  connectionSuccessPhoneVerification:responseDict];
     }
 
 }
@@ -350,6 +366,23 @@
     {
         [self.delegate followersFailed];
     }
+    else if([command isEqualToString:@"evaluateUser"])
+    {
+        [self.delegate evaluateUserFailed:[recievedDict objectForKey:@"response"]];
+    }
+    else if([command isEqualToString:@"signIn"])
+    {
+        [self.delegate loginFailed:[recievedDict objectForKey:@"response"]];
+    }
+    else if([command isEqualToString:@"create"])
+    {
+        [self.delegate signUpFailed:[recievedDict objectForKey:@"response"]];
+    }
+    else if([command isEqualToString:@"verifyAccount"])
+    {
+        [self.delegate phoneVerificationFailed:[recievedDict objectForKey:@"response"]];
+    }
+
 }
 #pragma mark -
 #pragma mark Connection Success Handlers
@@ -429,6 +462,7 @@
     }
     
 }
+
 -(void)connectionSuccessCreatePost:(NSDictionary *)respDict
 {
     
@@ -462,6 +496,42 @@
     else
     {
         [self.delegate updatePostFailed:respDict];
+        
+    }
+    
+}
+-(void)connectionSuccessEvaluateUser:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate evaluateUserSuccessFull:[respDict objectForKey:@"body"]];
+        
+    }
+    
+    else
+    {
+        [self.delegate evaluateUserFailed:respDict];
+        
+    }
+    
+}
+-(void)connectionSuccessPhoneVerification:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate phoneVerificationSuccessFull:[respDict objectForKey:@"body"]];
+        
+    }
+    
+    else
+    {
+        [self.delegate phoneVerificationFailed:respDict];
         
     }
     
