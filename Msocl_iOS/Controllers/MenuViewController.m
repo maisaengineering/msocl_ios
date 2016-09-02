@@ -22,6 +22,7 @@
 #import "Flurry.h"
 #import "LoginViewController.h"
 #import "NotificationUtils.h"
+#import "NewLoginViewController.h"
 @implementation MenuViewController
 {
     ModelManager *sharedModel;
@@ -151,6 +152,8 @@
         [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"%@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
         else if(sharedModel.userProfile.handle.length > 0)
             [(UILabel *)[cell viewWithTag:2] setText:[NSString stringWithFormat:@"@%@",sharedModel.userProfile.handle]];
+        else
+            [(UILabel *)[cell viewWithTag:2] setText:@""];
         
         [(UILabel *)[cell viewWithTag:2] setTextColor:[UIColor whiteColor]];
         [(UILabel *)[cell viewWithTag:2] setFont:[UIFont fontWithName:@"SanFranciscoDisplay-Light" size:16]];
@@ -465,7 +468,7 @@
                 [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
 
                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
                 
                 CGRect screenRect = [[UIScreen mainScreen] bounds];
                 CGFloat screenWidth = screenRect.size.width;

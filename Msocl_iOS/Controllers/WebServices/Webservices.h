@@ -89,6 +89,9 @@
 -(void) phoneVerificationSuccessFull:(NSDictionary *)recievedDict;
 -(void) phoneVerificationFailed:(NSDictionary *)recievedDict;
 
+-(void) resendVerificationCodeSuccessFull:(NSDictionary *)recievedDict;
+-(void) resendVerificationCodeFailed:(NSDictionary *)recievedDict;
+
 @end
 
 

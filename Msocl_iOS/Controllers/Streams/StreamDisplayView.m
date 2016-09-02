@@ -479,7 +479,7 @@
             [name setText:@""];
         name.textAlignment = NSTextAlignmentLeft;
         [name setFont:[UIFont fontWithName:@"SanFranciscoText-Regular" size:15]];
-        [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+        [name setTextColor:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0]];
         [cell.contentView addSubview:name];
 
     }
@@ -549,7 +549,7 @@
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
     
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:postDetailsObject.content attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0]}];
     
     
     textView.numberOfLines = 0;

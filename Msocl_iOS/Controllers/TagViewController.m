@@ -17,6 +17,7 @@
 #import "UpdateUserDetailsViewController.h"
 #import "UIImage+ResizeMagick.h"
 #import "Flurry.h"
+#import "NewLoginViewController.h"
 @implementation TagViewController
 {
     StreamDisplayView *streamDisplay;
@@ -224,7 +225,7 @@
 {
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;

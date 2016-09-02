@@ -21,6 +21,10 @@
     ModelManager *sharedModel;
     Webservices *webServices;
     AppDelegate *appDelegate;
+    int resendCount;
+    NSTimer *timer;
+    int currMinute;
+    int currSeconds;
 }
 @end
 
@@ -30,37 +34,103 @@
 @synthesize textField3;
 @synthesize textField4;
 @synthesize counterLabel;
+@synthesize resendButton;
+@synthesize isFromStreamPage;
 - (void)viewDidLoad {
     
+    resendCount = 0;
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     sharedModel   = [ModelManager sharedModel];
     appDelegate = [[UIApplication sharedApplication] delegate];
-    self.view.backgroundColor = [UIColor lightGrayColor];
     
-    [textField1.layer setBorderColor:[UIColor whiteColor].CGColor];
-    [textField1.layer setBorderWidth:2];
-    [textField1.layer setCornerRadius:3];
+    [textField1.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [textField1.layer setBorderWidth:1];
+    [textField1.layer setCornerRadius:1];
 
-    [textField2.layer setBorderColor:[UIColor whiteColor].CGColor];
-    [textField2.layer setBorderWidth:2];
-    [textField2.layer setCornerRadius:3];
+    [textField2.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [textField2.layer setBorderWidth:1];
+    [textField2.layer setCornerRadius:1];
     
-    [textField3.layer setBorderColor:[UIColor whiteColor].CGColor];
-    [textField3.layer setBorderWidth:2];
-    [textField3.layer setCornerRadius:3];
+    [textField3.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [textField3.layer setBorderWidth:1];
+    [textField3.layer setCornerRadius:1];
     
-    [textField4.layer setBorderColor:[UIColor whiteColor].CGColor];
-    [textField4.layer setBorderWidth:2];
-    [textField4.layer setCornerRadius:3];
+    [textField4.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [textField4.layer setBorderWidth:1];
+    [textField4.layer setCornerRadius:1];
     
-    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
 
     [textField1 becomeFirstResponder];
+    
+    UIImage *background = [UIImage imageNamed:@"icon-close.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(closeClicked) forControlEvents:UIControlEventTouchUpInside]; //adding action
+    [button setImage:background forState:UIControlStateNormal];
+    button.frame = CGRectMake(0 ,0,26,26);
+    
+    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem = barButton;
+
+    self.navigationItem.hidesBackButton = YES;
+    
+    resendButton.hidden = YES;
+    counterLabel.hidden = YES;
+    if(isFromStreamPage)
+        [self resend:nil];
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    if(!isFromStreamPage)
+    [self startTimer];
+
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [timer invalidate];
+}
+-(void)startTimer
+{
+    resendButton.hidden = YES;
+    counterLabel.hidden = NO;
+    [counterLabel setText:@"2:00"];
+    currMinute=2;
+    currSeconds=00;
+    
+    [timer invalidate];
+    timer =  nil;
+    timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFired) userInfo:nil repeats:YES];
+}
+-(void)timerFired
+{
+    if((currMinute>0 || currSeconds>=0) && currMinute>=0)
+    {
+        if(currSeconds==0)
+        {
+            currMinute-=1;
+            currSeconds=59;
+        }
+        else if(currSeconds>0)
+        {
+            currSeconds-=1;
+        }
+        if(currMinute>-1)
+            [counterLabel setText:[NSString stringWithFormat:@"%d%@%02d",currMinute,@":",currSeconds]];
+    }
+    else
+    {
+        resendButton.hidden = NO;
+        [timer invalidate];
+        counterLabel.hidden = YES;
+    }
+}
+
 
 -(void)hideKeyBoard
 {
@@ -69,8 +139,21 @@
     [textField3 resignFirstResponder];
     [textField4 resignFirstResponder];
 }
+-(void)closeClicked
+{
+    [self.navigationController popViewControllerAnimated:NO];
+
+}
+
 -(IBAction)resend:(id)sender
 {
+    if(resendCount == 3)
+    {
+        resendButton.enabled = NO;
+        return;
+    }
+    [appDelegate showOrhideIndicator:YES];
+    resendCount++;
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"access_token": token.access_token,
@@ -81,6 +164,17 @@
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
 }
+-(void) resendVerificationCodeSuccessFull:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+    [self startTimer];
+}
+-(void) resendVerificationCodeFailed:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+}
+
+
 -(IBAction)verify:(id)sender
 {
     [appDelegate showOrhideIndicator:YES];
@@ -109,6 +203,18 @@
 -(void) phoneVerificationSuccessFull:(NSDictionary *)recievedDict
 {
      [appDelegate showOrhideIndicator:NO];
+    
+    NSMutableDictionary *userDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"] mutableCopy];
+    [userDict setObject:[NSNumber numberWithBool:YES] forKey:@"verified"];
+    [[NSUserDefaults standardUserDefaults] setObject:userDict forKey:@"userprofile"];
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:userDict forKey:@"userprofile"];
+    [myDefaults synchronize];
+    
+    [sharedModel setUserDetails:userDict];
+
+    
     if (self.addPostFromNotifications)
     {
         [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
@@ -124,6 +230,8 @@
         [viewCntrlArray removeLastObject];
         [viewCntrlArray addObject:addPostViewCntrl];
         [slide setViewControllers:viewCntrlArray animated:YES];
+        
+        
 
     }
     else
@@ -172,6 +280,21 @@
         if(textField == textField3)
         {
             [textField4 becomeFirstResponder];
+        }
+    }
+    else
+    {
+        if(textField == textField4)
+        {
+            [textField3 becomeFirstResponder];
+        }
+        if(textField == textField3)
+        {
+            [textField2 becomeFirstResponder];
+        }
+        if(textField == textField2)
+        {
+            [textField1 becomeFirstResponder];
         }
     }
 

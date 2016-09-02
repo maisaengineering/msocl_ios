@@ -24,18 +24,24 @@
 #import "SlideNavigationController.h"
 #import "AddPostViewController.h"
 #import "VerificationViewController.h"
+#import "LoginSecondViewController.h"
+
 @interface NewLoginViewController ()
 {
     
     ModelManager *sharedModel;
     Webservices *webServices;
     AppDelegate *appDelegate;
-
+    UINavigationController *navgCntrl;
+    LoginFirstViewController *loginFirst;
+    LoginSecondViewController *loginSecond;
 }
 @end
 
 @implementation NewLoginViewController
 @synthesize bgImageView;
+@synthesize backButton;
+@synthesize addPostFromNotifications;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,23 +53,49 @@
     sharedModel   = [ModelManager sharedModel];
     appDelegate = [[UIApplication sharedApplication] delegate];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"gandhi" withExtension:@"gif"];
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"gandhi2" withExtension:@"gif"];
     UIImage *gif_image = [UIImage animatedImageWithAnimatedGIFURL:url];
-    bgImageView.image = gif_image;
+    bgImageView.animationImages = gif_image.images;
+    bgImageView.animationDuration = gif_image.duration;
+    bgImageView.animationRepeatCount = 1;
+    bgImageView.image = gif_image.images.lastObject;
+    [bgImageView startAnimating];
+
 
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginFirstViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginFirstViewController"];
-    UINavigationController *navgCntrl = [[UINavigationController alloc] initWithRootViewController:login];
+    loginFirst = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginFirstViewController"];
+    [loginFirst.view setFrame:CGRectMake(0.0f, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    loginFirst.isFromEmailPrompt = _isFromEmailPrompt;
+    loginFirst.isFromPhonePrompt = _isFromPhonePrompt;
+    if(self.isFromPhonePrompt)
+    {
+        [loginFirst.txt_username setPlaceholder:@"Phone number"];
+    }
+    else if(self.isFromEmailPrompt)
+    {
+        [loginFirst.txt_username setPlaceholder:@"Email"];
+    }
+    [self.view addSubview:loginFirst.view];
+    /*
+    navgCntrl = [[UINavigationController alloc] initWithRootViewController:login];
     navgCntrl.navigationBarHidden = YES;
     
     [self addChildViewController:navgCntrl];
-    [navgCntrl.view setFrame:CGRectMake(0.0f, 150, self.view.frame.size.width, self.view.frame.size.height - 150)];
+    [navgCntrl.view setFrame:CGRectMake(0.0f, 50, self.view.frame.size.width, self.view.frame.size.height - 50)];
     [self.view addSubview:navgCntrl.view];
     [navgCntrl didMoveToParentViewController:self];
+    */
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(closeClicked:)];
+    
+    [self.view addGestureRecognizer:tap];
+    
     
     [self registerNotifications];
 
+    backButton.hidden = YES;
     
     // Do any additional setup after loading the view.
 }
@@ -81,6 +113,15 @@
                                              selector:@selector(recievedNotification:)
                                                  name:@"PushToAddPost"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recievedNotification:)
+                                                 name:@"ShowBackButton"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recievedNotification:)
+                                                 name:@"nextClicked"
+                                               object:nil];
+    
 }
 - (void)dealloc
 {
@@ -103,6 +144,7 @@
        VerificationViewController *addPostViewCntrl = (VerificationViewController*)[mainStoryboard
                                                                           instantiateViewControllerWithIdentifier: @"VerificationViewController"];
        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+        addPostViewCntrl.addPostFromNotifications = self.addPostFromNotifications;
        
        NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
        [viewCntrlArray removeLastObject];
@@ -127,12 +169,83 @@
        [slide setViewControllers:viewCntrlArray animated:YES];
 
    }
+   else  if ([notification.name isEqualToString:@"ShowBackButton"])
+   {
+       backButton.hidden = NO;
+       
+   }
+   else  if ([notification.name isEqualToString:@"nextClicked"])
+   {
+       if(self.isFromEmailPrompt)
+       {
+           [self closeClicked:nil];
+       }
+       else if(self.isFromPhonePrompt)
+       {
+           [[SlideNavigationController sharedInstance] closeMenuWithCompletion:nil];
+           
+           UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                    bundle: nil];
+           
+           VerificationViewController *addPostViewCntrl = (VerificationViewController*)[mainStoryboard
+                                                                                        instantiateViewControllerWithIdentifier: @"VerificationViewController"];
+           addPostViewCntrl.isFromStreamPage = YES;
+          
+           SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+           
+           NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
+           [viewCntrlArray removeLastObject];
+           [viewCntrlArray addObject:addPostViewCntrl];
+           [slide setViewControllers:viewCntrlArray animated:YES];
+
+       }
+       else
+       {
+       backButton.hidden = NO;
+       UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+       loginSecond = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginSecondViewController"];
+       loginSecond.view.frame = CGRectMake(320,0, self.view.frame.size.width, self.view.frame.size.height);
+       [self.view addSubview:loginSecond.view];
+           loginSecond.isSignUp = loginFirst.isSignUp;
+           loginSecond.userName = loginFirst.txt_username.text;
+           [loginSecond.backBtn addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchUpInside];
+           loginSecond.addPostFromNotifications = self.addPostFromNotifications;
+
+       [UIView animateWithDuration:0.7f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+           loginFirst.view.frame = CGRectMake(-320,0, self.view.frame.size.width, self.view.frame.size.height);
+           loginSecond.view.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+           
+       }
+                        completion:^(BOOL finished){
+                            
+                        }
+        ];
+       }
+   }
+    
+
 }
 
 
 -(IBAction)closeClicked:(id)sender
 {
     [self.navigationController popViewControllerAnimated:NO];
+}
+-(IBAction)backClicked:(id)sender
+{
+    [loginSecond.txt_password resignFirstResponder];
+    backButton.hidden = YES;
+    //[navgCntrl popViewControllerAnimated:YES];
+    [UIView animateWithDuration:0.7f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        loginFirst.view.frame = CGRectMake(0,0, self.view.frame.size.width, self.view.frame.size.height);
+        loginSecond.view.frame = CGRectMake(320,0, self.view.frame.size.width, self.view.frame.size.height);
+        
+    }
+                     completion:^(BOOL finished){
+                         [loginSecond.view removeFromSuperview];
+                         loginSecond = nil;
+                     }
+     ];
 }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {

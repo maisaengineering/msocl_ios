@@ -19,6 +19,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "Flurry.h"
 #import "NewLoginViewController.h"
+#import "VerificationViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -40,6 +41,8 @@
     UIImageView *notificationBubble;
     UIButton *  notificationsButton2;
     UILabel *notificationCount;
+    UIButton *emailPromptBtn;
+    UIButton *phonePromptBtn;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -161,6 +164,35 @@
     [plusButton addTarget:self action:@selector(addClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:plusButton];
     [self.view bringSubviewToFront:plusButton];
+    
+    emailPromptBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [emailPromptBtn setBackgroundColor:[UIColor colorWithRed:3/255.0 green:169/255.0 blue:244/255.0 alpha:1.0]];
+    emailPromptBtn.frame = CGRectMake(20, self.view.frame.size.height-105, 150, 30);
+    [emailPromptBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [emailPromptBtn setTitle:@"Add email" forState:UIControlStateNormal];
+    [emailPromptBtn.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
+    [emailPromptBtn.layer setShadowOpacity:0.7f];
+    [emailPromptBtn.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
+    [emailPromptBtn.layer setShadowRadius:3.0f];
+    [emailPromptBtn addTarget:self action:@selector(emailPromptClicked) forControlEvents:UIControlEventTouchUpInside];
+    [emailPromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
+    [self.view addSubview:emailPromptBtn];
+    emailPromptBtn.hidden = YES;
+    
+    phonePromptBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    phonePromptBtn.frame = CGRectMake(20, self.view.frame.size.height-105, 150, 30);
+    [phonePromptBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [phonePromptBtn setTitle:@"Verify phone number" forState:UIControlStateNormal];
+    [phonePromptBtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:152/255.0 blue:0 alpha:1.0]];
+    [phonePromptBtn.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
+    [phonePromptBtn.layer setShadowOpacity:0.7f];
+    [phonePromptBtn.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
+    [phonePromptBtn.layer setShadowRadius:3.0f];
+    [phonePromptBtn addTarget:self action:@selector(phonePromptClicked) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:phonePromptBtn];
+    [phonePromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
+    phonePromptBtn.hidden = YES;
+    
     [appDelegate askForNotificationPermission];
     
 }
@@ -202,10 +234,12 @@
     
 //    [self check];
     
+    
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
         [searchButton setImage:[UIImage imageNamed:@"search.png"] forState:UIControlStateNormal];
         [self.navigationItem setBackBarButtonItem:[[UIBarButtonItem alloc] init]];
+        [self checkToShowPrompts];
     }
     else
     {
@@ -222,7 +256,10 @@
 
     
     [self updateNotificationCount];
+    
     [Flurry logEvent:@"navigation_to_wall"];
+    
+    
     
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -265,6 +302,95 @@
     [notificationBubble removeFromSuperview];
     [notificationsButton removeFromSuperview];
     [notificationsButton2 removeFromSuperview];
+}
+-(void)checkToShowPrompts
+{
+    if(modelManager.userProfile.phno != nil && modelManager.userProfile.phno.length > 0)
+    {
+        if(![modelManager.userProfile.verified boolValue])
+            phonePromptBtn.hidden = NO;
+        else if(!modelManager.userProfile.email.length)
+            emailPromptBtn.hidden = NO;
+    }
+    else if(modelManager.userProfile.email != nil)
+    {
+        if(![modelManager.userProfile.verified boolValue])
+        {
+            phonePromptBtn.hidden = NO;
+        }
+    }
+}
+-(void)emailPromptClicked
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
+    
+    login.isFromEmailPrompt = YES;
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    
+    login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+    
+    [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+    
+    
+    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+        
+    }
+                     completion:^(BOOL finished){
+                         [login.view removeFromSuperview];
+                         
+                         [self.navigationController pushViewController:login animated:NO];
+                     }
+     ];
+    
+    
+
+}
+-(void)phonePromptClicked
+{
+    if(modelManager.userProfile.phno != nil && modelManager.userProfile.phno.length > 0)
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
+                                                                 bundle: nil];
+        
+        VerificationViewController *verifyCntrl = (VerificationViewController*)[mainStoryboard
+                                                                                     instantiateViewControllerWithIdentifier: @"VerificationViewController"];
+        verifyCntrl.isFromStreamPage = YES;
+        [self.navigationController pushViewController:verifyCntrl animated:YES];
+
+    }
+    else
+    {
+        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
+        login.isFromPhonePrompt = YES;
+
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        CGFloat screenWidth = screenRect.size.width;
+        CGFloat screenHeight = screenRect.size.height;
+        
+        login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
+        
+        [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
+        
+        
+        [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
+            
+        }
+                         completion:^(BOOL finished){
+                             [login.view removeFromSuperview];
+                             
+                             [self.navigationController pushViewController:login animated:NO];
+                         }
+         ];
+        
+        
+
+    }
 }
 -(void)updateNotificationCount
 {
@@ -316,6 +442,10 @@
     
     [self.navigationItem setHidesBackButton:YES];
     [searchButton setImage:[UIImage imageNamed:@"lock_blue.png"] forState:UIControlStateNormal];
+    
+    phonePromptBtn.hidden = YES;
+    emailPromptBtn.hidden = YES;
+
 
 }
 -(void)menuDidOpen
@@ -566,7 +696,7 @@
     {
         
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
         
         
         CGRect screenRect = [[UIScreen mainScreen] bounds];
@@ -1100,7 +1230,7 @@
     {
         
             UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+            NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
             
             CGRect screenRect = [[UIScreen mainScreen] bounds];
             CGFloat screenWidth = screenRect.size.width;

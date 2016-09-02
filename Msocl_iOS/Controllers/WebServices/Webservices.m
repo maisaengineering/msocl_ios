@@ -225,6 +225,11 @@
     {
         [self  connectionSuccessPhoneVerification:responseDict];
     }
+    else if([command isEqualToString:@"resendCode"])
+    {
+        [self  connectionSuccessResendVerfiCode:responseDict];
+    }
+
 
 }
 -(void) handleConnectionFailure:(NSDictionary *)recievedDict
@@ -382,6 +387,13 @@
     {
         [self.delegate phoneVerificationFailed:[recievedDict objectForKey:@"response"]];
     }
+    
+    else if([command isEqualToString:@"resendCode"])
+    {
+        [self.delegate resendVerificationCodeFailed:[recievedDict objectForKey:@"response"]];
+    }
+    
+
 
 }
 #pragma mark -
@@ -537,6 +549,24 @@
     
 }
 
+-(void)connectionSuccessResendVerfiCode:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate resendVerificationCodeSuccessFull:[respDict objectForKey:@"body"]];
+        
+    }
+    
+    else
+    {
+        [self.delegate resendVerificationCodeFailed:respDict];
+        
+    }
+    
+}
 -(void)connectionSuccessLogin:(NSDictionary *)respDict
 {
     

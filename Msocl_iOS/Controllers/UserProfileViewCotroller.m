@@ -20,6 +20,7 @@
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
 #import "FollowersViewController.h"
+#import "NewLoginViewController.h"
 
 @implementation UserProfileViewCotroller
 {
@@ -649,7 +650,7 @@
 {
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;

@@ -39,7 +39,9 @@
 @synthesize txt_username;
 @synthesize loginBtn;
 @synthesize userName;
-
+@synthesize backgroundView;
+@synthesize topLabel;
+@synthesize backBtn;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -50,22 +52,10 @@
     appDelegate = [[UIApplication sharedApplication] delegate];
     
     
-    [txt_username.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [txt_username.layer setBorderWidth:1];
-    
-    [loginBtn.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [loginBtn.layer setBorderWidth:1];
-    
-    // drop shadow
-    [txt_username.layer setShadowColor:[UIColor whiteColor].CGColor];
-    [txt_username.layer setShadowOpacity:0.8];
-    [txt_username.layer setShadowRadius:1.0];
-    
-    [txt_password.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [txt_password.layer setBorderWidth:1];
-    [txt_password.layer setShadowColor:[UIColor whiteColor].CGColor];
-    [txt_password.layer setShadowOpacity:0.8];
-    [txt_password.layer setShadowRadius:1.0];
+    [backgroundView.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
+    [backgroundView.layer setShadowOpacity:1.0f];
+    [backgroundView.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
+    [backgroundView.layer setShadowRadius:10.0f];
     
     geocoder = [[CLGeocoder alloc] init];
     
@@ -79,9 +69,37 @@
     
     txt_username.text = userName;
     [self.navigationController setNavigationBarHidden:YES];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(closeClicked)];
+    
+    [self.view addGestureRecognizer:tap];
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]
+                                    initWithTarget:self
+                                    action:@selector(dontClose)];
+    
+    [backgroundView addGestureRecognizer:tap1];
 
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"ShowBackButton" object:nil userInfo:nil];
+    
+}
+-(void)closeClicked
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CallClose" object:nil userInfo:nil];
+}
+-(void)dontClose
+{
+    
+}
+-(IBAction)returnClicked:(id)sender
+{
+    [txt_password resignFirstResponder];
+}
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *newLocation = [locations lastObject];
     
@@ -112,9 +130,9 @@
 
 -(IBAction)loginClicked:(id)sender
 {
-    if ([txt_username.text length] == 0)
+    if ([txt_password.text length] == 0)
     {
-        ShowAlert(PROJECT_NAME,@"Please enter email or phone number", @"OK");
+        ShowAlert(PROJECT_NAME,@"Please enter password", @"OK");
         return;
     }
     [self doLogin];
@@ -122,10 +140,11 @@
 }
 -(void)doLogin
 {
+    [txt_password resignFirstResponder];
     [appDelegate showOrhideIndicator:YES];
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    [postDetails setObject:txt_username.text forKey:@"auth_key"];
+    [postDetails setObject:userName forKey:@"auth_key"];
     [postDetails setObject:txt_password.text forKey:@"password"];
 
     AccessToken* token = sharedModel.accessToken;
@@ -209,7 +228,7 @@
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PushToVerifyPhoneNumber" object:nil userInfo:nil];
     }
-    if (self.addPostFromNotifications)
+    else if (self.addPostFromNotifications)
     {
        [[NSNotificationCenter defaultCenter] postNotificationName:@"PushToAddPost" object:nil userInfo:nil];
     }

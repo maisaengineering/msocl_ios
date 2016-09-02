@@ -31,6 +31,7 @@
 #import "UIImage+animatedGIF.h"
 #import "Flurry.h"
 #import "PromptViewController.h"
+#import "NewLoginViewController.h"
 
 @implementation PostDetailDescriptionViewController
 {
@@ -128,7 +129,7 @@
         placeholderLabel.text = @"Give your advice";
         [placeholderLabel setTextAlignment:NSTextAlignmentLeft];
         [placeholderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Italic" size:14]];
-        [placeholderLabel setTextColor:[UIColor lightGrayColor]];
+        [placeholderLabel setTextColor:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0]];
         [self.txt_comment addSubview:placeholderLabel];
 
         
@@ -339,7 +340,7 @@
 }
 -(void)shareOptions
 {
-    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:@"Copy Link",@"Share on Facebook",@"Share by Email",@"Share by SMS",@"Share on WhatsApp", nil];
+    UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:self cancelButtonTitle:@"Dismiss" destructiveButtonTitle:nil otherButtonTitles:@"Copy Link",@"Share by Email",@"Share by SMS",@"Share on WhatsApp", nil];
     shareActionSheet.tag = 2;
     [shareActionSheet showInView:self.view];
 }
@@ -692,7 +693,7 @@
     [cell.contentView addSubview:moreButton];
     
     
-        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:(34/255.f) green:(34/255.f) blue:(34/255.f) alpha:1],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]};
+        NSDictionary *attributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0],NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]};
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[commentDict objectForKey:@"text"]   attributes:attributes];
     
@@ -784,7 +785,7 @@
     {
    name = [[UILabel alloc] initWithFrame:CGRectMake(42, yPosition, 120, 28)];
     [name setText:[NSString stringWithFormat:@"%@ %@",[postDetailsObject.owner objectForKey:@"fname"],[postDetailsObject.owner objectForKey:@"lname"]]];
-    [name setTextColor:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]];
+    [name setTextColor:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0]];
     [name setFont:[UIFont fontWithName:@"SanFranciscoText-Medium" size:16]];
     [cell.contentView addSubview:name];
         
@@ -864,7 +865,7 @@
     NSString *str = [postDetailsObject.content stringByReplacingOccurrencesOfString:@"\n::" withString:@"::"];
     str = [str stringByReplacingOccurrencesOfString:@"::\n" withString:@"::"];
 
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:68/255.0 green:68/255.0 blue:68/255.0 alpha:1.0]}];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0]}];
     
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\::(.*?)\\::" options:NSRegularExpressionCaseInsensitive error:NULL];
     
@@ -1593,7 +1594,7 @@
         case 0:
         {
             // More button is pressed
-            UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Share on Facebook", @"Share on Twitter", nil];
+            UIActionSheet *shareActionSheet = [[UIActionSheet alloc] initWithTitle:@"Share" delegate:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: @"Share on Twitter", nil];
             [shareActionSheet showInView:self.view];
             
             [cell hideUtilityButtonsAnimated:YES];
@@ -1854,7 +1855,7 @@
 {
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;

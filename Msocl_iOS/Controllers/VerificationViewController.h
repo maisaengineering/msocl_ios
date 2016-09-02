@@ -11,13 +11,14 @@
 @interface VerificationViewController : UIViewController<webServiceProtocol,UITextFieldDelegate>
 
 @property (nonatomic, assign) BOOL addPostFromNotifications;
-
+@property (nonatomic, assign) BOOL isFromStreamPage;
 @property (nonatomic, strong) IBOutlet UITextField *textField1;
 @property (nonatomic, strong) IBOutlet UITextField *textField2;
 @property (nonatomic, strong) IBOutlet UITextField *textField3;
 @property (nonatomic, strong) IBOutlet UITextField *textField4;
 
 @property (nonatomic, strong) IBOutlet UILabel *counterLabel;
+@property (nonatomic, strong) IBOutlet UIButton *resendButton;
 
 -(IBAction)resend:(id)sender;
 -(IBAction)verify:(id)sender;

@@ -22,6 +22,7 @@
 #import "UserProfileViewCotroller.h"
 #import "TagViewController.h"
 #import "LoginViewController.h"
+#import "NewLoginViewController.h"
 @interface NotificationsViewController ()
 
 @end
@@ -547,7 +548,7 @@
             else
             {
                 UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                LoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
                 login.addPostFromNotifications = YES;
                 CGRect screenRect = [[UIScreen mainScreen] bounds];
                 CGFloat screenWidth = screenRect.size.width;

@@ -105,6 +105,13 @@
                                                  NSFontAttributeName : font
                                                  }
      ];
+    txt_phno.attributedPlaceholder =
+    [[NSAttributedString alloc] initWithString:@"phone number"
+                                    attributes:@{
+                                                 NSForegroundColorAttributeName: color,
+                                                 NSFontAttributeName : font
+                                                 }
+     ];
     txt_aboutMe.attributedPlaceholder =
     [[NSAttributedString alloc] initWithString:@"about Me"
                                     attributes:@{
@@ -170,6 +177,7 @@
     [txt_emailAddress setText:sharedModel.userProfile.email];
     [txt_blog setText:sharedModel.userProfile.blog];
     [txt_aboutMe setText:sharedModel.userProfile.aboutMe];
+    [txt_phno setText:sharedModel.userProfile.phno];
     txt_handle.userInteractionEnabled = NO;
     __weak UIImageView *weakSelf = profileImage;
     __weak ProfilePhotoUtils *weakphotoUtils = photoUtils;
@@ -277,6 +285,7 @@
     [postDetails setObject:txt_blog.text forKey:@"blog"];
     [postDetails setObject:txt_aboutMe.text forKey:@"summary"];
     [postDetails setObject:txt_emailAddress.text forKey:@"email"];
+    [postDetails setObject:txt_phno.text forKey:@"phno"];
 
     if(txt_Password.text.length > 0)
         [postDetails setObject:txt_Password.text forKey:@"password"];
