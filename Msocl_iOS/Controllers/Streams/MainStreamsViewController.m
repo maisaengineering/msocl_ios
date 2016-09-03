@@ -43,6 +43,7 @@
     UILabel *notificationCount;
     UIButton *emailPromptBtn;
     UIButton *phonePromptBtn;
+    UIButton *plusButton;
 }
 @synthesize mostRecentButton;
 @synthesize timerHomepage;
@@ -154,9 +155,10 @@
     [iconImage setImage:[UIImage imageNamed:@"header-icon-samepinch.png"]];
     
     
-    UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    plusButton.frame = CGRectMake(262, self.view.frame.size.height-120, 50, 50);
+    plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [plusButton setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+    plusButton.frame = CGRectMake(262, self.view.frame.size.height-155, 50, 50);
+
     [plusButton.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
     [plusButton.layer setShadowOpacity:0.5f];
     [plusButton.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
@@ -167,22 +169,22 @@
     
     emailPromptBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [emailPromptBtn setBackgroundColor:[UIColor colorWithRed:3/255.0 green:169/255.0 blue:244/255.0 alpha:1.0]];
-    emailPromptBtn.frame = CGRectMake(20, self.view.frame.size.height-105, 150, 30);
-    [emailPromptBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [emailPromptBtn setTitle:@"Add email" forState:UIControlStateNormal];
+    emailPromptBtn.frame = CGRectMake(0, self.view.frame.size.height-99, 320, 35);
+    [emailPromptBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [emailPromptBtn setTitle:@"Get important notifications. Update email address." forState:UIControlStateNormal];
     [emailPromptBtn.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
     [emailPromptBtn.layer setShadowOpacity:0.7f];
     [emailPromptBtn.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
     [emailPromptBtn.layer setShadowRadius:3.0f];
     [emailPromptBtn addTarget:self action:@selector(emailPromptClicked) forControlEvents:UIControlEventTouchUpInside];
-    [emailPromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
+    [emailPromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:15]];
     [self.view addSubview:emailPromptBtn];
     emailPromptBtn.hidden = YES;
     
     phonePromptBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    phonePromptBtn.frame = CGRectMake(20, self.view.frame.size.height-105, 150, 30);
+    phonePromptBtn.frame = CGRectMake(0, self.view.frame.size.height-99, 320, 35);
     [phonePromptBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:33/255.0 blue:33/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [phonePromptBtn setTitle:@"Verify phone number" forState:UIControlStateNormal];
+    [phonePromptBtn setTitle:@"Verify your account. Click here." forState:UIControlStateNormal];
     [phonePromptBtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:152/255.0 blue:0 alpha:1.0]];
     [phonePromptBtn.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
     [phonePromptBtn.layer setShadowOpacity:0.7f];
@@ -190,7 +192,7 @@
     [phonePromptBtn.layer setShadowRadius:3.0f];
     [phonePromptBtn addTarget:self action:@selector(phonePromptClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:phonePromptBtn];
-    [phonePromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
+    [phonePromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:15]];
     phonePromptBtn.hidden = YES;
     
     [appDelegate askForNotificationPermission];
@@ -233,7 +235,9 @@
     
     
 //    [self check];
-    
+    phonePromptBtn.hidden = YES;
+    emailPromptBtn.hidden = YES;
+
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     {
@@ -254,6 +258,7 @@
     [self.navigationController.navigationBar addSubview:notificationsButton2];
     
 
+    
     
     [self updateNotificationCount];
     
@@ -308,45 +313,32 @@
     if(modelManager.userProfile.phno != nil && modelManager.userProfile.phno.length > 0)
     {
         if(![modelManager.userProfile.verified boolValue])
+        {
             phonePromptBtn.hidden = NO;
+             //plusButton.frame = CGRectMake(262, self.view.frame.size.height-155, 50, 50);
+        }
         else if(!modelManager.userProfile.email.length)
+        {
             emailPromptBtn.hidden = NO;
+             //plusButton.frame = CGRectMake(262, self.view.frame.size.height-155, 50, 50);
+        }
     }
-    else if(modelManager.userProfile.email != nil)
+    else if(modelManager.userProfile.email.length >0)
     {
         if(![modelManager.userProfile.verified boolValue])
         {
             phonePromptBtn.hidden = NO;
+            //plusButton.frame = CGRectMake(262, self.view.frame.size.height-155, 50, 50);
+
         }
     }
 }
 -(void)emailPromptClicked
 {
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
-    
+    UpdateUserDetailsViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"UpdateUserDetailsViewController"];
     login.isFromEmailPrompt = YES;
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    CGFloat screenHeight = screenRect.size.height;
-    
-    login.view.frame = CGRectMake(0,-screenHeight,screenWidth,screenHeight);
-    
-    [[[[UIApplication sharedApplication] delegate] window] addSubview:login.view];
-    
-    
-    [UIView animateWithDuration:0.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        login.view.frame = CGRectMake(0,0,screenWidth,screenHeight);
-        
-    }
-                     completion:^(BOOL finished){
-                         [login.view removeFromSuperview];
-                         
-                         [self.navigationController pushViewController:login animated:NO];
-                     }
-     ];
-    
-    
+    [[SlideNavigationController sharedInstance] pushViewController:login animated:YES];
 
 }
 -(void)phonePromptClicked
@@ -445,7 +437,7 @@
     
     phonePromptBtn.hidden = YES;
     emailPromptBtn.hidden = YES;
-
+    //plusButton.frame = CGRectMake(262, self.view.frame.size.height-120, 50, 50);
 
 }
 -(void)menuDidOpen

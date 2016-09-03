@@ -57,7 +57,7 @@
     [backgroundView.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
     [backgroundView.layer setShadowRadius:10.0f];
     
-    geocoder = [[CLGeocoder alloc] init];
+  /*  geocoder = [[CLGeocoder alloc] init];
     
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate=self;
@@ -66,7 +66,7 @@
     [locationManager requestWhenInUseAuthorization];
     [locationManager startMonitoringSignificantLocationChanges];
     [locationManager startUpdatingLocation];
-    
+    */
     txt_username.text = userName;
     [self.navigationController setNavigationBarHidden:YES];
     

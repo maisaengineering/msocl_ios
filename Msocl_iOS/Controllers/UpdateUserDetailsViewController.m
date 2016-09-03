@@ -39,6 +39,7 @@
 @synthesize lineImage;
 @synthesize changePWDButton;
 @synthesize upadteButton;
+@synthesize isFromEmailPrompt;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -140,6 +141,11 @@
         txt_Password.hidden = YES;
         lineImage.hidden = YES;
     [self setDetails];
+    
+    if(isFromEmailPrompt)
+    {
+        [txt_emailAddress becomeFirstResponder];
+    }
 }
 -(void)viewWillAppear:(BOOL)animated
 {

@@ -25,6 +25,8 @@
 #import "AddPostViewController.h"
 #import "VerificationViewController.h"
 #import "LoginSecondViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface NewLoginViewController ()
 {
@@ -53,15 +55,18 @@
     sharedModel   = [ModelManager sharedModel];
     appDelegate = [[UIApplication sharedApplication] delegate];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"gandhi2" withExtension:@"gif"];
+    
+  /*  NSURL *url = [[NSBundle mainBundle] URLForResource:@"gandhi2" withExtension:@"gif"];
     UIImage *gif_image = [UIImage animatedImageWithAnimatedGIFURL:url];
     bgImageView.animationImages = gif_image.images;
     bgImageView.animationDuration = gif_image.duration;
     bgImageView.animationRepeatCount = 1;
     bgImageView.image = gif_image.images.lastObject;
     [bgImageView startAnimating];
-
-
+*/
+    
+    [self.view.layer addSublayer:self.playerLayer];
+    
     
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     loginFirst = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginFirstViewController"];
@@ -70,7 +75,7 @@
     loginFirst.isFromPhonePrompt = _isFromPhonePrompt;
     if(self.isFromPhonePrompt)
     {
-        [loginFirst.txt_username setPlaceholder:@"Phone number"];
+        [loginFirst.txt_username setPlaceholder:@"Enter phone number"];
     }
     else if(self.isFromEmailPrompt)
     {
@@ -99,6 +104,22 @@
     
     // Do any additional setup after loading the view.
 }
+-(AVPlayerLayer*)playerLayer{
+    if(!_playerLayer){
+        
+        // find movie file
+        NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"gandhiVd" ofType:@"mp4"];
+        NSURL *movieURL = [NSURL fileURLWithPath:moviePath];
+        _playerLayer = [AVPlayerLayer playerLayerWithPlayer:[[AVPlayer alloc]initWithURL:movieURL]];
+        _playerLayer.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);
+        [_playerLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+
+        [_playerLayer.player play];
+        
+    }
+    return _playerLayer;
+}
+
 -(void)registerNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -208,6 +229,10 @@
        [self.view addSubview:loginSecond.view];
            loginSecond.isSignUp = loginFirst.isSignUp;
            loginSecond.userName = loginFirst.txt_username.text;
+           if(loginSecond.isSignUp)
+           {
+               [loginSecond.txt_password setPlaceholder:@"choose password"];
+           }
            [loginSecond.backBtn addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchUpInside];
            loginSecond.addPostFromNotifications = self.addPostFromNotifications;
 
@@ -247,23 +272,19 @@
                      }
      ];
 }
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleDefault;
-}
 - (BOOL)prefersStatusBarHidden {
-    return NO;
+    return YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [super viewWillAppear:YES];
     
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [super viewWillDisappear:YES];
 }
 

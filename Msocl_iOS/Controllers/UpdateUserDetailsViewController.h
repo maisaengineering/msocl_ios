@@ -32,6 +32,7 @@ UIPopoverControllerDelegate>
 @property (nonatomic, strong) IBOutlet UIImageView *lineImage;
 @property (nonatomic, strong) IBOutlet UIButton *changePWDButton;
 @property (nonatomic, strong) IBOutlet UIButton *upadteButton;
+@property (nonatomic, assign) BOOL isFromEmailPrompt;
 
 @property (nonatomic, strong) IBOutlet TPKeyboardAvoidingScrollView *scrollView;
 

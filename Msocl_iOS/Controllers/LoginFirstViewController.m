@@ -58,7 +58,7 @@
 }
 -(IBAction)nextClicked:(id)sender
 {
-    [txt_username resignFirstResponder];
+   
     
     
     if(self.isFromPhonePrompt)
@@ -70,6 +70,7 @@
         }
         if([self validatePhoneNumberWithString:txt_username.text] )
         {
+             [txt_username resignFirstResponder];
             [self doUpdate];
         }
         else
@@ -88,6 +89,7 @@
         }
         if([self validateEmailWithString:txt_username.text]  )
         {
+             [txt_username resignFirstResponder];
             [self doUpdate];
         }
         else
@@ -106,6 +108,7 @@
     }
     if([self validateEmailWithString:txt_username.text] ||[self validatePhoneNumberWithString:txt_username.text] )
     {
+         [txt_username resignFirstResponder];
         [self evaluateUser];
     }
     else

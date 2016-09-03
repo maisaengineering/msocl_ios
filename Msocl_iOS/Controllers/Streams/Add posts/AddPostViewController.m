@@ -1317,13 +1317,24 @@
         
         
         UILabel *postAsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 40)];
-        [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
         [postAsLabel1 setTextAlignment:NSTextAlignmentRight];
         [postAsLabel1 setTextColor:[UIColor colorWithRed:76/255.0 green:121/255.0 blue:251/255.0 alpha:1.0]];
         [postAsLabel1 setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:14]];
         [popView addSubview:postAsLabel1];
-        if(sharedModel.userProfile.fname.length < 1 && sharedModel.userProfile.lname.length < 1)
+        
+        if(sharedModel.userProfile.fname.length > 0 && sharedModel.userProfile.lname.length > 0)
+            [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@ %@",sharedModel.userProfile.fname,sharedModel.userProfile.lname]];
+        else if(sharedModel.userProfile.fname.length > 0)
+            [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@",sharedModel.userProfile.fname]];
+        else if(sharedModel.userProfile.lname.length > 0)
+            [postAsLabel1 setText:[NSString stringWithFormat:@"Post as %@",sharedModel.userProfile.lname]];
+        else if(sharedModel.userProfile.handle.length > 0)
             postAsLabel1.text = [NSString stringWithFormat:@"Post as %@",sharedModel.userProfile.handle];
+        else if(sharedModel.userProfile.email.length > 0)
+            postAsLabel1.text = [NSString stringWithFormat:@"Post as %@",sharedModel.userProfile.email];
+        else if(sharedModel.userProfile.phno.length > 0)
+            postAsLabel1.text = [NSString stringWithFormat:@"Post as %@",sharedModel.userProfile.phno];
+
         
         UIImageView *userImage = [[UIImageView alloc] initWithFrame:CGRectMake(210, 7, 24, 24)];
         

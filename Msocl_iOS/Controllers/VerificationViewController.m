@@ -152,7 +152,6 @@
         resendButton.enabled = NO;
         return;
     }
-    [appDelegate showOrhideIndicator:YES];
     resendCount++;
     AccessToken* token = sharedModel.accessToken;
     
@@ -163,15 +162,14 @@
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
+    [self startTimer];
 }
 -(void) resendVerificationCodeSuccessFull:(NSDictionary *)recievedDict
 {
-    [appDelegate showOrhideIndicator:NO];
-    [self startTimer];
+    
 }
 -(void) resendVerificationCodeFailed:(NSDictionary *)recievedDict
 {
-    [appDelegate showOrhideIndicator:NO];
 }
 
 
