@@ -36,7 +36,6 @@
         <mutableArray key="SanFranciscoText-LightItalic.otf">
             <string>SanFranciscoText-LightItalic</string>
             <string>SanFranciscoText-LightItalic</string>
-            <string>SanFranciscoText-LightItalic</string>
         </mutableArray>
         <mutableArray key="SanFranciscoText-Medium.otf">
             <string>SanFranciscoText-Medium</string>
@@ -47,6 +46,7 @@
             <string>SanFranciscoText-Medium</string>
         </mutableArray>
         <mutableArray key="SanFranciscoText-Regular.otf">
+            <string>SanFranciscoText-Regular</string>
             <string>SanFranciscoText-Regular</string>
             <string>SanFranciscoText-Regular</string>
             <string>SanFranciscoText-Regular</string>
@@ -222,7 +222,7 @@
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="biR-Wm-q8u">
                                 <rect key="frame" x="-23" y="260" width="366" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="36424462-ADDF-489F-AEB6-2FDC09AB5179">
+                                <state key="normal" backgroundImage="D8373A8D-476B-472A-B9B2-01A5E12554D1">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1330,8 +1330,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AmF-ON-7jk">
                                 <rect key="frame" x="218" y="142" width="66" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="SanFranciscoText-LightItalic" family="San Francisco Text" pointSize="14"/>
-                                <state key="normal" title="Resend?"/>
+                                <fontDescription key="fontDescription" name="SanFranciscoText-Regular" family="San Francisco Text" pointSize="17"/>
+                                <state key="normal" title="Resend"/>
                                 <connections>
                                     <action selector="resend:" destination="IkU-1o-D5n" eventType="touchUpInside" id="Xuo-gl-2xZ"/>
                                 </connections>
@@ -1749,7 +1749,7 @@ Would you rate us now? you are free to do so.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="36424462-ADDF-489F-AEB6-2FDC09AB5179" width="366" height="50">
+        <image name="D8373A8D-476B-472A-B9B2-01A5E12554D1" width="366" height="50">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
