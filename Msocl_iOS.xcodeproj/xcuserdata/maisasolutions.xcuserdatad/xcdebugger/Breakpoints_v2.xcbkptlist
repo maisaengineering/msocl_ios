@@ -94,7 +94,7 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "494592829.885493"
+                  timestampString = "494599751.322868"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
@@ -109,7 +109,7 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "494592829.885714"
+                  timestampString = "494599751.323071"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
@@ -124,7 +124,7 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "494592829.886061"
+                  timestampString = "494599751.323273"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
@@ -227,38 +227,6 @@
             startingLineNumber = "243"
             endingLineNumber = "243"
             landmarkName = "-signUpSccessfull:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/Streams/StreamDisplayView.m"
-            timestampString = "494592302.593525"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "-didReceiveStreams:originalPosts:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/Streams/StreamDisplayView.m"
-            timestampString = "494592319.053155"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "-callStreamsApi:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

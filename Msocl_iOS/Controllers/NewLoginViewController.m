@@ -68,6 +68,11 @@
     [self.view.layer addSublayer:self.playerLayer];
     
     
+    UIImageView *backImageVw = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    [backImageVw setBackgroundColor:[UIColor blackColor]];
+    [backImageVw setAlpha:0.2];
+    [self.view addSubview:backImageVw];
+    
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     loginFirst = [mainStoryboard instantiateViewControllerWithIdentifier:@"LoginFirstViewController"];
     [loginFirst.view setFrame:CGRectMake(0.0f, 0, self.view.frame.size.width, self.view.frame.size.height)];

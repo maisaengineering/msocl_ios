@@ -177,7 +177,7 @@
     [emailPromptBtn.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
     [emailPromptBtn.layer setShadowRadius:3.0f];
     [emailPromptBtn addTarget:self action:@selector(emailPromptClicked) forControlEvents:UIControlEventTouchUpInside];
-    [emailPromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:15]];
+    [emailPromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
     [self.view addSubview:emailPromptBtn];
     emailPromptBtn.hidden = YES;
     
@@ -192,7 +192,7 @@
     [phonePromptBtn.layer setShadowRadius:3.0f];
     [phonePromptBtn addTarget:self action:@selector(phonePromptClicked) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:phonePromptBtn];
-    [phonePromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:15]];
+    [phonePromptBtn.titleLabel setFont:[UIFont fontWithName:@"SanFranciscoText-Light" size:13]];
     phonePromptBtn.hidden = YES;
     
     [appDelegate askForNotificationPermission];
