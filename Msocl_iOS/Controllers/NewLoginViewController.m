@@ -113,7 +113,8 @@
     if(!_playerLayer){
         
         // find movie file
-        NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"gandhiVd" ofType:@"mp4"];
+        
+        NSString *moviePath = [[NSBundle mainBundle] pathForResource:@"gandhiVd" ofType:@"mov"];
         NSURL *movieURL = [NSURL fileURLWithPath:moviePath];
         _playerLayer = [AVPlayerLayer playerLayerWithPlayer:[[AVPlayer alloc]initWithURL:movieURL]];
         _playerLayer.frame = CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height);

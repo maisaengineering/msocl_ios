@@ -52,7 +52,7 @@
 		7F33EF951B28235A003FDB44 /* FacebookShareController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F33EF941B28235A003FDB44 /* FacebookShareController.m */; };
 		7F3425B71D7ACA5F007E8252 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3425B61D7ACA5F007E8252 /* MediaPlayer.framework */; };
 		7F3425BB1D7ACDCE007E8252 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3425BA1D7ACDCE007E8252 /* AVFoundation.framework */; };
-		7F3425BD1D7ADD83007E8252 /* gandhiVd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7F3425BC1D7ADD83007E8252 /* gandhiVd.mp4 */; };
+		7F3425C11D7B11FC007E8252 /* gandhiVd.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7F3425C01D7B11FC007E8252 /* gandhiVd.mov */; };
 		7F3544BF1D7807F700B0892E /* NewLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3544BE1D7807F700B0892E /* NewLoginViewController.m */; };
 		7F3544C21D781F4C00B0892E /* LoginFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3544C11D781F4C00B0892E /* LoginFirstViewController.m */; };
 		7F3544C51D78278B00B0892E /* LoginSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3544C41D78278B00B0892E /* LoginSecondViewController.m */; };
@@ -556,7 +556,7 @@
 		7F33EF941B28235A003FDB44 /* FacebookShareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookShareController.m; sourceTree = "<group>"; };
 		7F3425B61D7ACA5F007E8252 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7F3425BA1D7ACDCE007E8252 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		7F3425BC1D7ADD83007E8252 /* gandhiVd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = gandhiVd.mp4; sourceTree = "<group>"; };
+		7F3425C01D7B11FC007E8252 /* gandhiVd.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = gandhiVd.mov; sourceTree = "<group>"; };
 		7F3544BD1D7807F700B0892E /* NewLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewLoginViewController.h; sourceTree = "<group>"; };
 		7F3544BE1D7807F700B0892E /* NewLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewLoginViewController.m; sourceTree = "<group>"; };
 		7F3544C01D781F4C00B0892E /* LoginFirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginFirstViewController.h; sourceTree = "<group>"; };
@@ -1808,7 +1808,7 @@
 		7F8999171AD2B1B3007E2917 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				7F3425BC1D7ADD83007E8252 /* gandhiVd.mp4 */,
+				7F3425C01D7B11FC007E8252 /* gandhiVd.mov */,
 				7F3D13721D79B58000A14C55 /* gandhi2.gif */,
 				7F3544C61D782CBE00B0892E /* overlay.jpg */,
 				7F3975181CFA1869001184DD /* appicon_circle@2x.png */,
@@ -2289,7 +2289,6 @@
 				7F3974FD1CF57CDD001184DD /* fist@2x.png in Resources */,
 				7F5934231B3A642B001B5A94 /* option-dropdown@2x.png in Resources */,
 				7F2A59961AE2563E0089EDBB /* btn-twitter@2x.png in Resources */,
-				7F3425BD1D7ADD83007E8252 /* gandhiVd.mp4 in Resources */,
 				7FAF02311B465625002DD930 /* btn-facebook@3x.png in Resources */,
 				7F8999221AD2B1F6007E2917 /* tour_1@2x.png in Resources */,
 				7F5941C31AF3AA53001F79BD /* tag-cover-strip@2x.png in Resources */,
@@ -2469,6 +2468,7 @@
 				7FC56D081B4E9342008C0895 /* icon-like-postview@2x.png in Resources */,
 				7FAF02301B465625002DD930 /* btn-Cmntas@3x.png in Resources */,
 				7FAF023B1B465625002DD930 /* circle-120@3x.png in Resources */,
+				7F3425C11D7B11FC007E8252 /* gandhiVd.mov in Resources */,
 				7F06BC861B4D5F6A00D260F0 /* icon_device_camera@3x.png in Resources */,
 				7FC2712A1C101C15008AFE45 /* icon-login@2x.png in Resources */,
 				7FD4EDAA1B328C31001B8C80 /* grey-dots.gif in Resources */,
