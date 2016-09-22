@@ -178,6 +178,10 @@
     {
         [self connectionSuccessResetPassword:responseDict];
     }
+    else if([command isEqualToString:@"forgot_password"])
+    {
+        [self connectionSuccessResetPassword:responseDict];
+    }
     else if([command isEqualToString:@"ProfileDetails"])
     {
         [self connectionSuccessProfile:responseDict];
@@ -334,6 +338,10 @@
     else if([command isEqualToString:@"resetPassword"])
     {
         [self.delegate resetPasswordFailed];
+    }
+    else if([command isEqualToString:@"forgot_password"])
+    {
+        [self.delegate resetPasswordFailed:[recievedDict objectForKey:@"response"]];
     }
     else if([command isEqualToString:@"GetFav"])
     {

@@ -91,6 +91,7 @@
 
 -(void) resendVerificationCodeSuccessFull:(NSDictionary *)recievedDict;
 -(void) resendVerificationCodeFailed:(NSDictionary *)recievedDict;
+-(void) resetPasswordFailed:(NSDictionary *)recievedDict;
 
 @end
 

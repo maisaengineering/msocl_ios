@@ -238,6 +238,11 @@
            if(loginSecond.isSignUp)
            {
                [loginSecond.txt_password setPlaceholder:@"choose password"];
+                [loginSecond.resetPasswordBtn setHidden:YES];
+           }
+           else
+           {
+               [loginSecond.resetPasswordBtn setHidden:NO];
            }
            [loginSecond.backBtn addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchUpInside];
            loginSecond.addPostFromNotifications = self.addPostFromNotifications;

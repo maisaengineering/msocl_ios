@@ -42,6 +42,7 @@
 @synthesize backgroundView;
 @synthesize topLabel;
 @synthesize backBtn;
+@synthesize resetPasswordBtn;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -268,6 +269,60 @@
         ShowAlert(@"Error",@"Failed to sign up. Please try again", @"OK");
     }
 
+}
+
+-(IBAction)resetPasswordClicked:(id)sender
+{
+    [appDelegate showOrhideIndicator:YES];
+    
+    NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+    [postDetails setObject:txt_username.text forKey:@"email"];
+    NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+    if(countryCode != nil)
+        [postDetails setObject:countryCode forKey:@"country"];
+
+    
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": @"forgot_password",
+                               @"body": postDetails};
+    NSDictionary *userInfo = @{@"command": @"forgot_password"};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+
+}
+-(void) resetPasswordSuccessFull:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+
+    if([recievedDict objectForKey:@"message"])
+    {
+        ShowAlert(@"Error", [recievedDict objectForKey:@"message"], @"OK");
+    }
+    else
+    {
+        ShowAlert(@"Error",@"User name is already taken. Please try another one", @"OK");
+    }
+    
+
+}
+-(void) resetPasswordFailed:(NSDictionary *)recievedDict
+{
+    [appDelegate showOrhideIndicator:NO];
+    
+    if([recievedDict objectForKey:@"message"])
+    {
+        ShowAlert(@"Error", [recievedDict objectForKey:@"message"], @"OK");
+    }
+    else
+    {
+        ShowAlert(@"Error",@"User name is already taken. Please try another one", @"OK");
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -18,6 +18,7 @@
 @property (nonatomic, strong) IBOutlet UITextField *txt_password;
 
 @property (nonatomic, strong) IBOutlet UIButton *loginBtn;
+@property (nonatomic, strong) IBOutlet UIButton *resetPasswordBtn;
 @property (nonatomic, strong) IBOutlet UIButton *backBtn;
 @property (nonatomic, assign) BOOL addPostFromNotifications;
 @property (nonatomic, assign) BOOL isSignUp;
@@ -29,4 +30,5 @@
 
 -(IBAction)loginClicked:(id)sender;
 -(IBAction)returnClicked:(id)sender;
+-(IBAction)resetPasswordClicked:(id)sender;
 @end
