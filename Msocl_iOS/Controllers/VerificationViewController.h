@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) BOOL addPostFromNotifications;
 @property (nonatomic, assign) BOOL isFromStreamPage;
+@property (nonatomic, assign) BOOL isFromSignUp;
 @property (nonatomic, strong) IBOutlet UITextField *textField1;
 @property (nonatomic, strong) IBOutlet UITextField *textField2;
 @property (nonatomic, strong) IBOutlet UITextField *textField3;

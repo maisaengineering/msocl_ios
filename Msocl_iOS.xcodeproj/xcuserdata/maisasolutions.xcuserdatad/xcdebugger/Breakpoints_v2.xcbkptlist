@@ -94,7 +94,7 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "496323727.239401"
+                  timestampString = "496328989.481245"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
@@ -109,7 +109,7 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "496323727.239558"
+                  timestampString = "496328989.48141"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
@@ -124,7 +124,7 @@
                   moduleName = "Msocl_iOS"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/MaisaSolutions/workspace/Samepinch/msocl_ios/Msocl_iOS/Controllers/ModalClasses/FacebookShareController.m"
-                  timestampString = "496323727.239728"
+                  timestampString = "496328989.481573"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "29"
@@ -179,22 +179,6 @@
             startingLineNumber = "1579"
             endingLineNumber = "1579"
             landmarkName = "-postCreationFailed"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Msocl_iOS/Controllers/LoginFirstViewController.m"
-            timestampString = "496323394.824406"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "-signUpSccessfull:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

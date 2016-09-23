@@ -66,7 +66,7 @@
         if([self validatePhoneNumberWithString:txt_username.text] )
         {
              [txt_username resignFirstResponder];
-            [self doUpdate];
+            [self confirmPhoneNumber];
         }
         else
         {
@@ -206,6 +206,58 @@
 -(IBAction)returnClicked:(id)sender
 {
     [txt_username resignFirstResponder];
+}
+
+-(void)confirmPhoneNumber
+{
+    [appDelegate showOrhideIndicator:YES];
+    NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
+        [postDetails setObject:txt_username.text forKey:@"phno"];
+        NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+        NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+        if(countryCode != nil)
+            [postDetails setObject:countryCode forKey:@"country"];
+    
+    
+    AccessToken* token = sharedModel.accessToken;
+    
+    NSString *command = @"confirmPhno";
+    NSDictionary* postData = @{@"access_token": token.access_token,
+                               @"command": @"confirmPhno",
+                               @"body": postDetails};
+    NSDictionary *userInfo = @{@"command": command};
+    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/users",BASE_URL];
+    
+    [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
+}
+-(void)confirmPhoneNumberSccessfull:(NSDictionary *)responseDict
+{
+    NSMutableDictionary *userDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"] mutableCopy];
+    [userDict setObject:txt_username.text  forKey:@"phno"];
+    [[NSUserDefaults standardUserDefaults] setObject:userDict forKey:@"userprofile"];
+    NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
+                                  initWithSuiteName:@"group.com.maisasolutions.msocl"];
+    [myDefaults setObject:userDict forKey:@"userprofile"];
+    [myDefaults synchronize];
+    
+    [sharedModel setUserDetails:userDict];
+    
+    [appDelegate showOrhideIndicator:NO];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"nextClicked" object:nil userInfo:nil];
+}
+-(void)confirmPhoneNumberFailed:(NSDictionary *)responseDict
+{
+    [appDelegate showOrhideIndicator:NO];
+    if([responseDict objectForKey:@"message"] != nil &&[[responseDict objectForKey:@"message"] length] > 0 )
+    {
+        NSString *str =  [responseDict objectForKey:@"message"];
+        ShowAlert(@"Error",str , @"OK");
+    }
+    else
+    {
+        ShowAlert(@"Error", @"Updation Failed", @"OK");
+    }
 }
 
 -(void)doUpdate

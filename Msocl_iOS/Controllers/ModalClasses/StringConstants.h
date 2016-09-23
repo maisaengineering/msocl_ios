@@ -9,7 +9,7 @@
 #ifndef Msocl_iOS_StringConstants_h
 #define Msocl_iOS_StringConstants_h
 
-#define APP_VERSION     @"2.0.1"
+#define APP_VERSION     @"2.0.2"
 
 // Dev Credentials
 //#define CLIENT_ID               @"3e0786a2f258e6f9b08250dbd7f35010480988e0d3d1ef373b79e07884be79f9"
@@ -42,7 +42,8 @@
 #define DEVICE_UUID [[[UIDevice currentDevice] identifierForVendor] UUIDString]
 
 //DEV
-/*//API URLS
+//API URLS
+/*
 #define kBASE_URL               @"https://msocl.herokuapp.com/"
 #define BASE_URL                @"https://msocl.herokuapp.com/api/"
 

@@ -14,7 +14,7 @@
 #import "NotificationUtils.h"
 #import "SlideNavigationController.h"
 #import "AddPostViewController.h"
-
+#import "NewLoginViewController.h"
 @interface VerificationViewController ()
 
 {
@@ -36,6 +36,7 @@
 @synthesize counterLabel;
 @synthesize resendButton;
 @synthesize isFromStreamPage;
+@synthesize isFromSignUp;
 - (void)viewDidLoad {
     
     resendCount = 0;
@@ -77,8 +78,7 @@
     
     resendButton.hidden = YES;
     counterLabel.hidden = YES;
-    if(isFromStreamPage)
-        [self resend:nil];
+    
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -86,7 +86,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear: animated];
-    if(!isFromStreamPage)
     [self startTimer];
 
 }
@@ -125,6 +124,7 @@
     }
     else
     {
+        if(!isFromSignUp)
         resendButton.hidden = NO;
         [timer invalidate];
         counterLabel.hidden = YES;
@@ -141,12 +141,27 @@
 }
 -(void)closeClicked
 {
+    SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+    
+    NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
+    
+    for(int i= 0; i<viewCntrlArray.count;i++)
+    {
+        UIViewController *tempVC = viewCntrlArray[i];
+        if([tempVC isKindOfClass:[NewLoginViewController class]])
+        {
+            [viewCntrlArray removeObject:tempVC];
+        }
+    }
+    [slide setViewControllers:viewCntrlArray animated:NO];
     [self.navigationController popViewControllerAnimated:NO];
 
 }
 
 -(IBAction)resend:(id)sender
 {
+    [self.navigationController popViewControllerAnimated:YES];
+    /*
     if(resendCount == 3)
     {
         resendButton.enabled = NO;
@@ -163,6 +178,7 @@
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
     [self startTimer];
+     */
 }
 -(void) resendVerificationCodeSuccessFull:(NSDictionary *)recievedDict
 {
@@ -225,6 +241,14 @@
         SlideNavigationController *slide = [SlideNavigationController sharedInstance];
         
         NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
+        for(int i= 0; i<viewCntrlArray.count;i++)
+        {
+            UIViewController *tempVC = viewCntrlArray[i];
+            if([tempVC isKindOfClass:[NewLoginViewController class]])
+            {
+                [viewCntrlArray removeObject:tempVC];
+            }
+        }
         [viewCntrlArray removeLastObject];
         [viewCntrlArray addObject:addPostViewCntrl];
         [slide setViewControllers:viewCntrlArray animated:YES];
@@ -235,6 +259,21 @@
     else
     {
 
+        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
+        
+        NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
+        
+        for(int i= 0; i<viewCntrlArray.count;i++)
+        {
+            UIViewController *tempVC = viewCntrlArray[i];
+            if([tempVC isKindOfClass:[NewLoginViewController class]])
+            {
+                [viewCntrlArray removeObject:tempVC];
+            }
+        }
+        [slide setViewControllers:viewCntrlArray animated:NO];
+
+        
         [self.navigationController popViewControllerAnimated:NO];
     }
 

@@ -81,6 +81,10 @@
     if(self.isFromPhonePrompt)
     {
         [loginFirst.txt_username setPlaceholder:@"Enter phone number"];
+        if(sharedModel.userProfile.phno != nil && sharedModel.userProfile.phno.length > 0)
+        {
+            loginFirst.txt_username.text = sharedModel.userProfile.phno;
+        }
     }
     else if(self.isFromEmailPrompt)
     {
@@ -173,7 +177,10 @@
        SlideNavigationController *slide = [SlideNavigationController sharedInstance];
         addPostViewCntrl.addPostFromNotifications = self.addPostFromNotifications;
        
+       addPostViewCntrl.isFromSignUp = loginSecond.isSignUp;
+       
        NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
+       if(loginSecond.isSignUp)
        [viewCntrlArray removeLastObject];
        [viewCntrlArray addObject:addPostViewCntrl];
        [slide setViewControllers:viewCntrlArray animated:YES];
@@ -221,7 +228,6 @@
            SlideNavigationController *slide = [SlideNavigationController sharedInstance];
            
            NSMutableArray *viewCntrlArray = [[slide viewControllers] mutableCopy];
-           [viewCntrlArray removeLastObject];
            [viewCntrlArray addObject:addPostViewCntrl];
            [slide setViewControllers:viewCntrlArray animated:YES];
 

@@ -344,19 +344,7 @@
 }
 -(void)phonePromptClicked
 {
-    if(modelManager.userProfile.phno != nil && modelManager.userProfile.phno.length > 0)
-    {
-        UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main"
-                                                                 bundle: nil];
-        
-        VerificationViewController *verifyCntrl = (VerificationViewController*)[mainStoryboard
-                                                                                     instantiateViewControllerWithIdentifier: @"VerificationViewController"];
-        verifyCntrl.isFromStreamPage = YES;
-        [self.navigationController pushViewController:verifyCntrl animated:YES];
-
-    }
-    else
-    {
+  
         UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         NewLoginViewController *login = [mainStoryboard instantiateViewControllerWithIdentifier:@"NewLoginViewController"];
         login.isFromPhonePrompt = YES;
@@ -383,7 +371,6 @@
         
         
 
-    }
 }
 -(void)updateNotificationCount
 {

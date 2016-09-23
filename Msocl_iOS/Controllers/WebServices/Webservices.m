@@ -233,6 +233,11 @@
     {
         [self  connectionSuccessResendVerfiCode:responseDict];
     }
+    else if([command isEqualToString:@"confirmPhno"])
+    {
+        [self  connectionSuccessConfirmPhNo:responseDict];
+    }
+    
 
 
 }
@@ -383,6 +388,11 @@
     {
         [self.delegate evaluateUserFailed:[recievedDict objectForKey:@"response"]];
     }
+    else if([command isEqualToString:@"confirmPhno"])
+    {
+        [self.delegate confirmPhoneNumberFailed:[recievedDict objectForKey:@"response"]];
+    }
+
     else if([command isEqualToString:@"signIn"])
     {
         [self.delegate loginFailed:[recievedDict objectForKey:@"response"]];
@@ -575,6 +585,25 @@
     }
     
 }
+-(void)connectionSuccessConfirmPhNo:(NSDictionary *)respDict
+{
+    
+    NSNumber *validResponseStatus = [respDict valueForKey:@"status"];
+    NSString *stringStatus1 = [validResponseStatus stringValue];
+    if ([stringStatus1 isEqualToString:@"200"])
+    {
+        [self.delegate confirmPhoneNumberSccessfull:respDict];
+        
+    }
+    
+    else
+    {
+        [self.delegate confirmPhoneNumberFailed:respDict];
+        
+    }
+    
+}
+
 -(void)connectionSuccessLogin:(NSDictionary *)respDict
 {
     

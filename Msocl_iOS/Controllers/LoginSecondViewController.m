@@ -216,7 +216,7 @@
     [appDelegate showOrhideIndicator:NO];
 
     
-    if(![sharedModel.userProfile.verified boolValue] && sharedModel.userProfile.phno)
+    if(![sharedModel.userProfile.verified boolValue] && sharedModel.userProfile.phno.length > 0)
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PushToVerifyPhoneNumber" object:nil userInfo:nil];
     }
