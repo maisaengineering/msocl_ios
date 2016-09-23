@@ -35,11 +35,6 @@
     sharedModel   = [ModelManager sharedModel];
     appDelegate = [[UIApplication sharedApplication] delegate];
     
-    [backgroundView.layer setShadowColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1.f].CGColor];
-    [backgroundView.layer setShadowOpacity:1.0f];
-    [backgroundView.layer setShadowOffset:CGSizeMake(1.f, 1.f)];
-    [backgroundView.layer setShadowRadius:10.0f];
-    
  
     [self.navigationController setNavigationBarHidden:YES];
     

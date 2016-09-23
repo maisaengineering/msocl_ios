@@ -16,8 +16,8 @@
 //#define CLIENT_SECRET           @"813c95cc2eb6c0cf4f49d30d0add0c6fc3ea82863d30507beb6733c0e643927c"
 
 // Prod Credentials
-#define CLIENT_ID               @"52a9fa5f4532ffc37da93a6f99f4b075dcb0932631224c21f297a268a25d6b68"
-#define CLIENT_SECRET           @"966a87c43bab9ae27f2d21b240428b2a1b347f3b220462ab8edb22a1449af79c"
+#define CLIENT_ID               @"ea1dd25c5e834e27951cb2003866f60594b675974c765cdea18091e8c6b7de12"
+#define CLIENT_SECRET           @"386b40ab9b94741e6d5c7880947165f12b115e68e8549d5e867c06512ab466a2"
 
 
 //AVIARY
