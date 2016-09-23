@@ -135,7 +135,11 @@
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_username.text forKey:@"auth_key"];
-    
+    NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+    if(countryCode != nil)
+        [postDetails setObject:countryCode forKey:@"country"];
+
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"access_token": token.access_token,

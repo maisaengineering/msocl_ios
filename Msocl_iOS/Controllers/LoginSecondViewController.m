@@ -147,6 +147,11 @@
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:userName forKey:@"auth_key"];
     [postDetails setObject:txt_password.text forKey:@"password"];
+    NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+    if(countryCode != nil)
+        [postDetails setObject:countryCode forKey:@"country"];
+    
 
     AccessToken* token = sharedModel.accessToken;
     
@@ -158,14 +163,6 @@
                      @"command": @"create",
                      @"body": postDetails};
         userInfo = @{@"command": @"create"};
-        NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
-        NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
-        if(countryCode != nil)
-        [postDetails setObject:countryCode forKey:@"country"];
-        if(latitude)
-            [postDetails setObject:latitude forKey:@"latitude"];
-        if(longitude)
-            [postDetails setObject:countryCode forKey:@"longitude"];
     }
     else
     {
@@ -276,7 +273,7 @@
     [appDelegate showOrhideIndicator:YES];
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    [postDetails setObject:txt_username.text forKey:@"email"];
+    [postDetails setObject:txt_username.text forKey:@"auth_key"];
     NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
     NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
     if(countryCode != nil)
