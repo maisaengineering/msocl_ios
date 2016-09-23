@@ -32,6 +32,8 @@
 #import "Flurry.h"
 #import "PromptViewController.h"
 #import "NewLoginViewController.h"
+#import "STTweetLabel.h"
+#import "HashTagViewController.h"
 
 @implementation PostDetailDescriptionViewController
 {
@@ -697,15 +699,39 @@
         
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[commentDict objectForKey:@"text"]   attributes:attributes];
     
-    NIAttributedLabel *textView = [NIAttributedLabel new];
-    textView.numberOfLines = 0;
-    textView.delegate = self;
-    textView.autoDetectLinks = YES;
-    textView.attributedText = attributedString;
-    expectedLabelSize = [textView sizeThatFits:CGSizeMake(205, 9999)];
-    textView.frame =  CGRectMake(53, 12, 205, expectedLabelSize.height);
 
+    NIAttributedLabel *textView1 = [NIAttributedLabel new];
+    textView1.numberOfLines = 0;
+    textView1.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+    
+    STTweetLabel *textView = [STTweetLabel new];
+
+    
+    textView.numberOfLines = 0;
+    textView.attributedText = attributedString;
+    textView1.attributedText = attributedString;
+
+    expectedLabelSize = [textView1 sizeThatFits:CGSizeMake(205, 9999)];
+    textView.frame =  CGRectMake(53, 12, 205, expectedLabelSize.height);
     [cell.contentView addSubview:textView];
+    
+    textView.detectionBlock = ^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+        
+        if(hotWord == 1)
+        {
+            UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            HashTagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"HashTagViewController"];
+            tagView.tagName = string;
+            [self.navigationController pushViewController:tagView animated:YES];
+            
+            
+        }
+        else if(hotWord == 2)
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+            
+        }
+    };
     
     
 }
@@ -1004,17 +1030,39 @@
          }
          else
          {
-             NIAttributedLabel *textView = [NIAttributedLabel new];
+             NIAttributedLabel *textView1 = [NIAttributedLabel new];
+             textView1.numberOfLines = 0;
+             textView1.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+             textView1.text = [attributedString.string substringWithRange:attrRange];
+
+             STTweetLabel *textView = [STTweetLabel new];
+            
              textView.numberOfLines = 0;
-             textView.delegate = self;
-             textView.autoDetectLinks = YES;
              textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
              textView.text = [attributedString.string substringWithRange:attrRange];
-             CGSize contentSize = [textView sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
+             CGSize contentSize = [textView1 sizeThatFits:CGSizeMake(300, CGFLOAT_MAX)];
              textView.frame = CGRectMake(10, yPosition, 300, contentSize.height);
              [cell.contentView addSubview:textView];
              yPosition += contentSize.height;
 
+             textView.detectionBlock = ^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+                 
+                 if(hotWord == 1)
+                 {
+                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                     HashTagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"HashTagViewController"];
+                     tagView.tagName = string;
+                     [self.navigationController pushViewController:tagView animated:YES];
+
+                     
+                 }
+                 else if(hotWord == 2)
+                 {
+                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+                     
+                 }
+             };
+             
          }
          
      }];
@@ -1161,6 +1209,7 @@
 
         destViewController.profileId = [[commentDict objectForKey:@"commenter"] objectForKey:@"uid"];
         [self.navigationController pushViewController:destViewController animated:YES];
+        
         
     }
 }

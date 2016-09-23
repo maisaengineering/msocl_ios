@@ -21,6 +21,7 @@
 #import "JTSImageInfo.h"
 #import "FollowersViewController.h"
 #import "NewLoginViewController.h"
+#import "HashTagViewController.h"
 
 @implementation UserProfileViewCotroller
 {
@@ -685,6 +686,14 @@
 {
     selectedTag = tagName;
     [self performSegueWithIdentifier: @"TagView" sender: self];
+    
+}
+- (void)hashTagCicked:(NSString *)tagName
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    HashTagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"HashTagViewController"];
+    tagView.tagName = tagName;
+    [self.navigationController pushViewController:tagView animated:YES];
     
 }
 - (void)recievedData:(BOOL)isFollowing

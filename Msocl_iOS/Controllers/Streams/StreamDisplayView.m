@@ -52,6 +52,7 @@
 @synthesize isSearching;
 @synthesize searchString;
 @synthesize bProcessing;
+@synthesize isHashTag;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -140,8 +141,11 @@
     //     refresh.attributedTitle = [[NSAttributedString alloc] initWithString:@"Refreshing data..."];
     if (bProcessing) return;
     // Released above the header
+    if(!isHashTag)
+    {
     isSearching = NO;
     searchString = @"";
+    }
     [self resetData];
     
     [self performSelectorInBackground:@selector(callStreamsApi:) withObject:@"next"];
@@ -321,6 +325,7 @@
     
     
     NIAttributedLabel *textView = [NIAttributedLabel new];
+    //  STTweetLabel *textView = [STTweetLabel new];
     textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     textView.numberOfLines = 0;
     
@@ -544,8 +549,8 @@
 {
     float yPosition = 43;
     
-    NIAttributedLabel *textView = [NIAttributedLabel new];
-    
+    NIAttributedLabel *textView1 = [NIAttributedLabel new];
+   STTweetLabel *textView = [STTweetLabel new];
     if(postDetailsObject.content == nil)
         postDetailsObject.content = @"";
     
@@ -553,14 +558,21 @@
     
     
     textView.numberOfLines = 0;
-    textView.delegate = self;
-    textView.autoDetectLinks = YES;
+    
+    
+   // textView.delegate = self;
+ //   textView.autoDetectLinks = YES;
     textView.attributedText = attributedString;
     textView.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
     [cell.contentView addSubview:textView];
     
+    textView1.font = [UIFont fontWithName:@"SanFranciscoText-Light" size:14];
+    textView1.numberOfLines = 0;
+
     
-    CGSize contentSize = [textView sizeThatFits:CGSizeMake(230, CGFLOAT_MAX)];
+    textView1.attributedText = attributedString;
+
+    CGSize contentSize = [textView1 sizeThatFits:CGSizeMake(230, CGFLOAT_MAX)];
     
     
     if((isMostRecent || isFollowing) && indexPath.row == 0)
@@ -860,6 +872,21 @@
         postImage.frame = frame;
         
     }
+    
+    textView.detectionBlock = ^(STTweetHotWord hotWord, NSString *string, NSString *protocol, NSRange range) {
+        
+        if(hotWord == 1)
+        {
+            [self.delegate hashTagCicked:string];
+
+        }
+        else if(hotWord == 2)
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+
+        }
+    };
+
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath

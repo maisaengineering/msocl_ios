@@ -5,8 +5,8 @@
 //  Created by Sebastien Thiebaud on 09/29/13.
 //  Copyright (c) 2013 Sebastien Thiebaud. All rights reserved.
 //
+
 #import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, STTweetHotWord) {
     STTweetHandle = 0,
@@ -28,6 +28,6 @@ typedef NS_ENUM(NSInteger, STTweetHotWord) {
 - (NSDictionary *)attributes;
 - (NSDictionary *)attributesForHotWord:(STTweetHotWord)hotWord;
 
-- (CGSize)suggestedFrameSizeToFitEntireStringConstraintedToWidth:(CGFloat)width;
+- (CGSize)suggestedFrameSizeToFitEntireStringConstrainedToWidth:(CGFloat)width;
 
 @end

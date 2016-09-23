@@ -223,7 +223,7 @@
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="biR-Wm-q8u">
                                 <rect key="frame" x="-23" y="260" width="366" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" backgroundImage="F6FC0F8F-4C2B-4E45-A7A7-ABF60E04BBC3">
+                                <state key="normal" backgroundImage="0536DD4F-B66C-49D2-A30F-DB9BA8140D70">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -282,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VGK-iW-92g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1924" y="-64"/>
+            <point key="canvasLocation" x="1964" y="33"/>
         </scene>
         <!--Notifications View Controller-->
         <scene sceneID="ehO-RY-AZL">
@@ -1631,6 +1631,24 @@
             </objects>
             <point key="canvasLocation" x="1604" y="-677"/>
         </scene>
+        <!--Hash Tag View Controller-->
+        <scene sceneID="Ved-tk-Gqx">
+            <objects>
+                <viewController storyboardIdentifier="HashTagViewController" id="ax7-VN-qqy" customClass="HashTagViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5y6-rE-sr4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="a4M-BD-S81" kind="push" identifier="UserProfile" id="iqQ-la-M9I"/>
+                        <segue destination="AU9-EA-d8R" kind="push" identifier="PostSeague" id="Vx0-VE-Enx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K8z-IU-zOd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1955" y="-677"/>
+        </scene>
         <!--Edit Comment View Controller-->
         <scene sceneID="b6S-H1-XqM">
             <objects>
@@ -1763,7 +1781,7 @@ Would you rate us now? you are free to do so.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="F6FC0F8F-4C2B-4E45-A7A7-ABF60E04BBC3" width="366" height="50">
+        <image name="0536DD4F-B66C-49D2-A30F-DB9BA8140D70" width="366" height="50">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -3049,10 +3067,10 @@ ASggAAEoIwABKDUAASg4AAEoPQAAAAAAAAQBAAAAAAAAAEEAAAAAAAAAAAAAAAAAASg/A
         <image name="setting-strip-selected.png" width="292" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="fCv-1J-IEX"/>
+        <segue reference="Jmt-4A-19X"/>
+        <segue reference="Vx0-VE-Enx"/>
+        <segue reference="iqQ-la-M9I"/>
         <segue reference="Ngw-Gf-AxF"/>
-        <segue reference="qU5-jb-Cet"/>
-        <segue reference="hMW-K8-sV6"/>
-        <segue reference="iax-nE-auz"/>
-        <segue reference="m3S-0J-NjW"/>
     </inferredMetricsTieBreakers>
 </document>

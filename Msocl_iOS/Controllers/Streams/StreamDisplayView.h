@@ -9,13 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "Webservices.h"
 #import "NIAttributedLabel.h"
-
+#import "STTweetLabel.h"
 @protocol StreamDisplayViewDelegate <NSObject>
 
 - (void)tableDidSelect:(int)index;
 - (void)userProifleClicked:(int)index;
 - (void)recievedData:(BOOL)isFollowing;
 - (void)tagCicked:(NSString *)tagName;
+- (void)hashTagCicked:(NSString *)tagName;
 - (void)tableScrolled:(float)y;
 -(void)tagImage:(NSDictionary *)url;
 -(void)tableScrolledForTopView:(float)y;
@@ -35,6 +36,7 @@
 @property (nonatomic, assign) BOOL isTag;
 @property (nonatomic, assign) BOOL bProcessing;
 @property (nonatomic, assign) BOOL isSearching;
+@property (nonatomic, assign) BOOL isHashTag;
 @property (nonatomic, strong) NSString *searchString;
 @property (nonatomic, strong) NSString *userProfileId;
 @property (nonatomic, strong) NSString *tagName;

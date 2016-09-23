@@ -18,6 +18,7 @@
 #import "UIImage+ResizeMagick.h"
 #import "Flurry.h"
 #import "NewLoginViewController.h"
+#import "HashTagViewController.h"
 @implementation TagViewController
 {
     StreamDisplayView *streamDisplay;
@@ -399,6 +400,14 @@
     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     TagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"TagViewController"];
     tagView.tagName = tag;
+    [self.navigationController pushViewController:tagView animated:YES];
+    
+}
+- (void)hashTagCicked:(NSString *)tagName1
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    HashTagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"HashTagViewController"];
+    tagView.tagName = tagName1;
     [self.navigationController pushViewController:tagView animated:YES];
     
 }

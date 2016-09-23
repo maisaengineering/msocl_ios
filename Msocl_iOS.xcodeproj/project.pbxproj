@@ -100,6 +100,8 @@
 		7F3568AC1CF2CA38009D506B /* BranchSpotlightUrlRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F35687D1CF2CA38009D506B /* BranchSpotlightUrlRequest.m */; };
 		7F3568AD1CF2CA38009D506B /* BranchUserCompletedActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F35687F1CF2CA38009D506B /* BranchUserCompletedActionRequest.m */; };
 		7F3568AE1CF2CA38009D506B /* BranchValidatePromoCodeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3568811CF2CA38009D506B /* BranchValidatePromoCodeRequest.m */; };
+		7F386FF91D94EB19000EED93 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F386FF81D94EB19000EED93 /* STTweetLabel.m */; };
+		7F386FFC1D94FAA3000EED93 /* HashTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F386FFB1D94FAA3000EED93 /* HashTagViewController.m */; };
 		7F3974FD1CF57CDD001184DD /* fist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3974F91CF57CDD001184DD /* fist@2x.png */; };
 		7F3974FE1CF57CDD001184DD /* fist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3974FA1CF57CDD001184DD /* fist@3x.png */; };
 		7F3974FF1CF57CDD001184DD /* thumbsup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3974FB1CF57CDD001184DD /* thumbsup@2x.png */; };
@@ -235,7 +237,6 @@
 		7F826FAA1B08A9CE009455E9 /* tag-tick-active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F826FA81B08A9CE009455E9 /* tag-tick-active@2x.png */; };
 		7F826FB51B08B5A6009455E9 /* icon-delete-post@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F826FB41B08B5A6009455E9 /* icon-delete-post@2x.png */; };
 		7F82DD141B05FA1A001564A0 /* icon-createpost@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F82DD131B05FA1A001564A0 /* icon-createpost@2x.png */; };
-		7F8334531ADCF0480067C538 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8334501ADCF0480067C538 /* STTweetLabel.m */; };
 		7F8334541ADCF0480067C538 /* STTweetTextStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8334521ADCF0480067C538 /* STTweetTextStorage.m */; };
 		7F83BC211AD13BC6008DFD8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F83BC201AD13BC6008DFD8B /* AppDelegate.m */; };
 		7F83BC261AD13C09008DFD8B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F83BC251AD13C09008DFD8B /* MBProgressHUD.m */; };
@@ -654,6 +655,10 @@
 		7F3568851CF2CA38009D506B /* FABKitProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FABKitProtocol.h; sourceTree = "<group>"; };
 		7F3568861CF2CA38009D506B /* Fabric+FABKits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Fabric+FABKits.h"; sourceTree = "<group>"; };
 		7F3568871CF2CA38009D506B /* Fabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fabric.h; sourceTree = "<group>"; };
+		7F386FF71D94EB19000EED93 /* STTweetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetLabel.h; sourceTree = "<group>"; };
+		7F386FF81D94EB19000EED93 /* STTweetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetLabel.m; sourceTree = "<group>"; };
+		7F386FFA1D94FAA3000EED93 /* HashTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashTagViewController.h; sourceTree = "<group>"; };
+		7F386FFB1D94FAA3000EED93 /* HashTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashTagViewController.m; sourceTree = "<group>"; };
 		7F3974F91CF57CDD001184DD /* fist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fist@2x.png"; sourceTree = "<group>"; };
 		7F3974FA1CF57CDD001184DD /* fist@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fist@3x.png"; sourceTree = "<group>"; };
 		7F3974FB1CF57CDD001184DD /* thumbsup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsup@2x.png"; sourceTree = "<group>"; };
@@ -852,8 +857,6 @@
 		7F826FA81B08A9CE009455E9 /* tag-tick-active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tag-tick-active@2x.png"; sourceTree = "<group>"; };
 		7F826FB41B08B5A6009455E9 /* icon-delete-post@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-delete-post@2x.png"; sourceTree = "<group>"; };
 		7F82DD131B05FA1A001564A0 /* icon-createpost@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-createpost@2x.png"; sourceTree = "<group>"; };
-		7F83344F1ADCF0480067C538 /* STTweetLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetLabel.h; sourceTree = "<group>"; };
-		7F8334501ADCF0480067C538 /* STTweetLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetLabel.m; sourceTree = "<group>"; };
 		7F8334511ADCF0480067C538 /* STTweetTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTweetTextStorage.h; sourceTree = "<group>"; };
 		7F8334521ADCF0480067C538 /* STTweetTextStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTweetTextStorage.m; sourceTree = "<group>"; };
 		7F83BC201AD13BC6008DFD8B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1569,6 +1572,8 @@
 				7F599E251AE66E1E00DED294 /* MainStreamsViewController.m */,
 				7F599E2A1AE66E5B00DED294 /* PostDetailDescriptionViewController.h */,
 				7F5941B71AF38903001F79BD /* PostDetailDescriptionViewController.m */,
+				7F386FFA1D94FAA3000EED93 /* HashTagViewController.h */,
+				7F386FFB1D94FAA3000EED93 /* HashTagViewController.m */,
 				7F916D4F1AF2169400103CAF /* EditCommentViewController.h */,
 				7F916D501AF2169400103CAF /* EditCommentViewController.m */,
 				7F80DE951AD6AB8000EA6D1F /* StreamDisplayView.h */,
@@ -1589,10 +1594,10 @@
 		7F83344E1ADCEE900067C538 /* STTweetLabel */ = {
 			isa = PBXGroup;
 			children = (
+				7F386FF71D94EB19000EED93 /* STTweetLabel.h */,
+				7F386FF81D94EB19000EED93 /* STTweetLabel.m */,
 				7F8D80BB1AEF981B00D3F052 /* VSWordDetector.h */,
 				7F8D80BC1AEF981B00D3F052 /* VSWordDetector.m */,
-				7F83344F1ADCF0480067C538 /* STTweetLabel.h */,
-				7F8334501ADCF0480067C538 /* STTweetLabel.m */,
 				7F8334511ADCF0480067C538 /* STTweetTextStorage.h */,
 				7F8334521ADCF0480067C538 /* STTweetTextStorage.m */,
 			);
@@ -2601,6 +2606,7 @@
 				7F4C88FD1AF0B5BB008B769C /* UIApplication+JTSImageViewController.m in Sources */,
 				7F5DEFBE1AD7C50A00F2C60A /* UIView+WebCacheOperation.m in Sources */,
 				7F80DE5E1AD6544400EA6D1F /* PromptImages.m in Sources */,
+				7F386FFC1D94FAA3000EED93 /* HashTagViewController.m in Sources */,
 				7F8895581AEB6A7B000AD083 /* TagViewController.m in Sources */,
 				7F5F18EA1ADE997200C5B4EC /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				7F83BC5D1AD14CEF008DFD8B /* AFURLConnectionOperation.m in Sources */,
@@ -2632,6 +2638,7 @@
 				7F06BC721B4CFE4C00D260F0 /* UITextField+Shake.m in Sources */,
 				7F83BC5C1AD14CEF008DFD8B /* AFSecurityPolicy.m in Sources */,
 				7F3568AC1CF2CA38009D506B /* BranchSpotlightUrlRequest.m in Sources */,
+				7F386FF91D94EB19000EED93 /* STTweetLabel.m in Sources */,
 				7F5DEFB71AD7C50A00F2C60A /* SDWebImagePrefetcher.m in Sources */,
 				7F86E5881ADBCFB00002493F /* SlideNavigationContorllerAnimatorScaleAndFade.m in Sources */,
 				7F83BC211AD13BC6008DFD8B /* AppDelegate.m in Sources */,
@@ -2690,7 +2697,6 @@
 				7F8D80BD1AEF981B00D3F052 /* VSWordDetector.m in Sources */,
 				7F4C88F91AF0B5BB008B769C /* JTSImageInfo.m in Sources */,
 				7F80DE871AD6AAF700EA6D1F /* UserProfile.m in Sources */,
-				7F8334531ADCF0480067C538 /* STTweetLabel.m in Sources */,
 				7F86E5871ADBCFB00002493F /* SlideNavigationContorllerAnimatorScale.m in Sources */,
 				7F33EF951B28235A003FDB44 /* FacebookShareController.m in Sources */,
 				7F599E311AE66EC700DED294 /* ProfileDateUtils.m in Sources */,

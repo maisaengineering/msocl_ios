@@ -20,6 +20,7 @@
 #import "Flurry.h"
 #import "NewLoginViewController.h"
 #import "VerificationViewController.h"
+#import "HashTagViewController.h"
 @implementation MainStreamsViewController
 {
     StreamDisplayView *mostRecent;
@@ -529,6 +530,15 @@
     
     [self performSegueWithIdentifier: @"TagView" sender: self];
 }
+- (void)hashTagCicked:(NSString *)tagName
+{
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    HashTagViewController *tagView = [mainStoryboard instantiateViewControllerWithIdentifier:@"HashTagViewController"];
+    tagView.tagName = tagName;
+    [self.navigationController pushViewController:tagView animated:YES];
+
+}
+
 - (void)tableDidSelect:(int)index
 {
     [self setTimedRemindersActionTaken:@"addComment"];
