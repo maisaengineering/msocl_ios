@@ -289,7 +289,7 @@
     [appDelegate showOrhideIndicator:YES];
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-    [postDetails setObject:txt_username.text forKey:@"auth_key"];
+    [postDetails setObject:userName forKey:@"auth_key"];
     
     if(selectedCountryCode.length > 0)
     {
