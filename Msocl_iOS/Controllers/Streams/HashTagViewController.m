@@ -16,7 +16,7 @@
 #import "UserProfileViewCotroller.h"
 #import "UpdateUserDetailsViewController.h"
 #import "UIImage+ResizeMagick.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "NewLoginViewController.h"
 #import "TagViewController.h"
 @interface HashTagViewController ()

@@ -14,7 +14,7 @@
 #import "PhotoCollectionViewCell.h"
 #import "AppDelegate.h"
 #import "UIImage+GIF.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 @implementation ManageTagsViewController
 {
     UITableView *manageTagsTableView;
@@ -214,8 +214,8 @@
         
         [selectedTags addObject:dict];
         
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[dict objectForKey:@"uid"],@"tag_uid", nil];
-        [Flurry logEvent:@"subscribe_tag" withParameters:params];
+      //  NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[dict objectForKey:@"uid"],@"tag_uid", nil];
+     //   [Flurry logEvent:@"subscribe_tag" withParameters:params];
         
     }
     else
@@ -246,8 +246,8 @@
         
         [selectedTags removeObject:dict];
         
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[dict objectForKey:@"uid"],@"tag_uid", nil];
-        [Flurry logEvent:@"unsubscribe_tag" withParameters:params];
+//        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[dict objectForKey:@"uid"],@"tag_uid", nil];
+//        [Flurry logEvent:@"unsubscribe_tag" withParameters:params];
     }
     [collectionView1 reloadData];
 }

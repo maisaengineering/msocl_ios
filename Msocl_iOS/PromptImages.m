@@ -16,7 +16,7 @@
 #import "AppDelegate.h"
 #import "SlideNavigationController.h"
 #import "MainStreamsViewController.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "LoadingViewController.h"
 @implementation PromptImages
 static PromptImages *romptImagesObject = nil;
@@ -207,7 +207,7 @@ static PromptImages *romptImagesObject = nil;
     currentInstallation.channels = [[NSArray alloc] init];
     [currentInstallation saveEventually];
     
-    [Flurry setUserID:DEVICE_UUID];
+   // [Flurry setUserID:DEVICE_UUID];
     
     [[PageGuidePopUps sharedInstance] getAppConfig];
     [NotificationUtils resetParseChannels];

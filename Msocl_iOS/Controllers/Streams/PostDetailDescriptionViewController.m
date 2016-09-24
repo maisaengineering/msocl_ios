@@ -21,7 +21,6 @@
 #import "LoginViewController.h"
 #import "UIImage+ResizeMagick.h"
 #import "Base64.h"
-#import "CustomCipher.h"
 #import "TagViewController.h"
 #import "EditCommentViewController.h"
 #import "JTSImageViewController.h"
@@ -29,7 +28,7 @@
 #import "UserProfileViewCotroller.h"
 #import "UIImage+GIF.h"
 #import "UIImage+animatedGIF.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "PromptViewController.h"
 #import "NewLoginViewController.h"
 #import "STTweetLabel.h"
@@ -49,7 +48,7 @@
     long int commentIndex;
     MFMailComposeViewController *mailComposer;
     NSString *selectedTag;
- UIImageView *postAnonymous;
+    UIImageView *postAnonymous;
     BOOL isImageClicked;
     UIView *addPopUpView;
     UIView *inputView;
@@ -246,7 +245,7 @@
                             postID, @"post_uid",
                             nil];
     
-    [Flurry logEvent:@"navigation_to_post" withParameters:params timed:YES];
+  //  [Flurry logEvent:@"navigation_to_post" withParameters:params timed:YES];
     
     inviteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [inviteButton setTitle:@"INVITE" forState:UIControlStateNormal];
@@ -367,7 +366,7 @@
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             postID, @"post_uid",
                             nil];
-    [Flurry endTimedEvent:@"navigation_to_post" withParameters:params];
+    //[Flurry endTimedEvent:@"navigation_to_post" withParameters:params];
     
     [inviteButton removeFromSuperview];
 
@@ -1452,7 +1451,7 @@
                             postID, @"post_uid",
                             nil];
     
-    [Flurry logEvent:@"post_comment" withParameters:params timed:YES];
+   // [Flurry logEvent:@"post_comment" withParameters:params timed:YES];
 
     
     [appDelegate showOrhideIndicator:YES];
@@ -2037,7 +2036,7 @@
                                     postID, @"post_uid",
                                     nil];
             
-            [Flurry logEvent:@"post_share" withParameters:params timed:YES];
+           // [Flurry logEvent:@"post_share" withParameters:params timed:YES];
             
         }
         
@@ -2090,7 +2089,7 @@
     }
     else if(actionSheet.tag == 3)
     {
-        NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
+     /*   NSString *title = [actionSheet buttonTitleAtIndex:buttonIndex];
         if([title isEqualToString:@"Invite by FB"])
         {
             FBSDKAppInviteContent *content =[[FBSDKAppInviteContent alloc] init];
@@ -2105,9 +2104,10 @@
             [FBSDKAppInviteDialog showWithContent:content delegate:self];
 
         }
+      */
     }
 }
-- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results
+/*- (void)appInviteDialog:(FBSDKAppInviteDialog *)appInviteDialog didCompleteWithResults:(NSDictionary *)results
 {
     
 }
@@ -2115,6 +2115,7 @@
 {
     
 }
+ */
 -(void)CommentUpVote
 {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
@@ -2573,7 +2574,7 @@
 #pragma mark FB Share Methods
 -(void)shareToFB
 {
-    if (![[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"])
+  /*  if (![[FBSDKAccessToken currentAccessToken] hasGranted:@"publish_actions"])
     {
         FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
 
@@ -2594,7 +2595,7 @@
     [FBSDKShareAPI shareWithContent:content delegate:nil];
 
     }
-
+*/
     
 //    FacebookShareController *fbc = [[FacebookShareController alloc] init];
 //    fbc.postedConfirmationDelegate = self;

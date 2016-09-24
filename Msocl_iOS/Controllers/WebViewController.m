@@ -12,7 +12,7 @@
 #import "AppDelegate.h"
 #import "PromptImages.h"
 #import "NotificationUtils.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 @interface WebViewController ()
 
 @end
@@ -170,7 +170,7 @@
     NSArray *viewControllers = [self.navigationController viewControllers];
     [self.navigationController popToViewController:viewControllers[viewControllers.count - 3] animated:YES];
     
-    ModelManager *sharedModel = [ModelManager sharedModel];
+ /*   ModelManager *sharedModel = [ModelManager sharedModel];
     if (sharedModel.userProfile)
     {
         [Flurry setUserID:sharedModel.userProfile.uid];
@@ -179,7 +179,7 @@
     {
         [Flurry setUserID:DEVICE_UUID];
     }
-    
+  */
     [NotificationUtils resetParseChannels];
 }
 -(void) showExternalSignInFailed

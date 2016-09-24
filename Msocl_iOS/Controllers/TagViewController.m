@@ -16,7 +16,7 @@
 #import "UserProfileViewCotroller.h"
 #import "UpdateUserDetailsViewController.h"
 #import "UIImage+ResizeMagick.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "NewLoginViewController.h"
 #import "HashTagViewController.h"
 @implementation TagViewController
@@ -213,7 +213,7 @@
                                    nil];
     
 
-    [Flurry logEvent:@"navigation_to_tag" withParameters:params];
+//    [Flurry logEvent:@"navigation_to_tag" withParameters:params];
     
 }
 
@@ -348,7 +348,7 @@
         followingCount.text = [NSString stringWithFormat:@"Followers: %i",count];
         
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.tagId,@"tag_uid", nil];
-        [Flurry logEvent:@"subscribe_tag" withParameters:params];
+      //  [Flurry logEvent:@"subscribe_tag" withParameters:params];
     }
     else
     {
@@ -372,8 +372,8 @@
         
         [followOrEditBtn setTitle:@"follow" forState:UIControlStateNormal];
         
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.tagId,@"tag_uid", nil];
-        [Flurry logEvent:@"unsubscribe_tag" withParameters:params];
+      //  NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:self.tagId,@"tag_uid", nil];
+     //   [Flurry logEvent:@"unsubscribe_tag" withParameters:params];
 
         
     }

@@ -10,7 +10,7 @@
 #import "MBProgressHUD.h"
 #import "PromptImages.h"
 #import "StringConstants.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 //#import <Parse/Parse.h>
 #import "SlideNavigationController.h"
 #import "MenuViewController.h"
@@ -20,7 +20,6 @@
 #import "UserProfileViewCotroller.h"
 #import "UIImage+GIF.h"
 #import "Base64.h"
-#import "CustomCipher.h"
 #import <Parse/Parse.h>
 #import "Reachability.h"
 #import "AddPostViewController.h"
@@ -29,9 +28,6 @@
 #import "NotificationUtils.h"
 #import "PromptViewController.h"
 #import <Fabric/Fabric.h>
-#import "CustomCipher.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <Crashlytics/Crashlytics.h>
 #import "Branch.h"
 #import "NewLoginViewController.h"
@@ -92,7 +88,7 @@
    // [Flurry setCrashReportingEnabled:YES];
     [Fabric with:@[CrashlyticsKit]];
 
-    [Flurry startSession:FLURRY_KEY];
+    //[Flurry startSession:FLURRY_KEY];
 
     [Parse setApplicationId:PARSE_APPLICATION_KEY
                   clientKey:PARSE_CLIENT_KEY];
@@ -542,7 +538,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-    [Flurry endTimedEvent:@"app_open_time" withParameters:nil];
+//    [Flurry endTimedEvent:@"app_open_time" withParameters:nil];
     
     [[PageGuidePopUps sharedInstance] sendVisitedPageGuides];
     
@@ -587,7 +583,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"kUserClickedLockButton"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    ModelManager *sharedModel = [ModelManager sharedModel];
+  /*  ModelManager *sharedModel = [ModelManager sharedModel];
     if (sharedModel.userProfile)
     {
         [Flurry setUserID:sharedModel.userProfile.uid];
@@ -598,6 +594,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     }
     
     [Flurry logEvent:@"app_open_time" timed:YES];
+   */
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -641,7 +638,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     //[NotificationUtils resetParseChannels];
     [[PageGuidePopUps sharedInstance] askForRateApp];
 
-    [FBSDKAppEvents activateApp];
+ //   [FBSDKAppEvents activateApp];
 
 }
 
@@ -801,7 +798,7 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
     [[Branch getInstance] handleDeepLink:url];
 
     
-    if ([[url scheme] isEqualToString:FACEBOOK_SCHEME])
+   /* if ([[url scheme] isEqualToString:FACEBOOK_SCHEME])
         return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                               openURL:url
                                                     sourceApplication:sourceApplication
@@ -818,6 +815,8 @@ if([[NSUserDefaults standardUserDefaults] boolForKey:@"isLogedIn"])
 
     
     return urlWasHandled;
+    */
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler {

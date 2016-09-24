@@ -19,7 +19,7 @@
 #import "UpdateUserDetailsViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <Parse/Parse.h>
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "LoginViewController.h"
 #import "NotificationUtils.h"
 #import "NewLoginViewController.h"
@@ -659,7 +659,7 @@
     currentInstallation.channels = [[NSArray alloc] init];
     [currentInstallation saveEventually];
 
-    [Flurry setUserID:DEVICE_UUID];
+//    [Flurry setUserID:DEVICE_UUID];
     
     [[PageGuidePopUps sharedInstance] getAppConfig];
     [NotificationUtils resetParseChannels];

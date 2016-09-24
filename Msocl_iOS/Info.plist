@@ -101,15 +101,9 @@
 		<string>SanFranciscoDisplay-Medium.otf</string>
 		<string>SanFranciscoDisplay-Light.otf</string>
 		<string>SanFranciscoText-LightItalic.otf</string>
-		<string>Ubuntu-LI.ttf</string>
 		<string>SanFranciscoText-Medium.otf</string>
 		<string>SanFranciscoText-Regular.otf</string>
 		<string>SanFranciscoText-Light.otf</string>
-		<string>Ubuntu-L.ttf</string>
-		<string>Ubuntu-R.ttf</string>
-		<string>Ubuntu-M.ttf</string>
-		<string>Typo Grotesk Demo.otf</string>
-		<string>Typo Grotesk Thin Demo.otf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

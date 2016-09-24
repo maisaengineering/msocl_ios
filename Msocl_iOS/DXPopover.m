@@ -6,7 +6,7 @@
 //
 
 #import "DXPopover.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 
 #define DEGREES_TO_RADIANS(degrees)  ((3.14159265359 * degrees)/ 180)
 
@@ -209,7 +209,7 @@
         {
             contentViewFrame.origin.y = self.arrowSize.height;
             NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:NSStringFromCGRect(contentViewFrame),@"frame", nil];
-            [Flurry logEvent:@"PopOverOnPostEdit" withParameters:dict];
+          //  [Flurry logEvent:@"PopOverOnPostEdit" withParameters:dict];
         }
             break;
     }

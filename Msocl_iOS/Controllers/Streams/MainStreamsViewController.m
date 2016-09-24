@@ -17,7 +17,7 @@
 #import "UpdateUserDetailsViewController.h"
 #import "StringConstants.h"
 #import <Crashlytics/Crashlytics.h>
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "NewLoginViewController.h"
 #import "VerificationViewController.h"
 #import "HashTagViewController.h"
@@ -263,7 +263,7 @@
     
     [self updateNotificationCount];
     
-    [Flurry logEvent:@"navigation_to_wall"];
+    //[Flurry logEvent:@"navigation_to_wall"];
     
     
     

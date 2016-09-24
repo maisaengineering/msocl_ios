@@ -15,9 +15,7 @@
 #import "SignUpViewController.h"
 #import "NotificationUtils.h"
 #import "FogotPasswordViewController.h"
-#import "Flurry.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
+//#import "Flurry.h"
 #import "PageGuidePopUps.h"
 #import "SlideNavigationController.h"
 #import "AddPostViewController.h"
@@ -115,7 +113,7 @@
             x+=98;
         }
     
-    [Flurry logEvent:@"navigation_to_login"];
+   // [Flurry logEvent:@"navigation_to_login"];
 
     
 }
@@ -265,7 +263,7 @@
 
     }
     
-    ModelManager *sharedModel = [ModelManager sharedModel];
+/*    ModelManager *sharedModel = [ModelManager sharedModel];
     if (sharedModel.userProfile)
     {
         [Flurry setUserID:sharedModel.userProfile.uid];
@@ -274,7 +272,7 @@
     {
         [Flurry setUserID:DEVICE_UUID];
     }
-    
+    */
         [[PageGuidePopUps sharedInstance] trackNewUserSession];
         [[PageGuidePopUps sharedInstance] getAppConfig];
     
@@ -285,7 +283,7 @@
 }
 -(void)loginFailed:(NSDictionary *)recievedDict
 {
-    [Flurry logEvent:@"login_failed"];
+   // [Flurry logEvent:@"login_failed"];
     [appdelegate showOrhideIndicator:NO];
     
     if([recievedDict objectForKey:@"message"])
@@ -323,7 +321,7 @@
 - (IBAction)facebookButtonClikced:(id)sender
 {
     
-        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+  /*      FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
         [login
          logInWithReadPermissions: @[@"public_profile",@"email"]
          handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
@@ -369,7 +367,7 @@
              }
          }];
         [login logOut];
-
+*/
 }
 
 -(void)doFBLogin:(NSDictionary *)userDetailsDict

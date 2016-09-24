@@ -21,7 +21,7 @@
 #import "UIImage+GIF.h"
 #import "UIImage+animatedGIF.h"
 #import "TPKeyboardAvoidingScrollView.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "MainStreamsViewController.h"
 @implementation AddPostViewController
 {
@@ -1680,7 +1680,7 @@
     isPostClicked = NO;
     postButton.enabled = YES;
     
-    [Flurry logEvent:@"EditPostFailed" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:editPostDetails,@"datils",dict,@"responseFromApi", nil]];
+  //  [Flurry logEvent:@"EditPostFailed" withParameters:[NSDictionary dictionaryWithObjectsAndKeys:editPostDetails,@"datils",dict,@"responseFromApi", nil]];
     ShowAlert(@"Error", POST_CREATION_FAILED, @"OK");
 }
 #pragma mark -

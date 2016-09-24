@@ -14,7 +14,7 @@
 #import "PromptImages.h"
 #import "NotificationUtils.h"
 #import "FogotPasswordViewController.h"
-#import "Flurry.h"
+//#import "Flurry.h"
 #import "PageGuidePopUps.h"
 #import "SlideNavigationController.h"
 #import "AddPostViewController.h"
@@ -199,7 +199,7 @@
     [[PromptImages sharedInstance] getAllGroups];
     
     
-    if (sharedModel.userProfile)
+ /*   if (sharedModel.userProfile)
     {
         [Flurry setUserID:sharedModel.userProfile.uid];
     }
@@ -207,7 +207,7 @@
     {
         [Flurry setUserID:DEVICE_UUID];
     }
-    
+    */
     [[PageGuidePopUps sharedInstance] trackNewUserSession];
     [[PageGuidePopUps sharedInstance] getAppConfig];
     
