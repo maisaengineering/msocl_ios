@@ -43,6 +43,7 @@
 @synthesize topLabel;
 @synthesize backBtn;
 @synthesize resetPasswordBtn;
+@synthesize selectedCountryCode;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -141,11 +142,17 @@
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:userName forKey:@"auth_key"];
     [postDetails setObject:txt_password.text forKey:@"password"];
-    NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
-    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
-    if(countryCode != nil)
-        [postDetails setObject:countryCode forKey:@"country"];
-    
+    if(selectedCountryCode.length > 0)
+    {
+        [postDetails setObject:selectedCountryCode forKey:@"country"];
+    }
+    else
+    {
+        NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+        NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+        if(countryCode != nil)
+            [postDetails setObject:countryCode forKey:@"country"];
+    }
 
     AccessToken* token = sharedModel.accessToken;
     
@@ -175,6 +182,17 @@
 }
 -(void) loginSccessfull:(NSDictionary *)recievedDict
 {
+    if(selectedCountryCode.length > 0)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:selectedCountryCode forKey:@"country"];
+    }
+    else
+    {
+        NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+        NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+            [[NSUserDefaults standardUserDefaults] setObject:countryCode forKey:@"country"];;
+    }
+
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isLogedIn"];
     
     [[NSUserDefaults standardUserDefaults] setObject:recievedDict forKey:@"userprofile"];
@@ -183,6 +201,7 @@
     [tokenDict setObject:[recievedDict objectForKey:@"access_token"] forKey:@"access_token"];
     [[NSUserDefaults standardUserDefaults] setObject:tokenDict forKey:@"tokens"];
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"externalSignIn"];
+    
     
     [[NSUserDefaults standardUserDefaults] synchronize];
     
@@ -215,8 +234,8 @@
     
     [appDelegate showOrhideIndicator:NO];
 
-    
-    if(![sharedModel.userProfile.verified boolValue] && sharedModel.userProfile.phno.length > 0)
+
+    if(![sharedModel.userProfile.verified boolValue] && sharedModel.userProfile.phno.length > 0 && _isSignUp)
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PushToVerifyPhoneNumber" object:nil userInfo:nil];
     }
@@ -235,6 +254,9 @@
 -(void) loginFailed:(NSDictionary *)recievedDict
 {
     [appDelegate showOrhideIndicator:NO];
+    
+    if(!_isSignUp)
+    [self.resetPasswordBtn setHidden:NO];
     
     if([recievedDict objectForKey:@"message"])
     {
@@ -268,10 +290,18 @@
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_username.text forKey:@"auth_key"];
-    NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
-    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
-    if(countryCode != nil)
-        [postDetails setObject:countryCode forKey:@"country"];
+    
+    if(selectedCountryCode.length > 0)
+    {
+        [postDetails setObject:selectedCountryCode forKey:@"country"];
+    }
+    else
+    {
+        NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+        NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+        if(countryCode != nil)
+            [postDetails setObject:countryCode forKey:@"country"];
+    }
 
     
     AccessToken* token = sharedModel.accessToken;
@@ -289,6 +319,7 @@
 {
     [appDelegate showOrhideIndicator:NO];
 
+    [self.resetPasswordBtn setHidden:YES];
     if([recievedDict objectForKey:@"message"])
     {
         ShowAlert(@"Error", [recievedDict objectForKey:@"message"], @"OK");

@@ -95,6 +95,8 @@
 		7F386FF91D94EB19000EED93 /* STTweetLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F386FF81D94EB19000EED93 /* STTweetLabel.m */; };
 		7F386FFC1D94FAA3000EED93 /* HashTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F386FFB1D94FAA3000EED93 /* HashTagViewController.m */; };
 		7F3870011D964968000EED93 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F386FFD1D964968000EED93 /* FacebookSDK.framework */; };
+		7F38700A1D966503000EED93 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 7F3870091D966503000EED93 /* countries.json */; };
+		7F3870131D966657000EED93 /* NIDropDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F3870121D966657000EED93 /* NIDropDown.m */; };
 		7F3974FD1CF57CDD001184DD /* fist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3974F91CF57CDD001184DD /* fist@2x.png */; };
 		7F3974FE1CF57CDD001184DD /* fist@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3974FA1CF57CDD001184DD /* fist@3x.png */; };
 		7F3974FF1CF57CDD001184DD /* thumbsup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F3974FB1CF57CDD001184DD /* thumbsup@2x.png */; };
@@ -580,6 +582,9 @@
 		7F386FFA1D94FAA3000EED93 /* HashTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashTagViewController.h; sourceTree = "<group>"; };
 		7F386FFB1D94FAA3000EED93 /* HashTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashTagViewController.m; sourceTree = "<group>"; };
 		7F386FFD1D964968000EED93 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		7F3870091D966503000EED93 /* countries.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
+		7F3870111D966657000EED93 /* NIDropDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NIDropDown.h; path = Msocl_iOS/NIDropDown.h; sourceTree = SOURCE_ROOT; };
+		7F3870121D966657000EED93 /* NIDropDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NIDropDown.m; path = Msocl_iOS/NIDropDown.m; sourceTree = SOURCE_ROOT; };
 		7F3974F91CF57CDD001184DD /* fist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fist@2x.png"; sourceTree = "<group>"; };
 		7F3974FA1CF57CDD001184DD /* fist@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fist@3x.png"; sourceTree = "<group>"; };
 		7F3974FB1CF57CDD001184DD /* thumbsup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "thumbsup@2x.png"; sourceTree = "<group>"; };
@@ -1292,6 +1297,8 @@
 		7F7E55C31AD3F643007070EF /* Utitlities */ = {
 			isa = PBXGroup;
 			children = (
+				7F3870111D966657000EED93 /* NIDropDown.h */,
+				7F3870121D966657000EED93 /* NIDropDown.m */,
 				7F80DE591AD6544400EA6D1F /* ProfilePhotoUtils.h */,
 				7F80DE5A1AD6544400EA6D1F /* ProfilePhotoUtils.m */,
 				7F80DE5B1AD6544400EA6D1F /* PromptImages.h */,
@@ -1320,6 +1327,7 @@
 		7F7E55C51AD3F72C007070EF /* Login & Signup */ = {
 			isa = PBXGroup;
 			children = (
+				7F3870091D966503000EED93 /* countries.json */,
 				7F7E55C61AD3F793007070EF /* LoginViewController.h */,
 				7F7E55C71AD3F793007070EF /* LoginViewController.m */,
 				7F7E55C91AD3F7A7007070EF /* SignUpViewController.h */,
@@ -2059,6 +2067,7 @@
 				7F8D80D11AEFC19200D3F052 /* textfield@2x.png in Resources */,
 				7F8871E51B131B850043CE58 /* circle-80@2x.png in Resources */,
 				7FB2FEC91B07649F0001CEA6 /* icon-upvote-gray@2x.png in Resources */,
+				7F38700A1D966503000EED93 /* countries.json in Resources */,
 				7F3974FF1CF57CDD001184DD /* thumbsup@2x.png in Resources */,
 				7F5941CD1AF3B337001F79BD /* menu-settings@2x.png in Resources */,
 				7F5934251B3A642B001B5A94 /* setting-strip@2x.png in Resources */,
@@ -2409,6 +2418,7 @@
 				7F916D4D1AF2012C00103CAF /* NIAttributedLabel.m in Sources */,
 				7F83BC681AD14CEF008DFD8B /* UIWebView+AFNetworking.m in Sources */,
 				7F2178B71AE51862003D8A33 /* DXPopover.m in Sources */,
+				7F3870131D966657000EED93 /* NIDropDown.m in Sources */,
 				7F83BC5A1AD14CEF008DFD8B /* AFHTTPSessionManager.m in Sources */,
 				7F714F451AE7D25300C69BF4 /* SettingsViewController.m in Sources */,
 				7F599E2D1AE66E8100DED294 /* MenuViewController.m in Sources */,

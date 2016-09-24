@@ -13,11 +13,19 @@
 #import "ModelManager.h"
 #import "AppDelegate.h"
 #import "LoginSecondViewController.h"
+#import "NIDropDown.h"
+#import "QuartzCore/QuartzCore.h"
+
 @interface LoginFirstViewController ()
 {
     ModelManager *sharedModel;
     Webservices *webServices;
     AppDelegate *appDelegate;
+    NSArray *countriesList;
+    NIDropDown *dropDown;
+    int selectedIndex;
+   
+    UIView *backGroundControl;
 }
 @end
 
@@ -26,16 +34,27 @@
 @synthesize btn_next;
 @synthesize backgroundView;
 @synthesize topTextLabel;
+@synthesize btn_selectCountry;
+@synthesize selectedCountryCode;
+@synthesize verifyphonebgView;
+@synthesize btn_selectPhoneCode;
+@synthesize txt_phoneNumber;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    selectedIndex = -1;
     webServices = [[Webservices alloc] init];
     webServices.delegate = self;
     sharedModel   = [ModelManager sharedModel];
     appDelegate = [[UIApplication sharedApplication] delegate];
     
  
+    NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"countries" ofType:@"json"]];
+    NSError *localError = nil;
+    NSDictionary *parsedObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&localError];
+    countriesList = (NSArray *)parsedObject;
+
+    
     [self.navigationController setNavigationBarHidden:YES];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -48,24 +67,59 @@
                                    action:@selector(dontClose)];
     
     [backgroundView addGestureRecognizer:tap1];
+    [verifyphonebgView addGestureRecognizer:tap1];
 
+    
+    
+    NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
+    NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
+    NSString *countryName = [currentLocale displayNameForKey:NSLocaleCountryCode value:countryCode];
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(%@)",countryName,countryCode] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:13/255.0 green:130/255.0 blue:232/255.0 alpha:1.0]}];
+//    [attributedString addAttributes:@{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+//                                      NSBackgroundColorAttributeName: [UIColor clearColor]} range:NSMakeRange(0, [attributedString.string length])];
+    [btn_selectCountry setAttributedTitle:attributedString forState:UIControlStateNormal];
+    
+    backGroundControl = [[UIView alloc] initWithFrame:self.view.bounds];
+    
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc]
+                                    initWithTarget:self
+                                    action:@selector(backGroundButtonCLicked)];
+    
+    [backGroundControl addGestureRecognizer:tap2];
+    [backGroundControl setBackgroundColor:[UIColor clearColor]];
+    
+
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear: animated];
+    if(_isFromPhonePrompt)
+    {
+        NSString *countryCode = [[NSUserDefaults standardUserDefaults] objectForKey:@"country"];
+        NSPredicate *filter = [NSPredicate predicateWithFormat:@"code = %@", countryCode];
+        NSArray *filteredContacts = [countriesList filteredArrayUsingPredicate:filter];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[[filteredContacts firstObject] objectForKey:@"dial_code"] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:13/255.0 green:130/255.0 blue:232/255.0 alpha:1.0]}];
+        [btn_selectPhoneCode setAttributedTitle:attributedString forState:UIControlStateNormal];
+        
+        selectedCountryCode = countryCode;
+        
+    }
+    
 
 }
 -(IBAction)nextClicked:(id)sender
 {
-   
-    
     
     if(self.isFromPhonePrompt)
     {
-        if ([txt_username.text length] == 0)
+        if ([txt_phoneNumber.text length] == 0)
         {
             ShowAlert(PROJECT_NAME,@"Please enter phone number", @"OK");
             return;
         }
-        if([self validatePhoneNumberWithString:txt_username.text] )
+        if([self validatePhoneNumberWithString:txt_phoneNumber.text] )
         {
-             [txt_username resignFirstResponder];
+             [txt_phoneNumber resignFirstResponder];
             [self confirmPhoneNumber];
         }
         else
@@ -116,9 +170,90 @@
     
  //   [self performSegueWithIdentifier:@"LoginFirstToSecond" sender:self];
 }
+-(void)backGroundButtonCLicked
+{
+    if(dropDown != nil)
+    {
+        if(verifyphonebgView.hidden)
+            [dropDown hideDropDown:btn_selectCountry];
+        else
+            [dropDown hideDropDown:btn_selectPhoneCode];
+        dropDown = nil;
+        [backGroundControl removeFromSuperview];
+    }
+
+}
+-(IBAction)selectCountryClicked:(id)sender
+{
+    
+    if(dropDown == nil) {
+        [txt_username resignFirstResponder];
+        [self.view addSubview:backGroundControl];
+        [self.view bringSubviewToFront:backGroundControl];
+        CGFloat f = 200;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :countriesList :nil :@"up" :YES];
+        dropDown.delegate = self;
+        dropDown.isCountry = YES;
+    }
+    else {
+        [backGroundControl removeFromSuperview];
+        [dropDown hideDropDown:sender];
+        dropDown = nil;
+    }
+
+}
+-(IBAction)selectPhoneCodeClicked:(id)sender
+{
+    if(dropDown == nil) {
+        [txt_phoneNumber resignFirstResponder];
+        [self.view addSubview:backGroundControl];
+        [self.view bringSubviewToFront:backGroundControl];
+        CGFloat f = 200;
+        dropDown = [[NIDropDown alloc]showDropDown:sender :&f :countriesList :nil :@"up" :NO];
+        dropDown.delegate = self;
+        dropDown.isCountry = NO;
+    }
+    else {
+        [backGroundControl removeFromSuperview];
+        [dropDown hideDropDown:sender];
+        dropDown = nil;
+    }
+}
+- (void) selectedIndex: (int) index
+{
+    dropDown = nil;
+    selectedIndex = index;
+    NSDictionary *dict = [countriesList objectAtIndex:index];
+    selectedCountryCode = [dict objectForKey:@"code"];
+    if(verifyphonebgView.hidden)
+    {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@(%@)",[dict objectForKey:@"name"],[dict objectForKey:@"code"]] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:13/255.0 green:130/255.0 blue:232/255.0 alpha:1.0]}];
+    [btn_selectCountry setAttributedTitle:attributedString forState:UIControlStateNormal];
+    }
+    else
+    {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[dict objectForKey:@"dial_code"] attributes:@{NSFontAttributeName:[UIFont fontWithName:@"SanFranciscoText-Light" size:14],NSForegroundColorAttributeName:[UIColor colorWithRed:13/255.0 green:130/255.0 blue:232/255.0 alpha:1.0]}];
+        [btn_selectPhoneCode setAttributedTitle:attributedString forState:UIControlStateNormal];
+
+    }
+    [backGroundControl removeFromSuperview];
+}
 -(void)closeClicked:(UITapGestureRecognizer*)sender
 {
+    if(dropDown == nil)
+    {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CallClose" object:nil userInfo:nil];
+    }
+    else
+    {
+        [backGroundControl removeFromSuperview];
+        if(verifyphonebgView.hidden)
+        [dropDown hideDropDown:btn_selectCountry];
+        else
+            [dropDown hideDropDown:btn_selectPhoneCode];
+        dropDown = nil;
+
+    }
 }
 -(void)dontClose
 {
@@ -130,11 +265,17 @@
     
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
     [postDetails setObject:txt_username.text forKey:@"auth_key"];
+    if(selectedCountryCode.length > 0)
+    {
+        [postDetails setObject:selectedCountryCode forKey:@"country"];
+    }
+    else
+    {
     NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
     NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
     if(countryCode != nil)
         [postDetails setObject:countryCode forKey:@"country"];
-
+    }
     AccessToken* token = sharedModel.accessToken;
     
     NSDictionary* postData = @{@"access_token": token.access_token,
@@ -206,17 +347,15 @@
 -(IBAction)returnClicked:(id)sender
 {
     [txt_username resignFirstResponder];
+    [txt_phoneNumber resignFirstResponder];
 }
 
 -(void)confirmPhoneNumber
 {
     [appDelegate showOrhideIndicator:YES];
     NSMutableDictionary *postDetails  = [NSMutableDictionary dictionary];
-        [postDetails setObject:txt_username.text forKey:@"phno"];
-        NSLocale *currentLocale = [NSLocale currentLocale];  // get the current locale.
-        NSString *countryCode = [currentLocale objectForKey:NSLocaleCountryCode];
-        if(countryCode != nil)
-            [postDetails setObject:countryCode forKey:@"country"];
+        [postDetails setObject:txt_phoneNumber.text forKey:@"phno"];
+        [postDetails setObject:selectedCountryCode forKey:@"country"];
     
     
     AccessToken* token = sharedModel.accessToken;
@@ -233,7 +372,7 @@
 -(void)confirmPhoneNumberSccessfull:(NSDictionary *)responseDict
 {
     NSMutableDictionary *userDict = [[[NSUserDefaults standardUserDefaults] objectForKey:@"userprofile"] mutableCopy];
-    [userDict setObject:txt_username.text  forKey:@"phno"];
+    [userDict setObject:txt_phoneNumber.text  forKey:@"phno"];
     [[NSUserDefaults standardUserDefaults] setObject:userDict forKey:@"userprofile"];
     NSUserDefaults *myDefaults = [[NSUserDefaults alloc]
                                   initWithSuiteName:@"group.com.maisasolutions.msocl"];

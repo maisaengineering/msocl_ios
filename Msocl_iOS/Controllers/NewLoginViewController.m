@@ -37,6 +37,7 @@
     UINavigationController *navgCntrl;
     LoginFirstViewController *loginFirst;
     LoginSecondViewController *loginSecond;
+    
 }
 @end
 
@@ -78,17 +79,25 @@
     [loginFirst.view setFrame:CGRectMake(0.0f, 0, self.view.frame.size.width, self.view.frame.size.height)];
     loginFirst.isFromEmailPrompt = _isFromEmailPrompt;
     loginFirst.isFromPhonePrompt = _isFromPhonePrompt;
+    
+    loginFirst.verifyphonebgView.hidden = YES;
+    loginFirst.backgroundView.hidden = NO;
+
     if(self.isFromPhonePrompt)
     {
-        [loginFirst.txt_username setPlaceholder:@"Enter phone number"];
+        [loginFirst.txt_phoneNumber setPlaceholder:@"Enter phone number"];
         if(sharedModel.userProfile.phno != nil && sharedModel.userProfile.phno.length > 0)
         {
-            loginFirst.txt_username.text = sharedModel.userProfile.phno;
+            loginFirst.txt_phoneNumber.text = sharedModel.userProfile.phno;
         }
+        loginFirst.verifyphonebgView.hidden = NO;
+        loginFirst.backgroundView.hidden = YES;
     }
     else if(self.isFromEmailPrompt)
     {
         [loginFirst.txt_username setPlaceholder:@"Email"];
+        loginFirst.verifyphonebgView.hidden = YES;
+        loginFirst.backgroundView.hidden = NO;
     }
     [self.view addSubview:loginFirst.view];
     /*
@@ -241,6 +250,7 @@
        [self.view addSubview:loginSecond.view];
            loginSecond.isSignUp = loginFirst.isSignUp;
            loginSecond.userName = loginFirst.txt_username.text;
+           loginSecond.selectedCountryCode = loginFirst.selectedCountryCode;
            if(loginSecond.isSignUp)
            {
                [loginSecond.txt_password setPlaceholder:@"choose password"];
@@ -248,7 +258,7 @@
            }
            else
            {
-               [loginSecond.resetPasswordBtn setHidden:NO];
+               [loginSecond.resetPasswordBtn setHidden:YES];
            }
            [loginSecond.backBtn addTarget:self action:@selector(backClicked:) forControlEvents:UIControlEventTouchUpInside];
            loginSecond.addPostFromNotifications = self.addPostFromNotifications;

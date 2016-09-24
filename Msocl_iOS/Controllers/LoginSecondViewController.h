@@ -23,9 +23,10 @@
 @property (nonatomic, assign) BOOL addPostFromNotifications;
 @property (nonatomic, assign) BOOL isSignUp;
 @property (nonatomic, strong) NSString *userName;
-
+@property (nonatomic, assign) NSString *selectedCountryCode;
 @property (nonatomic, strong) IBOutlet UIView *backgroundView;
 @property (nonatomic, strong) IBOutlet UILabel *topLabel;
+
 
 
 -(IBAction)loginClicked:(id)sender;
