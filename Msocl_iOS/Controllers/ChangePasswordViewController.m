@@ -93,7 +93,7 @@
         return;
     }
     
-    else if(txt_oldPassword.text.length < 6 || txt_confirmPassword.text.length < 6)
+    else if(txt_Password.text.length < 6 || txt_confirmPassword.text.length < 6)
     {
         ShowAlert(PROJECT_NAME,@"Password should be at least 6 characters", @"OK");
         return;
