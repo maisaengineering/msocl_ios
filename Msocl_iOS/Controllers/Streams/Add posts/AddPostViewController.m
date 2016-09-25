@@ -367,12 +367,12 @@
 }
 -(void)setDetails
 {
-    UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+ /*   UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteButton setFrame:CGRectMake(287, 220, 23, 26)];
     [deleteButton setImage:[UIImage imageNamed:@"icon-delete-post.png"] forState:UIControlStateNormal];
     [deleteButton addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:deleteButton];
-    
+*/
     if(postDetailsObject.anonymous)
     {
         isPrivate = YES;

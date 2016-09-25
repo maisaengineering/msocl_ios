@@ -310,7 +310,7 @@
                                @"command": @"forgot_password",
                                @"body": postDetails};
     NSDictionary *userInfo = @{@"command": @"forgot_password"};
-    NSString *urlAsString = [NSString stringWithFormat:@"%@users",BASE_URL];
+    NSString *urlAsString = [NSString stringWithFormat:@"%@v2/users",BASE_URL];
     
     [webServices callApi:[NSDictionary dictionaryWithObjectsAndKeys:postData,@"postData",userInfo,@"userInfo", nil] :urlAsString];
 
